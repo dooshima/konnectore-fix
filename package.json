@@ -25,7 +25,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://flexipgroup.github.io/konnectre/",
+  "homepage": "https://flexipgroup.github.io/konnectore/",
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -36,6 +36,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "babel-plugin-styled-components": "^1.10.0",
     "jest": "^23.6.0"
   }
 }
