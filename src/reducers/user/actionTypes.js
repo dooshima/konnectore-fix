@@ -1,0 +1,1 @@
+export const USER_VIEW_PROFILE = 'USER_VIEW_PROFILE';
