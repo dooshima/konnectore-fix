@@ -4,7 +4,7 @@
         "name":         "konnectore",
         "script":       "npx",
         "interpreter":  "none",
-        "args":         "serve -p 8080"
+        "args":         "serve -p 5000"
       }
     ]
   }
