@@ -25,7 +25,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://flexipgroup.github.io/konnectore/",
+  "homepage": ".",
   "eslintConfig": {
     "extends": "react-app"
   },
