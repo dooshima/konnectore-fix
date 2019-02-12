@@ -3,13 +3,13 @@ Konnectore web app is a talent discovery and promotion platform
 
 # The deployment process for testing: Konnectore Web
  
-o    Push update source code to GitHub: https://github.com/flexipgroup/konnectore.git
-o    SSH to the test server: ssh fpguser@162.144.218.122 
-o    Navigate to the ~/public_html/app: cd ~/public_html/app
-o    Pull code from GitHub: git pull
-o    Run npm install if a new package has been added
-o    Build and deploy to the test environment by running: npm run build && pm2 start app.config.json
-o    Visit the link: test.konnectore.com
+- Push update source code to GitHub: https://github.com/flexipgroup/konnectore.git
+-    SSH to the test server: ssh fpguser@162.144.218.122 
+-    Navigate to the ~/public_html/app: cd ~/public_html/app
+-    Pull code from GitHub: git pull
+-    Run npm install if a new package has been added
+-    Build and deploy to the test environment by running: npm run build && pm2 start app.config.json
+-    Visit the link: test.konnectore.com
 
 ## Available Scripts
 
