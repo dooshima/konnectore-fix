@@ -1,7 +1,7 @@
 # Konnectore Web Application
 Konnectore web app is a talent discovery and promotion platform
 
-# The deployment process for testing: Konnectore Web
+## The deployment process for testing: Konnectore Web
  
 - Push update source code to GitHub: https://github.com/flexipgroup/konnectore.git
 -    SSH to the test server: ssh fpguser@162.144.218.122 
