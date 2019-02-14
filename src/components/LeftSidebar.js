@@ -30,9 +30,10 @@ import SectionListHeader from './SectionListHeader';
 import JoinChallengeCard from './JoinChallengeCard';
 import CompetitionSummaryCard from './CompetitionSummaryCard';
 import SearchFilterLink from './SearchFilterLink';
-import LeftSidebar from './LeftSidebar';
-import KTabs from './ui/KTabs';
-import NavTabs from './NavTabs';
+import LeftMenubar from './LeftMenubar';
+import LoginCard from './account/LoginCard';
+import KFooter from './ui/KFooter';
+//import SignupForm from './account/SignupForm';
 
 const activeLink = classNames({'link': true, 'active': true});
 const dudUrl = 'javascript:;';
@@ -143,94 +144,26 @@ const styles = theme => ({
   },
 });
 
-const tabs = [
-  {
-    label: "All",
-    route: "/search/all"
-  },
-  {
-    label: "Posts",
-    route: "/search/posts"
-  },
-  {
-    label: "Images",
-    route: "/search/images"
-  },
-  {
-    label: "Videos",
-    route: "/search/videos"
-  },
-  {
-    label: "People",
-    route: "/search/people"
-  }
-]
-
-function SearchResultBody (props) {
-    const { classes } = props;
-    return (
-<div style={{marginTop: 30, marginLeft: 20, marginRight: 20}}>
-          <Grid container xs={12}>
-            <Grid item xs={3}>
-            <div style={{marginRight: 20}}>
-              <LeftSidebar loggedIn={props.loggedIn} handleLogin={props.handleLogin} />
-              </div>
-            </Grid>
-            <Grid item xs={6}>
-              <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
-                <Typography>
-                  <span>Showing results for</span>
-                  <span style={{color: '#00927d'}}> #100yearchallenge</span>
-                </Typography>
-                
-                <KTabs tabs={tabs} size="small" />
-
-                <Paper style={{marginTop: 30}}>
-                  <SectionListHeader />
-                  <SinglePostCard />
-                </Paper>
-              </Paper>
-            </Grid>
-            <Grid item xs={3}>
-                  <div style={{marginLeft: 20}}>
-                  <Paper>
-            <List subheader={<ListSubheader>FEED</ListSubheader>} style={{textAlign: 'left'}} className={classes.root}>
-        <ListItem>
-          <ListItemIcon>
-            <SearchIcon />
-          </ListItemIcon>
-          <ListItemText primary="Browse Topics" />
-        </ListItem>
-        <ListItem>
-          <ListItemIcon>
-            <TrendingUpIcon />
-          </ListItemIcon>
-          <ListItemText primary="Trending" />
-        </ListItem>
-        <ListItem>
-          <ListItemIcon>
-            <StarsIcon />
-          </ListItemIcon>
-          <ListItemText primary="Popular" />
-        </ListItem>
-      </List>
-      </Paper>
-
-      <CompetitionSummaryCard />
-
-
-
-        <JoinChallengeCard />
-        </div>
-            </Grid>
-          </Grid>
-        </div>
-    )
+function LeftSidebar(props) {
+  return (
+    <div>
+      <LoginMenu />
+      <KFooter />
+    </div>
+  )
     
 }
 
-SearchResultBody.propTypes = {
+function LoginMenu(props) {
+  if(props.loggedIn) {
+    return <LeftMenubar handleLogout={props.handleLogout} />
+  } else {
+    return <LoginCard />
+  }
+}
+
+LeftSidebar.propTypes = {
     classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(SearchResultBody);
+export default withStyles(styles)(LeftSidebar);

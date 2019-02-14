@@ -17,7 +17,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Avatar from '@material-ui/core/Avatar';
-import { Grid, Paper, List, ListItem, ListItemIcon, ListItemText, Link, ListSubheader } from '@material-ui/core';
+import { Grid, Paper, List, ListItem, ListItemIcon, ListItemText, Link, ListSubheader, Button } from '@material-ui/core';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import HomeIcon from '@material-ui/icons/Home';
 import InboxIcon from '@material-ui/icons/Inbox';
@@ -30,9 +30,6 @@ import SectionListHeader from './SectionListHeader';
 import JoinChallengeCard from './JoinChallengeCard';
 import CompetitionSummaryCard from './CompetitionSummaryCard';
 import SearchFilterLink from './SearchFilterLink';
-import LeftSidebar from './LeftSidebar';
-import KTabs from './ui/KTabs';
-import NavTabs from './NavTabs';
 
 const activeLink = classNames({'link': true, 'active': true});
 const dudUrl = 'javascript:;';
@@ -143,94 +140,50 @@ const styles = theme => ({
   },
 });
 
-const tabs = [
-  {
-    label: "All",
-    route: "/search/all"
-  },
-  {
-    label: "Posts",
-    route: "/search/posts"
-  },
-  {
-    label: "Images",
-    route: "/search/images"
-  },
-  {
-    label: "Videos",
-    route: "/search/videos"
-  },
-  {
-    label: "People",
-    route: "/search/people"
-  }
-]
-
-function SearchResultBody (props) {
+function LeftMenubar(props) {
     const { classes } = props;
     return (
-<div style={{marginTop: 30, marginLeft: 20, marginRight: 20}}>
-          <Grid container xs={12}>
-            <Grid item xs={3}>
-            <div style={{marginRight: 20}}>
-              <LeftSidebar loggedIn={props.loggedIn} handleLogin={props.handleLogin} />
-              </div>
-            </Grid>
-            <Grid item xs={6}>
-              <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
-                <Typography>
-                  <span>Showing results for</span>
-                  <span style={{color: '#00927d'}}> #100yearchallenge</span>
-                </Typography>
-                
-                <KTabs tabs={tabs} size="small" />
+<Paper style={{boxShadow: 'none'}}>
+              <List component="nav" style={{paddingTop: 0}}>
+                <ListItem button selected={true} style={{backgroundColor: '#00927d', color: 'white', borderRadius: 5}}>
+                  <ListItemIcon>
+                    <HomeIcon style={{color: 'white'}} />
+                  </ListItemIcon>
+                  <ListItemText primary={
+                    <React.Fragment>
+                      <Typography style={{color: 'white'}}>
+                        Home
+                      </Typography>
+                    </React.Fragment>
+                  } />
+                </ListItem>
+                <ListItem button>
+                  <ListItemIcon>
+                    <GroupIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Friends" />
+                </ListItem>
+                <ListItem button>
+                  <ListItemIcon>
+                    <NotificationsIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Activity" />
+                </ListItem>
+                <ListItem button>
+                  <ListItemIcon>
+                    <InboxIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Inbox" />
+                </ListItem>
+              </List>
 
-                <Paper style={{marginTop: 30}}>
-                  <SectionListHeader />
-                  <SinglePostCard />
-                </Paper>
+              <Button ></Button>
               </Paper>
-            </Grid>
-            <Grid item xs={3}>
-                  <div style={{marginLeft: 20}}>
-                  <Paper>
-            <List subheader={<ListSubheader>FEED</ListSubheader>} style={{textAlign: 'left'}} className={classes.root}>
-        <ListItem>
-          <ListItemIcon>
-            <SearchIcon />
-          </ListItemIcon>
-          <ListItemText primary="Browse Topics" />
-        </ListItem>
-        <ListItem>
-          <ListItemIcon>
-            <TrendingUpIcon />
-          </ListItemIcon>
-          <ListItemText primary="Trending" />
-        </ListItem>
-        <ListItem>
-          <ListItemIcon>
-            <StarsIcon />
-          </ListItemIcon>
-          <ListItemText primary="Popular" />
-        </ListItem>
-      </List>
-      </Paper>
-
-      <CompetitionSummaryCard />
-
-
-
-        <JoinChallengeCard />
-        </div>
-            </Grid>
-          </Grid>
-        </div>
     )
-    
-}
+                }
 
-SearchResultBody.propTypes = {
+LeftMenubar.propTypes = {
     classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(SearchResultBody);
+export default withStyles(styles)(LeftMenubar);

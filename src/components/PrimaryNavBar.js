@@ -28,6 +28,7 @@ import classNames from 'classnames';
 import SinglePostCard from './SinglePostCard';
 import SectionListHeader from './SectionListHeader';
 import JoinChallengeCard from './JoinChallengeCard';
+import TopProfileMenu from './account/TopProfileMenu';
 
 const theme = createMuiTheme({
   palette: {
@@ -238,20 +239,7 @@ class PrimaryNavBar extends React.Component {
                 </div>
               </Grid>
               <Grid item xs={3} style={{display: 'flex', flexDirection: 'row-reverse', justifyContent: 'end', alignItems: 'center'}}>
-            <div className={classes.sectionDesktop} style={{display: 'flex', alignItems: 'center'}}>
-              
-            <Typography variant="subtitle2" gutterBottom>
-              Jide Adeleke
-            </Typography>
-            <IconButton>
-                <Avatar alt="Jide Adeleke" src="/images/avatar.png" className={classes.uAvatar} />
-              </IconButton>
-            </div>
-            <div className={classes.sectionMobile}>
-              <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
-                <MoreIcon />
-              </IconButton>
-            </div>
+                <TopProfileMenu loggedIn={this.props.loggedIn} handleLogout={this.props.handleLogout} handleLogin={this.props.handleLogin} />
               </Grid>
             </Grid>
          

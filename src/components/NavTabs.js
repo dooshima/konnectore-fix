@@ -1,41 +1,69 @@
-import React, {Component} from "react";
-import {Tabs, Tab} from '@material-ui/core';
-import { withRouter } from "react-router-dom";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import NoSsr from '@material-ui/core/NoSsr';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography';
 
-import Home from "./Home";
-import Portfolio from "./Portfolio";
+function TabContainer(props) {
+  return (
+    <Typography component="div" style={{ padding: 8 * 3 }}>
+      {props.children}
+    </Typography>
+  );
+}
 
-class NavTabs extends Component {
+TabContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
- handleCallToRouter = (value) => {
-   this.props.history.push(value);
- }
+function LinkTab(props) {
+  return <Tab component="a" onClick={event => event.preventDefault()} {...props} />;
+}
 
-  render () {
-     return (
-      <Tabs
-        value={this.props.history.location.pathname}
-        onChange={this.handleCallToRouter}
-        >
-        <Tab
-          label="Home"
-          value="/"
-        >
-        <div>
-           <Home />
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper,
+  },
+});
+
+class NavTabs extends React.Component {
+  state = {
+    value: 0,
+  };
+
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
+
+  render() {
+    const { classes } = this.props;
+    const { value } = this.state;
+
+    return (
+      <NoSsr>
+        <div className={classes.root}>
+          <AppBar position="static">
+            <Tabs variant="fullWidth" value={value} onChange={this.handleChange}>
+              <LinkTab label="Page One" href="page1" />
+              <LinkTab label="Page Two" href="page2" />
+              <LinkTab label="Page Three" href="page3" />
+            </Tabs>
+          </AppBar>
+          {value === 0 && <TabContainer>Page One</TabContainer>}
+          {value === 1 && <TabContainer>Page Two</TabContainer>}
+          {value === 2 && <TabContainer>Page Three</TabContainer>}
         </div>
-        </Tab>
-        <Tab
-          label="Portfolio"
-          value="/portfolio"
-            >
-          <div>
-            <Portfolio />
-          </div>
-        </Tab>
-      </Tabs>           
-    )
+      </NoSsr>
+    );
   }
 }
 
-export default withRouter(NavTabs)
+NavTabs.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(NavTabs);
