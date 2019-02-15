@@ -11,8 +11,12 @@ const theme = createMuiTheme({
           main: '#00a294',
       }
   },
-  spacing: 10
+  spacing: {
+    unit: 10,
+  },
 });
+
+console.log(theme)
 
 const Root = ({ store }) => (
   <Provider store={store}>

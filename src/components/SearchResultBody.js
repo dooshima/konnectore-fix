@@ -171,12 +171,7 @@ function SearchResultBody (props) {
     return (
 <div style={{marginTop: 30, marginLeft: 20, marginRight: 20}}>
           <Grid container xs={12}>
-            <Grid item xs={3}>
-            <div style={{marginRight: 20}}>
-              <LeftSidebar loggedIn={props.loggedIn} handleLogin={props.handleLogin} />
-              </div>
-            </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={8}>
               <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
                 <Typography>
                   <span>Showing results for</span>
@@ -191,7 +186,7 @@ function SearchResultBody (props) {
                 </Paper>
               </Paper>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={4}>
                   <div style={{marginLeft: 20}}>
                   <Paper>
             <List subheader={<ListSubheader>FEED</ListSubheader>} style={{textAlign: 'left'}} className={classes.root}>
