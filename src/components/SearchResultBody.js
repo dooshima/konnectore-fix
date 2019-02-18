@@ -33,6 +33,7 @@ import SearchFilterLink from './SearchFilterLink';
 import LeftSidebar from './LeftSidebar';
 import KTabs from './ui/KTabs';
 import NavTabs from './NavTabs';
+import FeedCard from './FeedCard';
 
 const activeLink = classNames({'link': true, 'active': true});
 const dudUrl = 'javascript:;';
@@ -188,28 +189,7 @@ function SearchResultBody (props) {
             </Grid>
             <Grid item xs={4}>
                   <div style={{marginLeft: 20}}>
-                  <Paper>
-            <List subheader={<ListSubheader>FEED</ListSubheader>} style={{textAlign: 'left'}} className={classes.root}>
-        <ListItem>
-          <ListItemIcon>
-            <SearchIcon />
-          </ListItemIcon>
-          <ListItemText primary="Browse Topics" />
-        </ListItem>
-        <ListItem>
-          <ListItemIcon>
-            <TrendingUpIcon />
-          </ListItemIcon>
-          <ListItemText primary="Trending" />
-        </ListItem>
-        <ListItem>
-          <ListItemIcon>
-            <StarsIcon />
-          </ListItemIcon>
-          <ListItemText primary="Popular" />
-        </ListItem>
-      </List>
-      </Paper>
+             <FeedCard />     
 
       <CompetitionSummaryCard />
 

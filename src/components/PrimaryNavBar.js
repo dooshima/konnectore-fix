@@ -49,7 +49,8 @@ const theme = createMuiTheme({
 
 const styles = theme => ({
   root: {
-    width: '100%',
+    display: 'flex',
+    margin: `0 ${theme.spacing.unit * 10}px`,
   },
   grow: {
     flexGrow: 1,
@@ -134,6 +135,9 @@ const styles = theme => ({
       display: 'none',
     },
   },
+  holder: {
+    width: '100%'
+  }
 });
 
 const activeLink = classNames({'link': true, 'active': true});
@@ -216,7 +220,7 @@ class PrimaryNavBar extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" color="white">
+        <div className={classes.holder}>
           <Toolbar style={{flexGrow: 1, backgroundColor: 'white'}}>
             <Grid container spacing={12}>
               <Grid item xs={3} style={{display: 'flex', alignItems: 'center'}}>
@@ -225,7 +229,7 @@ class PrimaryNavBar extends React.Component {
                 </div>
               </Grid>
               <Grid item xs={6} style={{display: 'flex', justifyContent: 'start', alignItems: 'center'}}>
-                <div className={classes.search}>
+                <div className={classes.search} style={{display: this.props.loggedIn? 'inherit': 'none'}}>
                   <div className={classes.searchIcon}>
                     <SearchIcon />
                   </div>
@@ -244,7 +248,7 @@ class PrimaryNavBar extends React.Component {
             </Grid>
          
           </Toolbar>
-        </AppBar>
+        </div>
         {renderMenu}
         {renderMobileMenu}
       </div>

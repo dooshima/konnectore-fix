@@ -16,7 +16,7 @@ const theme = createMuiTheme()
 
 const styles = {
   card: {
-    minWidth: 275,
+    minWidth: 125,
     border: 'none',
   },
   bullet: {

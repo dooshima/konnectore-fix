@@ -57,7 +57,10 @@ const theme = createMuiTheme({
 
 const styles = theme => ({
   root: {
-    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    height: '100%',
   },
   grow: {
     flexGrow: 1,
@@ -145,8 +148,9 @@ const styles = theme => ({
 });
 
 function LeftSidebar(props) {
+  const { classes } = props;
   return (
-    <div>
+    <div className={classes.root}>
       <LoginMenu />
       <KFooter />
     </div>
