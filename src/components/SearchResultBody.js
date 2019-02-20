@@ -31,9 +31,12 @@ import JoinChallengeCard from './JoinChallengeCard';
 import CompetitionSummaryCard from './CompetitionSummaryCard';
 import SearchFilterLink from './SearchFilterLink';
 import LeftSidebar from './LeftSidebar';
-import KTabs from './ui/KTabs';
+import KTabs from './UI/KTabs';
 import NavTabs from './NavTabs';
 import FeedCard from './FeedCard';
+import ImageCard from './UI/Posts/ImageCard/ImageCard';
+import MasonryGrid from './UI/MasonryGrid/MasonryGrid';
+import TextCard from './UI/Posts/TextCard/TextCard';
 
 const activeLink = classNames({'link': true, 'active': true});
 const dudUrl = 'javascript:;';
@@ -183,7 +186,15 @@ function SearchResultBody (props) {
 
                 <Paper style={{marginTop: 30}}>
                   <SectionListHeader />
-                  <SinglePostCard />
+                  <MasonryGrid>
+                  {
+                    [...Array(6)].map( (i, key) => {
+                      let counter = Math.ceil(Math.random() * 100);
+                      let chooser = counter % 2 === 0? true: false;
+                      return chooser? <ImageCard index={key} />: <TextCard index={key} />
+                    })
+                  }
+                  </MasonryGrid>
                 </Paper>
               </Paper>
             </Grid>
