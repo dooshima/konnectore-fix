@@ -1,4 +1,15 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Konnectore Web Application
+Konnectore web app is a talent discovery and promotion platform
+
+## The deployment process for testing: Konnectore Web
+ 
+- Push update source code to GitHub: https://github.com/flexipgroup/konnectore.git
+-    SSH to the test server: ssh fpguser@162.144.218.122 
+-    Navigate to the ~/public_html/app: cd ~/public_html/app
+-    Pull code from GitHub: git pull
+-    Run npm install if a new package has been added
+-    Build and deploy to the test environment by running: npm run build && pm2 start app.config.json
+-    Visit the link: test.konnectore.com
 
 ## Available Scripts
 
