@@ -32,7 +32,7 @@ import CompetitionSummaryCard from './CompetitionSummaryCard';
 import SearchFilterLink from './SearchFilterLink';
 import LeftMenubar from './LeftMenubar';
 import LoginCard from './account/LoginCard';
-import KFooter from './ui/KFooter';
+import KFooter from './UI/KFooter';
 //import SignupForm from './account/SignupForm';
 
 const activeLink = classNames({'link': true, 'active': true});

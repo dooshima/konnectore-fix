@@ -9,8 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import { FormControl, InputBase, IconButton, Paper } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import TestForm from '../ui/TestForm';
-import SignupForm from '../ui/SignupForm';
+import TestForm from '../UI/TestForm';
+import SignupForm from '../UI/SignupForm';
 
 const theme = createMuiTheme()
 
