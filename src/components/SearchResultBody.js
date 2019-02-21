@@ -37,7 +37,7 @@ import FeedCard from './FeedCard';
 import ImageCard from './UI/Posts/ImageCard/ImageCard';
 import MasonryGrid from './UI/MasonryGrid/MasonryGrid';
 import TextCard from './UI/Posts/TextCard/TextCard';
-import ContestListItem from './UI/ContestListItem/ContestListItem';
+import ContestListItem from './ContestListItem';
 
 const activeLink = classNames({'link': true, 'active': true});
 const dudUrl = 'javascript:;';
