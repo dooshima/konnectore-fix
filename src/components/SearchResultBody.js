@@ -189,8 +189,8 @@ function SearchResultBody (props) {
                   [
                     {url: '/images/c1.png', title: 'Street Dance Contest'},
                     {url: '/images/c2.png', title: 'Double Homicide Challenge'},
-                    {url: '/images/c3.png', title: 'The Sctage Contest'}].map( (item, i) => {
-                    
+                    {url: '/images/c3.png', title: 'The Sctage Contest'}
+                  ].map( (item, i) => {
                     return (
                       <div style={{ marginLeft: `${i > 0? 20: 0}px`, flex: 1 }}>
                       <ContestListItem url={item.url} title={item.title}  />
