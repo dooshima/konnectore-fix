@@ -37,6 +37,7 @@ import FeedCard from './FeedCard';
 import ImageCard from './UI/Posts/ImageCard/ImageCard';
 import MasonryGrid from './UI/MasonryGrid/MasonryGrid';
 import TextCard from './UI/Posts/TextCard/TextCard';
+import ContestListItem from './UI/Contests/ContestListItem/ContestListItem';
 
 const activeLink = classNames({'link': true, 'active': true});
 const dudUrl = 'javascript:;';
@@ -183,7 +184,21 @@ function SearchResultBody (props) {
                 </Typography>
                 
                 <KTabs tabs={tabs} size="small" />
-
+                <div style={{display: 'flex'}}>
+                {
+                  [
+                    {url: '/images/c1.png', title: 'Street Dance Contest'},
+                    {url: '/images/c2.png', title: 'Double Homicide Challenge'},
+                    {url: '/images/c3.png', title: 'The Sctage Contest'}].map( (item, i) => {
+                    
+                    return (
+                      <div style={{ marginLeft: `${i > 0? 20: 0}px`, flex: 1 }}>
+                      <ContestListItem url={item.url} title={item.title}  />
+                      </div>
+                    )
+                  })
+                }
+                </div>
                 <Paper style={{marginTop: 30}}>
                   <SectionListHeader />
                   <MasonryGrid>

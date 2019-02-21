@@ -61,6 +61,7 @@ const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     height: '100%',
+    paddingRight: 20,
   },
   grow: {
     flexGrow: 1,
@@ -151,7 +152,7 @@ function LeftSidebar(props) {
   const { classes } = props;
   return (
     <div className={classes.root}>
-      <LoginMenu />
+      <LoginMenu loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)} />
       <KFooter />
     </div>
   )
@@ -162,7 +163,7 @@ function LoginMenu(props) {
   if(props.loggedIn) {
     return <LeftMenubar handleLogout={props.handleLogout} />
   } else {
-    return <LoginCard />
+    return <LoginCard handleLogin={ data => props.handleLogin(data)} />
   }
 }
 

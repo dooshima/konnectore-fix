@@ -14,16 +14,17 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
+import Icon from '@material-ui/core/Icon';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Avatar from '@material-ui/core/Avatar';
-import { Grid, Paper, List, ListItem, ListItemIcon, ListItemText, Link, ListSubheader, Button } from '@material-ui/core';
+import { Grid, Paper, List, ListItem, ListItemIcon, ListItemText, Link, ListSubheader, Button, Fab } from '@material-ui/core';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import HomeIcon from '@material-ui/icons/Home';
 import InboxIcon from '@material-ui/icons/Inbox';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import GroupIcon from '@material-ui/icons/Group';
-import StarsIcon from '@material-ui/icons/Stars';
+import AddCircleOutlinedIcon from '@material-ui/icons/AddCircleOutlined';
 import classNames from 'classnames';
 import SinglePostCard from './SinglePostCard';
 import SectionListHeader from './SectionListHeader';
@@ -138,12 +139,28 @@ const styles = theme => ({
       display: 'none',
     },
   },
+  icon: {
+    fontSize: theme.spacing.unit * 5.0
+  },
+  addPost: {
+    display: 'flex',
+    flex: 1,
+    alignItems: 'center',
+  }
 });
 
 function LeftMenubar(props) {
     const { classes } = props;
     return (
 <Paper style={{boxShadow: 'none'}}>
+      <div className={classes.addPost}>
+          <IconButton color="primary">
+            <AddCircleOutlinedIcon className={classes.icon} />
+          </IconButton>     
+          <Typography color="primary" component="a">
+            Add a post</Typography>     
+
+      </div>
               <List component="nav" style={{paddingTop: 0}}>
                 <ListItem button selected={true} style={{backgroundColor: '#00927d', color: 'white', borderRadius: 5}}>
                   <ListItemIcon>

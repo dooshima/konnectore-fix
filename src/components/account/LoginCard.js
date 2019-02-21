@@ -92,17 +92,26 @@ const styles = {
   },
 };
 
-function LoginCard(props) {
-  const { classes } = props;
-  const bull = <span className={classes.bullet}>•</span>;
+class LoginCard extends React.Component {
+  constructor(props) {
+    super(props);
 
-  return (
-    <Paper className={classes.card} elevation="0">
-      <CardContent>
-        <SignupForm />
-      </CardContent>
-    </Paper>
-  );
+    this.handleLogin = this.handleLogin.bind(this);
+  }
+  handleLogin(data) {
+    this.props.handleLogin(data);
+  }
+  render() {
+  const { classes } = this.props;
+  const bull = <span className={classes.bullet}>•</span>;
+    return (
+      <Paper className={classes.card} elevation="0">
+        <CardContent>
+          <SignupForm handleLogin={this.handleLogin} />
+        </CardContent>
+      </Paper>
+    );
+  }
 }
 
 LoginCard.propTypes = {

@@ -37,10 +37,11 @@ const styles = theme => ({
     left: 0,
     overflowY: 'scroll',
     marginLeft: theme.spacing.unit * 10,
+    paddingTop: theme.spacing.unit * 2,
   },
   body: {
     marginLeft: theme.spacing.unit * 37.5,
-    
+    paddingTop: theme.spacing.unit * 2,
   }
 });
 
@@ -64,10 +65,10 @@ class App extends Component {
         </div>
         <div className={classes.content}>
           <div className={classes.sidebar}>
-            <LeftSidebar loggedIn={this.props.loggedIn} handleLogin={this.props.handleLogin} />
+            <LeftSidebar loggedIn={this.state.loggedIn} handleLogin={data => this.handleLogin(data)} />
           </div>
           <div className={classes.body}>
-            <SearchResultBody loggedIn={this.state.loggedIn} handleLogin={this.handleLogin} />
+            <SearchResultBody loggedIn={this.state.loggedIn} handleLogin={data => this.handleLogin(data)} />
           </div>
         </div>
         
@@ -75,7 +76,8 @@ class App extends Component {
     );
   }
 
-  handleLogin() {
+  handleLogin(data) {
+    console.log(data);
     this.setState({loggedIn: true});
   }
 

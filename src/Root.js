@@ -14,6 +14,9 @@ const theme = createMuiTheme({
   spacing: {
     unit: 10,
   },
+  typography: {
+    fontSize: 12,
+  }
 });
 
 console.log(theme)

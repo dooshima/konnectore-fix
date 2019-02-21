@@ -14,7 +14,7 @@ const styles = {
     maxWidth: 345,
   },
   media: {
-    height: 240,
+    height: 140,
   },
 };
 
@@ -25,11 +25,11 @@ function JoinChallengeCard(props) {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="images/join-the-competition.jpg"
+          image="/images/join-the-competition.jpg"
           title="Join the challenge"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography gutterBottom variant="h6" component="h4">
             Socca Dazzle Competition
           </Typography>
           <Typography component="p">

@@ -77,8 +77,40 @@ const styles = {
   }
 };
 
-function SignupForm(props) {
-  const { classes } = props;
+class SignupForm extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: {
+        email: '',
+        password: ''
+      }
+    }
+  }
+
+  handleChange = name => event => {
+    let data = {...this.state.data, [name]: event.target.value}
+    this.setState({
+      data: data,
+    });
+    console.log(data);
+  };
+
+  handleInput(e, key) {
+    console.log(e.target.value, key);
+  }
+  submit() {
+    const data = this.state.data;
+    if(!data.email || !data.password) {
+      alert("Please enter your email and password");
+      return;
+    }
+    this.props.handleLogin(data);
+  }
+
+  render() {
+  const { classes } = this.props;
 
   return (
       <form>
@@ -101,11 +133,13 @@ function SignupForm(props) {
           <IconButton className={classes.inputIcon}>
             <EmailIcon />
           </IconButton>
-          <InputBase id="username" type="text" 
+          <InputBase id="email" type="text" 
+            value={this.state.data.email}
             classes={{
               root: classes.inputRoot,
               input: classes.inputInput,
             }}
+            onChange={this.handleChange('email')}
           placeholder={"Enter Your Email"} />
         </div>
 
@@ -119,7 +153,8 @@ function SignupForm(props) {
             <LockIcon />
             </IconButton>
             <InputBase id="password" type="password" 
-            value=""
+            value={this.state.data.password}
+            onChange={this.handleChange('password')}
             classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
@@ -128,7 +163,7 @@ function SignupForm(props) {
         </div>
 
         <div>
-          <KButton label="Login" size="small" />
+          <KButton onClick={this.submit.bind(this)} label="Login" size="small" />
         </div>
 
         <div>
@@ -138,6 +173,7 @@ function SignupForm(props) {
         </div>
       </form>
   );
+          }
 }
 
 SignupForm.propTypes = {
