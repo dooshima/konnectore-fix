@@ -1,36 +1,17 @@
 import React from 'react';
-import PropTypes, { nominalTypeHack } from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles, createMuiTheme } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import Icon from '@material-ui/core/Icon';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import Avatar from '@material-ui/core/Avatar';
 import { Grid, Paper, List, ListItem, ListItemIcon, ListItemText, Link, ListSubheader, Button, Fab } from '@material-ui/core';
-import DraftsIcon from '@material-ui/icons/Drafts';
 import HomeIcon from '@material-ui/icons/Home';
 import InboxIcon from '@material-ui/icons/Inbox';
-import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import GroupIcon from '@material-ui/icons/Group';
 import AddCircleOutlinedIcon from '@material-ui/icons/AddCircleOutlined';
 import classNames from 'classnames';
-import SinglePostCard from './SinglePostCard';
-import SectionListHeader from './SectionListHeader';
-import JoinChallengeCard from './JoinChallengeCard';
-import CompetitionSummaryCard from './CompetitionSummaryCard';
-import SearchFilterLink from './SearchFilterLink';
+import { NavLink } from 'react-router-dom';
 
 const activeLink = classNames({'link': true, 'active': true});
 const dudUrl = 'javascript:;';
@@ -146,7 +127,8 @@ const styles = theme => ({
     display: 'flex',
     flex: 1,
     alignItems: 'center',
-  }
+  },
+  active: {backgroundColor: '#00927d', color: 'white', borderRadius: 5}
 });
 
 function LeftMenubar(props) {
@@ -162,35 +144,50 @@ function LeftMenubar(props) {
 
       </div>
               <List component="nav" style={{paddingTop: 0}}>
-                <ListItem button selected={true} style={{backgroundColor: '#00927d', color: 'white', borderRadius: 5}}>
+                <ListItem button>
                   <ListItemIcon>
-                    <HomeIcon style={{color: 'white'}} />
+                    <HomeIcon />
                   </ListItemIcon>
                   <ListItemText primary={
-                    <React.Fragment>
-                      <Typography style={{color: 'white'}}>
+                    <NavLink to="/me" activeClassName={classes.active} true>
+                      <Typography>
                         Home
                       </Typography>
-                    </React.Fragment>
+                    </NavLink>
                   } />
                 </ListItem>
                 <ListItem button>
                   <ListItemIcon>
                     <GroupIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Friends" />
-                </ListItem>
+                  <ListItemText primary={<NavLink to="/friends" activeClassName={classes.active}>
+                      <Typography>
+                        Friends
+                      </Typography>
+                    </NavLink>
+                  } />
+                  </ListItem>
                 <ListItem button>
                   <ListItemIcon>
                     <NotificationsIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Activity" />
+                  <ListItemText primary={<NavLink to="/activities" activeClassName={classes.active}>
+                      <Typography>
+                        Activities
+                      </Typography>
+                    </NavLink>
+                  } />
                 </ListItem>
                 <ListItem button>
                   <ListItemIcon>
                     <InboxIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Inbox" />
+                  <ListItemText primary={<NavLink to="/inbox" activeClassName={classes.active}>
+                      <Typography>
+                        Inbox
+                      </Typography>
+                    </NavLink>
+                  } />
                 </ListItem>
               </List>
 

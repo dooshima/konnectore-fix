@@ -33,6 +33,7 @@ import SearchFilterLink from './SearchFilterLink';
 import LeftMenubar from './LeftMenubar';
 import LoginCard from './account/LoginCard';
 import KFooter from './UI/KFooter';
+import LeftUserMenu from './Nav/LeftUserMenu';
 //import SignupForm from './account/SignupForm';
 
 const activeLink = classNames({'link': true, 'active': true});
@@ -161,7 +162,7 @@ function LeftSidebar(props) {
 
 function LoginMenu(props) {
   if(props.loggedIn) {
-    return <LeftMenubar handleLogout={props.handleLogout} />
+    return <LeftUserMenu handleLogout={props.handleLogout} />
   } else {
     return <LoginCard handleLogin={ data => props.handleLogin(data)} />
   }
