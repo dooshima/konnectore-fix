@@ -166,8 +166,8 @@ const tabs = [
     route: "/search/videos"
   },
   {
-    label: "People",
-    route: "/search/people"
+    label: "About",
+    route: "/about"
   }
 ]
 

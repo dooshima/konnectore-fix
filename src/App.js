@@ -3,10 +3,13 @@ import './App.css';
 import PrimaryNavBar from './components/PrimaryNavBar';
 import SearchResultBody from './components/SearchResultBody';
 import PropTypes from 'prop-types';
+import { Switch, Route } from 'react-router-dom';
 import LeftSidebar from './components/LeftSidebar';
 import { Z_FIXED } from 'zlib';
 import { withStyles } from '@material-ui/core';
 import zIndex from '@material-ui/core/styles/zIndex';
+import Main from './components/UI/Main';
+import { Link } from 'react-router-dom';
 
 const styles = theme => ({
   wrapper: {
@@ -59,20 +62,13 @@ class App extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.wrapper}>
-        <div className={classes.header}>
-          <PrimaryNavBar loggedIn={this.state.loggedIn} handleLogin={this.handleLogin} handleLogout={this.handleLogout} />
-        </div>
-        <div className={classes.content}>
-          <div className={classes.sidebar}>
-            <LeftSidebar loggedIn={this.state.loggedIn} handleLogin={data => this.handleLogin(data)} />
-          </div>
-          <div className={classes.body}>
-            <SearchResultBody loggedIn={this.state.loggedIn} handleLogin={data => this.handleLogin(data)} />
-          </div>
-        </div>
-        
-      </div>
+      <>
+        <Switch>
+          <Route exact path="/about" component={About} />
+          <Route exact path="/policy" component={Policy} />
+          <Route render={props => <Main {...props} {...this.state} handleLogin={this.handleLogin} handleLogout={this.handleLogout} />} />
+        </Switch>
+      </>
     );
   }
 
@@ -91,3 +87,18 @@ App.propTypes = {
 }
 
 export default withStyles(styles)(App);
+
+export function About(props) {
+  return  <>
+      <div>About Konnector</div>
+      <Link to="/me">Home</Link>
+    </>
+}
+
+export function Policy(props) {
+  return <>
+    <div>Policy for Konnector</div>
+    <Link to="/me">Home</Link>
+    </>
+}
+
