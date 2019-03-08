@@ -26,7 +26,7 @@ import GroupIcon from '@material-ui/icons/Group';
 import StarsIcon from '@material-ui/icons/Stars';
 import classNames from 'classnames';
 import LoginCard from './account/LoginCard';
-import KFooter from './UI/KFooter';
+import KFooter from './UIC/KFooter';
 import LeftUserMenu from './Nav/LeftUserMenu';
 //import SignupForm from './account/SignupForm';
 

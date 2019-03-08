@@ -31,12 +31,12 @@ import JoinChallengeCard from './JoinChallengeCard';
 import CompetitionSummaryCard from './Contests/CompetitionSummaryCard';
 import SearchFilterLink from './SearchFilterLink';
 import LeftSidebar from './LeftSidebar';
-import KTabs from './UI/KTabs';
+import KTabs from './UIC/KTabs';
 import NavTabs from './NavTabs';
 import FeedCard from './FeedCard';
-import ImageCard from './UI/Posts/ImageCard/ImageCard';
-import MasonryGrid from './UI/MasonryGrid/MasonryGrid';
-import TextCard from './UI/Posts/TextCard/TextCard';
+import ImageCard from './UIC/Posts/ImageCard/ImageCard';
+import MasonryGrid from './UIC/MasonryGrid/MasonryGrid';
+import TextCard from './UIC/Posts/TextCard/TextCard';
 import ContestListItem from './ContestListItem';
 
 const activeLink = classNames({'link': true, 'active': true});

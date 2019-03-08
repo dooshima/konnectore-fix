@@ -8,11 +8,11 @@ import classNames from 'classnames';
 import SectionListHeader from './../SectionListHeader';
 import JoinChallengeCard from './../JoinChallengeCard';
 import CompetitionSummaryCard from '../Contests/CompetitionSummaryCard';
-import KTabs from './../UI/KTabs';
+import KTabs from './../UIC/KTabs';
 import FeedCard from './../FeedCard';
-import ImageCard from './../UI/Posts/ImageCard/ImageCard';
-import MasonryGrid from './../UI/MasonryGrid/MasonryGrid';
-import TextCard from './../UI/Posts/TextCard/TextCard';
+import ImageCard from './../UIC/Posts/ImageCard/ImageCard';
+import MasonryGrid from './../UIC/MasonryGrid/MasonryGrid';
+import TextCard from './../UIC/Posts/TextCard/TextCard';
 
 const activeLink = classNames({'link': true, 'active': true});
 const dudUrl = 'javascript:;';
