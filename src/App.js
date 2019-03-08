@@ -3,13 +3,14 @@ import './App.css';
 import PrimaryNavBar from './components/PrimaryNavBar';
 import SearchResultBody from './components/SearchResultBody';
 import PropTypes from 'prop-types';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import LeftSidebar from './components/LeftSidebar';
 import { Z_FIXED } from 'zlib';
 import { withStyles } from '@material-ui/core';
 import zIndex from '@material-ui/core/styles/zIndex';
 import Main from './components/UI/Main';
 import { Link } from 'react-router-dom';
+import { posts } from './components/assets/posts';
 
 const styles = theme => ({
   wrapper: {
@@ -54,11 +55,18 @@ class App extends Component {
 
     this.state = {
       loggedIn: false,
+      q: '',
     }
 
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
   }
+
+  handleSearch = q => {
+    this.setState({q: q, posts: posts});
+    this.props.history.push('/search?q=' + q);
+  };
+  
   render() {
     const { classes } = this.props;
     return (
@@ -66,7 +74,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/about" component={About} />
           <Route exact path="/policy" component={Policy} />
-          <Route render={props => <Main {...props} {...this.state} handleLogin={this.handleLogin} handleLogout={this.handleLogout} />} />
+          <Route render={props => <Main {...props} {...this.state} searchResults={this.state.posts} q={this.state.q} handleLogin={this.handleLogin} handleLogout={this.handleLogout} handleSearch={q => this.handleSearch(q)} />} />
         </Switch>
       </>
     );
@@ -86,7 +94,7 @@ App.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(App);
+export default withStyles(styles)(withRouter(App));
 
 export function About(props) {
   return  <>

@@ -12,6 +12,7 @@ import LockIcon from '@material-ui/icons/Lock';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import KButton from './KButton';
 import { Link } from 'react-router-dom';
+import Auth from '../../services/Auth/Auth';
 
 const theme = createMuiTheme()
 
@@ -74,6 +75,9 @@ const styles = {
   },
   headerIntro: {
     color: '#808080',
+  },
+  error: {
+    marginBottom: theme.spacing.unit * 1.2,
   }
 };
 
@@ -85,7 +89,8 @@ class SignupForm extends React.Component {
       data: {
         email: '',
         password: ''
-      }
+      },
+      error: '',
     }
   }
 
@@ -102,8 +107,10 @@ class SignupForm extends React.Component {
   }
   submit() {
     const data = this.state.data;
-    if(!data.email || !data.password) {
-      alert("Please enter your email and password");
+    const validate = Auth.login(data.email, data.password);
+    if(validate !== true) {
+      this.setState({error: validate.message});
+      console.log(validate);
       return;
     }
     this.props.handleLogin(data);
@@ -122,6 +129,12 @@ class SignupForm extends React.Component {
             And share your talent with the world
           </Typography>
         </div>
+
+        {this.state.error !== '' && <div>
+          <Typography component="p" color="error" className={classes.error}>
+            {this.state.error}
+          </Typography>
+        </div>}
         
         <div>
           <FormControl className={classes.labelRoot}>

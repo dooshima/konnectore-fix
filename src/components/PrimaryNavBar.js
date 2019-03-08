@@ -29,6 +29,7 @@ import SinglePostCard from './SinglePostCard';
 import SectionListHeader from './SectionListHeader';
 import JoinChallengeCard from './JoinChallengeCard';
 import TopProfileMenu from './account/TopProfileMenu';
+import SearchForm from './Search/SearchForm';
 
 const theme = createMuiTheme({
   palette: {
@@ -143,10 +144,14 @@ const styles = theme => ({
 const activeLink = classNames({'link': true, 'active': true});
 
 class PrimaryNavBar extends React.Component {
-  state = {
-    anchorEl: null,
-    mobileMoreAnchorEl: null,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      anchorEl: null,
+      mobileMoreAnchorEl: null,
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
   handleProfileMenuOpen = event => {
     this.setState({ anchorEl: event.currentTarget });
@@ -163,6 +168,10 @@ class PrimaryNavBar extends React.Component {
 
   handleMobileMenuClose = () => {
     this.setState({ mobileMoreAnchorEl: null });
+  };
+
+  handleSubmit (q) {
+    this.props.handleSearch(q);
   };
 
   render() {
@@ -229,18 +238,7 @@ class PrimaryNavBar extends React.Component {
                 </div>
               </Grid>
               <Grid item xs={6} style={{display: 'flex', justifyContent: 'start', alignItems: 'center'}}>
-                <div className={classes.search} style={{display: this.props.loggedIn? 'inherit': 'none'}}>
-                  <div className={classes.searchIcon}>
-                    <SearchIcon />
-                  </div>
-                  <InputBase
-                    placeholder="Search…"
-                    classes={{
-                      root: classes.inputRoot,
-                      input: classes.inputInput,
-                    }}
-                  />
-                </div>
+                <SearchForm loggedIn={this.props.loggedIn} handleSubmit={this.handleSubmit} />
               </Grid>
               <Grid item xs={3} style={{display: 'flex', flexDirection: 'row-reverse', justifyContent: 'end', alignItems: 'center'}}>
                 <TopProfileMenu loggedIn={this.props.loggedIn} handleLogout={this.props.handleLogout} handleLogin={this.props.handleLogin} />

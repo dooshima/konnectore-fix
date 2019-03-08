@@ -1,43 +1,18 @@
 import React from 'react';
-import PropTypes, { nominalTypeHack } from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
+import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles, createMuiTheme } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import Avatar from '@material-ui/core/Avatar';
-import { Grid, Paper, List, ListItem, ListItemIcon, ListItemText, Link, ListSubheader } from '@material-ui/core';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import HomeIcon from '@material-ui/icons/Home';
-import InboxIcon from '@material-ui/icons/Inbox';
-import TrendingUpIcon from '@material-ui/icons/TrendingUp';
-import GroupIcon from '@material-ui/icons/Group';
-import StarsIcon from '@material-ui/icons/Stars';
+import { Grid, Paper } from '@material-ui/core';
 import classNames from 'classnames';
-import SinglePostCard from './SinglePostCard';
-import SectionListHeader from './SectionListHeader';
-import JoinChallengeCard from './JoinChallengeCard';
-import CompetitionSummaryCard from './Contests/CompetitionSummaryCard';
-import SearchFilterLink from './SearchFilterLink';
-import LeftSidebar from './LeftSidebar';
-import KTabs from './UI/KTabs';
-import NavTabs from './NavTabs';
-import FeedCard from './FeedCard';
-import ImageCard from './UI/Posts/ImageCard/ImageCard';
-import MasonryGrid from './UI/MasonryGrid/MasonryGrid';
-import TextCard from './UI/Posts/TextCard/TextCard';
-import ContestListItem from './ContestListItem';
+import SectionListHeader from './../SectionListHeader';
+import JoinChallengeCard from './../JoinChallengeCard';
+import CompetitionSummaryCard from '../Contests/CompetitionSummaryCard';
+import KTabs from './../UI/KTabs';
+import FeedCard from './../FeedCard';
+import ImageCard from './../UI/Posts/ImageCard/ImageCard';
+import MasonryGrid from './../UI/MasonryGrid/MasonryGrid';
+import TextCard from './../UI/Posts/TextCard/TextCard';
 
 const activeLink = classNames({'link': true, 'active': true});
 const dudUrl = 'javascript:;';
@@ -165,14 +140,25 @@ const tabs = [
     label: "Videos",
     route: "/search/videos"
   },
-  {
-    label: "About",
-    route: "/about"
-  }
 ]
 
-function SearchResultBody (props) {
-    const { classes } = props;
+class SearchComponent extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    console.log(this.props);
+  }
+
+  getDerivedStateFromProps(p) {
+    console.log(p);
+  }
+
+  render() {
+    console.log('SC: ', this.props.match.params['q']);
+    const { classes, q } = this.props;
+    const searchResults = this.props.searchResults? this.props.searchResults: [];
     return (
 <div style={{marginTop: 30, marginLeft: 20, marginRight: 20}}>
           <Grid container xs={12}>
@@ -180,58 +166,42 @@ function SearchResultBody (props) {
               <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
                 <Typography>
                   <span>Showing results for</span>
-                  <span style={{color: '#00927d'}}> #100yearchallenge</span>
+                  <span style={{color: '#00927d'}}> { q }</span>
                 </Typography>
                 
                 <KTabs tabs={tabs} size="small" />
-                <div style={{display: 'flex'}}>
-                {
-                  [
-                    {url: '/images/c1.png', title: 'Street Dance Contest'},
-                    {url: '/images/c2.png', title: 'Double Homicide Challenge'},
-                    {url: '/images/c3.png', title: 'The Sctage Contest'}
-                  ].map( (item, i) => {
-                    return (
-                      <div style={{ marginLeft: `${i > 0? 20: 0}px`, flex: 1 }}>
-                      <ContestListItem url={item.url} title={item.title}  />
-                      </div>
-                    )
-                  })
-                }
-                </div>
+
                 <Paper style={{marginTop: 30}}>
                   <SectionListHeader />
-                  <MasonryGrid>
+                  {searchResults.length > 0 && <MasonryGrid>
                   {
-                    [...Array(6)].map( (i, key) => {
+                    searchResults.map( (post, key) => {
                       let counter = Math.ceil(Math.random() * 100);
                       let chooser = counter % 2 === 0? true: false;
-                      return chooser? <ImageCard index={key} />: <TextCard index={key} />
+                      return post.type === 'text'? <TextCard post={post} index={key} />: <ImageCard post={post} index={key} />
                     })
                   }
-                  </MasonryGrid>
+                  </MasonryGrid>}
+                  {searchResults.length < 1 && <div>No results found.</div>}
                 </Paper>
               </Paper>
             </Grid>
             <Grid item xs={4}>
-                  <div style={{marginLeft: 20}}>
-             <FeedCard />     
-
-      <CompetitionSummaryCard />
-
-
-
-        <JoinChallengeCard />
-        </div>
+                <div style={{marginLeft: 20}}>
+                    <FeedCard />     
+                    <CompetitionSummaryCard />
+                    <JoinChallengeCard />
+                </div>
             </Grid>
           </Grid>
         </div>
     )
+  }
     
 }
 
-SearchResultBody.propTypes = {
+SearchComponent.propTypes = {
     classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(SearchResultBody);
+export default withStyles(styles)(SearchComponent);

@@ -4,6 +4,8 @@ import SearchResultBody from './../SearchResultBody';
 import PropTypes from 'prop-types';
 import LeftSidebar from './../LeftSidebar';
 import { withStyles } from '@material-ui/core';
+import { Route, Switch } from 'react-router-dom';
+import SearchComponent from '../Search/SearchComponent';
 
 const styles = theme => ({
   wrapper: {
@@ -47,14 +49,19 @@ function Main(props) {
   
     return <div className={classes.wrapper}>
     <div className={classes.header}>
-      <PrimaryNavBar loggedIn={props.loggedIn} handleLogin={props.handleLogin} handleLogout={props.handleLogout} />
+      <PrimaryNavBar loggedIn={props.loggedIn} handleLogin={props.handleLogin} handleLogout={props.handleLogout} handleSearch={q => props.handleSearch(q)} />
     </div>
     <div className={classes.content}>
       <div className={classes.sidebar}>
         <LeftSidebar loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)} />
       </div>
       <div className={classes.body}>
-        <SearchResultBody loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)} />
+        <Switch>
+          <Route path="/search" render={renderProps => <SearchComponent {...renderProps} searchResults={props.searchResults} q={props.q} loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)} />} />
+          <Route path="/contest" render={renderProps => <ContestComponent />} />
+          <Route component={SearchResultBody} />
+        </Switch>
+        
       </div>
     </div>
     
@@ -66,3 +73,21 @@ function Main(props) {
   }
   
   export default withStyles(styles)(Main);
+
+  function UserComponent(props) {
+    return (
+      <div>
+        <h1>This is a user component</h1>
+        <p>{JSON.stringify(props)}</p>
+      </div>
+    )
+  }
+
+  function ContestComponent(props) {
+    return (
+      <div>
+        <h1>This is Contest Component</h1>
+        <p>{JSON.stringify(props)}</p>
+      </div>
+    )
+  }
