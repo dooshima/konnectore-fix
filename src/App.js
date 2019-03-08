@@ -8,7 +8,7 @@ import LeftSidebar from './components/LeftSidebar';
 import { Z_FIXED } from 'zlib';
 import { withStyles } from '@material-ui/core';
 import zIndex from '@material-ui/core/styles/zIndex';
-import Main from './components/UI/Main';
+import Main from './components/UIC/Main';
 import { Link } from 'react-router-dom';
 import { posts } from './components/assets/posts';
 
