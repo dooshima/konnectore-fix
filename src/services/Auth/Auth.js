@@ -1,4 +1,6 @@
 import KError from '../../models/KError';
+import Server from '../Server/Server';
+import Constants from './../../assets/Constants';
 
 const Auth = {
     login: login,
@@ -8,14 +10,18 @@ const Auth = {
 
 function login(email, password) {
     const validate = validateLogin(email, password);
-    if(validate !== true) {
-        return validate;
+    if(validate.error === true) {
+        return new Promise( resolve => resolve(validate) );
     }
-    if(email === 'test@email.com' && password === 'test') {
-        return true;
-    } else {
-        return new KError(true, "Invalid credentials");
-    }
+    return new Promise((resolve, reject) => {
+        setTimeout(
+            () => resolve(Server.loginDemo)
+            , 1200
+        );
+    });
+    return Server.post(Constants.LOGIN_URL, {email: email, pass: password}).then( data => {
+        console.log(data);
+    });
 }
 
 function signup(email, password, firstName) {
@@ -23,16 +29,20 @@ function signup(email, password, firstName) {
 }
 
 function validateLogin(email, password) {
+    let error = new KError(false, "");
     if(!email || !password) {
-        return new KError(true, "Email and password are required");
+        error = new KError(true, "Email and password are required");
+        return error.toObj();
     }
     if(!isEmail(email)) {
-        return new KError(true, "Invalid Email");
+        error = new KError(true, "Invalid Email");
+        return error.toObj();
     }
     if(password.length < 4) {
-        return new KError(true, "Password is too short!.");
+        error = new KError(true, "Password is too short!.");
+        return error.toObj();
     }
-    return true;
+    return error.toObj();
 }
 
 function isEmail(email) {

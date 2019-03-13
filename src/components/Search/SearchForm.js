@@ -4,6 +4,8 @@ import { withStyles } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { InputBase } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles/colorManipulator';
+import { connect } from 'react-redux';
+import searchActions from './../../reducers/search/actions';
 
 const styles = theme => ({
     searchForm: {
@@ -62,10 +64,10 @@ class SearchForm extends React.Component {
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, show } = this.props;
         return ( 
             <form onSubmit={this.handleSubmit} method="get">
-                <div className={classes.search} style={{display: this.props.loggedIn? 'inherit': 'none'}}>
+                <div className={classes.search} style={{display: show? 'inherit': 'none'}}>
                 <div className={classes.searchIcon}>
                     <SearchIcon />
                 </div>
@@ -84,6 +86,7 @@ class SearchForm extends React.Component {
 
     handleChange = name => event => {
         this.setState({ [name]: event.target.value });
+        this.props.addQueryText(event.target.value);
     };
 
     handleSubmit(e) {
@@ -99,4 +102,18 @@ SearchForm.propTypes = {
     classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(SearchForm);
+const mapStateToProps = (state, ownProp) => {
+    return {
+        show: state.search.show
+    };
+}
+
+const mapDispathToProps = dispatch => {
+    return {
+        addQueryText: text => {
+            dispatch(searchActions.addQueryText(text));
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispathToProps)(withStyles(styles)(SearchForm));

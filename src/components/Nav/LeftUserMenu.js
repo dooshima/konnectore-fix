@@ -49,7 +49,6 @@ class ListItemLink extends React.Component {
     isActive = to => (match,location) => {
         
         if(to) {
-            console.log(match, location.pathname, to);
             if(location.pathname.includes(to)) {
                 if(!this.state.isActive)
                     this.setState({isActive: true});
@@ -119,7 +118,6 @@ ListItemLinkShorthand.propTypes = {
 
 function LeftUserMenu(props) {
   const { classes } = props;
-console.log(props)
   // Use NoSsr to avoid SEO issues with the documentation website.
   return (
     <NoSsr>     

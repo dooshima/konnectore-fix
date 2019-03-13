@@ -161,7 +161,7 @@ class SearchComponent extends React.Component {
     const searchResults = this.props.searchResults? this.props.searchResults: [];
     return (
 <div style={{marginTop: 30, marginLeft: 20, marginRight: 20}}>
-          <Grid container xs={12}>
+          <Grid container spacing={8}>
             <Grid item xs={8}>
               <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
                 <Typography>

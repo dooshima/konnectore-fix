@@ -11,6 +11,10 @@ import zIndex from '@material-ui/core/styles/zIndex';
 import Main from './components/UIC/Main';
 import { Link } from 'react-router-dom';
 import { posts } from './components/assets/posts';
+import { connect } from 'react-redux';
+import { showSearchForm } from './../src/reducers/search/actions';
+import Auth from './services/Auth/Auth';
+import userActions from './../src/reducers/user/actions';
 
 const styles = theme => ({
   wrapper: {
@@ -81,8 +85,7 @@ class App extends Component {
   }
 
   handleLogin(data) {
-    console.log(data);
-    this.setState({loggedIn: true});
+    this.props.handleLogin(data.email, data.password);
   }
 
   handleLogout() {
@@ -94,7 +97,29 @@ App.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(withRouter(App));
+const mapStateToProps = (state, ownProps) => {
+  console.log(state);
+  return {
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    showSearchForm: show => {
+      dispatch(showSearchForm(show));
+    },
+    showAuthLoading: isLoading => {
+      dispatch(userActions.showAuthLoading(isLoading));
+    },
+    handleLogin: (email, password) => {
+      dispatch(userActions.handleLogin(email, password));
+    }
+  }
+}
+
+const StyledApp = withStyles(styles)(withRouter(App));
+
+export default connect(mapStateToProps, mapDispatchToProps)(StyledApp);
 
 export function About(props) {
   return  <>

@@ -118,10 +118,10 @@ class ImageCard extends React.Component {
             <img src="/images/video-icon.svg" />
         </IconButton>
         
-        <Typography className={classes.p}>
+        <p className={classes.p}>
             Decided to just do a little snipet of me performing an acoustic session after the shoot of my next release this
-            <Typography component={Link} className={classes.more}> Read more</Typography>  
-        </Typography>
+            <span className={classes.more}> Read more</span>  
+        </p>
         <div className={classes.footer}>
             <Icon>
                 <TimelapseIcon />

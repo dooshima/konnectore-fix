@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom'
+import { NavLink as RouterLink } from 'react-router-dom'
 import Link from '@material-ui/core/Link';
 import { withStyles, createMuiTheme } from '@material-ui/core/styles';
 
@@ -24,7 +24,7 @@ const styles = theme => ({
 });
 
 const KLink = ({ filter, children, classes }) => (
-    <RouterLink component={Link} to={filter} activeStyle={classes.active} className={classes.link}>
+    <RouterLink component="p" to={filter} activeStyle={{color: '#fefefe', backgroundColor: '#00927d'}} className={classes.link}>
         {children}
     </RouterLink>
 );

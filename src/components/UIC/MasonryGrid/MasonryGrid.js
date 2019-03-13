@@ -13,7 +13,7 @@ function MasonryGrid(props) {
                     columnWrapper[`col${c}`] = [];
                 }             
                 columnWrapper[`col${c}`].push(
-                    getItem(children[i], gap)
+                    getItem(i, children[i], gap)
                 )
                 c = 0;
                 break;
@@ -22,7 +22,7 @@ function MasonryGrid(props) {
                     columnWrapper[`col${c}`] = [];
                 }
                 columnWrapper[`col${c}`].push(
-                    getItem(children[i], gap)
+                    getItem(i, children[i], gap)
                 )
                 c++;
                 break;
@@ -33,6 +33,7 @@ function MasonryGrid(props) {
     for(let i = 0; i < columns; i++) {
         grid.push(
             <div
+                key={i}
                 style={{ marginLeft: `${i > 0? gap: 0}px`, flex: 1 }}
                 >
                     {columnWrapper[`col${i}`]}
@@ -40,8 +41,6 @@ function MasonryGrid(props) {
         )
     }
 
-
-    console.log(grid);
     return (
         <div style={{ display: 'flex' }}>
             {grid}
@@ -49,11 +48,11 @@ function MasonryGrid(props) {
     )
 }
 
-function getItem(item, gap) {
+function getItem(i, item, gap) {
     return (
         <div
-            style={{ marginBottom:  `${gap}px`}}
-        >
+            key={i}
+            style={{ marginBottom:  `${gap}px`}} >
          {item}   
         </div>
     )

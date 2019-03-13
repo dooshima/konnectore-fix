@@ -5,4 +5,11 @@ export default class KError {
         this.error = error;
         this.message = message;
     }
+
+    toObj() {
+        return {
+            error: this.error,
+            message: this.message,
+        }
+    }
 }

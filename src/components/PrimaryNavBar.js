@@ -231,7 +231,7 @@ class PrimaryNavBar extends React.Component {
       <div className={classes.root}>
         <div className={classes.holder}>
           <Toolbar style={{flexGrow: 1, backgroundColor: 'white'}}>
-            <Grid container spacing={12}>
+            <Grid container spacing={8}>
               <Grid item xs={3} style={{display: 'flex', alignItems: 'center'}}>
                 <div style={{display: 'flex', justifyContent: 'start', alignItems: 'center'}}>
                   <Avatar className={classes.avatar} alt="Konnectore Logo" src="images/konnectore-logo.png" />
@@ -241,7 +241,7 @@ class PrimaryNavBar extends React.Component {
                 <SearchForm loggedIn={this.props.loggedIn} handleSubmit={this.handleSubmit} />
               </Grid>
               <Grid item xs={3} style={{display: 'flex', flexDirection: 'row-reverse', justifyContent: 'end', alignItems: 'center'}}>
-                <TopProfileMenu loggedIn={this.props.loggedIn} handleLogout={this.props.handleLogout} handleLogin={this.props.handleLogin} />
+                <TopProfileMenu handleLogout={this.props.handleLogout} handleLogin={this.props.handleLogin} />
               </Grid>
             </Grid>
          

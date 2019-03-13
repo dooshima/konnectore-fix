@@ -106,7 +106,7 @@ class LoginCard extends React.Component {
   const { classes } = this.props;
   const bull = <span className={classes.bullet}>•</span>;
     return (
-      <Paper className={classes.card} elevation="0">
+      <Paper className={classes.card} elevation={0}>
         <CardContent>
           <SignupForm handleLogin={this.handleLogin} />
         </CardContent>

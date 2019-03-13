@@ -79,8 +79,9 @@ class KTabs extends React.Component {
           indicatorColor="primary"
           textColor="primary"
         >
-        {tabs.map( tab =>
+        {tabs.map( (tab, i) =>
           <LinkTab
+            key={i}
             disableRipple
             classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
             label={tab.label}

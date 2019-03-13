@@ -175,7 +175,7 @@ function SearchResultBody (props) {
     const { classes } = props;
     return (
 <div style={{marginTop: 30, marginLeft: 20, marginRight: 20}}>
-          <Grid container xs={12}>
+          <Grid container spacing={8}>
             <Grid item xs={8}>
               <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
                 <Typography>
@@ -192,8 +192,8 @@ function SearchResultBody (props) {
                     {url: '/images/c3.png', title: 'The Sctage Contest'}
                   ].map( (item, i) => {
                     return (
-                      <div style={{ marginLeft: `${i > 0? 20: 0}px`, flex: 1 }}>
-                      <ContestListItem url={item.url} title={item.title}  />
+                      <div key={i} style={{ marginLeft: `${i > 0? 20: 0}px`, flex: 1 }}>
+                      <ContestListItem url={item.url} title={item.title} coverImage=""  />
                       </div>
                     )
                   })
@@ -203,10 +203,10 @@ function SearchResultBody (props) {
                   <SectionListHeader />
                   <MasonryGrid>
                   {
-                    [...Array(6)].map( (i, key) => {
+                    [...Array(6)].map( (key, i) => {
                       let counter = Math.ceil(Math.random() * 100);
                       let chooser = counter % 2 === 0? true: false;
-                      return chooser? <ImageCard index={key} />: <TextCard index={key} />
+                      return chooser? <ImageCard key={i} index={key} />: <TextCard key={i} index={key} />
                     })
                   }
                   </MasonryGrid>

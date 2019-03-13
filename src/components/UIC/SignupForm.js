@@ -13,8 +13,11 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import KButton from './KButton';
 import { Link } from 'react-router-dom';
 import Auth from '../../services/Auth/Auth';
+import { connect } from 'react-redux';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import userActions from '../../reducers/user/actions';
 
-const theme = createMuiTheme()
+const theme = createMuiTheme();
 
 const styles = {
   input: {
@@ -78,6 +81,16 @@ const styles = {
   },
   error: {
     marginBottom: theme.spacing.unit * 1.2,
+  },
+  linearColorPrimary: {
+    backgroundColor: '#b2dfdb',
+  },
+  linearBarColorPrimary: {
+    backgroundColor: '#00695c',
+  },
+  loaderHolder: {
+    flex: 1,
+    marginBottom: theme.spacing.unit * 2,
   }
 };
 
@@ -107,13 +120,13 @@ class SignupForm extends React.Component {
   }
   submit() {
     const data = this.state.data;
-    const validate = Auth.login(data.email, data.password);
-    if(validate !== true) {
+    //const validate = Auth.login(data.email, data.password);
+    /*if(validate !== true) {
       this.setState({error: validate.message});
       console.log(validate);
       return;
-    }
-    this.props.handleLogin(data);
+    } */
+    this.props.handleLogin(data.email, data.password);
   }
 
   render() {
@@ -122,7 +135,7 @@ class SignupForm extends React.Component {
   return (
       <form>
         <div className={classes.header}>
-          <Typography component="h6" variant="" className={classes.headerAccess}>
+          <Typography component="h6" className={classes.headerAccess}>
             Sign In to Access Your Account
           </Typography>
           <Typography component="p" gutterBottom className={classes.headerIntro}>
@@ -130,9 +143,18 @@ class SignupForm extends React.Component {
           </Typography>
         </div>
 
-        {this.state.error !== '' && <div>
+        {
+          this.props.isLoading && <div className={classes.loaderHolder}><LinearProgress
+          classes={{
+            colorPrimary: classes.linearColorPrimary,
+            barColorPrimary: classes.linearBarColorPrimary,
+          }}
+        /></div>
+        }
+
+        {this.props.errorMsg !== '' && <div>
           <Typography component="p" color="error" className={classes.error}>
-            {this.state.error}
+            {this.props.errorMsg}
           </Typography>
         </div>}
         
@@ -193,4 +215,19 @@ SignupForm.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SignupForm);
+const mapStateToProps = (state, ownProps) => {
+  return {
+    isLoading: state.user.isLoading,
+    errorMsg: state.user.errorMsg,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return  {
+    handleLogin: (email, password) => {
+      dispatch(userActions.handleLogin(email, password));
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SignupForm));

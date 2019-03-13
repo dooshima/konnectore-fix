@@ -1,13 +1,21 @@
-import { createStore } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { loadState, saveState } from './localStorage';
 import throttle from 'lodash/throttle';
-import konnectoreStore from './reducers/user/reducer';
-console.log(konnectoreStore)
+import searchReducers from './reducers/search/reducers';
+import userReducers from './reducers/user/reducers';
+import thunkMiddleware from 'redux-thunk';
+
+const appReducers = combineReducers({
+    search: searchReducers,
+    user: userReducers,
+});
+
 const configureStore = () => {
     const persistedState = loadState();
     const store = createStore(
-        konnectoreStore,
-        persistedState
+        appReducers,
+        persistedState,
+        applyMiddleware(thunkMiddleware)
     );
 
     store.subscribe(throttle(() => {

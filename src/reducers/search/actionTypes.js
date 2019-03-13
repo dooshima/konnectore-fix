@@ -1,0 +1,6 @@
+export const SHOW_SEARCH_FORM = "SHOW_SEARCH_FORM";
+export const ADD_QUERY_TEXT = "ADD_QUERY_TEXT";
+export const HANDLE_SEARCH = "HANDLE_SEARCH";
+export const SEARCH_STARTED = "SEARCH_STARTED";
+export const SEARCH_SUCCESS = "SEARCH_SUCCESS";
+export const SEARCH_ERROR = "SEARCH_ERROR";

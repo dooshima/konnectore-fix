@@ -1,34 +1,12 @@
 import React from 'react';
 import PropTypes, { nominalTypeHack } from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles, createMuiTheme } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import Avatar from '@material-ui/core/Avatar';
-import { Grid, Paper, List, ListItem, ListItemIcon, ListItemText, Link, ListSubheader } from '@material-ui/core';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import HomeIcon from '@material-ui/icons/Home';
-import InboxIcon from '@material-ui/icons/Inbox';
-import TrendingUpIcon from '@material-ui/icons/TrendingUp';
-import GroupIcon from '@material-ui/icons/Group';
-import StarsIcon from '@material-ui/icons/Stars';
 import classNames from 'classnames';
 import LoginCard from './account/LoginCard';
 import KFooter from './UIC/KFooter';
 import LeftUserMenu from './Nav/LeftUserMenu';
-//import SignupForm from './account/SignupForm';
+import { connect } from 'react-redux';
 
 const activeLink = classNames({'link': true, 'active': true});
 const dudUrl = 'javascript:;';
@@ -147,7 +125,7 @@ function LeftSidebar(props) {
   const { classes } = props;
   return (
     <div className={classes.root}>
-      <LoginMenu loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)} />
+      <LoginMenu loggedIn={props.loggedIn} />
       <KFooter />
     </div>
   )
@@ -156,9 +134,9 @@ function LeftSidebar(props) {
 
 function LoginMenu(props) {
   if(props.loggedIn) {
-    return <LeftUserMenu handleLogout={props.handleLogout} />
+    return <LeftUserMenu />
   } else {
-    return <LoginCard handleLogin={ data => props.handleLogin(data)} />
+    return <LoginCard />
   }
 }
 
@@ -166,4 +144,9 @@ LeftSidebar.propTypes = {
     classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(LeftSidebar);
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.user.data.hasOwnProperty('id'),
+  }
+}
+export default connect(mapStateToProps)(withStyles(styles)(LeftSidebar));
