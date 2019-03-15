@@ -66,12 +66,10 @@
             people: [],
             types: [],
         }
-
-        // getDerivedStateFromProps()
     }
 
-    componentDidMount() {
-        const { filter, searchResult } = this.props;
+    static getDerivedStateFromProps(props) {
+        const { filter, searchResult } = props;
         let list = [];
         let types = [];
         let contests = [];
@@ -110,14 +108,13 @@
             }
         }
 
-        this.setState({
+        return {
             list: list,
             contests: contests,
             people: people,
             types: types,
-        });
-
-        console.log(types);
+            filter: filter,
+        };
     }
 
     render() {
