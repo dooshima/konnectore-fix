@@ -178,12 +178,7 @@ function SearchResultBody (props) {
           <Grid container spacing={8}>
             <Grid item xs={8}>
               <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
-                <Typography>
-                  <span>Showing results for</span>
-                  <span style={{color: '#00927d'}}> #100yearchallenge</span>
-                </Typography>
                 
-                <KTabs tabs={tabs} size="small" />
                 <div style={{display: 'flex'}}>
                 {
                   [
