@@ -54,9 +54,10 @@ class TopProfileMenu extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, user } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
+
 
     return (
       <div className={classes.root}>            
@@ -65,7 +66,7 @@ class TopProfileMenu extends React.Component {
                 <div className={classes.sectionDesktop} style={{display: 'flex', alignItems: 'center'}}>
               
                 <Typography variant="subtitle2" gutterBottom>
-                  Jide Adeleke
+                  {`${user.profileData.firstName} ${user.profileData.lastName}`}
                 </Typography>
                   <IconButton
                   aria-owns={open ? 'menu-appbar' : undefined}
@@ -114,6 +115,7 @@ TopProfileMenu.propTypes = {
 const mapStateToProps = state => {
   return {
     loggedIn: state.user.data.hasOwnProperty('id'),
+    user: state.user.data,
   }
 }
 export default connect(mapStateToProps)(withStyles(styles)(TopProfileMenu));

@@ -5,14 +5,12 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles, createMuiTheme } from '@material-ui/core/styles';
 import { Grid, Paper } from '@material-ui/core';
 import classNames from 'classnames';
-import SectionListHeader from './../SectionListHeader';
 import JoinChallengeCard from './../JoinChallengeCard';
 import CompetitionSummaryCard from '../Contests/CompetitionSummaryCard';
 import KTabs from './../UIC/KTabs';
 import FeedCard from './../FeedCard';
-import ImageCard from './../UIC/Posts/ImageCard/ImageCard';
-import MasonryGrid from './../UIC/MasonryGrid/MasonryGrid';
-import TextCard from './../UIC/Posts/TextCard/TextCard';
+import { connect } from 'react-redux';
+import SearchList from './SearchList';
 
 const activeLink = classNames({'link': true, 'active': true});
 const dudUrl = 'javascript:;';
@@ -126,39 +124,45 @@ const styles = theme => ({
 const tabs = [
   {
     label: "All",
-    route: "/search/all"
+    route: "all"
   },
   {
     label: "Posts",
-    route: "/search/posts"
+    route: "text"
   },
   {
     label: "Images",
-    route: "/search/images"
+    route: "image"
   },
   {
     label: "Videos",
-    route: "/search/videos"
+    route: "video"
   },
 ]
 
 class SearchComponent extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      filter: 'all',
+    }
   }
 
   componentDidMount() {
-    console.log(this.props);
+    //console.log(this.props);
   }
 
-  getDerivedStateFromProps(p) {
-    console.log(p);
+  static getDerivedStateFromProps(p) {
+    //console.log(p);
+  }
+
+  setFilter = filter => {
+    this.setState({filter: filter});
   }
 
   render() {
-    console.log('SC: ', this.props.match.params['q']);
-    const { classes, q } = this.props;
-    const searchResults = this.props.searchResults? this.props.searchResults: [];
+    const { classes, q, searchResult, filter, match } = this.props;
     return (
 <div style={{marginTop: 30, marginLeft: 20, marginRight: 20}}>
           <Grid container spacing={8}>
@@ -169,21 +173,10 @@ class SearchComponent extends React.Component {
                   <span style={{color: '#00927d'}}> { q }</span>
                 </Typography>
                 
-                <KTabs tabs={tabs} size="small" />
-
-                <Paper style={{marginTop: 30}}>
-                  <SectionListHeader />
-                  {searchResults.length > 0 && <MasonryGrid>
-                  {
-                    searchResults.map( (post, key) => {
-                      let counter = Math.ceil(Math.random() * 100);
-                      let chooser = counter % 2 === 0? true: false;
-                      return post.type === 'text'? <TextCard post={post} index={key} />: <ImageCard post={post} index={key} />
-                    })
-                  }
-                  </MasonryGrid>}
-                  {searchResults.length < 1 && <div>No results found.</div>}
-                </Paper>
+                <KTabs tabs={tabs} baseUrl={match.url} setFilter={this.setFilter} size="small" />
+                {searchResult.hasOwnProperty('posts') && 
+                  <SearchList filter={this.state.filter} searchResult={searchResult} />}
+                {searchResult.length < 1 && <div>No results found.</div>}
               </Paper>
             </Grid>
             <Grid item xs={4}>
@@ -204,4 +197,11 @@ SearchComponent.propTypes = {
     classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(SearchComponent);
+const mapStateToProps = state => {
+  return {
+    filter: state.search.filter,
+    searchResult: state.search.searchResult,
+  }
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(SearchComponent));

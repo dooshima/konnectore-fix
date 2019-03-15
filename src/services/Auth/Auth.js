@@ -13,15 +13,16 @@ function login(email, password) {
     if(validate.error === true) {
         return new Promise( resolve => resolve(validate) );
     }
-    /*return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         setTimeout(
             () => resolve(Server.loginDemo)
             , 1200
         );
-    }); */
+    });
+    /*
     return Server.post(Constants.LOGIN_URL, {email: email, pass: password}).then( data => {
         console.log(data);
-    });
+    }); */
 }
 
 function signup(email, password, firstName) {
@@ -34,7 +35,8 @@ function validateLogin(email, password) {
         error = new KError(true, "Email and password are required");
         return error.toObj();
     }
-    /*if(!isEmail(email)) {
+    /*
+    if(!isEmail(email)) {
         error = new KError(true, "Invalid Email");
         return error.toObj();
     } */

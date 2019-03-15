@@ -64,12 +64,31 @@ class KTabs extends React.Component {
 
   handleChange = (event, value) => {
     this.setState({ value });
+    let filter = '';
+    switch(value) {
+      case 0:
+        filter = 'all';
+        break;
+      case 1:
+        filter = 'text';
+        break;
+      case 2:
+        filter = 'image';
+        break;
+      case 3:
+        filter = 'video';
+        break;
+      default:
+        filter = 'all';
+        break;
+    }
+    this.props.setFilter(filter);
   };
 
   render() {
-    const { classes, tabs } = this.props;
+    const { classes, tabs, baseUrl } = this.props;
     const { value } = this.state;
-
+    
     return (
       <div className={classes.root}>
         <Tabs
@@ -85,7 +104,8 @@ class KTabs extends React.Component {
             disableRipple
             classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
             label={tab.label}
-            to={tab.route}
+            to={`${baseUrl}/${tab.route}`}
+            
           />
         )}
         </Tabs>

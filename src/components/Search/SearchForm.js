@@ -6,6 +6,7 @@ import { InputBase } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { connect } from 'react-redux';
 import searchActions from './../../reducers/search/actions';
+import { withRouter } from 'react-router-dom';
 
 const styles = theme => ({
     searchForm: {
@@ -92,8 +93,8 @@ class SearchForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         //window.location = '/search?q=' + this.state.q;
-        //this.props.history.push('/search');
-        this.props.handleSubmit(this.state.q);
+        this.props.history.push('/search');
+        this.props.handleSearch(this.state.q, '');
         return false;
     }
 }
@@ -112,8 +113,11 @@ const mapDispathToProps = dispatch => {
     return {
         addQueryText: text => {
             dispatch(searchActions.addQueryText(text));
+        },
+        handleSearch: (queryText, queryFilter) => {
+            dispatch(searchActions.handleSearch(queryText, queryFilter));
         }
     }
 }
 
-export default connect(mapStateToProps, mapDispathToProps)(withStyles(styles)(SearchForm));
+export default connect(mapStateToProps, mapDispathToProps)(withRouter(withStyles(styles)(SearchForm)));

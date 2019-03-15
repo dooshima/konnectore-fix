@@ -3,17 +3,19 @@ import { loadState, saveState } from './localStorage';
 import throttle from 'lodash/throttle';
 import searchReducers from './reducers/search/reducers';
 import userReducers from './reducers/user/reducers';
+import appReducers from './reducers/app/reducers';
 import thunkMiddleware from 'redux-thunk';
 
-const appReducers = combineReducers({
+const reducers = combineReducers({
     search: searchReducers,
     user: userReducers,
+    app: appReducers,
 });
 
 const configureStore = () => {
     const persistedState = loadState();
     const store = createStore(
-        appReducers,
+        reducers,
         persistedState,
         applyMiddleware(thunkMiddleware)
     );

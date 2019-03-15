@@ -43,10 +43,10 @@ class SectionListHeader extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, title } = this.props;
 
     return (
-      <List subheader={<ListSubheader>Videos</ListSubheader>} className={classes.root}>
+      <List subheader={<ListSubheader>{title}</ListSubheader>} className={classes.root}>
         <Divider />
       </List>
     );
@@ -55,6 +55,7 @@ class SectionListHeader extends React.Component {
 
 SectionListHeader.propTypes = {
   classes: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(SectionListHeader);
