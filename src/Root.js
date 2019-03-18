@@ -9,7 +9,8 @@ const theme = createMuiTheme({
   palette: {
       primary: {
           main: '#00a294',
-      }
+      },
+      white: '#ffffff',
   },
   spacing: {
     unit: 10,
@@ -18,6 +19,8 @@ const theme = createMuiTheme({
     fontSize: 12,
   }
 });
+
+console.log(theme);
 
 const Root = ({ store }) => (
   <Provider store={store}>

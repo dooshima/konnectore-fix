@@ -12,6 +12,10 @@ import GroupIcon from '@material-ui/icons/Group';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { NavLink, Link, Router } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
+import NewPostButtons from './NewPostButtons';
+import Icon from '@material-ui/core/Icon';
+import AddCircleOutlinedIcon from '@material-ui/icons/AddCircleOutlined';
+import IconButton from '@material-ui/core/IconButton';
 
 const styles = theme => ({
   root: {
@@ -22,7 +26,15 @@ const styles = theme => ({
   lists: {
     backgroundColor: theme.palette.background.paper,
   },
-  active: {backgroundColor: '#00927d', color: 'white !important', borderRadius: 5}
+  active: {backgroundColor: '#00927d', color: 'white !important', borderRadius: 5},
+  icon: {
+    fontSize: theme.spacing.unit * 5.0
+  },
+  addPost: {
+    display: 'flex',
+    flex: 1,
+    alignItems: 'center',
+  },
 });
 
 const link = {
@@ -116,13 +128,27 @@ ListItemLinkShorthand.propTypes = {
   to: PropTypes.string.isRequired,
 };
 
-function LeftUserMenu(props) {
-  const { classes } = props;
+class LeftUserMenu extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      open: false,
+    }
+  }
+
+  toggle = () => {
+    this.setState({ open: !this.state.open });
+  }
+
+  render() {
+  const { classes } = this.props;
   // Use NoSsr to avoid SEO issues with the documentation website.
   return (
     <NoSsr>     
         <div className={classes.root}>
           <div className={classes.lists}>
+            <NewPostButtons toggle={this.toggle} open={this.state.open} />
             <List component="nav">
                 <ListItemLink to="/me" primary="Home" path="me" icon={<HomeIcon />} active={classes.active} true />
                 <ListItemLink to="/friends" path="friends" primary="Friends" icon={<GroupIcon />} active={classes.active} />
@@ -133,6 +159,7 @@ function LeftUserMenu(props) {
         </div>    
     </NoSsr>
   );
+  }
 }
 
 LeftUserMenu.propTypes = {

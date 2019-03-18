@@ -15,13 +15,14 @@ const styles = theme => ({
 });
 
 function KButton(props) {
-  const { classes } = props;
+  const { classes, color } = props;
+  
   return (
         <Fab
           elevation={0}
           variant="extended"
           size={props.size}
-          color="primary"
+          color={color? color: "primary"}
           aria-label={props.label}
           className={classes.kbutton}
           onClick={props.onClick}

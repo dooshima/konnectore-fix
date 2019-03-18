@@ -12,6 +12,7 @@ import GroupIcon from '@material-ui/icons/Group';
 import AddCircleOutlinedIcon from '@material-ui/icons/AddCircleOutlined';
 import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
+import NewPostButtons from './Nav/NewPostButtons';
 
 const activeLink = classNames({'link': true, 'active': true});
 const dudUrl = 'javascript:;';
@@ -143,6 +144,7 @@ function LeftMenubar(props) {
             Add a post</Typography>     
 
       </div>
+      <NewPostButtons />
               <List component="nav" style={{paddingTop: 0}}>
                 <ListItem button>
                   <ListItemIcon>
