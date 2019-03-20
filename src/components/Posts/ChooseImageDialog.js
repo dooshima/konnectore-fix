@@ -9,6 +9,9 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import { withStyles } from '@material-ui/core';
+import FileDropzone from './FileDropzone';
+import KProgressBar from './../UIC/KProgressBar';
+import NewTextField from './NewTextField';
 
 const styles = theme => ({
   contentHolder: {
@@ -30,15 +33,25 @@ const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: 150,
+    position: 'relative',
+  },
+  paper: {
+    width: '60%',
+    maxHeight: 'max-content',
   },
   root: {
-    minWidth: '60%',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
   }
 });
 class ResponsiveDialog extends React.Component {
   state = {
     open: false,
+    postText: ''
   };
+
+  setPostText = text => {
+      this.setState({postText: text});
+  }
 
   handleClickOpen = () => {
     this.setState({ open: true });
@@ -46,35 +59,43 @@ class ResponsiveDialog extends React.Component {
 
   handleClose = () => {
     this.props.toggledialog();
+    this.props.setFormdata(null, true);
   };
 
   render() {
-    const { fullScreen, classes } = this.props;
-
+    const { fullScreen, classes, disabled, showpostform } = this.props;
+    const d = this.props.imageurl? {}: {disabled: true};
+    const p = this.state.postText? {}: {disabled: true};
+    const label = this.props.showpostform? 'Share post': 'Continue';
     return (
         <Dialog
-          fullScreen=""
+          fullScreen={fullScreen}
           open={this.props.opendialog}
           onClose={this.handleClose}
           maxWidth="md"
-          paperWidthMd
           aria-labelledby="responsive-dialog-title"
-          className={classNames(classes.root)}
+          classes={{
+            paper: classes.paper,
+            root: classes.root,
+          }}
         >
           <DialogContent>
             <DialogContentText>
               <div className={classes.contentHolder}>
                 <section className={classes.bordered}>
                   <div className={classes.content}>
-                    <p>Drag image over or click to add</p>
+                  <FileDropzone imageurl={this.props.imageurl} setImageUrl={this.props.setImageUrl} setFormdata={this.props.setFormdata} />
                   </div>
                 </section>
               </div>
+              <KProgressBar progress={this.props.uploadprogress} show={this.props.imageurl? true: false} />
+              <NewTextField showpostform={this.props.showpostform} setPostText={this.setPostText} />
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <KButton onClick={this.handleClose} color="error" label="Cancel" size="small" />
-            <KButton onClick={this.handleClose} label="Continue" size="small" />
+            <KButton onClick={this.handleClose} upper={false}  color="error" label="Cancel" size="small" />
+            {!showpostform && <KButton onClick={this.props.uploadMedia} {...d} label="Continue" size="small" />}
+            {showpostform && <KButton onClick={this.props.sharePost} {...p} label="Share post" size="small" />}
           </DialogActions>
         </Dialog>
     );

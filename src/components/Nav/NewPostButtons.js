@@ -89,16 +89,23 @@ class NewPostButtons extends React.Component {
       <IconButton color="secondary" className={classes.button} aria-label="Add an alarm">
         <VideocamIcon className={classes.icon} />
       </IconButton>
-      <IconButton color="primary" className={classes.button} aria-label="Add to shopping cart">
-        <TextFieldsIcon className={classes.icon} />
+      <IconButton color="primary" className={classes.button}>
+        <Icon className={classNames(classes.icon, 'fas fa-align-left')} />
       </IconButton>
       <label htmlFor="icon-button-file">
         <IconButton color="primary" className={classes.button} component="span">
           <KeyboardVoiceIcon className={classes.icon} />
         </IconButton>
       </label>
+
       </div>}
-      <ChooseImageDialog fullScreen={true} toggledialog={this.toggleDialog} opendialog={this.state.openDialog} />
+      <ChooseImageDialog 
+        imageurl={this.props.imageurl} setImageUrl={this.props.setImageUrl} 
+        setFormdata={this.props.setFormdata} uploadprogress={this.props.uploadprogress} 
+        uploadMedia={this.props.uploadMedia} fullScreen={true} 
+        toggledialog={this.toggleDialog} 
+        showpostform={this.props.showpostform}
+        opendialog={this.state.openDialog} />
     </>
   );
   }

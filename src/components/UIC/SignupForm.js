@@ -198,7 +198,7 @@ class SignupForm extends React.Component {
         </div>
 
         <div>
-          <KButton onClick={this.submit.bind(this)} label="Login" size="small" />
+          <KButton onClick={this.submit.bind(this)} upper={true} label="Login" size="small" />
         </div>
 
         <div>

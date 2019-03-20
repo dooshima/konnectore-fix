@@ -125,7 +125,11 @@ function LeftSidebar(props) {
   const { classes } = props;
   return (
     <div className={classes.root}>
-      <LoginMenu loggedIn={props.loggedIn} />
+      <LoginMenu 
+      imageurl={props.imageurl} setImageUrl={props.setImageUrl} 
+      setFormdata={props.setFormdata} uploadprogress={props.uploadprogress} 
+      uploadMedia={props.uploadMedia} showpostform={props.showpostform}
+      loggedIn={props.loggedIn} />
       <KFooter />
     </div>
   )
@@ -133,8 +137,13 @@ function LeftSidebar(props) {
 }
 
 function LoginMenu(props) {
+  console.log('LoginMenu: ', props)
   if(props.loggedIn) {
-    return <LeftUserMenu />
+    return <LeftUserMenu 
+      imageurl={props.imageurl} setImageUrl={props.setImageUrl} 
+      setFormdata={props.setFormdata} uploadprogress={props.uploadprogress} 
+      uploadMedia={props.uploadMedia} showpostform={props.showpostform}
+    />
   } else {
     return <LoginCard />
   }

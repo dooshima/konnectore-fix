@@ -143,12 +143,17 @@ class LeftUserMenu extends React.Component {
 
   render() {
   const { classes } = this.props;
+  console.log('LeftUserMenu: ', this.props)
   // Use NoSsr to avoid SEO issues with the documentation website.
   return (
     <NoSsr>     
         <div className={classes.root}>
           <div className={classes.lists}>
-            <NewPostButtons toggle={this.toggle} open={this.state.open} />
+            <NewPostButtons
+              imageurl={this.props.imageurl} setImageUrl={this.props.setImageUrl} 
+              setFormdata={this.props.setFormdata} uploadprogress={this.props.uploadprogress} 
+              uploadMedia={this.props.uploadMedia} showpostform={this.props.showpostform}
+              toggle={this.toggle} open={this.state.open} />
             <List component="nav">
                 <ListItemLink to="/me" primary="Home" path="me" icon={<HomeIcon />} active={classes.active} true />
                 <ListItemLink to="/friends" path="friends" primary="Friends" icon={<GroupIcon />} active={classes.active} />

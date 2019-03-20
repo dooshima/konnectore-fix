@@ -17,7 +17,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Avatar from '@material-ui/core/Avatar';
-import { Grid, Paper, List, ListItem, ListItemIcon, ListItemText, Link, ListSubheader } from '@material-ui/core';
+import { Grid, Paper, LinearProgress } from '@material-ui/core';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import HomeIcon from '@material-ui/icons/Home';
 import InboxIcon from '@material-ui/icons/Inbox';
@@ -38,6 +38,9 @@ import ImageCard from './UIC/Posts/ImageCard/ImageCard';
 import MasonryGrid from './UIC/MasonryGrid/MasonryGrid';
 import TextCard from './UIC/Posts/TextCard/TextCard';
 import ContestListItem from './ContestListItem';
+import DragnDrop from './Posts/DragnDrop';
+import FileDropzone from './Posts/FileDropzone';
+import KProgressBar from './UIC/KProgressBar';
 
 const activeLink = classNames({'link': true, 'active': true});
 const dudUrl = 'javascript:;';
@@ -195,7 +198,7 @@ function SearchResultBody (props) {
                 }
                 </div>
                 <Paper style={{marginTop: 30}}>
-                  <SectionListHeader />
+                  <SectionListHeader title="" />
                   <MasonryGrid>
                   {
                     [...Array(6)].map( (key, i) => {

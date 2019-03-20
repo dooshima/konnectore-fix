@@ -53,13 +53,17 @@ function Main(props) {
     </div>
     <div className={classes.content}>
       <div className={classes.sidebar}>
-        <LeftSidebar loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)} />
+        <LeftSidebar
+          imageurl={props.imageurl} setImageUrl={props.setImageUrl} 
+          setFormdata={props.setFormdata} uploadprogress={props.uploadprogress} 
+          uploadMedia={props.uploadMedia} showpostform={props.showpostform}
+          loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)} />
       </div>
       <div className={classes.body}>
         <Switch>
           <Route path="/search" render={renderProps => <SearchComponent {...renderProps} searchResults={props.searchResults} q={props.q} loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)} />} />
           <Route path="/contest" render={renderProps => <ContestComponent />} />
-          <Route component={SearchResultBody} />
+          <Route render={prop => <SearchResultBody uploadprogress={props.uploadprogress} uploadMedia={props.uploadMedia} setFormdata={props.setFormdata} imageurl={props.imageurl} setImageUrl={props.setImageUrl} />} />
         </Switch>
         
       </div>

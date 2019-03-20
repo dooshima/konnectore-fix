@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import { showSearchForm } from './../src/reducers/search/actions';
 import Auth from './services/Auth/Auth';
 import userActions from './../src/reducers/user/actions';
+import axios from 'axios';
 
 const styles = theme => ({
   wrapper: {
@@ -60,6 +61,8 @@ class App extends Component {
     this.state = {
       loggedIn: false,
       q: '',
+      uploadprogress: 0,
+      showpostform: false,
     }
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -78,10 +81,20 @@ class App extends Component {
         <Switch>
           <Route exact path="/about" component={About} />
           <Route exact path="/policy" component={Policy} />
-          <Route render={props => <Main {...props} {...this.state} searchResults={this.state.posts} q={this.state.q} handleLogin={this.handleLogin} handleLogout={this.handleLogout} handleSearch={q => this.handleSearch(q)} />} />
+          <Route render={props => <Main 
+            uploadMedia={this.uploadMedia} 
+            uploadprogress={this.state.uploadprogress} 
+            imageurl={this.state.imageurl} 
+            setFormdata={this.setFormdata} 
+            showpostform={this.state.showpostform}
+            setImageUrl={this.setImageUrl} {...props} {...this.state} searchResults={this.state.posts} q={this.state.q} handleLogin={this.handleLogin} handleLogout={this.handleLogout} handleSearch={q => this.handleSearch(q)} />} />
         </Switch>
       </>
     );
+  }
+
+  setImageUrl = (img) => {
+    this.setState({imageurl: img});
   }
 
   handleLogin(data) {
@@ -91,7 +104,88 @@ class App extends Component {
   handleLogout() {
     this.setState({loggedIn: false});
   }
+
+  setFormdata = (form, cancel=false) => {
+    this.setState({data: form, uploadprogress: 0});
+    if(cancel) {
+      this.setImageUrl(null);
+    }
+  }
+
+  uploadMedia = () => { console.log('Upload media');
+    const data = this.state.data;
+    console.log(data);
+    if(!data) {
+      return;
+    }
+    axios.post("https://helloworld.com.ng/uploadfile.php", data, {
+      onUploadProgress: (progressEvent) => {
+        if (progressEvent.lengthComputable) {
+           //console.log(progressEvent.loaded + ' ' + progressEvent.total);
+           this.progress(progressEvent);
+           //this.updateProgressBarValue(progressEvent);
+        }
+      }
+    })
+      .then( resp => {
+        this.setState({showpostform: true});
+      })
+      .catch( error => console.log(error));
+  }
+
+  progress = (event) => {
+    const { total, loaded } = event;
+    let val = Math.ceil(loaded / total * 100);
+    this.setState({ uploadprogress: val });
+
+  };
+/*
+  toggleBarVisibility() {
+    var e = document.getElementById("bar_blank");
+    e.style.display = (e.style.display == "block") ? "none" : "block";
 }
+
+createRequestObject() {
+    var http;
+    if (navigator.appName == "Microsoft Internet Explorer") {
+        http = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    else {
+        http = new XMLHttpRequest();
+    }
+    return http;
+}
+
+sendRequest() {
+    var http = createRequestObject();
+    http.open("GET", "progress.php");
+    http.onreadystatechange = function () { handleResponse(http); };
+    http.send(null);
+}
+
+handleResponse(http) {
+    var response;
+    if (http.readyState == 4) {
+        response = http.responseText;
+        document.getElementById("bar_color").style.width = response + "%";
+        document.getElementById("status").innerHTML = response + "%";
+
+        if (response < 100) {
+            setTimeout("sendRequest()", 1000);
+        }
+        else {
+            toggleBarVisibility();
+            document.getElementById("status").innerHTML = "Done.";
+        }
+    }
+}
+
+startUpload() {
+    toggleBarVisibility();
+    setTimeout("sendRequest()", 1000);
+} */
+}
+
 
 App.propTypes = {
   classes: PropTypes.object.isRequired,
