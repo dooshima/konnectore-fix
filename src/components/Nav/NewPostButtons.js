@@ -14,6 +14,7 @@ import ChooseImageDialog from '../Posts/ChooseImageDialog';
 import dialogActions from './../../reducers/dialog/actions';
 import postActions from './../../reducers/post/actions';
 import DialogManager from '../Dialogs/DialogManager';
+import DialogController from '../Dialogs/DialogController';
 
 const styles = theme => ({
   button: {
@@ -53,6 +54,7 @@ class NewPostButtons extends React.Component {
     this.state = {
       open: false,
       openDialog: false,
+      dialogType: '',
     }
   }
 
@@ -71,8 +73,12 @@ class NewPostButtons extends React.Component {
     this.setState({openDialog: !this.state.openDialog})
   }
 
-  openDialog = () => {
-    this.props.toggleDM(true)
+  openDialog = type => {
+    this.setState(prevState => {
+      this.props.toggleDM(true);
+      return {dialogType: type}
+    });
+    
   }
 
   closeDialog = () => {
@@ -102,13 +108,13 @@ class NewPostButtons extends React.Component {
       <IconButton className={classes.button} onClick={this.props.toggle} aria-label="Close">
         <CloseIcon className={classes.iconControl} />
       </IconButton>
-      <IconButton onClick={this.openDialog} className={classes.button} aria-label="Image">
+      <IconButton onClick={() => this.openDialog('Image')} className={classes.button} aria-label="Image">
         <Icon className={classNames(classes.icon, 'far fa-image')} />
       </IconButton>
-      <IconButton color="secondary" onClick={this.closeDialog} className={classes.button} aria-label="Add an alarm">
+      <IconButton color="secondary" onClick={() => this.openDialog('Video')} className={classes.button} aria-label="Add an alarm">
         <VideocamIcon className={classes.icon} />
       </IconButton>
-      <IconButton color="primary" className={classes.button}>
+      <IconButton color="primary" className={classes.button} onClick={() => this.openDialog('Text')}>
         <Icon className={classNames(classes.icon, 'fas fa-align-left')} />
       </IconButton>
       <label htmlFor="icon-button-file">
@@ -118,7 +124,15 @@ class NewPostButtons extends React.Component {
       </label>
 
       </div>}
-      <ChooseImageDialog showDM={showDM} toggleDM={toggleDM} 
+      
+      <DialogController {...this.props} uploadMedia={this.sharePost} dialog={this.state.dialogType} />
+    </>
+  );
+  }
+}
+
+/*
+<ChooseImageDialog showDM={showDM} toggleDM={toggleDM} 
         setDataImageURL={this.props.setDataImageURL} 
         setFormData={this.props.setFormData}
         dataImageURL={this.props.dataImageURL}
@@ -127,10 +141,7 @@ class NewPostButtons extends React.Component {
         uploadMedia={this.sharePost}
         isUploading={this.props.isUploading}
         progressNumber={this.props.progressNumber} />
-    </>
-  );
-  }
-}
+*/
 
 NewPostButtons.propTypes = {
   classes: PropTypes.object.isRequired,

@@ -12,10 +12,10 @@
  * 
  */
 import React from 'react';
-import { DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
+import { DialogContent, DialogContentText, DialogActions, DialogTitle, Typography } from '@material-ui/core';
 import FileDropzone from './../Posts/FileDropzone';
 import KProgressBar from './../UIC/KProgressBar';
-import NewTextField from './../Posts/NewTextField';
+import PostTextField from './../Posts/PostTextField';
 import KButton from './../UIC/KButton';
 import { withStyles } from '@material-ui/core';
 
@@ -27,9 +27,9 @@ const styles = theme => ({
       padding: theme.spacing.unit * 2,
     },
     bordered: {
-      backgroundColor: '#efefef',
-      border: '1px dashed #bcbcbc',
-      padding: theme.spacing.unit * 2,
+      backgroundColor: 'transparent',
+      border: 'none',
+      padding: 0,
       flex: 1,
     },
     content: {
@@ -42,7 +42,7 @@ const styles = theme => ({
       position: 'relative',
     },
     paper: {
-      width: '60%',
+      width: '50%',
       maxHeight: 'max-content',
     },
     root: {
@@ -50,33 +50,38 @@ const styles = theme => ({
     }
   }); 
 
-class ImagePostDialog extends React.Component {
+class TextPostDialog extends React.Component {
     constructor(props) {
         super(props);
     }
 
     render() {
-        const { classes, postText, dataImageURL } = this.props;
-        const p = postText && dataImageURL? {}: {disabled: true};
+        const { classes, postText } = this.props;
+        const p = postText? {}: {disabled: true};
 
         return (
             <React.Fragment>
+                <DialogTitle>
+                    <Typography component="h4" variant="p">
+                        What's on your mind?
+                    </Typography>
+                    <Typography component="p">
+                        {125} {'characters'} left
+                    </Typography>
+                </DialogTitle>
               <DialogContent>
                 <div>
                   <div className={classes.contentHolder}>
                     <section className={classes.bordered}>
                       <div className={classes.content}>
-                      <FileDropzone imageurl={this.props.imageurl} 
-                        setDataImageURL={this.props.setDataImageURL} 
-                        setFormData={this.props.setFormData}
-                        dataImageURL={this.props.dataImageURL} />
+                      <PostTextField onChange={this.props.setPostText} setPostText={this.props.setPostText} 
+                    postText={this.props.postText} />
                       </div>
                     </section>
                   </div>
                   <KProgressBar progressNumber={this.props.progressNumber} show={this.props.isUploading} />
                   <div>
-                    <NewTextField onChange={this.props.setPostText} setPostText={this.props.setPostText} 
-                    postText={this.props.postText} />
+                    
                   </div>
                 </div>
               </DialogContent>
@@ -89,4 +94,4 @@ class ImagePostDialog extends React.Component {
     }
 }
 
-export default withStyles(styles)(ImagePostDialog);
+export default withStyles(styles)(TextPostDialog);

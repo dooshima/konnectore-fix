@@ -2,6 +2,7 @@ import * as types from './actionTypes';
 import axios from 'axios';
 import Post from '../../services/Post/Post';
 import KError from './../../models/KError';
+import dialogActions from '../dialog/actions';
 
 const startUploadMedia = isUploading => ({
     type: types.POST_UPLOAD_MEDIA_STARTED,
@@ -52,10 +53,12 @@ const upload = (data, dispatch)  => {
     })
       .then( resp => {
         dispatch(setProgressNumber(0));
+        dispatch(dialogActions.showDM1(false));
         return {error: false, message: "Post was shared successfully!", data: resp};
       })
       .catch( error => {
             dispatch(setProgressNumber(0));
+            dispatch(dialogActions.showDM1(false));
           console.log(error)
           let err = new KError(true, "Error occured while posting");
           return err.toObj();
