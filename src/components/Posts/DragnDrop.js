@@ -7,7 +7,6 @@ class DragnDrop extends React.Component {
     }
 
     handleFileDrop = (files) => {
-        console.log(files);
         const reader = new FileReader()
 
         reader.onabort = () => console.log('file reading was aborted')
@@ -15,7 +14,6 @@ class DragnDrop extends React.Component {
         reader.onload = () => {
         // Do whatever you want with the file contents
         const binaryStr = reader.result
-        console.log(binaryStr)
         }
     }
 

@@ -4,12 +4,16 @@ import throttle from 'lodash/throttle';
 import searchReducers from './reducers/search/reducers';
 import userReducers from './reducers/user/reducers';
 import appReducers from './reducers/app/reducers';
+import dialogReducers from './reducers/dialog/reducers';
 import thunkMiddleware from 'redux-thunk';
+import postReducers from './reducers/post/reducers';
 
 const reducers = combineReducers({
     search: searchReducers,
     user: userReducers,
     app: appReducers,
+    dialog: dialogReducers,
+    post: postReducers
 });
 
 const configureStore = () => {
@@ -21,7 +25,8 @@ const configureStore = () => {
     );
 
     store.subscribe(throttle(() => {
-        saveState(store.getState);
+        console.log(store.getState())
+        saveState(store.getState());
     }, 1000));
 
     return store

@@ -20,7 +20,7 @@ const theme = createMuiTheme({
   }
 });
 
-console.log(theme);
+//console.log(theme);
 
 const Root = ({ store }) => (
   <Provider store={store}>

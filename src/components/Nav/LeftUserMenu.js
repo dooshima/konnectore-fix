@@ -137,13 +137,14 @@ class LeftUserMenu extends React.Component {
     }
   }
 
-  toggle = () => {
+  toggle = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     this.setState({ open: !this.state.open });
   }
 
   render() {
   const { classes } = this.props;
-  console.log('LeftUserMenu: ', this.props)
   // Use NoSsr to avoid SEO issues with the documentation website.
   return (
     <NoSsr>     

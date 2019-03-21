@@ -137,7 +137,6 @@ function LeftSidebar(props) {
 }
 
 function LoginMenu(props) {
-  console.log('LoginMenu: ', props)
   if(props.loggedIn) {
     return <LeftUserMenu 
       imageurl={props.imageurl} setImageUrl={props.setImageUrl} 

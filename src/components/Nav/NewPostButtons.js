@@ -7,10 +7,13 @@ import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import VideocamIcon from '@material-ui/icons/Videocam';
-import TextFieldsIcon from '@material-ui/icons/TextFields';
+import { connect } from 'react-redux';
 import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
 import Typography from '@material-ui/core/Typography';
 import ChooseImageDialog from '../Posts/ChooseImageDialog';
+import dialogActions from './../../reducers/dialog/actions';
+import postActions from './../../reducers/post/actions';
+import DialogManager from '../Dialogs/DialogManager';
 
 const styles = theme => ({
   button: {
@@ -58,14 +61,30 @@ class NewPostButtons extends React.Component {
       'https://use.fontawesome.com/releases/v5.1.0/css/all.css',
       document.querySelector('#insertion-point-jss'),
     );
+
+    this.props.setDataImageURL("");
+    this.props.setPostText("");
+    this.props.setFormData({});
   }
 
   toggleDialog = () => {
     this.setState({openDialog: !this.state.openDialog})
   }
 
+  openDialog = () => {
+    this.props.toggleDM(true)
+  }
+
+  closeDialog = () => {
+    this.props.toggleDM(false);
+  }
+
+  sharePost = () => {
+      this.props.uploadMedia(this.props.formData);
+  }
+
   render () {
-  const { classes } = this.props;
+  const { classes, toggleDM, showDM } = this.props;
   return (
     <>
     {this.props.open === false && <div className={classes.addButton}>
@@ -80,13 +99,13 @@ class NewPostButtons extends React.Component {
         Add a post</Typography>
     </div>}
     {this.props.open === true && <div className={classes.wrapper}>
-      <IconButton className={classes.button} onClick={this.props.toggle} aria-label="Close" color="contrastText">
+      <IconButton className={classes.button} onClick={this.props.toggle} aria-label="Close">
         <CloseIcon className={classes.iconControl} />
       </IconButton>
-      <IconButton onClick={this.toggleDialog} className={classes.button} aria-label="Image" color="white">
+      <IconButton onClick={this.openDialog} className={classes.button} aria-label="Image">
         <Icon className={classNames(classes.icon, 'far fa-image')} />
       </IconButton>
-      <IconButton color="secondary" className={classes.button} aria-label="Add an alarm">
+      <IconButton color="secondary" onClick={this.closeDialog} className={classes.button} aria-label="Add an alarm">
         <VideocamIcon className={classes.icon} />
       </IconButton>
       <IconButton color="primary" className={classes.button}>
@@ -99,13 +118,15 @@ class NewPostButtons extends React.Component {
       </label>
 
       </div>}
-      <ChooseImageDialog 
-        imageurl={this.props.imageurl} setImageUrl={this.props.setImageUrl} 
-        setFormdata={this.props.setFormdata} uploadprogress={this.props.uploadprogress} 
-        uploadMedia={this.props.uploadMedia} fullScreen={true} 
-        toggledialog={this.toggleDialog} 
-        showpostform={this.props.showpostform}
-        opendialog={this.state.openDialog} />
+      <ChooseImageDialog showDM={showDM} toggleDM={toggleDM} 
+        setDataImageURL={this.props.setDataImageURL} 
+        setFormData={this.props.setFormData}
+        dataImageURL={this.props.dataImageURL}
+        setPostText={this.props.setPostText}
+        postText={this.props.postText} 
+        uploadMedia={this.sharePost}
+        isUploading={this.props.isUploading}
+        progressNumber={this.props.progressNumber} />
     </>
   );
   }
@@ -115,4 +136,35 @@ NewPostButtons.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(NewPostButtons);
+const mapStateToProps = state => {
+  return {
+    showDM: state.dialog.showDM,
+    dataImageURL: state.dialog.dataImageURL,
+    postText: state.dialog.postText,
+    formData: state.dialog.formData,
+    progressNumber: state.post.progressNumber,
+    isUploading: state.post.isUploading,
+  }
+}
+const mapDispatchToProps = dispatch => {
+  
+  return {
+    toggleDM: showDM => {
+      dispatch(dialogActions.toggleDM(showDM));
+    },
+    setDataImageURL: dataImageURL => {
+      dispatch(dialogActions.setDataImageURL(dataImageURL));
+    },
+    setFormData: formData => {
+      dispatch(dialogActions.setFormData(formData));
+    },
+    setPostText: text => {
+      dispatch(dialogActions.setPostText(text));
+    },
+    uploadMedia: data => {
+      dispatch(postActions.uploadMedia(data));
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(NewPostButtons));

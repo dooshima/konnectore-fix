@@ -43,14 +43,14 @@ const styles = theme => ({
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
   }
 });
-class ResponsiveDialog extends React.Component {
+class ChooseImageDialog extends React.Component {
   state = {
     open: false,
     postText: ''
   };
 
   setPostText = text => {
-      this.setState({postText: text});
+    this.props.setPostText(text);
   }
 
   handleClickOpen = () => {
@@ -58,19 +58,19 @@ class ResponsiveDialog extends React.Component {
   };
 
   handleClose = () => {
-    this.props.toggledialog();
-    this.props.setFormdata(null, true);
+    this.props.toggleDM(false);
+    this.props.setDataImageURL("");
+    this.props.setPostText("");
   };
 
   render() {
-    const { fullScreen, classes, disabled, showpostform } = this.props;
-    const d = this.props.imageurl? {}: {disabled: true};
-    const p = this.state.postText? {}: {disabled: true};
-    const label = this.props.showpostform? 'Share post': 'Continue';
+    const { fullScreen, classes, postText, dataImageURL } = this.props;
+    const p = postText && dataImageURL? {}: {disabled: true};
+    
     return (
         <Dialog
           fullScreen={fullScreen}
-          open={this.props.opendialog}
+          open={this.props.showDM}
           onClose={this.handleClose}
           maxWidth="md"
           aria-labelledby="responsive-dialog-title"
@@ -80,30 +80,35 @@ class ResponsiveDialog extends React.Component {
           }}
         >
           <DialogContent>
-            <DialogContentText>
+            <div>
               <div className={classes.contentHolder}>
                 <section className={classes.bordered}>
                   <div className={classes.content}>
-                  <FileDropzone imageurl={this.props.imageurl} setImageUrl={this.props.setImageUrl} setFormdata={this.props.setFormdata} />
+                  <FileDropzone imageurl={this.props.imageurl} 
+                    setDataImageURL={this.props.setDataImageURL} 
+                    setFormData={this.props.setFormData}
+                    dataImageURL={this.props.dataImageURL} />
                   </div>
                 </section>
               </div>
-              <KProgressBar progress={this.props.uploadprogress} show={this.props.imageurl? true: false} />
-              <NewTextField showpostform={this.props.showpostform} setPostText={this.setPostText} />
-            </DialogContentText>
+              <KProgressBar progressNumber={this.props.progressNumber} show={this.props.isUploading} />
+              <div>
+                <NewTextField onChange={this.setPostText} setPostText={this.setPostText} 
+                postText={this.props.postText} />
+              </div>
+            </div>
           </DialogContent>
           <DialogActions>
-            <KButton onClick={this.handleClose} upper={false}  color="error" label="Cancel" size="small" />
-            {!showpostform && <KButton onClick={this.props.uploadMedia} {...d} label="Continue" size="small" />}
-            {showpostform && <KButton onClick={this.props.sharePost} {...p} label="Share post" size="small" />}
+            <KButton onClick={this.handleClose} upper={false}  color="secondary" label="Cancel" size="small" />
+            <KButton onClick={this.props.uploadMedia} {...p} label="Share post" size="small" />
           </DialogActions>
         </Dialog>
     );
   }
 }
 
-ResponsiveDialog.propTypes = {
+ChooseImageDialog.propTypes = {
   fullScreen: PropTypes.bool.isRequired,
 };
 
-export default withStyles(styles)(withMobileDialog()(ResponsiveDialog));
+export default withStyles(styles)(withMobileDialog()(ChooseImageDialog));

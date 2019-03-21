@@ -3,6 +3,7 @@ import showAuthLoadingReducer from './reduction/showAuthLoadingReducer';
 import authLoginSuccessReducer from './reduction/authLoginSuccessReducer';
 import * as types from './actionTypes';
 import authErrorReducer from "./reduction/authErrorReducer";
+import authLogoutSuccessReducer from "./reduction/authLogoutSuccessReducer";
 const initialState = {};
 
 const userUpdateProfile = (state=initialState) => {
@@ -22,6 +23,8 @@ const data = (state={}, action) => {
     switch (action.type) {
         case types.AUTH_LOGIN_SUCCESS:
             return authLoginSuccessReducer(state, action);
+        case types.AUTH_LOGOUT_SUCCESS:
+            return authLogoutSuccessReducer(state, action);
         default:
             return state;
     }

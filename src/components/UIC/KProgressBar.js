@@ -45,7 +45,7 @@ class KProgressBar extends React.Component {
     if(show) {
     return (
       <div className={classes.root}>
-        <LinearProgress classes={{bar: classes.bar, root: classNames(classes.bar, classes.rounded)}} variant="determinate" value={this.props.progress} />
+        <LinearProgress classes={{bar: classes.bar, root: classNames(classes.bar, classes.rounded)}} variant="determinate" value={this.props.progressNumber} />
       </div>
     );
     } else {

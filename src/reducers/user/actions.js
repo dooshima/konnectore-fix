@@ -22,6 +22,11 @@ const authError = errorMsg => ({
     errorMsg,
 });
 
+const authLogoutSuccess = data => ({
+    type: types.AUTH_LOGOUT_SUCCESS,
+    data,
+})
+
 const handleLogin = (email, password) => {
     return dispatch => {
         dispatch(showAuthLoading(true));
@@ -43,11 +48,34 @@ const handleLogin = (email, password) => {
     }
 }
 
+const handleLogout = (uid) => {
+    return dispatch => {
+        dispatch(showAuthLoading(true));
+        Auth.logout(uid)
+            .then( user => {
+                dispatch(showAuthLoading(false));
+                if(user.error !== false) {
+                    const errorMsg = user.error? user.message: "Error logging out. Please retry";
+                    throw new Error(errorMsg);
+                }
+                console.log(user);
+                dispatch(authLogoutSuccess(user.data));
+                dispatch(showSearchForm(false));
+            }).catch( error => {
+                console.log(error)
+                dispatch(showAuthLoading(false));
+                dispatch(authError(error.message));
+            });
+    }
+}
+
 const userActions = {
     userViewProfile,
     showAuthLoading,
     authLoginSuccess,
-    handleLogin
+    handleLogin,
+    authLogoutSuccess,
+    handleLogout,
 };
 
 export default userActions;

@@ -176,7 +176,7 @@ class SearchComponent extends React.Component {
                 <KTabs tabs={tabs} baseUrl={match.url} setFilter={this.setFilter} size="small" />
                 {searchResult.hasOwnProperty('posts') && 
                   <SearchList filter={this.state.filter} searchResult={searchResult} />}
-                {searchResult.length < 1 && <div>No results found.</div>}
+                {!searchResult.hasOwnProperty('posts') && <div>No results found.</div>}
               </Paper>
             </Grid>
             <Grid item xs={4}>

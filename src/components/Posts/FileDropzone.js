@@ -11,7 +11,7 @@ const StyledDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url(${props => props.imageurl});
+  background-image: url(${props => props.dataImageURL});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -25,7 +25,6 @@ const StyledP = styled.p`
 `
 
 function FileDropzone(props) {
-    console.log(props);
   const onDrop = useCallback(acceptedFiles => {
     const reader = new FileReader()
 
@@ -34,22 +33,20 @@ function FileDropzone(props) {
     reader.onload = () => {
       // Do whatever you want with the file contents
       const binaryStr = reader.result
-      //console.log(this.innerRef);
-      props.setImageUrl(binaryStr);
+      props.setDataImageURL(binaryStr);
       let form = new FormData();
       form.append('mediafile', acceptedFiles[0]);
       form.append('filename', 'mf' + Date.now());
-      props.setFormdata(form);
+      props.setFormData(form);
       
     }
 
-    //acceptedFiles.forEach(file => console.log((new FileReader(file).onload = () => console.log(this.result))))
     reader.readAsDataURL(acceptedFiles[0]);
   }, [])
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 
   return (
-    <StyledDiv {...getRootProps({refKey: 'innerRef'})} imageurl={props.imageurl}>
+    <StyledDiv {...getRootProps({refKey: 'innerRef'})} dataImageURL={props.dataImageURL}>
         <input {...getInputProps()} />
         <StyledP>Drag 'n' drop some files here, or click to select files</StyledP>
     </StyledDiv>

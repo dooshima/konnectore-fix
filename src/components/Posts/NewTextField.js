@@ -29,10 +29,8 @@ class NewTextField extends React.Component {
   };
 
   render() {
-    const { classes, showpostform } = this.props;
-    console.log(showpostform)
+    const { classes, postText } = this.props;
 
-    if(showpostform) {
     return (
       <form className={classes.container} noValidate autoComplete="off">
         <TextField
@@ -48,12 +46,10 @@ class NewTextField extends React.Component {
           InputLabelProps={{
             shrink: true,
           }}
+          value={postText}
         />
       </form>
     );
-        } else {
-            return null;
-        }
   }
 }
 

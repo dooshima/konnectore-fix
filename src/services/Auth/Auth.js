@@ -6,6 +6,7 @@ const Auth = {
     login: login,
     signup: signup,
     validateLogin: validateLogin,
+    logout,
 };
 
 function login(email, password) {
@@ -23,6 +24,15 @@ function login(email, password) {
     return Server.post(Constants.LOGIN_URL, {email: email, pass: password}).then( data => {
         console.log(data);
     }); */
+}
+
+function logout(uid) {
+    return new Promise((resolve, reject) => {
+        setTimeout(
+            () => resolve({error: false, message: "Logged Out!", data: {}})
+            , 1200
+        );
+    });
 }
 
 function signup(email, password, firstName) {

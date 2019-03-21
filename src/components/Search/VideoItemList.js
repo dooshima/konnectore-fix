@@ -11,7 +11,6 @@ const styles = theme => ({
 
 const VideoItemList = ({ list, classes }) => {
     const videos = list.filter( item => item.type === 'video');
-    console.log(videos);
     const vList = videos.map( (video, i) => {
         return <VideoItem key={i} item={video} />
     });

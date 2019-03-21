@@ -9,6 +9,7 @@ import Menu from '@material-ui/core/Menu';
 import Avatar from '@material-ui/core/Avatar';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import TopLoginButton from './TopLoginButton';
+import userActions from '../../reducers/user/actions';
 
 const styles = theme => ({
   root: {
@@ -92,7 +93,7 @@ class TopProfileMenu extends React.Component {
                 >
                   <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                   <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                  <MenuItem onClick={this.props.handleLogout}>Logout</MenuItem>
+                  <MenuItem onClick={this.props.logout}>Logout</MenuItem>
                 </Menu>
                 </div>
                 <div className={classes.sectionMobile}>
@@ -118,4 +119,12 @@ const mapStateToProps = state => {
     user: state.user.data,
   }
 }
-export default connect(mapStateToProps)(withStyles(styles)(TopProfileMenu));
+
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: uid => {
+      dispatch(userActions.handleLogout(uid));
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(TopProfileMenu));
