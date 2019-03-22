@@ -11,6 +11,7 @@ import KTabs from './../UIC/KTabs';
 import FeedCard from './../FeedCard';
 import { connect } from 'react-redux';
 import SearchList from './SearchList';
+import SearchFilterCard from './SearchFilterCard';
 
 const activeLink = classNames({'link': true, 'active': true});
 const dudUrl = 'javascript:;';
@@ -162,7 +163,8 @@ class SearchComponent extends React.Component {
   }
 
   render() {
-    const { classes, q, searchResult, filter, match } = this.props;
+    const { classes, q, searchResult, filter, match, user } = this.props;
+    const isLoggedIn = user.hasOwnProperty('data');
     return (
 <div style={{marginTop: 30, marginLeft: 20, marginRight: 20}}>
           <Grid container spacing={8}>
@@ -181,8 +183,9 @@ class SearchComponent extends React.Component {
             </Grid>
             <Grid item xs={4}>
                 <div style={{marginLeft: 20}}>
-                    <FeedCard />     
-                    <CompetitionSummaryCard />
+                  <SearchFilterCard />
+                    {isLoggedIn && <><FeedCard />     
+                    <CompetitionSummaryCard /></>}
                     <JoinChallengeCard />
                 </div>
             </Grid>
@@ -201,6 +204,7 @@ const mapStateToProps = state => {
   return {
     filter: state.search.filter,
     searchResult: state.search.searchResult,
+    user: state.user, 
   }
 }
 

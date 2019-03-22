@@ -75,7 +75,7 @@ class TopProfileMenu extends React.Component {
                   onClick={this.handleMenu}
                   color="inherit"
                 >
-                  <Avatar alt="Jide Adeleke" src="/images/avatar.png" className={classes.uAvatar} />
+                  <Avatar alt={`${user.profileData.firstName} ${user.profileData.lastName}`} src="/images/avatar.png" className={classes.uAvatar} />
                 </IconButton>
                 <Menu
                   id="menu-appbar"
@@ -91,8 +91,9 @@ class TopProfileMenu extends React.Component {
                   open={open}
                   onClose={this.handleClose}
                 >
-                  <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                  <MenuItem onClick={this.handleClose}>My Profile</MenuItem>
+                  <MenuItem onClick={this.handleClose}>Settings &amp; Privacy</MenuItem>
+                  <MenuItem onClick={this.handleClose}>Need help?</MenuItem>
                   <MenuItem onClick={this.props.logout}>Logout</MenuItem>
                 </Menu>
                 </div>

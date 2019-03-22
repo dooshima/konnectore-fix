@@ -41,6 +41,8 @@ import ContestListItem from './ContestListItem';
 import DragnDrop from './Posts/DragnDrop';
 import FileDropzone from './Posts/FileDropzone';
 import KProgressBar from './UIC/KProgressBar';
+import { searchResults } from './../components/assets/searchResults';
+import VideoCard from './UIC/Posts/VideoCard/VideoCard';
 
 const activeLink = classNames({'link': true, 'active': true});
 const dudUrl = 'javascript:;';
@@ -176,6 +178,13 @@ const tabs = [
 
 function SearchResultBody (props) {
     const { classes } = props;
+    let recentPosts = [];
+
+    for(let i in searchResults.data.posts.byId) {
+      let item = searchResults.data.posts.byId[i];
+      recentPosts.push(item);
+    }
+
     return (
 <div style={{marginTop: 30, marginLeft: 20, marginRight: 20}}>
           <Grid container spacing={8}>
@@ -201,10 +210,16 @@ function SearchResultBody (props) {
                   <SectionListHeader title="" />
                   <MasonryGrid>
                   {
-                    [...Array(6)].map( (key, i) => {
+                    recentPosts.map( (item, i) => {
                       let counter = Math.ceil(Math.random() * 100);
                       let chooser = counter % 2 === 0? true: false;
-                      return chooser? <ImageCard key={i} index={key} />: <TextCard key={i} index={key} />
+                      if(item.type === 'image'){
+                        return <ImageCard key={i} index={i} item={item} />;
+                      } else if (item.type === 'text') {
+                        return <TextCard key={i} index={i} item={item} />;
+                      } else {
+                        return <VideoCard key={i} item={item} />
+                      }
                     })
                   }
                   </MasonryGrid>

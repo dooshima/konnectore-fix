@@ -54,11 +54,15 @@ const upload = (data, dispatch)  => {
       .then( resp => {
         dispatch(setProgressNumber(0));
         dispatch(dialogActions.showDM1(false));
+        dispatch(dialogActions.setPostText(""));
+            dispatch(dialogActions.setFormData({}));
         return {error: false, message: "Post was shared successfully!", data: resp};
       })
       .catch( error => {
             dispatch(setProgressNumber(0));
             dispatch(dialogActions.showDM1(false));
+            dispatch(dialogActions.setPostText(""));
+            dispatch(dialogActions.setFormData({}));
           console.log(error)
           let err = new KError(true, "Error occured while posting");
           return err.toObj();

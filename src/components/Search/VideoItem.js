@@ -65,7 +65,7 @@ class VideoItem extends React.Component {
     <Card className={classes.card}>
       <CardMedia
         className={classes.cover}
-        image="/images/post-img.png"
+        image="/images/post02.png"
         title="Live from space album cover"
       />
       <div className={classes.details}>
