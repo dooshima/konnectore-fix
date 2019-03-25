@@ -14,7 +14,7 @@ function login(email, password) {
     if(validate.error === true) {
         return new Promise( resolve => resolve(validate) );
     }
-    
+
     /* return new Promise((resolve, reject) => {
         setTimeout(
             () => resolve(Server.loginDemo)
