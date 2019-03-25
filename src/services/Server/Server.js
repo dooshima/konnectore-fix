@@ -2,8 +2,9 @@ import axios from 'axios';
 import { searchResults } from '../../components/assets/searchResults';
 
 const headers = {
-    "Content-Type": 'application/x-www-form-urlencoded',
+    "Content-Type": 'application/json',
 }
+// x-www-form-urlencoded
 
 const get = url => {
     return axios.get(url);

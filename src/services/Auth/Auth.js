@@ -21,7 +21,7 @@ function login(email, password) {
             , 1200
         );
     }); */
-    
+
     return Server.post(Constants.LOGIN_URL, {email: email, pass: password}).then( data => {
         console.log(data);
     });
