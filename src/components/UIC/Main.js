@@ -6,6 +6,7 @@ import LeftSidebar from './../LeftSidebar';
 import { withStyles } from '@material-ui/core';
 import { Route, Switch } from 'react-router-dom';
 import SearchComponent from '../Search/SearchComponent';
+import MeController from './Me/MeController';
 
 const styles = theme => ({
   wrapper: {
@@ -61,9 +62,11 @@ function Main(props) {
       </div>
       <div className={classes.body}>
         <Switch>
+          <Route exact path="/" render={props => <SearchResultBody uploadprogress={props.uploadprogress} uploadMedia={props.uploadMedia} setFormdata={props.setFormdata} imageurl={props.imageurl} setImageUrl={props.setImageUrl} />} />
           <Route path="/search" render={renderProps => <SearchComponent {...renderProps} searchResults={props.searchResults} q={props.q} loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)} />} />
           <Route path="/contest" render={renderProps => <ContestComponent />} />
-          <Route render={prop => <SearchResultBody uploadprogress={props.uploadprogress} uploadMedia={props.uploadMedia} setFormdata={props.setFormdata} imageurl={props.imageurl} setImageUrl={props.setImageUrl} />} />
+          <Route path="/me" component={MeController} />
+          
         </Switch>
         
       </div>

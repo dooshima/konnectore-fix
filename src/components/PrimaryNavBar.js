@@ -101,10 +101,10 @@ const styles = theme => ({
     width: '100%',
   },
   inputInput: {
-    paddingTop: theme.spacing.unit,
+    paddingTop: theme.spacing.unit * 0.6,
     paddingRight: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 10,
+    paddingBottom: theme.spacing.unit * 0.6,
+    paddingLeft: theme.spacing.unit * 5,
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
@@ -229,15 +229,15 @@ class PrimaryNavBar extends React.Component {
         <div className={classes.holder}>
           <Toolbar style={{flexGrow: 1, backgroundColor: 'white'}}>
             <Grid container spacing={8}>
-              <Grid item xs={3} style={{display: 'flex', alignItems: 'center'}}>
+              <Grid item xs={2.5} style={{display: 'flex', alignItems: 'center'}}>
                 <div style={{display: 'flex', justifyContent: 'start', alignItems: 'center'}}>
-                  <Avatar className={classes.avatar} alt="Konnectore Logo" src="images/konnectore-logo.png" />
+                  <Avatar className={classes.avatar} alt="Konnectore Logo" src="/images/konnectore-logo-green.png" />
                 </div>
               </Grid>
-              <Grid item xs={6} style={{display: 'flex', justifyContent: 'start', alignItems: 'center'}}>
+              <Grid item xs={7} style={{display: 'flex', justifyContent: 'start', alignItems: 'center'}}>
                 <SearchForm loggedIn={this.props.loggedIn} handleSubmit={this.handleSubmit} />
               </Grid>
-              <Grid item xs={3} style={{display: 'flex', flexDirection: 'row-reverse', justifyContent: 'end', alignItems: 'center'}}>
+              <Grid item xs={2.5} style={{display: 'flex', flexDirection: 'row-reverse', justifyContent: 'end', alignItems: 'center'}}>
                 <TopProfileMenu handleLogout={this.props.handleLogout} handleLogin={this.props.handleLogin} />
               </Grid>
             </Grid>
