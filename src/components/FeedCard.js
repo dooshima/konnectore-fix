@@ -7,6 +7,7 @@ import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import GroupIcon from '@material-ui/icons/Group';
 import StarsIcon from '@material-ui/icons/Stars';
 import SearchIcon from '@material-ui/icons/Search';
+import KPaper from './UIC/KPaper';
 
 const styles = theme => {
 
@@ -14,7 +15,7 @@ const styles = theme => {
 function FeedCard(props) {
     const { classes } = props;
     return (
-<Paper>
+<KPaper>
             <List subheader={<ListSubheader>FEED</ListSubheader>} style={{textAlign: 'left'}} className={classes.root}>
         <ListItem>
           <ListItemIcon>
@@ -35,7 +36,7 @@ function FeedCard(props) {
           <ListItemText primary="Popular" />
         </ListItem>
       </List>
-      </Paper>
+      </KPaper>
 )
     }
 

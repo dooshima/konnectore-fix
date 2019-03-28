@@ -16,32 +16,32 @@ const styles = theme => ({
   },
   header: {
     position: 'fixed',
-    height: theme.spacing.unit * 6.4,
+    height: theme.spacing.unit * 5.4,
     width: '100%',
     backgroundColor: '#fff',
     zIndex: 200,
     margin: 0,
     padding: 0,
     top: 0,
-    boxShadow: `0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)`,
+    boxShadow: `0px 2px 4px -1px rgba(0,0,0,0), 0px 4px 5px 0px rgba(0,0,0,0), 0px 1px 10px 0px rgba(0,0,0,0.12)`,
   },
   content: {
-    marginTop: theme.spacing.unit * 6.4,
+    marginTop: theme.spacing.unit * 9.4,
     marginRight: theme.spacing.unit * 10,
   },
   sidebar: {
-    width: theme.spacing.unit * 27.5,
+    width: theme.spacing.unit * 26.5,
     position: 'fixed',
-    top: theme.spacing.unit * 6.4,
+    top: theme.spacing.unit * 9.4,
     bottom: 0,
     left: 0,
     overflowY: 'scroll',
     marginLeft: theme.spacing.unit * 10,
-    paddingTop: theme.spacing.unit * 2,
+    //paddingTop: theme.spacing.unit * 2,
   },
   body: {
-    marginLeft: theme.spacing.unit * 37.5,
-    paddingTop: theme.spacing.unit * 2,
+    marginLeft: theme.spacing.unit * 35.5,
+    //paddingTop: theme.spacing.unit * 2,
   }
 });
 

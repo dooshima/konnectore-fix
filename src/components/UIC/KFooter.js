@@ -13,13 +13,18 @@ const styles = {
         transform: 'scale(0.8)',
       },
     paper: {
-        padding: theme.spacing.unit * 4
+        padding: theme.spacing.unit * 3,
+        //boxShadow: `0px 2px 4px -1px rgba(0,0,0,0), 0px 4px 5px 0px rgba(0,0,0,0), 0px 1px 10px 0px rgba(0,0,0,0.12)`,
+        boxShadow: '-1px 2px 8px -4px rgba(165,165,165,1)',
+        textAlign: 'center',
     },
     link: {
-        fontSize: theme.spacing.unit * 1.5
+        fontSize: theme.spacing.unit * 1.5,
+        color: '#bcbcbc',
+        lineHeight: '1.6em',
     },
     footer: {
-        color: '#808080',
+        color: '#bcbcbc',
         marginTop: theme.spacing.unit * 4,
     }
 }
@@ -28,7 +33,7 @@ function KFooter(props) {
     const { classes } = props;
     const bull = <span className={classes.bullet}>•</span>;
     return (
-        <Paper className={classes.paper}>
+        <Paper square={true} className={classes.paper}>
             <Typography component="p" className={classes.link}>
                 <KLink filter="/about">About Us</KLink>{bull}
                 <KLink filter="/support">Support</KLink>{bull}

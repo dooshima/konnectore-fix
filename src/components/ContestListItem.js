@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardActionArea, CardActions, CardMedia, Typography, Icon, withStyles } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
+import KPaper from './UIC/KPaper';
 
 const styles = theme => ({
     media: {
@@ -15,7 +16,7 @@ const styles = theme => ({
 function ContestListItem(props) {
     const { classes, url, title } = props;
     return (
-        <Card square>
+        <KPaper square>
             <CardMedia
                 image={url}
                 className={ classes.media }
@@ -23,7 +24,7 @@ function ContestListItem(props) {
             <CardActions>
                 <Typography className={classes.title}>{title}</Typography>                
             </CardActions>
-        </Card>
+        </KPaper>
     )
 }
 

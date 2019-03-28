@@ -22,6 +22,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { H4, Link } from '@material-ui/core/Typography';
 import SvgIcon from '@material-ui/icons/MoreVert';
+import TextWidget from '../TextWidget';
 
 
 const styles = theme => ({
@@ -31,16 +32,16 @@ const styles = theme => ({
   content: {
     paddingTop: theme.spacing.unit * 2,
     position: 'relative',
-    color: '#fcfcfc',
+    color: '#fff',
   },
   actions: {
     display: 'flex',
     padding: `${theme.spacing.unit * 0.7}px ${theme.spacing.unit * 1.5}px`,
   },
   p: {
-    color: '#fcfcfc',
-    fontSize: theme.spacing.unit * 1.3,
-    fontWeight: 200,
+    color: '#fff',
+    fontSize: theme.spacing.unit * 1.4,
+    fontWeight: 400,
   },
   h4: {
     color: '#fcfcfc',
@@ -48,10 +49,11 @@ const styles = theme => ({
     fontWeight: 400,
   },
   stats: {
-    color: '#fcfcfc',
+    color: 'rgba(255,255,255,0.6)',
     fontSize: theme.spacing.unit * 1.1,
-    fontWeight: 200,
-    display: 'inline'
+    fontWeight: 300,
+    display: 'inline',
+    marginRight: 10,
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -88,11 +90,11 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit * 1.5,
   },
   titleStat: {
-      color: '#ccc',
+      color: 'rgba(255,255,255,0.6)',
       fontSize: theme.spacing.unit * 1.1,
       fontWeight: 200,
   },
-  rule: {borderTop: '1px solid #777', margin: `0 ${theme.spacing.unit * 2}px`, height: 1},
+  rule: {borderTop: '1px solid rgba(255,255,255,0.5)', margin: `0 ${theme.spacing.unit * 2}px`, height: 1},
 });
 
 class TextCard extends React.Component {
@@ -107,52 +109,16 @@ class TextCard extends React.Component {
     const image = "/images/post-img.png";
 
     return (
-      <Card className={classes.card} style={{backgroundColor: '#ff9aef'}}>
-
-        <CardContent
-          className={classes.content}
-          action="icon"
-        >
-        
-        <p className={classes.p}>
-            Decided to just do a little snipet of me performing an acoustic session after the shoot of my next release this
-            <span className={classes.more}>Read more</span>  
-        </p>
-        <div className={classes.footer}>
-            <Icon>
-                <TimelapseIcon />
-            </Icon>
-            <Typography className={classes.stats}>{ this.props.index }</Typography>
-
-            <Icon>
-                <TimelapseIcon />
-            </Icon>
-            <Typography className={classes.stats}>
-                580 comments
-            </Typography>
-        </div>
-           
-        </CardContent>
-        <div className={classes.rule} />
-
-        <CardActions className={classes.actions} disableActionSpacing >
-            <Avatar alt="Jide Adeleke" src="/images/avatar.png" className={classes.avatar} />
-            <div className={classes.title}>
-                <Typography component="h4" className={classes.h4}>Ugo Mouka</Typography>
-                <Typography className={classes.titleStat}>12 hours ago</Typography>
-            </div>
-          
-          <IconButton
-            className={classes.more}
-            onClick={this.handleExpandClick}
-            aria-expanded={this.state.expanded}
-            aria-label="Show more"
-          >
-            <MoreHorizIcon />
-          </IconButton>
-        </CardActions>
-        
-        
+      <Card className={classes.card} style={{backgroundColor: '#ff91f4'}}>
+        <TextWidget 
+          text="I used to think some people were Angels till the pressure of the  #10yearschallenge  hit them..I wonder how they will look after another 10…  #jahissupreme"
+          user={{avatar: "/images/avatar.png"}}
+          comments="1725"
+          endorsements="580"
+          backgroundColor="#ff91f4"
+          textColor="#ffffff"
+          fullName="Ugo Mouka"
+        />
       </Card>
     );
   }

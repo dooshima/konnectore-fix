@@ -16,11 +16,25 @@ const theme = createMuiTheme({
     unit: 10,
   },
   typography: {
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      'Acumin Pro',
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
     fontSize: 12,
-  }
+  },
 });
 
-//console.log(theme);
+console.log(theme);
 
 const Root = ({ store }) => (
   <Provider store={store}>

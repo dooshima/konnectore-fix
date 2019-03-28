@@ -206,8 +206,7 @@ function SearchResultBody (props) {
                   })
                 }
                 </div>
-                <Paper style={{marginTop: 30}}>
-                  <SectionListHeader title="" />
+                <Paper elevation={0} style={{marginTop: 30}}>
                   <MasonryGrid>
                   {
                     recentPosts.map( (item, i) => {

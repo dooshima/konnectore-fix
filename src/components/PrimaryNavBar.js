@@ -13,7 +13,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '@material-ui/core/Avatar';
 import { Grid, LinearProgress } from '@material-ui/core';
-
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import TopProfileMenu from './account/TopProfileMenu';
 import SearchForm from './Search/SearchForm';
@@ -227,17 +227,19 @@ class PrimaryNavBar extends React.Component {
     return (
       <div className={classes.root}>
         <div className={classes.holder}>
-          <Toolbar style={{flexGrow: 1, backgroundColor: 'white'}}>
+          <Toolbar style={{flexGrow: 1, minHeight: 54, backgroundColor: 'white', paddingLeft: 0, paddingRight: 0,}}>
             <Grid container spacing={8}>
-              <Grid item xs={2.5} style={{display: 'flex', alignItems: 'center'}}>
+              <Grid item xs={2} style={{display: 'flex', alignItems: 'center'}}>
                 <div style={{display: 'flex', justifyContent: 'start', alignItems: 'center'}}>
-                  <Avatar className={classes.avatar} alt="Konnectore Logo" src="/images/konnectore-logo-green.png" />
+                  <Link to="/">
+                    <Avatar className={classes.avatar} alt="Konnectore Logo" src="/images/konnectore-logo-green.png" />
+                  </Link>
                 </div>
               </Grid>
               <Grid item xs={7} style={{display: 'flex', justifyContent: 'start', alignItems: 'center'}}>
                 <SearchForm loggedIn={this.props.loggedIn} handleSubmit={this.handleSubmit} />
               </Grid>
-              <Grid item xs={2.5} style={{display: 'flex', flexDirection: 'row-reverse', justifyContent: 'end', alignItems: 'center'}}>
+              <Grid item xs={3} style={{display: 'flex', flexDirection: 'row-reverse', justifyContent: 'end', alignItems: 'center'}}>
                 <TopProfileMenu handleLogout={this.props.handleLogout} handleLogin={this.props.handleLogin} />
               </Grid>
             </Grid>

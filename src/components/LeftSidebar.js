@@ -34,7 +34,8 @@ const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     height: '100%',
-    paddingRight: 20,
+    paddingRight: 15,
+    paddingLeft: 5,
   },
   grow: {
     flexGrow: 1,

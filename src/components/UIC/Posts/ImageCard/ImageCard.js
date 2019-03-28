@@ -22,6 +22,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { H4, Link } from '@material-ui/core/Typography';
 import SvgIcon from '@material-ui/icons/MoreVert';
+import TextWidget from '../TextWidget';
 
 
 const styles = theme => ({
@@ -30,7 +31,7 @@ const styles = theme => ({
     minHeight: 200,
   },
   content: {
-    paddingTop: '50%',
+    paddingTop: '60%',
     position: 'relative',
     color: '#fcfcfc',
   },
@@ -110,52 +111,17 @@ class ImageCard extends React.Component {
     return (
       <Card className={classes.card} style={{backgroundImage: `url(${image})`, backgroundSize: 'cover'}}>
 
-        <CardContent
-          className={classes.content}
-          action="icon"
-        >
-        <IconButton className={classes.typeIcon} color="primary">
-            <img src="/images/video-icon.svg" />
-        </IconButton>
-        
-        <p className={classes.p}>
-            Decided to just do a little snipet of me performing an acoustic session after the shoot of my next release this
-            <span className={classes.more}> Read more</span>  
-        </p>
-        <div className={classes.footer}>
-            <Icon>
-                <TimelapseIcon />
-            </Icon>
-            <Typography className={classes.stats}>{ this.props.index }</Typography>
-
-            <Icon>
-                <TimelapseIcon />
-            </Icon>
-            <Typography className={classes.stats}>
-                580 comments
-            </Typography>
-        </div>
-           
-        </CardContent>
-        <div className={classes.rule} />
-
-        <CardActions className={classes.actions} disableActionSpacing >
-            <Avatar alt="Jide Adeleke" src="/images/avatar.png" className={classes.avatar} />
-            <div className={classes.title}>
-                <Typography component="h4" className={classes.h4}>Ugo Mouka</Typography>
-                <Typography className={classes.titleStat}>12 hours ago</Typography>
-            </div>
-          
-          <IconButton
-            className={classes.more}
-            onClick={this.handleExpandClick}
-            aria-expanded={this.state.expanded}
-            aria-label="Show more"
-          >
-            <MoreHorizIcon />
-          </IconButton>
-        </CardActions>
-        
+        <TextWidget
+          type="image"
+          text="I used to think some people were Angels till the pressure of the  #10yearschallenge  hit them..I wonder how they will look after another 10…  #jahissupreme"
+          user={{avatar: "/images/avatar.png"}}
+          comments="1725"
+          endorsements="580"
+          backgroundColor="#ff91f4"
+          textColor="#ffffff"
+          fullName="Ugo Mouka"
+          contentStyle={{paddingTop: '70%',}}
+        />
         
       </Card>
     );

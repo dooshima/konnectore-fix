@@ -11,15 +11,15 @@ const styles = theme => ({
         backgroundColor: '#00927d',
     },
     link: {
-        margin: theme.spacing.unit,
+        margin: `${theme.spacing.unit * 1.2} ${theme.spacing.unit * .5}` ,
         textDecoration: 'none',
-        color: '#808080',
+        color: '#bcbcbc',
         '&:hover': {
           fontStyle: 'normal',
         },
         '&:active': {
             fontStyle: 'normal',
-        }
+        },
       },
 });
 

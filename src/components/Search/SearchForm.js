@@ -15,7 +15,7 @@ const styles = theme => ({
     search: {
         position: 'relative',
         borderRadius: 18,
-        backgroundColor: fade(theme.palette.common.black, 0.06),
+        backgroundColor: '#f8f8f8', //fade(theme.palette.common.black, 0.06),
         '&:hover': {
           backgroundColor: fade(theme.palette.common.black, 0.08),
         },
@@ -28,7 +28,7 @@ const styles = theme => ({
         },
     },
     searchIcon: {
-        width: theme.spacing.unit * 9,
+        width: theme.spacing.unit * 5,
         height: '100%',
         position: 'absolute',
         pointerEvents: 'none',
@@ -41,15 +41,16 @@ const styles = theme => ({
         width: '100%',
     },
     inputInput: {
-        paddingTop: theme.spacing.unit,
+        paddingTop: theme.spacing.unit * 0.6,
         paddingRight: theme.spacing.unit,
-        paddingBottom: theme.spacing.unit,
-        paddingLeft: theme.spacing.unit * 10,
+        paddingBottom: theme.spacing.unit * 0.6,
+        paddingLeft: theme.spacing.unit * 5,
         transition: theme.transitions.create('width'),
         width: '100%',
         [theme.breakpoints.up('md')]: {
           width: 200,
         },
+        color: '#a0a0a0'
     },
 });
 
@@ -70,10 +71,10 @@ class SearchForm extends React.Component {
             <form onSubmit={this.handleSubmit} method="get">
                 <div className={classes.search} style={{display: show? 'inherit': 'none'}}>
                 <div className={classes.searchIcon}>
-                    <SearchIcon />
+                    <SearchIcon style={{color: 'rgba(0,0,0,0.33)', fontSize: 16,}} />
                 </div>
                 <InputBase
-                placeholder="Search…"
+                placeholder="Type to search"
                 onChange={this.handleChange('q')}
                 classes={{
                     root: classes.inputRoot,

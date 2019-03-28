@@ -7,6 +7,7 @@ import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import GroupIcon from '@material-ui/icons/Group';
 import StarsIcon from '@material-ui/icons/Stars';
 import SearchIcon from '@material-ui/icons/Search';
+import KPaper from '../UIC/KPaper';
 
 const styles = theme => {
 
@@ -14,7 +15,7 @@ const styles = theme => {
 function CompetitionSummaryCard(props) {
     const { classes } = props;
     return (
-<Paper style={{marginTop: 20}}>
+<KPaper style={{marginTop: 20}}>
             <List subheader={<ListSubheader>COMPETITIONS</ListSubheader>} style={{textAlign: 'left'}} className={classes.root}>
         <ListItem>
           <ListItemIcon>
@@ -35,7 +36,7 @@ function CompetitionSummaryCard(props) {
           <ListItemText primary="See All Competitions" />
         </ListItem>
       </List>
-      </Paper>
+      </KPaper>
 )
     }
 

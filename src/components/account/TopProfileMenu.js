@@ -34,6 +34,12 @@ const styles = theme => ({
       display: 'none',
     },
   },
+  uAvatar: {
+    margin: 0,
+    padding: 0,
+    marginLeft: 12,
+    
+  }
 });
 
 class TopProfileMenu extends React.Component {
@@ -74,8 +80,9 @@ class TopProfileMenu extends React.Component {
                   aria-haspopup="true"
                   onClick={this.handleMenu}
                   color="inherit"
+                  className={classes.uAvatar}
                 >
-                  <Avatar alt={`${user.profileData.firstName} ${user.profileData.lastName}`} src="/images/avatar.png" className={classes.uAvatar} />
+                  <Avatar alt={`${user.profileData.firstName} ${user.profileData.lastName}`} src="/images/avatar.png" />
                 </IconButton>
                 <Menu
                   id="menu-appbar"

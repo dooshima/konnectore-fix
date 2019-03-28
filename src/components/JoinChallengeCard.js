@@ -8,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import KPaper from './UIC/KPaper';
 
 const styles = {
   card: {
@@ -21,7 +22,7 @@ const styles = {
 function JoinChallengeCard(props) {
   const { classes } = props;
   return (
-    <Card className={classes.card} style={{marginTop: 20}}>
+    <KPaper className={classes.card} style={{marginTop: 20}}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
@@ -46,7 +47,7 @@ function JoinChallengeCard(props) {
           Learn More
         </Button>
       </CardActions>
-    </Card>
+    </KPaper>
   );
 }
 
