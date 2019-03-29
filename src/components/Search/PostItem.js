@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
 import { loadCSS } from 'fg-loadcss/src/loadCSS';
 import { Avatar, CardHeader, Icon } from '@material-ui/core';
+import KCard from '../UIC/KCard';
 
 const styles = theme => ({
   card: {
@@ -57,7 +58,7 @@ class PostItem extends React.Component {
   const { classes, theme, item, } = this.props;
 
   return (
-    <Card className={classes.card}>
+    <KCard className={classes.card}>
       <div className={classes.details}>
         <CardHeader
           avatar={
@@ -86,7 +87,7 @@ class PostItem extends React.Component {
           <Typography variant="subheading" color="textSecondary" className={classes.small}>178 comments</Typography>
         </div>
       </div>
-    </Card>
+    </KCard>
   );
         }
 }

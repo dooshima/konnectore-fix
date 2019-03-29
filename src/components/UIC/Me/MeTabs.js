@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import FilterLink from '../FilterLink';
+import FilterLink from '../../FilterLink';
 import { Link } from 'react-router-dom'
 
 const styles = theme => ({
@@ -57,7 +56,7 @@ function LinkTab(props) {
   return <Tab component={Link} onClick={props.onClick} to={props.to} {...props} />;
 }
 
-class KTabs extends React.Component {
+class MeTabs extends React.Component {
   state = {
     value: 0,
   };
@@ -67,19 +66,21 @@ class KTabs extends React.Component {
     let filter = '';
     switch(value) {
       case 0:
-        filter = 'all';
+        filter = 'feed';
         break;
       case 1:
-        filter = 'text';
+        filter = 'contests';
         break;
       case 2:
-        filter = 'image';
+        filter = 'images';
         break;
       case 3:
-        filter = 'video';
+        filter = 'videos';
         break;
+      case 4:
+        filter = 'friends';
       default:
-        filter = 'all';
+        filter = 'feed';
         break;
     }
     this.props.setFilter(filter);
@@ -114,8 +115,8 @@ class KTabs extends React.Component {
   }
 }
 
-KTabs.propTypes = {
+MeTabs.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(KTabs);
+export default withStyles(styles)(MeTabs);

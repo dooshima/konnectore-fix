@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
 import { loadCSS } from 'fg-loadcss/src/loadCSS';
 import { Avatar, CardHeader, Icon } from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import KCard from '../UIC/KCard';
 
 const styles = theme => ({
   card: {
@@ -26,6 +26,8 @@ const styles = theme => ({
   },
   cover: {
     width: '40%',
+    backgroundPosition: 'center',
+    backgroundSize: 'auto',
   },
   controls: {
     display: 'flex',
@@ -62,7 +64,7 @@ class VideoItem extends React.Component {
   const { classes, theme, item, } = this.props;
 
   return (
-    <Card className={classes.card}>
+    <KCard className={classes.card}>
       <CardMedia
         className={classes.cover}
         image="/images/post02.png"
@@ -96,7 +98,7 @@ class VideoItem extends React.Component {
           <Typography variant="subheading" color="textSecondary" className={classes.small}>178 comments</Typography>
         </div>
       </div>
-    </Card>
+    </KCard>
   );
         }
 }

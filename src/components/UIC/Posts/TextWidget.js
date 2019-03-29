@@ -63,8 +63,8 @@ const styles = theme => ({
   },
   typeIcon: {
       position: 'absolute',
-      right: 20,
-      top: 10,
+      right: 5,
+      top: 5,
   },
   more: {
       color: 'white',

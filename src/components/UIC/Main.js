@@ -38,6 +38,16 @@ const styles = theme => ({
     overflowY: 'scroll',
     marginLeft: theme.spacing.unit * 10,
     //paddingTop: theme.spacing.unit * 2,
+    '&::-webkit-scrollbar': {
+      width: '0.1em'
+    },
+    '&::-webkit-scrollbar-track': {
+      '-webkit-box-shadow': 'inset 0 0 1px rgba(0,0,0,0)'
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: 'rgba(0,0,0,0)',
+      outline: '1px solid slategrey'
+    }
   },
   body: {
     marginLeft: theme.spacing.unit * 35.5,

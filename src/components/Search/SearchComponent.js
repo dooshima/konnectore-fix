@@ -139,7 +139,7 @@ const tabs = [
     label: "Videos",
     route: "video"
   },
-]
+];
 
 class SearchComponent extends React.Component {
   constructor(props) {
@@ -163,16 +163,16 @@ class SearchComponent extends React.Component {
   }
 
   render() {
-    const { classes, q, searchResult, filter, match, user } = this.props;
+    const { classes, q, queryText, searchResult, filter, match, user } = this.props;
     const isLoggedIn = user.hasOwnProperty('data');
     return (
-<div style={{marginTop: 30, marginLeft: 20, marginRight: 20}}>
+      <div style={{marginTop: 30, marginLeft: 20, marginRight: 20}}>
           <Grid container spacing={8}>
             <Grid item xs={8}>
               <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
                 <Typography>
                   <span>Showing results for</span>
-                  <span style={{color: '#00927d'}}> { q }</span>
+                  <span style={{color: '#00927d'}}> { queryText }</span>
                 </Typography>
                 
                 <KTabs tabs={tabs} baseUrl={match.url} setFilter={this.setFilter} size="small" />
@@ -205,6 +205,7 @@ const mapStateToProps = state => {
     filter: state.search.filter,
     searchResult: state.search.searchResult,
     user: state.user, 
+    queryText: state.search.queryText,
   }
 }
 

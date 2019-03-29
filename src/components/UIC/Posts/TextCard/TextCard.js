@@ -23,6 +23,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { H4, Link } from '@material-ui/core/Typography';
 import SvgIcon from '@material-ui/icons/MoreVert';
 import TextWidget from '../TextWidget';
+import KPaper from '../../KPaper';
 
 
 const styles = theme => ({
@@ -109,7 +110,7 @@ class TextCard extends React.Component {
     const image = "/images/post-img.png";
 
     return (
-      <Card className={classes.card} style={{backgroundColor: '#ff91f4'}}>
+      <KPaper square={false} className={classes.card} style={{backgroundColor: '#ff91f4'}}>
         <TextWidget 
           text="I used to think some people were Angels till the pressure of the  #10yearschallenge  hit them..I wonder how they will look after another 10…  #jahissupreme"
           user={{avatar: "/images/avatar.png"}}
@@ -119,7 +120,7 @@ class TextCard extends React.Component {
           textColor="#ffffff"
           fullName="Ugo Mouka"
         />
-      </Card>
+      </KPaper>
     );
   }
 }

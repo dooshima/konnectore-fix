@@ -6,13 +6,15 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import { Button } from '@material-ui/core';
+import KButton from '../KButton';
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
   },
   paper: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing.unit * 1,
     margin: 'auto',
     maxWidth: '100%',
   },
@@ -25,7 +27,13 @@ const styles = theme => ({
     display: 'block',
     maxWidth: '100%',
     maxHeight: '100%',
+    width: '70%',
   },
+  summary: {
+    backgroundColor: '#F2F7F4',
+    borderRadius: 12,
+    padding: `${theme.spacing.unit * 2}px !important`,
+  }
 });
 
 const MeHeaderSummary = props => {
@@ -39,22 +47,37 @@ const MeHeaderSummary = props => {
               <img className={classes.img} alt="complex" src="/images/avatar.png" />
             </ButtonBase>
           </Grid>
-          <Grid item xs={12} sm container>
+          <Grid item xs={8} sm container className={classes.summary}>
+            
             <Grid item xs container direction="column" spacing={16}>
               <Grid item xs>
-                <Typography gutterBottom variant="subtitle1">
-                  Standard license
+                <Typography gutterBottom variant="h5" component="b">
+                  Victor Omemu
                 </Typography>
-                <Typography gutterBottom>Full resolution 1920x1080 • JPEG</Typography>
-                <Typography color="textSecondary">ID: 1030114</Typography>
+                <Typography gutterBottom>I dance for fun, but others find it entertaining. This is my user page for the stage contest, and with your votes I can win.</Typography>
               </Grid>
-              <Grid item>
-                <Typography style={{ cursor: 'pointer' }}>Remove</Typography>
+              <Grid item style={{display: 'flex', justifyContent: 'start'}}>
+                <div style={{textAlign: 'center', marginRight: 20,}}>
+                  <Typography style={{ cursor: 'pointer' }}>Followers</Typography>
+                  <Typography component="span" style={{fontWeight: 900}}>345</Typography>
+                </div>
+
+                <div style={{textAlign: 'center', marginRight: 20,}}>
+                  <Typography style={{ cursor: 'pointer' }}>Following</Typography>
+                  <Typography component="span" style={{fontWeight: 900}}>345</Typography>
+                </div>
+
+                <div style={{textAlign: 'center'}}>
+                  <Typography style={{ cursor: 'pointer' }}>Contests</Typography>
+                  <Typography component="span" style={{fontWeight: 900}}>345</Typography>
+                </div>
+                
               </Grid>
             </Grid>
             <Grid item>
-              <Typography variant="subtitle1">$19.00</Typography>
+              <KButton label="Follow" size="small" />
             </Grid>
+            
           </Grid>
         </Grid>
       </Paper>

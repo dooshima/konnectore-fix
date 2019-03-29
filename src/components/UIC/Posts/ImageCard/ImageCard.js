@@ -23,6 +23,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { H4, Link } from '@material-ui/core/Typography';
 import SvgIcon from '@material-ui/icons/MoreVert';
 import TextWidget from '../TextWidget';
+import KPaper from '../../KPaper';
 
 
 const styles = theme => ({
@@ -109,7 +110,7 @@ class ImageCard extends React.Component {
     const image = "/images/post-img.png";
 
     return (
-      <Card className={classes.card} style={{backgroundImage: `url(${image})`, backgroundSize: 'cover'}}>
+      <KPaper square={false} className={classes.card} style={{backgroundImage: `url(${image})`, backgroundSize: 'cover'}}>
 
         <TextWidget
           type="image"
@@ -123,7 +124,7 @@ class ImageCard extends React.Component {
           contentStyle={{paddingTop: '70%',}}
         />
         
-      </Card>
+      </KPaper>
     );
   }
 }

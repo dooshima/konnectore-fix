@@ -19,6 +19,7 @@ import VideocamIcon from '@material-ui/icons/Videocam';
 import TimelapseIcon from '@material-ui/icons/Timelapse';
 import PhotoIcon from '@material-ui/icons/Photo';
 import TextWidget from '../TextWidget';
+import KPaper from '../../KPaper';
 
 
 const styles = theme => ({
@@ -105,7 +106,7 @@ class VideoCard extends React.Component {
     const image = "/images/post03.png";
 
     return (
-      <Card className={classes.card} style={{backgroundImage: `url(${image})`, backgroundSize: 'auto', backgroundPosition: 'center'}}>
+      <KPaper square={false} className={classes.card} style={{backgroundImage: `url(${image})`, backgroundSize: 'auto', backgroundPosition: 'center'}}>
 
         <TextWidget
           type="video"
@@ -119,7 +120,7 @@ class VideoCard extends React.Component {
           contentStyle={{paddingTop: '70%',}}
         />
         
-      </Card>
+      </KPaper>
     );
   }
 }

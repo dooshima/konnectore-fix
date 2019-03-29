@@ -15,7 +15,7 @@ const styles = theme => {
 function CompetitionSummaryCard(props) {
     const { classes } = props;
     return (
-<KPaper style={{marginTop: 20}}>
+<KPaper style={{marginTop: 5}}>
             <List subheader={<ListSubheader>COMPETITIONS</ListSubheader>} style={{textAlign: 'left'}} className={classes.root}>
         <ListItem>
           <ListItemIcon>

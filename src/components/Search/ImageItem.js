@@ -9,11 +9,15 @@ import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
 import { loadCSS } from 'fg-loadcss/src/loadCSS';
 import { Avatar, CardHeader, Icon } from '@material-ui/core';
+import KCard from '../UIC/KCard';
 
 const styles = theme => ({
   card: {
     display: 'flex',
-    margin: theme.spacing.unit * 1,
+    margin: theme.spacing.unit * 0,
+    padding: 0,
+    flexDirection: 'row',
+    width: '100%',
   },
   details: {
     display: 'flex',
@@ -61,7 +65,7 @@ class ImageItem extends React.Component {
   const { classes, theme, item, } = this.props;
 
   return (
-    <Card className={classes.card}>
+    <KCard className={classes.card}>
       <CardMedia
         className={classes.cover}
         image="/images/post-img.png"
@@ -95,7 +99,7 @@ class ImageItem extends React.Component {
           <Typography variant="subheading" color="textSecondary" className={classes.small}>178 comments</Typography>
         </div>
       </div>
-    </Card>
+    </KCard>
   );
         }
 }
