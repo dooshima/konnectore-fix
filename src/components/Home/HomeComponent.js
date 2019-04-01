@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, CardHeader, CardContent, TextField, FormControl, InputLabel, Input } from '@material-ui/core';
+import { withStyles, CardHeader, CardContent, TextField, FormControl, InputLabel, Input, Typography } from '@material-ui/core';
 import KCard from './../../components/UIC/KCard';
 import SocialButtons from './SocialButtons';
 import SignIn from './SignIn';
@@ -56,6 +56,14 @@ const styles = theme => ({
         justifyContent: 'center',
         flexDirection: 'column',
         alignItems: 'center',
+    },
+    introText: {
+        position: 'absolute',
+        zIndex: 12,
+        left: 50,
+        bottom: 125,
+        color: 'white',
+        lineHeight: '50px',
     }
 })
 class HomeCompoment extends React.PureComponent {
@@ -92,6 +100,9 @@ class HomeCompoment extends React.PureComponent {
                 
                 <div className={classes.bottomContainer}>
                     <img src="/images/home-path-bg.png" className={classes.pathImage} />
+                    <Typography variant="h3" className={classes.introText}>
+                        The world is waiting to see<br/> what you’ve got!
+                    </Typography>
                 </div>
             </div>   
             </div>

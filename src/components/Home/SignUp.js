@@ -1,6 +1,7 @@
 import React from 'react';
 import ProptTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import { Redirect, withRouter } from 'react-router-dom';
 import { FormControl, Input, InputLabel, FormControlLabel, Checkbox, Typography, Button } from '@material-ui/core';
 import KButton from './../UIC/KButton';
 
@@ -59,7 +60,13 @@ class SignUp extends React.Component {
 
     handleCheckboxChange = name => event => {
         this.setState({ [name]: event.target.checked });
-      };
+    };
+
+    signup = () => {
+        console.log('Redirect to /onboard');
+        //return <Redirect to="/onboard" />
+        this.props.history.push("/onboard");
+    }
 
     render() {
         const { classes } = this.props;
@@ -117,7 +124,7 @@ class SignUp extends React.Component {
                     />
                 </FormControl>
                 <div className={classes.footer}>
-                    <KButton label="Sign In" size="small" />
+                    <KButton onClick={this.signup} label="Sign Up" size="small" />
                     <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                         <Typography>Don't have an account?<Button onClick={() => this.props.toggleForm('signin')} color="primary" transparent>Sign In</Button></Typography>
                     </div>
@@ -132,4 +139,4 @@ SignUp.propTypes = {
     classes: ProptTypes.object.isRequired,
 }
 
-export default withStyles(styles)(SignUp);
+export default withRouter(withStyles(styles)(SignUp));

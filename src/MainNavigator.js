@@ -7,6 +7,7 @@ import SearchComponent from './components/Search/SearchComponent';
 import MeController from './components/UIC/Me/MeController';
 import HomeCompoment from './components/Home/HomeComponent';
 import withSidebar from './components/UIC/withSidebar';
+import OnboardComponent from './components/Home/OnboardComponent';
 
 const styles = theme => ({
   wrapper: {
@@ -64,7 +65,8 @@ function MainNavigator(props) {
   
     return (
         <Switch>
-            <Route exact="/" component={HomeCompoment} />
+            <Route exact path="/" component={HomeCompoment} />
+            <Route exact path="/onboard" component={OnboardComponent} />
             <Route exact path="/user" render={props => <SearchResultBody uploadprogress={props.uploadprogress} uploadMedia={props.uploadMedia} setFormdata={props.setFormdata} imageurl={props.imageurl} setImageUrl={props.setImageUrl} />} />
             <Route path="/search" render={renderProps => <UISearchComponent {...renderProps} searchResults={props.searchResults} q={props.q} loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)} />} />
             <Route path="/contest" render={renderProps => <UIContestComponent />} />
