@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
 import { Paper } from '@material-ui/core';
 
 const styles = theme => ({
@@ -8,9 +9,9 @@ const styles = theme => ({
     }
 })
 const KPaper = props => {
-    const { classes } = props;
+    const { classes, className } = props;
     return (
-        <Paper {...props} className={classes.shadow} elevation={0} square={props.square === false? false: true}>
+        <Paper {...props} className={classNames(classes.shadow, className)} elevation={0} square={props.square === false? false: true}>
             {props.children}
         </Paper>
     )

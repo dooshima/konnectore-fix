@@ -16,6 +16,7 @@ import { showSearchForm } from './../src/reducers/search/actions';
 import Auth from './services/Auth/Auth';
 import userActions from './../src/reducers/user/actions';
 import axios from 'axios';
+import MainNavigator from './MainNavigator';
 
 const styles = theme => ({
   wrapper: {
@@ -81,7 +82,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/about" component={About} />
           <Route exact path="/policy" component={Policy} />
-          <Route render={props => <Main 
+          <Route render={props => <MainNavigator 
             uploadMedia={this.uploadMedia} 
             uploadprogress={this.state.uploadprogress} 
             imageurl={this.state.imageurl} 
