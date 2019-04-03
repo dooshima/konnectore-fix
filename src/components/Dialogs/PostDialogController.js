@@ -30,16 +30,18 @@ const styles = theme => ({
     position: 'relative',
   },
   paper: {
-    width: '60%',
-    maxHeight: 'max-content',
-    //height: '80vh',
+    width: 700,
+    //maxHeight: 'max-content',
+    height: '90vh',
+    borderRadius: 0,
   },
   root: {
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    height: '90vh',
   }
 });
 
-class DialogController extends React.Component {
+class PostDialogController extends React.Component {
   state = {
     open: false,
     postText: ''
@@ -102,9 +104,9 @@ class DialogController extends React.Component {
   }
 }
 
-DialogController.propTypes = {
+PostDialogController.propTypes = {
   fullScreen: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(withMobileDialog()(DialogController));
+export default withStyles(styles)(withMobileDialog()(PostDialogController));

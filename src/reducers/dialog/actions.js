@@ -26,12 +26,18 @@ const setPostText = postText => ({
     postText,
 });
 
+const setPostTextColor = postTextColor => ({
+    type: types.DIALOG_POST_TEXT_COLOR,
+    postTextColor,
+})
+
 const dialogActions = {
     showDM1,
     toggleDM,
     setDataImageURL,
     setFormData,
     setPostText,
+    setPostTextColor,
 };
 
 export default dialogActions;

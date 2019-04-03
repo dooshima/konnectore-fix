@@ -6,8 +6,9 @@ import { Route, Switch } from 'react-router-dom';
 import SearchComponent from './components/Search/SearchComponent';
 import MeController from './components/UIC/Me/MeController';
 import HomeCompoment from './components/Home/HomeComponent';
-import withSidebar from './components/UIC/withSidebar';
+import WithSidebar from './components/UIC/withSidebar';
 import OnboardComponent from './components/Home/OnboardComponent';
+import SidebarComponent from './components/UIC/SidebarComponent';
 
 const styles = theme => ({
   wrapper: {
@@ -56,21 +57,18 @@ const styles = theme => ({
   }
 });
 
-const UISearchComponent = withSidebar(SearchComponent);
-const UIContestComponent = withSidebar(ContestComponent,);
-const UIMeComponent = withSidebar(MeController);
+const UIContestComponent = <SidebarComponent component={ContestComponent} />;
+const UIMeComponent = <SidebarComponent><MeController /></SidebarComponent>;
 
 function MainNavigator(props) {
-    const { classes } = props;
-  
     return (
         <Switch>
             <Route exact path="/" component={HomeCompoment} />
             <Route exact path="/onboard" component={OnboardComponent} />
             <Route exact path="/user" render={props => <SearchResultBody uploadprogress={props.uploadprogress} uploadMedia={props.uploadMedia} setFormdata={props.setFormdata} imageurl={props.imageurl} setImageUrl={props.setImageUrl} />} />
-            <Route path="/search" render={renderProps => <UISearchComponent {...renderProps} searchResults={props.searchResults} q={props.q} loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)} />} />
+            <Route path="/search" render={renderProps => <SidebarComponent {...renderProps} searchResults={props.searchResults} q={props.q} loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)}><SearchComponent {...renderProps} /></SidebarComponent>} />
             <Route path="/contest" render={renderProps => <UIContestComponent />} />
-            <Route path="/me" component={UIMeComponent} />
+            <Route path="/me" render={p => <SidebarComponent {...p}><MeController {...p} /></SidebarComponent>} />
         </Switch>
     )
   }

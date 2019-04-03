@@ -15,6 +15,7 @@ import dialogActions from './../../reducers/dialog/actions';
 import postActions from './../../reducers/post/actions';
 import DialogManager from '../Dialogs/DialogManager';
 import DialogController from '../Dialogs/DialogController';
+import PostDialogController from '../Dialogs/PostDialogController';
 
 const styles = theme => ({
   button: {
@@ -67,6 +68,7 @@ class NewPostButtons extends React.Component {
     this.props.setDataImageURL("");
     this.props.setPostText("");
     this.props.setFormData({});
+    this.props.setPostTextColor("#ffb91b");
   }
 
   toggleDialog = () => {
@@ -125,14 +127,15 @@ class NewPostButtons extends React.Component {
 
       </div>}
       
-      <DialogController {...this.props} uploadMedia={this.sharePost} dialog={this.state.dialogType} />
+      <PostDialogController {...this.props} uploadMedia={this.sharePost} dialog={this.state.dialogType} />
     </>
   );
   }
 }
 
-/*
-<ChooseImageDialog showDM={showDM} toggleDM={toggleDM} 
+/* <ChooseImageDialog 
+        showDM={showDM} 
+        toggleDM={toggleDM} 
         setDataImageURL={this.props.setDataImageURL} 
         setFormData={this.props.setFormData}
         dataImageURL={this.props.dataImageURL}
@@ -140,7 +143,8 @@ class NewPostButtons extends React.Component {
         postText={this.props.postText} 
         uploadMedia={this.sharePost}
         isUploading={this.props.isUploading}
-        progressNumber={this.props.progressNumber} />
+        progressNumber={this.props.progressNumber} 
+    />
 */
 
 NewPostButtons.propTypes = {
@@ -148,6 +152,7 @@ NewPostButtons.propTypes = {
 };
 
 const mapStateToProps = state => {
+  console.log('Dislog: ', state.dialog)
   return {
     showDM: state.dialog.showDM,
     dataImageURL: state.dialog.dataImageURL,
@@ -155,6 +160,7 @@ const mapStateToProps = state => {
     formData: state.dialog.formData,
     progressNumber: state.post.progressNumber,
     isUploading: state.post.isUploading,
+    postTextColor: state.dialog.postTextColor,
   }
 }
 const mapDispatchToProps = dispatch => {
@@ -174,6 +180,9 @@ const mapDispatchToProps = dispatch => {
     },
     uploadMedia: data => {
       dispatch(postActions.uploadMedia(data));
+    },
+    setPostTextColor: color => {
+      dispatch(dialogActions.setPostTextColor(color));
     }
   }
 }

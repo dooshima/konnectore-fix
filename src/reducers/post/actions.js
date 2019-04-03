@@ -56,6 +56,7 @@ const upload = (data, dispatch)  => {
         dispatch(dialogActions.showDM1(false));
         dispatch(dialogActions.setPostText(""));
             dispatch(dialogActions.setFormData({}));
+            dispatch(dialogActions.setPostTextColor("#ffb91b"));
         return {error: false, message: "Post was shared successfully!", data: resp};
       })
       .catch( error => {
@@ -63,6 +64,7 @@ const upload = (data, dispatch)  => {
             dispatch(dialogActions.showDM1(false));
             dispatch(dialogActions.setPostText(""));
             dispatch(dialogActions.setFormData({}));
+            dispatch(dialogActions.setPostTextColor("#ffb91b"));
           console.log(error)
           let err = new KError(true, "Error occured while posting");
           return err.toObj();

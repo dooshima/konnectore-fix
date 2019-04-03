@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import PrimaryNavBar from './../PrimaryNavBar';
 import LeftSidebar from './../LeftSidebar';
+import { withRouter } from 'react-router-dom';
 
 const styles = theme => ({
   wrapper: {
@@ -49,35 +51,16 @@ const styles = theme => ({
   }
 });
 
-function withSidebar(UIComponent) {
-    return class extends React.Component {
-        constructor(props) {
-            super(props);
-        }
-        render() {
-            const { classes } = this.props;
-            const props = this.props;
-            return (
-                <div className={classes.wrapper}>
-                    <div className={classes.header}>
-                        <PrimaryNavBar loggedIn={props.loggedIn} handleLogin={props.handleLogin} handleLogout={props.handleLogout} handleSearch={q => props.handleSearch(q)} />
-                    </div>
-                    <div className={classes.content}>
-                        <div className={classes.sidebar}>
-                            <LeftSidebar
-                            imageurl={props.imageurl} setImageUrl={props.setImageUrl} 
-                            setFormdata={props.setFormdata} uploadprogress={props.uploadprogress} 
-                            uploadMedia={props.uploadMedia} showpostform={props.showpostform}
-                            loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)} />
-                        </div>
-                        <div className={classes.body}>
-                                <UIComponent {...props} />
-                        </div>
-                    </div>
-                </div>
-            )
-        }
-    }
+const WithSidebar = (UIComponent) => (Sidebar) => {
+    class HOC extends React.Component {
+      render() {
+        return (
+          <UIComponent {...this.props}><Sidebar /></UIComponent>        
+        )
+      }
+    } 
+                 
+    return HOC;     
 }
   
-export default withSidebar;
+export default WithSidebar;

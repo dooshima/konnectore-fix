@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { Button } from '@material-ui/core';
 import KButton from '../KButton';
+import PostDetailDialogController from '../../Dialogs/PostDetailDialogController';
+import ImagePostDetailDialog from '../../Dialogs/ImagePostDetailDialog';
 
 const styles = theme => ({
   root: {
@@ -38,6 +40,7 @@ const styles = theme => ({
 
 const MeHeaderSummary = props => {
   const { classes } = props;
+  const [open, showDetail] = useState(false);
   return (
     <div className={classes.root}>
       <Paper elevation={0} className={classes.paper}>
@@ -71,11 +74,15 @@ const MeHeaderSummary = props => {
                   <Typography style={{ cursor: 'pointer' }}>Contests</Typography>
                   <Typography component="span" style={{fontWeight: 900}}>345</Typography>
                 </div>
-                
+                <ImagePostDetailDialog />
               </Grid>
             </Grid>
             <Grid item>
-              <KButton label="Follow" size="small" />
+              <KButton
+               onClick={() => showDetail(!open)}
+               label="Follow" size="small" />
+
+               <PostDetailDialogController open={open} openDialog={showDetail} />
             </Grid>
             
           </Grid>

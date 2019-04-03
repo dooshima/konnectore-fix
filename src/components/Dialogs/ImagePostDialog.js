@@ -24,13 +24,14 @@ const styles = theme => ({
       backgroundColor: '#efefef',
       border: 'none',
       display: 'block',
-      padding: theme.spacing.unit * 2,
+      padding: theme.spacing.unit * 3,
     },
     bordered: {
       backgroundColor: '#efefef',
       border: '1px dashed #bcbcbc',
       padding: theme.spacing.unit * 2,
       flex: 1,
+      height: '100%',
     },
     content: {
       backgroundColor: '#fff',
@@ -38,7 +39,8 @@ const styles = theme => ({
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      minHeight: 150,
+      //minHeight: 150,
+      height: '100vh',
       position: 'relative',
     },
     paper: {

@@ -4,14 +4,14 @@ import classNames from 'classnames';
 import { Paper } from '@material-ui/core';
 
 const styles = theme => ({
-    shadow: {
+    root: {
         boxShadow: '-1px 2px 8px -4px rgba(165,165,165,1)',
     }
 })
 const KPaper = props => {
     const { classes, className } = props;
     return (
-        <Paper {...props} className={classNames(classes.shadow, className)} elevation={0} square={props.square === false? false: true}>
+        <Paper {...props} className={classNames(classes.root, className)} elevation={0} square={props.square === false? false: true}>
             {props.children}
         </Paper>
     )

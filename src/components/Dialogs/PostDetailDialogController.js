@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
-import { withStyles } from '@material-ui/core';
-import ImagePostDialog from './ImagePostDialog';
-import TextPostDialog from './TextPostDialog';
+import { withStyles, Button } from '@material-ui/core';
+import ImagePostDetailDialog from './ImagePostDetailDialog';
+import TextPostDetailDialog from './TextPostDialog';
 
 const styles = theme => ({
   contentHolder: {
@@ -30,20 +30,25 @@ const styles = theme => ({
     position: 'relative',
   },
   paper: {
-    width: '60%',
-    maxHeight: 'max-content',
-    //height: '80vh',
+    width: '100vw',
+    //maxHeight: 'max-content',
+    height: '90vh',
+    borderRadius: 0,
   },
   root: {
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    height: '90vh',
   }
 });
 
-class DialogController extends React.Component {
-  state = {
-    open: false,
-    postText: ''
-  };
+class PostDetailDialogController extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            open: this.props.open,
+            postText: ''
+        };
+    }
 
   setPostText = text => {
     this.props.setPostText(text);
@@ -54,9 +59,10 @@ class DialogController extends React.Component {
   };
 
   handleClose = () => {
-    this.props.toggleDM(false);
+      this.props.openDialog(!this.state.open);
+    /*this.props.toggleDM(false);
     this.props.setDataImageURL("");
-    this.props.setPostText("");
+    this.props.setPostText("");*/
   };
 
   
@@ -71,40 +77,43 @@ class DialogController extends React.Component {
     }
     
     return (
+        <>
+        <Button onClick={this.handleClickOpen}>Open</Button>
         <Dialog
           fullScreen={fullScreen}
-          open={this.props.showDM}
+          open={this.state.open}
           onClose={this.handleClose}
           maxWidth="md"
-          aria-labelledby="responsive-dialog-title"
+          aria-labelledby="post-detail-dialog"
           classes={{
             paper: classes.paper,
             root: classes.root,
           }}
         >
 
-          { this.selectDialog(this.props.dialog, {...this.props, ...funcs}) }
+          { this.selectDialog1(this.props.dialog, {...this.props, ...funcs}) }
 
         </Dialog>
+        </>
     );
   }
 
-  selectDialog = (type, props) => {
-    console.log(type)
+  selectDialog1 = (type, props) => {
+    console.log(<ImagePostDetailDialog {...props} />)
     switch(type) {
       case 'Image':
-        return <ImagePostDialog {...props} />;
+        return <ImagePostDetailDialog {...props} />;
       case 'Text':
-        return <TextPostDialog {...props} />;
+        return <TextPostDetailDialog {...props} />;
       default:
-        return null;
+        return <ImagePostDetailDialog {...props} />;
     }
   }
 }
 
-DialogController.propTypes = {
+PostDetailDialogController.propTypes = {
   fullScreen: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(withMobileDialog()(DialogController));
+export default withStyles(styles)(withMobileDialog()(PostDetailDialogController));

@@ -84,7 +84,7 @@ const styles = theme => ({
     }
   }); 
 
-class TextPostDialog extends React.Component {
+class TextPostDetailDialog extends React.Component {
     constructor(props) {
         super(props);
 
@@ -145,4 +145,4 @@ class TextPostDialog extends React.Component {
     }
 }
 
-export default withStyles(styles)(TextPostDialog);
+export default withStyles(styles)(TextPostDetailDialog);

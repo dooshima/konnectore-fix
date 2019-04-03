@@ -4,6 +4,7 @@ import showDMReducer from './reduction/showDMReducer';
 import imageURLReducer from './reduction/imageURLReducer';
 import formDataReducer from './reduction/formDataReducer';
 import postTextReducer from './reduction/postTextReducer';
+import postTextColorReducer from './reduction/postTextColorReducer';
 
 const showDM = (showDM=false, action) => {
     switch(action.type) {
@@ -41,11 +42,21 @@ const postText = (postText="", action) => {
     }
 }
 
+const postTextColor = (color="#ffb91b", action) => {
+    switch(action.type) {
+        case types.DIALOG_POST_TEXT_COLOR:
+            return postTextColorReducer(color, action);
+        default:
+            return color;
+    }
+}
+
 const dialogReducers = combineReducers({
     showDM,
     dataImageURL,
     formData,
-    postText
+    postText,
+    postTextColor,
 });
 
 export default dialogReducers;

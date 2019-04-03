@@ -1,22 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import Input from '@material-ui/core/Input';
 
 const styles = theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
     flex: 1,
+    overflow: 'hidden',
   },
   textField: {
     marginLeft: theme.spacing.unit * 0,
     marginRight: theme.spacing.unit * 0,
-    width: '100%',
-    height: '100%',
-    flex: 1,
     border: 'none',
+    textAlign: 'center',
+    fontSize: 30,
   },
+  input: {
+    textAlign: 'center',
+    color: 'white',
+    minHeight: 300,
+  }
 });
 
 class PostTextField extends React.Component {
@@ -26,25 +33,30 @@ class PostTextField extends React.Component {
   };
 
   handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    });
-    this.props.setPostText(event.target.value);
+    if(event.target.value.length <= 140) {
+      this.setState({
+        [name]: event.target.value,
+      });
+    
+      this.props.setPostText(event.target.value);
+      this.props.setCharacterCount(event.target.value);
+    }
   };
 
   render() {
-    const { classes, postText } = this.props;
+    const { classes, postText, className } = this.props;
 
     return (
       <form className={classes.container} noValidate autoComplete="off">
-        <TextField
-          id="standard-bare"
-          className={classes.textField}
-          defaultValue="Start typing ..."
-          margin="normal"
+        <Input
+          className={classNames(classes.textField)}
+          classes={{input: classes.input}}
           onChange={this.handleChange('postText')}
           value={postText}
           multiline
+          fullWidth={true}
+          disableUnderline={true}
+          autoFocus={true}
         />
       </form>
     );
