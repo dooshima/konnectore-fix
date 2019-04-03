@@ -40,7 +40,7 @@ const styles = theme => ({
 
 const MeHeaderSummary = props => {
   const { classes } = props;
-  const [open, showDetail] = useState(false);
+  const [open, openDialog] = useState(false);
   return (
     <div className={classes.root}>
       <Paper elevation={0} className={classes.paper}>
@@ -74,15 +74,14 @@ const MeHeaderSummary = props => {
                   <Typography style={{ cursor: 'pointer' }}>Contests</Typography>
                   <Typography component="span" style={{fontWeight: 900}}>345</Typography>
                 </div>
-                <ImagePostDetailDialog />
               </Grid>
             </Grid>
             <Grid item>
               <KButton
-               onClick={() => showDetail(!open)}
+               onClick={() => openDialog(!open)}
                label="Follow" size="small" />
 
-               <PostDetailDialogController open={open} openDialog={showDetail} />
+               <PostDetailDialogController open={open} openDialog={openDialog} />
             </Grid>
             
           </Grid>

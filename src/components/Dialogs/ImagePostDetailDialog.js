@@ -14,6 +14,7 @@
 import React from 'react';
 import { DialogContent } from '@material-ui/core';
 import { withStyles } from '@material-ui/core';
+import PostDetailSlider from './PostDetailSlider';
 
 const styles = theme => ({
     content: {
@@ -36,14 +37,7 @@ class ImagePostDetailDialog extends React.Component {
         return (
             <React.Fragment>
               <DialogContent>
-                <div className={classes.wrapper}>
-                    <div>
-                        <h2>Placeholder</h2>
-                    </div>
-                    <div>
-                        <p>For comments</p>
-                    </div>
-                </div>
+                
               </DialogContent>
             </React.Fragment>
         )

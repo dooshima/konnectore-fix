@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import { withStyles, Button } from '@material-ui/core';
-import ImagePostDetailDialog from './ImagePostDetailDialog';
-import TextPostDetailDialog from './TextPostDialog';
+import PostDetailSlider from './PostDetailSlider';
+import { searchResults } from './../assets/searchResults';
 
 const styles = theme => ({
   contentHolder: {
@@ -32,12 +32,12 @@ const styles = theme => ({
   paper: {
     width: '100vw',
     //maxHeight: 'max-content',
-    height: '90vh',
+    height: '80vh',
     borderRadius: 0,
   },
   root: {
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    height: '90vh',
+    height: '80vh',
   }
 });
 
@@ -59,7 +59,7 @@ class PostDetailDialogController extends React.Component {
   };
 
   handleClose = () => {
-      this.props.openDialog(!this.state.open);
+      this.props.openDialog(!this.props.open);
     /*this.props.toggleDM(false);
     this.props.setDataImageURL("");
     this.props.setPostText("");*/
@@ -75,39 +75,33 @@ class PostDetailDialogController extends React.Component {
         handleClickOpen: this.handleClickOpen,
         handleClose: this.handleClose,
     }
+
+    let posts = [];
+
+    for (let i in searchResults.data.posts.byId) {
+      let item = searchResults.data.posts.byId[i];
+      posts.push(item);
+    }
     
     return (
-        <>
-        <Button onClick={this.handleClickOpen}>Open</Button>
         <Dialog
           fullScreen={fullScreen}
-          open={this.state.open}
+          open={this.props.open}
           onClose={this.handleClose}
-          maxWidth="md"
+          maxWidth="lg"
           aria-labelledby="post-detail-dialog"
           classes={{
             paper: classes.paper,
             root: classes.root,
           }}
+          disableEscapeKeyDown={false}
+          disableBackdropClick={false}
         >
 
-          { this.selectDialog1(this.props.dialog, {...this.props, ...funcs}) }
+          <PostDetailSlider {...this.props} posts={posts} />
 
         </Dialog>
-        </>
     );
-  }
-
-  selectDialog1 = (type, props) => {
-    console.log(<ImagePostDetailDialog {...props} />)
-    switch(type) {
-      case 'Image':
-        return <ImagePostDetailDialog {...props} />;
-      case 'Text':
-        return <TextPostDetailDialog {...props} />;
-      default:
-        return <ImagePostDetailDialog {...props} />;
-    }
   }
 }
 
