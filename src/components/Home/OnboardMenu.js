@@ -9,31 +9,45 @@ const styles = theme => ({
     link: {
         //padding: 0,
         margin: 0,
-        marginLeft: '2em',
+        paddingLeft: '1em',
         textTransform: 'none',
         color: '#ccc',
         borderBottom: '1px solid #efefef',
         display: 'block',
         flex: 1,
         textAlign: 'left'
+    },
+    paper: {
+        marginRight: '2em',
+    },
+    logo: {
+        width: 'auto',
+        height: 60,
+        margin: '1.2em auto',
+    },
+    logoDiv: {
+        display: 'flex',
     }
 })
 function OnboardMenu(props) {
-    const { classes } = props;
+    const { classes, currentScreen } = props;
     return (
-        <KPaper style={{marginTop: 5}}>
+        <KPaper className={classes.paper}>
+            <div className={classes.logoDiv}>
+            <img src="/images/logo.png" className={classes.logo} />
+            </div>
                 <List subheader={<ListSubheader>LET'S BUILD YOUR PROFILE</ListSubheader>} style={{textAlign: 'left'}} className={classes.root}>
             <ListItem>
-                <Button transparent className={classes.link}><Typography color="textSecondary">Choose Username</Typography></Button>
+                <Button transparent className={classes.link}><Typography style={{fontWeight: currentScreen==="ChooseUsername"? 900: 300, color: currentScreen==="ChooseUsername"? '#000': '#0000008a' }}>Choose Username</Typography></Button>
             </ListItem>
             <ListItem>
-                <Button transparent className={classes.link}><Typography color="textSecondary">Personal Information</Typography></Button>
+                <Button transparent className={classes.link}><Typography style={{fontWeight: currentScreen==="PersonalInformation"? 900: 300, color: currentScreen==="PersonalInformation"? '#000': '#0000008a' }}>Personal Information</Typography></Button>
             </ListItem>
             <ListItem>
-                <Button transparent className={classes.link}><Typography color="textSecondary">Add your picture</Typography></Button>
+                <Button transparent className={classes.link}><Typography style={{fontWeight: currentScreen==="AddYourPicture"? 900: 300, color: currentScreen==="AddYourPicture"? '#000': '#0000008a' }}>Add your picture</Typography></Button>
             </ListItem>
             <ListItem>
-                <Button transparent className={classes.link} style={{borderBottom: 'none'}}><Typography color="textSecondary">Visit your dashboard</Typography></Button>
+                <Button transparent className={classes.link} style={{borderBottom: 'none'}}><Typography style={{fontWeight: (currentScreen==="ChooseCategory" || currentScreen==="ConnectWithPeople")? 900: 300, color: (currentScreen==="ChooseCategory" || currentScreen==="ConnectWithPeople")? '#000': '#0000008a' }}>Final steps</Typography></Button>
             </ListItem>
             </List>
         </KPaper>

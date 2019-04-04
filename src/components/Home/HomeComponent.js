@@ -5,6 +5,7 @@ import KCard from './../../components/UIC/KCard';
 import SocialButtons from './SocialButtons';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
+import ResetPassword from './ResetPassword';
 
 const styles = theme => ({
     container: {
@@ -76,6 +77,7 @@ class HomeCompoment extends React.PureComponent {
     }
 
     toggleForm = (form) => {
+        console.log(form)
         this.setState({form: form});
     }
 
@@ -86,20 +88,21 @@ class HomeCompoment extends React.PureComponent {
             <div className={classes.wrapper}>
                 <KCard square={false} className={classes.formDiv}>
                     <div className={classes.buttons}>
-                        <img src="/images/konnectore-logo-green.png" 
-                        style={{width: 70, border: 'solid 5px #a4d972', 
+                        <img src="/images/logo.png" 
+                        style={{width: 70, border: 'solid 5px #24b573', 
                         borderRadius: 10, padding: 10, margin: '2.4em auto 1.5em'}} />
-                        <SocialButtons />
+                        {this.state.form !== 'reset' && <SocialButtons />}
                     </div>
                     <CardContent>
                         {this.state.form === 'signin' && <SignIn toggleForm={this.toggleForm} />}
                         {this.state.form === 'signup' && <SignUp toggleForm={this.toggleForm} />}
+                        {this.state.form === 'reset' && <ResetPassword toggleForm={this.toggleForm} />}
                     </CardContent>
                     
                 </KCard>
                 
                 <div className={classes.bottomContainer}>
-                    <img src="/images/home-path-bg.png" className={classes.pathImage} />
+                    <img src="/images/path-home.png" className={classes.pathImage} />
                     <Typography variant="h3" className={classes.introText}>
                         The world is waiting to see<br/> what you’ve got!
                     </Typography>

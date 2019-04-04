@@ -1,7 +1,7 @@
 import React from 'react';
 import ProptTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { FormControl, Input, InputLabel, FormControlLabel, Checkbox, Typography, Button } from '@material-ui/core';
+import { FormControl, Input, InputLabel, FormControlLabel, Checkbox, Typography, Button, MenuItem, Link } from '@material-ui/core';
 import KButton from './../UIC/KButton';
 
 const styles = theme => ({
@@ -41,6 +41,13 @@ const styles = theme => ({
         fontSize: 16,
       },
       footer: {display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'},
+      reset: {
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          color: '#efefef',
+          cursor: 'pointer',
+      }
 })
 class SignIn extends React.Component {
     constructor(props) {
@@ -80,7 +87,9 @@ class SignIn extends React.Component {
                     />
                 </FormControl>
                 <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="password" shrink className={classes.bootstrapFormLabel}>Password</InputLabel>
+                    
+                    <InputLabel htmlFor="password" shrink 
+                            className={classes.bootstrapFormLabel}>Password</InputLabel>
                     <Input id="password" 
                         value={this.state.email} 
                         onChange={this.handleChange} 
@@ -92,6 +101,9 @@ class SignIn extends React.Component {
                             input: classes.bootstrapInput,
                         }} 
                     />
+                    <Link className={classes.reset} component="span" onClick={() => this.props.toggleForm("reset")}>
+                        <Typography color="textSecondary">Reset password?</Typography>
+                    </Link>
                 </FormControl>
                 <FormControl component="fieldset" className={classes.formControl1}>
                     <FormControlLabel
@@ -105,7 +117,7 @@ class SignIn extends React.Component {
                 <div className={classes.footer}>
                     <KButton label="Sign In" size="small" />
                     <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                        <Typography>Don't have an account?<Button onClick={() => this.props.toggleForm('signup')} color="primary" transparent>Sign Up</Button></Typography>
+                        <Typography>Don't have an account?<Button onClick={() => this.props.toggleForm('signup')} color="primary">Sign Up</Button></Typography>
                     </div>
                 </div>
 

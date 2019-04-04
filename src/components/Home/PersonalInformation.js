@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { CardContent, Typography, FormControl, InputLabel, Input, AppBar, Toolbar, Button, CardActions, Grid } from '@material-ui/core';
 import KButton from '../UIC/KButton';
 import OnboardMenu from './OnboardMenu';
+import KBigButton from '../UIC/KBigButton';
 
 const styles = theme => ({
     main: {
@@ -49,6 +50,27 @@ const styles = theme => ({
             color: '#a2a2a2',
             fontSize: 14,
         }
+    },
+    bootstrapTextarea: {
+        borderRadius: 10,
+        position: 'relative',
+        backgroundColor: '#f8f8f8',
+        border: '1px solid transparent',
+        fontSize: 14,
+        color: '#a2a2a2',
+        padding: '10px 12px',
+        width: '80%',
+        transition: theme.transitions.create(['border-color', 'box-shadow']),
+        '&:focus': {
+          borderRadius: 10,
+          borderColor: 'transparent',
+          boxShadow: '0 0 0 0.2rem rgba(0,0,0,.01)',
+        },
+        '&::placeholder': {
+            textOverflow: 'ellipsis !important',
+            color: '#a2a2a2',
+            fontSize: 14,
+        }
       },
     bootstrapFormLabel: {
         fontSize: 16,
@@ -64,6 +86,7 @@ const styles = theme => ({
           textTransform: 'none',
           fontWeight: 300,
           opacity: 0.8,
+          
     },
     actions: {
         display: 'flex',
@@ -84,19 +107,19 @@ const styles = theme => ({
 });
 
 const PersonalInformation = props => {
-    const { classes } = props;
+    const { classes, currentScreen } = props;
     return (
         <div className={classes.main}>
         
         <Toolbar className={classes.appBar} style={{justifyContent: 'center'}}>
             <Typography className={classes.alertText}>
-                Your account has not yet been activated. <Button className={classes.alertText}>Resend activation link</Button>
+                Your account has not yet been activated. <Button className={classes.alertText} style={{textDecoration: 'underline'}}>Resend activation link</Button>
             </Typography>
         </Toolbar>
         <div className={classes.wrapper}>
         <Grid container spacing={0}>
             <Grid item md={3}>
-                <OnboardMenu />
+                <OnboardMenu currentScreen={currentScreen} />
             </Grid>
             <Grid item md={9} style={{paddingLeft: 80,}}>
                 <Typography variant="h3" style={{fontSize: '2em', opacity: 0.8, marginBottom: '.6em'}}>
@@ -140,6 +163,25 @@ const PersonalInformation = props => {
                                         />
                                 </FormControl>
                             </Grid>
+                            <Grid item md={12}>
+                                <FormControl className={classes.formControl}>
+                                    <InputLabel htmlFor="bio" shrink className={classes.bootstrapFormLabel}>A little description about yourself and what you do so that people can connect with you</InputLabel>
+                                        <Input id="bio" 
+                                            placeholder="Your bio" 
+                                            value={props.firstname} 
+                                            onChange={props.handleUsernameChange} 
+                                            fullWidth={true}
+                                            disableUnderline={true}
+                                            classes={{
+                                                root: classes.bootstrapRoot,
+                                                input: classes.bootstrapTextarea,
+                                            }}
+                                            multiline
+                                            rows={4}
+                                            style={{borderRadius: 10,}}
+                                        />
+                                </FormControl>
+                            </Grid>
                         </Grid>
                         
                     </CardContent>
@@ -148,7 +190,7 @@ const PersonalInformation = props => {
                     </CardActions>
                 </KCard>
                 <div className={classes.next}>
-                    <KButton label="Next" size="small" />
+                    <KBigButton onClick={() => props.setScreen('AddYourPicture')} label="Next" size="small" />
                 </div>
             </Grid>
         </Grid>

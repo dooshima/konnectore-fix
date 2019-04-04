@@ -232,7 +232,7 @@ class PrimaryNavBar extends React.Component {
               <Grid item xs={2} style={{display: 'flex', alignItems: 'center'}}>
                 <div style={{display: 'flex', justifyContent: 'start', alignItems: 'center'}}>
                   <Link to="/">
-                    <Avatar className={classes.avatar} alt="Konnectore Logo" src="/images/konnectore-logo-green.png" />
+                    <Avatar className={classes.avatar} alt="Konnectore Logo" src="/images/logo.png" />
                   </Link>
                 </div>
               </Grid>
