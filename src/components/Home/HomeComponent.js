@@ -14,10 +14,8 @@ const styles = theme => ({
         right: 0,
         bottom: 0,
         left: 0,
-        backgroundColor: 'blue',
+        backgroundColor: '#fff',
         overflowY: 'scroll',
-        backgroundImage: `url(/images/home-bg1.png)`,
-        backgroundSize: 'cover',
     },
     formDiv: {
         minHeight: 500,
@@ -38,6 +36,10 @@ const styles = theme => ({
         display: 'flex',
         justifyContent: 'flex-end',
         position: 'relative',
+        backgroundImage: `url(/images/landing_bg.jpg)`,
+        backgroundSize: 'cover',
+        backgroundAttachment: 'scroll',
+        backgroundColor: '#fff',
     },
     bottomContainer: {
         position: 'absolute',
