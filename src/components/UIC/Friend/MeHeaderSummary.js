@@ -8,7 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { Button } from '@material-ui/core';
 import KButton from '../KButton';
-import { withRouter } from 'react-router-dom';
+import PostDetailDialogController from '../../Dialogs/PostDetailDialogController';
+import ImagePostDetailDialog from '../../Dialogs/ImagePostDetailDialog';
 
 const styles = theme => ({
   root: {
@@ -38,12 +39,8 @@ const styles = theme => ({
 });
 
 const MeHeaderSummary = props => {
-  const { classes, editProfile } = props;
-  const KButtonLink = withRouter( ({history}) => {
-    return <KButton
-      onClick={() => history.push("/me/account/edit")}
-      label="Edit" size="small" />
-  })
+  const { classes } = props;
+  const [open, openDialog] = useState(false);
   return (
     <div className={classes.root}>
       <Paper elevation={0} className={classes.paper}>
@@ -80,7 +77,11 @@ const MeHeaderSummary = props => {
               </Grid>
             </Grid>
             <Grid item>
-              <KButtonLink />
+              <KButton
+               onClick={() => openDialog(!open)}
+               label="Follow" size="small" />
+
+               <PostDetailDialogController open={open} openDialog={openDialog} />
             </Grid>
             
           </Grid>

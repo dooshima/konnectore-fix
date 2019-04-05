@@ -7,12 +7,6 @@ import { searchResults } from './../../assets/searchResults';
 import MeTimeline from './MeTimeline';
 import GrowYourNetwork from './GrowYourNetwork';
 import AwardsAndBadges from './AwardsAndBadges';
-import AccountInfoWidget from './AccountInfoWidget';
-import EditPersonalInfoWidget from './EditPersonalInfoWidget';
-import ManageYourAccountWidget from './ManageYourAccountWidget';
-import PlaceComponents from '../PlaceComponents';
-import EditProfile from './Profile/EditProfile';
-import ManageAccount from './Profile/ManageAccount';
 
 class MeController extends React.Component {
     constructor(props) {
@@ -43,18 +37,14 @@ class MeController extends React.Component {
                     <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
                         <MeHeader path={match.path} {...this.props} setFilter={this.setFilter.bind(this)} />
                         <Route exact path={`${match.path}/:filter`} render={props => <MeTimeline {...props} recentPosts={recentPosts} />} />
-                        <Route exact path={`${match.path}/account/edit`} component={EditProfile} />
-                        <Route exact path={`${match.path}/account/manage`} component={ManageAccount} />
+                        <Route exact path={`${match.path}/account/:action`} component={EditProfile} />
                     </Paper>
                     </Grid>
                     <Grid item xs={4}>
                         <div style={{marginLeft: 10}}>
-                            <PlaceComponents spacer={20}>
-                                <Route exact path={`${match.path}/`} component={AwardsAndBadges} />
-                                <Route exact path={`${match.path}/`} component={AccountInfoWidget} />
-                                <Route exact path={`${match.path}/account/edit`} component={EditPersonalInfoWidget} />
-                                <Route exact path={`${match.path}/account/manage`} component={ManageYourAccountWidget} />
-                            </PlaceComponents>
+                            <AwardsAndBadges />
+                            <GrowYourNetwork />
+                            <Route exact path={`${match.path}/account/:action`} component={EditProfileMenu} />
                         </div>
                     </Grid>
                 </Grid>
@@ -68,6 +58,37 @@ class MeController extends React.Component {
 }
 
 export default MeController;
+
+function MeTimeline2({match}) {
+    return (
+        <div>
+            <h4>This is the My Time line. With {match.params.filter} selected</h4>
+        </div>
+    )
+}
+
+function EditProfile({match}) {
+    return (
+        <div>
+            <h4>
+                Edit profile form {match.url}, {JSON.stringify(match.params)} 
+            </h4>
+        </div>
+    )
+}
+
+function EditProfileMenu(props) {
+    return (
+        <div>
+            <h4>Edit Information</h4>
+            <ul>
+                <li>
+                    Link One
+                </li>
+            </ul>
+        </div>
+    )
+}
 
 
 

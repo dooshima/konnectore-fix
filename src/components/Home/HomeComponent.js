@@ -23,7 +23,7 @@ const styles = theme => ({
         //maxWidth: '40%',
         borderRadius: 20,
         position: 'relative',
-        margin: 100,
+        margin: 100,    
         zIndex: 10,
         flexDirection: 'column',
         //display: 'flex',

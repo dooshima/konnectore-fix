@@ -66,7 +66,7 @@ class ResetPassword extends React.Component {
         return (
             <form className={classes.form} noValidate autoComplete="off">
                 <Typography>
-                    Enter you email address in order to regain access to your account. 
+                    Enter your email address in order to regain access to your account. 
                     We will send you a password reset link.
                 </Typography>
                 <FormControl className={classes.formControl}>
