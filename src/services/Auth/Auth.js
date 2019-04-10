@@ -43,27 +43,27 @@ function logout(uid) {
 }
 
 function signup(form) {
-    return Server.post('http://localhost/konnectoreapi/public/api/create-user', form)
+    return Server.post('api/create-user', form)
         .then( resp => resp.data );
 }
 
 function uploadAvatar(avatar) {
-    return Server.post("http://localhost/konnectoreapi/public/api/upload-avatar", avatar)
+    return Server.post("api/upload-avatar", avatar)
         .then( resp => resp.data );
 }
 
 function checkUsername(username) {
-    return Server.post('http://localhost/konnectoreapi/public/api/checkusername', username)
+    return Server.post('api/checkusername', username)
         .then( resp => resp.data);
 }
 
 function getTalentCategories() {
-    return Server.get('http://localhost/konnectoreapi/public/api/get-talent-categories')
+    return Server.get('api/get-talent-categories')
         .then( resp => resp.data);
 }
 
 function processOnboarding(data) {
-    return Server.post('http://localhost/konnectoreapi/public/api/onboard', data)
+    return Server.post('api/onboard', data)
         .then( resp => resp.data)
         .catch( error => console.log(error));
 }
@@ -94,13 +94,13 @@ function requestToken(email, password) {
         client_id: Constants.CLIENT_ID,
         client_secret: Constants.CLIENT_SECRET,
     }
-    return Server.post('http://localhost/konnectoreapi/public/oauth/token', data)
+    return Server.post('oauth/token', data)
         .then( resp => resp.data);
 }
 
 function signin(token) {
     const Authorization = 'Bearer ' + token;
-    return Server.get('http://localhost/konnectoreapi/public/api/signin', {Authorization: Authorization})
+    return Server.get('api/signin', {Authorization: Authorization})
         .then( resp => resp.data);
 }
 
