@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
+import { withRouter } from 'react-router-dom';
 
 const styles = theme => ({
   margin: {
@@ -26,7 +27,7 @@ function TopLoginButton(props) {
           color="primary"
           aria-label="Login"
           className={classes.margin}
-          onClick={props.handleLogin}
+          onClick={() => props.history.push('/')}
         >
           Login
         </Fab>
@@ -37,4 +38,4 @@ TopLoginButton.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(TopLoginButton);
+export default withRouter(withStyles(styles)(TopLoginButton));

@@ -108,6 +108,7 @@ const styles = theme => ({
 
 const PersonalInformation = props => {
     const { classes, currentScreen } = props;
+    const active = (props.firstname && props.lastname && props.firstname.length > 2 && props.lastname.length > 2)? false: true;
     return (
         <div className={classes.main}>
         
@@ -137,7 +138,7 @@ const PersonalInformation = props => {
                                         <Input id="firstname" 
                                             placeholder="Your name" 
                                             value={props.firstname} 
-                                            onChange={props.handleUsernameChange} 
+                                            onChange={props.handleChange('firstname')} 
                                             fullWidth={true}
                                             disableUnderline={true}
                                             classes={{
@@ -153,7 +154,7 @@ const PersonalInformation = props => {
                                         <Input id="lastname" 
                                             placeholder="Your surname" 
                                             value={props.lastname} 
-                                            onChange={props.handleUsernameChange} 
+                                            onChange={props.handleChange('lastname')} 
                                             fullWidth={true}
                                             disableUnderline={true}
                                             classes={{
@@ -168,8 +169,8 @@ const PersonalInformation = props => {
                                     <InputLabel htmlFor="bio" shrink className={classes.bootstrapFormLabel}>A little description about yourself and what you do so that people can connect with you</InputLabel>
                                         <Input id="bio" 
                                             placeholder="Your bio" 
-                                            value={props.firstname} 
-                                            onChange={props.handleUsernameChange} 
+                                            value={props.bio} 
+                                            onChange={props.handleChange('bio')} 
                                             fullWidth={true}
                                             disableUnderline={true}
                                             classes={{
@@ -190,7 +191,7 @@ const PersonalInformation = props => {
                     </CardActions>
                 </KCard>
                 <div className={classes.next}>
-                    <KBigButton onClick={() => props.setScreen('AddYourPicture')} label="Next" size="small" />
+                    <KBigButton disabled={active} onClick={() => props.setScreen('AddYourPicture')} label="Next" size="small" />
                 </div>
             </Grid>
         </Grid>

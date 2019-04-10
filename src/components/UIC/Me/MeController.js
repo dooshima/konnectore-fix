@@ -13,6 +13,7 @@ import ManageYourAccountWidget from './ManageYourAccountWidget';
 import PlaceComponents from '../PlaceComponents';
 import EditProfile from './Profile/EditProfile';
 import ManageAccount from './Profile/ManageAccount';
+import { Switch } from 'react-router-dom';
 
 class MeController extends React.Component {
     constructor(props) {
@@ -42,9 +43,11 @@ class MeController extends React.Component {
                     <Grid item xs={8}>
                     <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
                         <MeHeader path={match.path} {...this.props} setFilter={this.setFilter.bind(this)} />
-                        <Route exact path={`${match.path}/:filter`} render={props => <MeTimeline {...props} recentPosts={recentPosts} />} />
-                        <Route exact path={`${match.path}/account/edit`} component={EditProfile} />
-                        <Route exact path={`${match.path}/account/manage`} component={ManageAccount} />
+                        <Switch>
+                            <Route exact path={`${match.path}/account/edit`} component={EditProfile} />
+                            <Route exact path={`${match.path}/account/manage`} component={ManageAccount} />
+                            <Route path={`${match.path}`} render={props => <MeTimeline {...props} recentPosts={recentPosts} />} />
+                        </Switch>
                     </Paper>
                     </Grid>
                     <Grid item xs={4}>

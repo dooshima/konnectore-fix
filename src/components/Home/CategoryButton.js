@@ -37,16 +37,16 @@ function CategoryButton(props) {
   const { classes, category, selected, toggleCategory } = props;
   return (
     <>
-      {selected!==true && <Button variant="outlined" color="primary" className={classes.button}
+      {selected!==true && <Button variant="outlined" type="button" color="primary" className={classes.button}
         onClick={() => toggleCategory(category)}
       >
-        {category}
+        {category.category_name}
         <Icon className={classes.rightIcon}>add_icon</Icon>
       </Button>}
-      {selected===true && <Button variant="contained" color="primary" className={classes.button}
+      {selected===true && <Button variant="contained" type="button" color="primary" className={classes.button}
         onClick={() => toggleCategory(category)}
       >
-        {category}
+        {category.category_name}
         <Icon className={classes.rightIconSelected}>close_icon</Icon>
       </Button>}
     </>

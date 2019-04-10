@@ -7,6 +7,12 @@ const Auth = {
     signup: signup,
     validateLogin: validateLogin,
     logout,
+    checkUsername,
+    uploadAvatar,
+    getTalentCategories,
+    processOnboarding,
+    requestToken,
+    signin,
 };
 
 function login(email, password) {
@@ -36,8 +42,30 @@ function logout(uid) {
     });
 }
 
-function signup(email, password, firstName) {
+function signup(form) {
+    return Server.post('http://localhost/konnectoreapi/public/api/create-user', form)
+        .then( resp => resp.data );
+}
 
+function uploadAvatar(avatar) {
+    return Server.post("http://localhost/konnectoreapi/public/api/upload-avatar", avatar)
+        .then( resp => resp.data );
+}
+
+function checkUsername(username) {
+    return Server.post('http://localhost/konnectoreapi/public/api/checkusername', username)
+        .then( resp => resp.data);
+}
+
+function getTalentCategories() {
+    return Server.get('http://localhost/konnectoreapi/public/api/get-talent-categories')
+        .then( resp => resp.data);
+}
+
+function processOnboarding(data) {
+    return Server.post('http://localhost/konnectoreapi/public/api/onboard', data)
+        .then( resp => resp.data)
+        .catch( error => console.log(error));
 }
 
 function validateLogin(email, password) {
@@ -56,6 +84,24 @@ function validateLogin(email, password) {
         return error.toObj();
     }
     return error.toObj();
+}
+
+function requestToken(email, password) {
+    const data = {
+        username: email,
+        password,
+        grant_type: Constants.GRANT_TYPE,
+        client_id: Constants.CLIENT_ID,
+        client_secret: Constants.CLIENT_SECRET,
+    }
+    return Server.post('http://localhost/konnectoreapi/public/oauth/token', data)
+        .then( resp => resp.data);
+}
+
+function signin(token) {
+    const Authorization = 'Bearer ' + token;
+    return Server.get('http://localhost/konnectoreapi/public/api/signin', {Authorization: Authorization})
+        .then( resp => resp.data);
 }
 
 function isEmail(email) {

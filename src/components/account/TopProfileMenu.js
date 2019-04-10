@@ -64,7 +64,7 @@ class TopProfileMenu extends React.Component {
     const { classes, user } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
-
+    const avatar = (user.profileData && user.profileData.avatar)? user.profileData.avatar: "/images/avatar.png";
 
     return (
       <div className={classes.root}>            
@@ -73,7 +73,7 @@ class TopProfileMenu extends React.Component {
                 <div className={classes.sectionDesktop} style={{display: 'flex', alignItems: 'center'}}>
               
                 <Typography variant="subtitle2" gutterBottom>
-                  {`${user.profileData.firstName} ${user.profileData.lastName}`}
+                  {`${user.profileData.firstname} ${user.profileData.lastname}`}
                 </Typography>
                   <IconButton
                   aria-owns={open ? 'menu-appbar' : undefined}
@@ -82,7 +82,7 @@ class TopProfileMenu extends React.Component {
                   color="inherit"
                   className={classes.uAvatar}
                 >
-                  <Avatar alt={`${user.profileData.firstName} ${user.profileData.lastName}`} src="/images/avatar.png" />
+                  <Avatar alt={`${user.profileData.firstname} ${user.profileData.lastname}`} src={avatar} />
                 </IconButton>
                 <Menu
                   id="menu-appbar"

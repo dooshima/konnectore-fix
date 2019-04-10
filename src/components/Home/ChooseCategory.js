@@ -2,7 +2,7 @@ import React from 'react';
 import KCard from '../UIC/KCard';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { CardContent, Typography, FormControl, InputLabel, Input, AppBar, Toolbar, Button, CardActions, Grid } from '@material-ui/core';
+import { CardContent, Typography, FormControl, InputLabel, Input, AppBar, Toolbar, Button, CardActions, Grid, LinearProgress } from '@material-ui/core';
 import KButton from '../UIC/KButton';
 import OnboardMenu from './OnboardMenu';
 import KBigButton from '../UIC/KBigButton';
@@ -84,7 +84,17 @@ const styles = theme => ({
     span: {
         fontSize: theme.typography.fontSize,
         color: '#aaa',
-    }
+    },
+    linearColorPrimary: {
+        backgroundColor: '#b2dfdb',
+      },
+      linearBarColorPrimary: {
+        backgroundColor: '#00695c',
+      },
+      loaderHolder: {
+        flex: 1,
+        marginBottom: theme.spacing.unit * 0,
+      }
 });
 
 class ChooseCategory extends React.Component {
@@ -93,12 +103,19 @@ class ChooseCategory extends React.Component {
 
         this.state = {
             selectedCategories: [],
-            categories:['Singing', 'Dancing', 'Playing Instruments', 'Comedy', 'Ball Juggling', 'Photography'],
+            categories: [],
         }
     }
 
+    componentDidMount() {
+        const talentCategories = this.props.talentCategories;
+        const categories = talentCategories.map( (cat, i) => cat.category_name );
+        this.setState({talentCategories: talentCategories, categories: categories});
+    }
+
     toggleCategory = (category) => {
-        if(!this.state.selectedCategories.includes(category)) {
+        const index = this.state.selectedCategories.findIndex(cat => cat.id === category.id);
+        if(index === -1) {
             this.setState({
                 selectedCategories: [...this.state.selectedCategories, category]
             })
@@ -109,12 +126,16 @@ class ChooseCategory extends React.Component {
                 selectedCategories: selectedCat,
             })
         }
-
     }
 
     render() {
     const { classes, currentScreen } = this.props;
-
+    //const talents = selected.map( s => s.id );
+    this.props.setSelected(this.state.selectedCategories);
+    console.log(this.props.signupRedirect);
+    if(this.props.signupRedirect) {
+        this.props.redirect();
+    }
     return (
         <div className={classes.main}>
         
@@ -123,6 +144,14 @@ class ChooseCategory extends React.Component {
                 Your account has not yet been activated. <Button className={classes.alertText} style={{textDecoration: 'underline'}}>Resend activation link</Button>
             </Typography>
         </Toolbar>
+        {
+            this.props.authLoading && <div className={classes.loaderHolder}><LinearProgress
+            classes={{
+                colorPrimary: classes.linearColorPrimary,
+                barColorPrimary: classes.linearBarColorPrimary,
+            }}
+            /></div>
+        }
         <div className={classes.wrapper}>
         <Grid container spacing={0}>
             <Grid item md={3}>
@@ -135,14 +164,17 @@ class ChooseCategory extends React.Component {
                 <Typography variant="title" color="textSecondary">
                     Build up your profile so your friends can connect with you. <span className={classes.span}>Choose as many as applicable</span>
                 </Typography>
+                <div>
+                    <Typography color="error">{this.props.authError}</Typography>
+                </div>
                 <KCard className={classes.card}>
                     <CardContent className={classes.content}>
-                        {this.state.categories.map( (cat, i) => <CategoryButton key={i} index={i} category={cat} selected={this.state.selectedCategories.includes(cat)} toggleCategory={this.toggleCategory} />)}
+                        {this.props.talentCategories.map( (cat, i) => <CategoryButton key={i} index={cat.id} id={cat.id} category={cat} selected={this.state.selectedCategories.findIndex(c => c.id === cat.id) !== -1} toggleCategory={this.toggleCategory} />)}
                     </CardContent>
                     <CardActions className={classes.actions}>
                         <div className={classes.next}>
                             <KBigButtonOutlined variant="outlined" onClick={() => this.props.setScreen('ConnectWithPeople')} label="Maybe later" size="small" />
-                            <KBigButton onClick={() => this.props.setScreen('ConnectWithPeople')} label="Next" size="small" />
+                            <KBigButton onClick={this.props.submit} label="Done!" size="small" />
                         </div>
                     </CardActions>
                 </KCard>

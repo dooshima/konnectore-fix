@@ -53,6 +53,7 @@ class SignUp extends React.Component {
     }
 
     handleChange = name => event => {
+        console.log(name, event.target.value)
         this.setState({
           [name]: event.target.value,
         });
@@ -63,22 +64,26 @@ class SignUp extends React.Component {
     };
 
     signup = () => {
-        console.log('Redirect to /onboard');
-        //return <Redirect to="/onboard" />
-        this.props.history.push("/onboard");
+        this.props.handleSignup({email: this.state.email, password: this.state.password})
     }
 
     render() {
         const { classes } = this.props;
+        console.log(this.props.signupSuccessful);
+        if(this.props.signupSuccessful) {
+            this.props.history.push("/onboard");
+        }
         return (
             <form className={classes.form} noValidate autoComplete="off">
+                <Typography color="error" style={{textAlign: 'center'}}>{this.props.authError}</Typography>
                 <FormControl className={classes.formControl}>
                     <InputLabel htmlFor="email" shrink className={classes.bootstrapFormLabel}>Email Address</InputLabel>
                     <Input id="email" 
                         placeholder="yourname@domain.com" 
                         value={this.state.email} 
-                        onChange={this.handleChange} 
+                        onChange={this.handleChange('email')} 
                         fullWidth={true}
+                        name="email"
                         disableUnderline={true}
                         classes={{
                             root: classes.bootstrapRoot,
@@ -89,8 +94,8 @@ class SignUp extends React.Component {
                 <FormControl className={classes.formControl}>
                     <InputLabel htmlFor="password" shrink className={classes.bootstrapFormLabel}>Choose Password</InputLabel>
                     <Input id="password" 
-                        value={this.state.email} 
-                        onChange={this.handleChange} 
+                        value={this.state.password} 
+                        onChange={this.handleChange('password')} 
                         fullWidth={true}
                         type="password"
                         disableUnderline={true}
@@ -101,10 +106,10 @@ class SignUp extends React.Component {
                     />
                 </FormControl>
                 <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="repassword" shrink className={classes.bootstrapFormLabel}>Retype Password</InputLabel>
+                    <InputLabel htmlFor="repassword" shrink className={classes.bootstrapFormLabel}>Confirm Password</InputLabel>
                     <Input id="repassword" 
-                        value={this.state.email} 
-                        onChange={this.handleChange} 
+                        value={this.state.repassword} 
+                        onChange={this.handleChange('repassword')} 
                         fullWidth={true}
                         type="password"
                         disableUnderline={true}
@@ -114,19 +119,10 @@ class SignUp extends React.Component {
                         }} 
                     />
                 </FormControl>
-                <FormControl component="fieldset" className={classes.formControl1}>
-                    <FormControlLabel
-                    control={
-                        <Checkbox checked={this.state.rememberme} onChange={this.handleCheckboxChange('rememberme')} value="rememberme" />
-                    }
-                    color="primary"
-                    label="Remember me on this device"
-                    />
-                </FormControl>
                 <div className={classes.footer}>
                     <KButton onClick={this.signup} label="Sign Up" size="small" />
                     <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                        <Typography>Don't have an account?<Button onClick={() => this.props.toggleForm('signin')} color="primary" transparent>Sign In</Button></Typography>
+                        <Typography>Don't have an account?<Button onClick={() => this.props.toggleForm('signin')} color="primary" >Sign In</Button></Typography>
                     </div>
                 </div>
 

@@ -1,6 +1,7 @@
 import * as types from './actionTypes';
 import Auth from '../../services/Auth/Auth';
 import { showSearchForm } from '../search/actions';
+import KError from '../../models/KError';
 
 const userViewProfile = user => ({
     type: types.USER_VIEW_PROFILE,
@@ -25,25 +26,156 @@ const authError = errorMsg => ({
 const authLogoutSuccess = data => ({
     type: types.AUTH_LOGOUT_SUCCESS,
     data,
+});
+
+const authSignupSuccess = account => ({
+    type: types.AUTH_SIGNUP_SUCCESS,
+    account,
+});
+
+const authSignupRedirect = signupRedirect => ({
+    type: types.AUTH_SIGNUP_REDIRECT,
+    signupRedirect,
 })
+
+const processOnboarding = data => {
+    console.log(data);
+    return dispatch => {
+        dispatch(showAuthLoading(true));
+        Auth.processOnboarding(data)
+            .then( profile => {
+                dispatch(showAuthLoading(false));
+                if(!profile.error) {
+                    dispatch(authLoginSuccess(profile.data));
+                    dispatch(authSignupSuccess({}));
+                    dispatch(showSearchForm(true));
+                    dispatch(authError(""));
+                    dispatch(uploadAvatar(""));
+                    dispatch(authSignupRedirect(true));
+                } else {
+                    dispatch(authSignupRedirect(false));
+                    dispatch(authError(profile.message));
+                }
+            } )
+            .catch( error => {
+                //dispatch(authSignupSuccess({}));
+                console.log(error);
+                dispatch(showSearchForm(false));
+                dispatch(authError(""));
+                dispatch(showAuthLoading(false));
+            });
+    }
+}
+
+const clearUserCache = () => {
+    return dispatch => {
+        dispatch(authError(""));
+        dispatch(showAuthLoading(false));
+        //dispatch(authSignupSuccess({}));
+        dispatch(isUsernameExist(true));
+        dispatch(authSignupRedirect(false));
+    }
+}
+
+const isUsernameExist = available => ({
+    type: types.AUTH_CHECK_USERNAME,
+    available,
+})
+
+const checkUsername = username => {
+    return dispatch => {
+        Auth.checkUsername(username)
+            .then( response => {
+                console.log(response)
+                dispatch(isUsernameExist(!response.data.available))
+            });
+    }
+}
+
+const uploadAvatar = avatar => ({
+    type: types.AUTH_UPLOAD_AVATAR,
+    avatar,
+})
+
+const handleUploadAvatar = file => {
+    return dispatch => {
+        dispatch(showAuthLoading(true));
+        //dispatch(authSignupRedirect(false));
+        Auth.uploadAvatar(file)
+            .then( resp => {
+                dispatch(showAuthLoading(false));
+                if(!resp.error && resp.data) {
+                    dispatch(uploadAvatar(resp.data.path));
+                    dispatch(authError(""));
+                } else {
+                    dispatch(authError(resp.message));
+                }
+            } 
+        );
+    }
+}
+
+const addTalentCategories = talentCategories => ({
+    type: types.AUTH_TALENT_CATEGORIES,
+    talentCategories,
+})
+const getTalentCategories = () => {
+    return dispatch => {
+        Auth.getTalentCategories()
+            .then( resp => {
+                dispatch(addTalentCategories(resp.data));
+            } );
+    }
+}
+
+const handleSignup = data => {
+    return dispatch => {
+        dispatch(showAuthLoading(true));
+        Auth.signup(data)
+            .then( user => {
+                if(user.error !== false) {
+                    const errorMsg = user.error? user.message: "Error signing up. Please retry";
+                    throw new Error(errorMsg);
+                }
+                console.log(user);
+                dispatch(authSignupSuccess(user.data));
+                dispatch(authError(""));
+            }).catch( error => {
+                dispatch(showAuthLoading(false));
+                dispatch(authError(error.message));
+            });
+    }
+}
 
 const handleLogin = (email, password) => {
     return dispatch => {
         dispatch(showAuthLoading(true));
-        Auth.login(email, password)
+        Auth.requestToken(email, password)
+            .then( token => {
+                const accessToken = token.access_token;
+                if(accessToken) {
+                    return accessToken;
+                } 
+                throw new KError(true, "Invalid username or password")
+            })
+            .then (accessToken => {
+                return Auth.signin(accessToken);
+            })
             .then( user => {
                 dispatch(showAuthLoading(false));
-                if(user.error !== false) {
+                if(!user) {
                     const errorMsg = user.error? user.message: "Error logging in. Please retry";
                     throw new Error(errorMsg);
                 }
-                console.log(user);
-                dispatch(authLoginSuccess(user.data));
+                dispatch(authLoginSuccess(user));
                 dispatch(showSearchForm(true));
+                dispatch(authError(""));
+                dispatch(authSignupRedirect(true));
             }).catch( error => {
                 console.log(error)
+                dispatch(authError("Invalid username or password"));
                 dispatch(showAuthLoading(false));
-                dispatch(authError(error.message));
+                //dispatch(authError(error.message));
             });
     }
 }
@@ -54,17 +186,17 @@ const handleLogout = (uid) => {
         Auth.logout(uid)
             .then( user => {
                 dispatch(showAuthLoading(false));
-                if(user.error !== false) {
+                if(user && user.error !== false) {
                     const errorMsg = user.error? user.message: "Error logging out. Please retry";
                     throw new Error(errorMsg);
                 }
                 console.log(user);
-                dispatch(authLogoutSuccess(user.data));
+                dispatch(authLogoutSuccess({}));
                 dispatch(showSearchForm(false));
             }).catch( error => {
                 console.log(error)
                 dispatch(showAuthLoading(false));
-                dispatch(authError(error.message));
+                dispatch(authError(""));
             });
     }
 }
@@ -76,6 +208,15 @@ const userActions = {
     handleLogin,
     authLogoutSuccess,
     handleLogout,
+    authSignupSuccess,
+    handleSignup,
+    clearUserCache,
+    checkUsername,
+    uploadAvatar,
+    handleUploadAvatar,
+    getTalentCategories,
+    processOnboarding,
+    authSignupRedirect,
 };
 
 export default userActions;

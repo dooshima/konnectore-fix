@@ -3,6 +3,8 @@ import ProptTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { FormControl, Input, InputLabel, FormControlLabel, Checkbox, Typography, Button, MenuItem, Link } from '@material-ui/core';
 import KButton from './../UIC/KButton';
+import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
 const styles = theme => ({
     form: {
@@ -55,10 +57,13 @@ class SignIn extends React.Component {
 
         this.state = {
             rememberme: false,
+            email: "",
+            password: "",
         }
     }
 
     handleChange = name => event => {
+        console.log(name, event.target.name)
         this.setState({
           [name]: event.target.value,
         });
@@ -68,16 +73,43 @@ class SignIn extends React.Component {
         this.setState({ [name]: event.target.checked });
       };
 
+    signin = () => {
+        console.log(this.state);
+        this.props.handleLogin(this.state.email, this.state.password);
+    }
+
+    test = () => {
+        const options = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjQ2MTQyYzc1ODcxYzc5YTE0NDkxYmE4ODJmMTU4ZmJkZDVlOGYxNWQ3OTE2ZDI1NGI2NThkM2YzZWQ3MTMwYjMyMGY3ZTBlNjNhMWIwNjllIn0.eyJhdWQiOiIyIiwianRpIjoiNDYxNDJjNzU4NzFjNzlhMTQ0OTFiYTg4MmYxNThmYmRkNWU4ZjE1ZDc5MTZkMjU0YjY1OGQzZjNlZDcxMzBiMzIwZjdlMGU2M2ExYjA2OWUiLCJpYXQiOjE1NTQ4NDU1MzMsIm5iZiI6MTU1NDg0NTUzMywiZXhwIjoxNTg2NDY3OTMzLCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.VPpaxHBVspK9JamOuT5DBtJu4BcLZ22aRHrnE5OnDF1mkc7AIml8s-0I6SgjLnU-oP9jrUlrMPaWFNItnygzEugjPYQcK1oEMnQgK6z2ar1mlnaVmzxdklOAFO_ZqBWf6bU7PeC5CckwLfKKQucePTTRuHgOnP0vcSHjT5ieLUdF4oxH1LeQeLWp229nrmIUsnoiztQyD7H1rjKr-zhXKz8cjcj9ipKGu8Ffabbes1ouL3SgyxKMrhN0X-b2ziwt2caRSMVRhqxaHsJ5Yf3tXTp7IxXmtMcaj35M3JUSxmkGz8dE6mD2tDHOLFgddwa2jm_5X7gUzjSsYqz5iKl0C-KD5fELz4NQj2bikpgvH7vc9o2RFxn--gVQ_Afc-x_C9-Hg2QpqNKTMcnzVIFd6Wkdk2jHXBpVi6spn3dftdhssop1QEYZZsQz6Cs1Bb7t-4XSuhshsacJwVza1tLp1ICrUwuzl7k3FyZjIwoPYWVWSk34MNCiZ07fhD_bXil9zRBSIkw_0t6mCS1IETu_KAccrWHqO0hyc3wgLljKcfEMZB4iOVpMg5vcPdgv1Aqp-ZeTgx4x0c2pUse8dGtSFkfwMYhL42PjpEZrxgJY0eGz72K_ylE3TbiTXfOD8gS_O48KJSJZFbPSL7B7bGaMB2nQIhTlpWtKp2PA60My53CY,'
+        };
+        axios.get('http://localhost/konnectoreapi/public/api/signin', {headers: options})
+            .then( u => console.log(u))
+    }
+
     render() {
         const { classes } = this.props;
+        if(this.props.authRedirect) {
+            const data = this.props.userData;
+            if(!data.username) {
+                this.props.authSignupSuccess({id: data.id, email: data.email});
+                this.props.authSignupRedirect(false);
+                this.props.history.push('/onboard/');
+            } else {
+                this.props.history.push('/me');
+                this.props.authSignupRedirect(false);
+            }
+        }
         return (
             <form className={classes.form} noValidate autoComplete="off">
+            <Typography color="error" style={{textAlign: 'center'}}>{this.props.authError}</Typography>
                 <FormControl className={classes.formControl}>
                     <InputLabel htmlFor="email" shrink className={classes.bootstrapFormLabel}>Email Address</InputLabel>
                     <Input id="email" 
                         placeholder="yourname@domain.com" 
                         value={this.state.email} 
-                        onChange={this.handleChange} 
+                        onChange={this.handleChange('email')} 
                         fullWidth={true}
                         disableUnderline={true}
                         classes={{
@@ -91,8 +123,8 @@ class SignIn extends React.Component {
                     <InputLabel htmlFor="password" shrink 
                             className={classes.bootstrapFormLabel}>Password</InputLabel>
                     <Input id="password" 
-                        value={this.state.email} 
-                        onChange={this.handleChange} 
+                        value={this.state.password}
+                        onChange={this.handleChange('password')} 
                         fullWidth={true}
                         type="password"
                         disableUnderline={true}
@@ -115,7 +147,7 @@ class SignIn extends React.Component {
                     />
                 </FormControl>
                 <div className={classes.footer}>
-                    <KButton label="Sign In" size="small" />
+                    <KButton onClick={this.signin} label="Sign In" size="small" />
                     <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                         <Typography>Don't have an account?<Button onClick={() => this.props.toggleForm('signup')} color="primary">Sign Up</Button></Typography>
                     </div>
@@ -130,4 +162,4 @@ SignIn.propTypes = {
     classes: ProptTypes.object.isRequired,
 }
 
-export default withStyles(styles)(SignIn);
+export default withRouter(withStyles(styles)(SignIn));

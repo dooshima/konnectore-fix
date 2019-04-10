@@ -88,6 +88,7 @@ const styles = theme => ({
 
 const ChooseUsername = props => {
     const { classes, currentScreen } = props;
+    const active = (props.username && props.usernameExists && props.username.length > 4)? false: true;
     return (
         <div className={classes.main}>
         
@@ -131,16 +132,16 @@ const ChooseUsername = props => {
                                 input: classes.bootstrapInput,
                             }} 
                         />
-                        <Typography color="error" style={{marginLeft: 20,}}>
+                        {!props.usernameExists && <Typography color="error" style={{marginLeft: 20,}}>
                             Sorry, that username has been taken
-                        </Typography>
+                        </Typography>}
                     </div>
                 </FormControl>
             </CardContent>
             
         </KCard>
                 <div className={classes.next}>
-                    <KBigButton onClick={() => props.setScreen('PersonalInformation')} label="Next" size="small" />
+                    <KBigButton disabled={active} onClick={() => props.setScreen('PersonalInformation')} label="Next" size="small" />
                 </div>
             </Grid>
         </Grid>

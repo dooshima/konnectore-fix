@@ -1,0 +1,223 @@
+{
+    "error": "false",
+    "message": "Search was successful",
+    "data": {
+        "posts": [
+            
+            {
+                "id": "post1",
+                "endorsements": [],
+                "votes": [],
+                "comments": [],
+                "type": "image",
+                "author": "userID2",
+                "text": "Watch my latest performance at the annual contest challenge last night. Thanks to everyone who was a part of the program.",
+                "src": "",
+                "coverImage": "/images/post-img.png",
+                "backgroundColor": "",
+                "textColor": ""
+            },
+            {
+                "id": "post2",
+                "endorsements": [],
+                "votes": [],
+                "comments": [],
+                "type": "video",
+                "author": "userID2",
+                "text": "Watch my latest performance at the annual contest challenge last night. Thanks to everyone who was a part of the program.",
+                "src": "",
+                "coverImage": "/images/post-img.png",
+                "backgroundColor": "",
+                "textColor": ""
+            },
+            {
+                "id": "post3",
+                "endorsements": ["endorsementID1", "endorsementID2"],
+                "votes": ["voteID1", "voteID2", "voteID3", "voteID4"],
+                "comments": ["commentID1", "commentID2"],
+                "type": "text",
+                "author": "userID2",
+                "text": "Watch my latest performance at the annual contest challenge last night. Thanks to everyone who was a part of the program.",
+                "src": "",
+                "coverImage": "/images/post-img.png",
+                "backgroundColor": "",
+                "textColor": ""
+            },
+            {
+                "id": "post4",
+                "endorsements": ["endorsementID1", "endorsementID2"],
+                "votes": ["voteID1", "voteID2", "voteID3", "voteID4"],
+                "comments": ["commentID1", "commentID2"],
+                "type": "video",
+                "author": "userID1",
+                "text": "Watch my latest performance at the annual contest challenge last night. Thanks to everyone who was a part of the program.",
+                "src": "",
+                "coverImage": "/images/post-img.png",
+                "backgroundColor": "",
+                "textColor": ""
+            },
+            {
+                "id": "post1",
+                "endorsements": ["endorsementID1", "endorsementID2"],
+                "votes": ["voteID1", "voteID2", "voteID3", "voteID4"],
+                "comments": ["commentID1", "commentID2"],
+                "type": "image",
+                "author": "userID2",
+                "text": "Watch my latest performance at the annual contest challenge last night. Thanks to everyone who was a part of the program.",
+                "src": "",
+                "coverImage": "/images/post-img.png",
+                "backgroundColor": "",
+                "textColor": ""
+            },
+            {
+                "id": "post2",
+                "endorsements": ["endorsementID1", "endorsementID2"],
+                "votes": ["voteID1", "voteID2", "voteID3", "voteID4"],
+                "comments": ["commentID1", "commentID2"],
+                "type": "image",
+                "author": "userID2",
+                "text": "Watch my latest performance at the annual contest challenge last night. Thanks to everyone who was a part of the program.",
+                "src": "",
+                "coverImage": "/images/post-img.png",
+                "backgroundColor": "",
+                "textColor": ""
+            },
+            {
+                "id": "post3",
+                "endorsements": ["endorsementID1", "endorsementID2"],
+                "votes": ["voteID1", "voteID2", "voteID3", "voteID4"],
+                "comments": ["commentID1", "commentID2"],
+                "type": "video",
+                "author": "userID2",
+                "text": "Watch my latest performance at the annual contest challenge last night. Thanks to everyone who was a part of the program.",
+                "src": "",
+                "coverImage": "/images/post-img.png",
+                "backgroundColor": "",
+                "textColor": ""
+            },
+            {
+                "id": "post4",
+                "endorsements": ["endorsementID1", "endorsementID2"],
+                "votes": ["voteID1", "voteID2", "voteID3", "voteID4"],
+                "comments": ["commentID1", "commentID2"],
+                "type": "image",
+                "author": "userID1",
+                "text": "Watch my latest performance at the annual contest challenge last night. Thanks to everyone who was a part of the program.",
+                "src": "",
+                "coverImage": "/images/post-img.png",
+                "backgroundColor": "",
+                "textColor": ""
+            },
+            {
+                "id": "post1",
+                "endorsements": ["endorsementID1", "endorsementID2"],
+                "votes": ["voteID1", "voteID2", "voteID3", "voteID4"],
+                "comments": ["commentID1", "commentID2"],
+                "type": "text",
+                "author": "userID2",
+                "text": "Watch my latest performance at the annual contest challenge last night. Thanks to everyone who was a part of the program.",
+                "src": "",
+                "coverImage": "/images/post-img.png",
+                "backgroundColor": "",
+                "textColor": ""
+            },
+            {
+                "id": "post2",
+                "endorsements": ["endorsementID1", "endorsementID2"],
+                "votes": ["voteID1", "voteID2", "voteID3", "voteID4"],
+                "comments": ["commentID1", "commentID2"],
+                "type": "video",
+                "author": "userID2",
+                "text": "Watch my latest performance at the annual contest challenge last night. Thanks to everyone who was a part of the program.",
+                "src": "",
+                "coverImage": "/images/post-img.png",
+                "backgroundColor": "",
+                "textColor": ""
+            },
+            {
+                "id": "post3",
+                "endorsements": ["endorsementID1", "endorsementID2"],
+                "votes": ["voteID1", "voteID2", "voteID3", "voteID4"],
+                "comments": ["commentID1", "commentID2"],
+                "type": "image",
+                "author": "userID2",
+                "text": "Watch my latest performance at the annual contest challenge last night. Thanks to everyone who was a part of the program.",
+                "src": "",
+                "coverImage": "/images/post-img.png",
+                "backgroundColor": "",
+                "textColor": ""
+            },
+            {
+                "id": "post4",
+                "endorsements": ["endorsementID1", "endorsementID2"],
+                "votes": ["voteID1", "voteID2", "voteID3", "voteID4"],
+                "comments": ["commentID1", "commentID2"],
+                "type": "video",
+                "author": "userID1",
+                "text": "Watch my latest performance at the annual contest challenge last night. Thanks to everyone who was a part of the program.",
+                "src": "",
+                "coverImage": "/images/post-img.png",
+                "backgroundColor": "",
+                "textColor": ""
+            },
+            {
+                "id": "post1",
+                "endorsements": ["endorsementID1", "endorsementID2"],
+                "votes": ["voteID1", "voteID2", "voteID3", "voteID4"],
+                "comments": ["commentID1", "commentID2"],
+                "type": "text",
+                "author": "userID2",
+                "text": "Watch my latest performance at the annual contest challenge last night. Thanks to everyone who was a part of the program.",
+                "src": "",
+                "coverImage": "/images/post-img.png",
+                "backgroundColor": "",
+                "textColor": ""
+            },
+            {
+                "id": "post2",
+                "endorsements": ["endorsementID1", "endorsementID2"],
+                "votes": ["voteID1", "voteID2", "voteID3", "voteID4"],
+                "comments": ["commentID1", "commentID2"],
+                "type": "video",
+                "author": "userID2",
+                "text": "Watch my latest performance at the annual contest challenge last night. Thanks to everyone who was a part of the program.",
+                "src": "",
+                "coverImage": "/images/post-img.png",
+                "backgroundColor": "",
+                "textColor": ""
+            },
+            {
+                "id": "post3",
+                "endorsements": ["endorsementID1", "endorsementID2"],
+                "votes": ["voteID1", "voteID2", "voteID3", "voteID4"],
+                "comments": ["commentID1", "commentID2"],
+                "type": "video",
+                "author": "userID2",
+                "text": "Watch my latest performance at the annual contest challenge last night. Thanks to everyone who was a part of the program.",
+                "src": "",
+                "coverImage": "/images/post-img.png",
+                "backgroundColor": "",
+                "textColor": ""
+            },
+            {
+                "id": "post4",
+                "endorsements": ["endorsementID1", "endorsementID2"],
+                "votes": ["voteID1", "voteID2", "voteID3", "voteID4"],
+                "comments": ["commentID1", "commentID2"],
+                "type": "image",
+                "author": "userID1",
+                "text": "Watch my latest performance at the annual contest challenge last night. Thanks to everyone who was a part of the program.",
+                "src": "",
+                "coverImage": "/images/post-img.png",
+                "backgroundColor": "",
+                "textColor": ""
+            }
+        ],
+        "people": [
+
+        ],
+        "contests": [
+
+        ]
+    }
+}

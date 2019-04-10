@@ -4,7 +4,8 @@
 
  const defaultUser = {};
 
- const authLogoutSuccessReducer = (data=defaultUser, action) => {
+ const authLogoutSuccessReducer = (data, action) => {
+     console.log(data, action)
      if(null === action.data) {
          return data;
      }

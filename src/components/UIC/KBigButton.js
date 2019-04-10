@@ -26,7 +26,7 @@ const styles = theme => ({
 
 function KBigButton(props) {
   const { classes, color, upper } = props;
-  const d = {disabled: props.disabled};
+  const d = {disabled: props.disabled === true? true: false};
   //const d = props.disabled === true? 'disabled': ''
   return (
         <Button

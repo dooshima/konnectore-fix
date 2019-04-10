@@ -83,15 +83,6 @@ class ResetPassword extends React.Component {
                         }} 
                     />
                 </FormControl>
-                <FormControl component="fieldset" className={classes.formControl1}>
-                    <FormControlLabel
-                    control={
-                        <Checkbox checked={this.state.rememberme} onChange={this.handleCheckboxChange('rememberme')} value="rememberme" />
-                    }
-                    color="primary"
-                    label="Remember me on this device"
-                    />
-                </FormControl>
                 <div className={classes.footer}>
                     <KButton label="Submit" size="small" />
                     <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>

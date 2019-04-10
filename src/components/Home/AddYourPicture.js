@@ -7,6 +7,7 @@ import KButton from '../UIC/KButton';
 import OnboardMenu from './OnboardMenu';
 import KBigButtonOutlined from '../UIC/KBigButtonOutlined';
 import KBigButton from '../UIC/KBigButton';
+import Constants from '../../assets/Constants';
 
 const styles = theme => ({
     main: {
@@ -27,12 +28,13 @@ const styles = theme => ({
         width: 200,
         marginTop: '1.8em',
         height: 200,
-        backgroundImage: `url(/images/addPicture.png)`,
         backgroundSize: 'cover',
         position: 'relative',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundPosition: 'center',
+        borderRadius: '50%',
     },
     picturePrompt: {
         position: 'absolute',
@@ -116,9 +118,10 @@ const styles = theme => ({
 
 const AddYourPicture = props => {
     const { classes, currentScreen } = props;
+    const avatar = props.avatar? `url(${props.avatar})`: `url(/images/addPicture.png)`;
+    const active = (props.avatar)? false: true;
     return (
         <div className={classes.main}>
-        
         <Toolbar className={classes.appBar} style={{justifyContent: 'center'}}>
             <Typography className={classes.alertText}>
                 Your account has not yet been activated. <Button className={classes.alertText} style={{textDecoration: 'underline'}}>Resend activation link</Button>
@@ -138,14 +141,15 @@ const AddYourPicture = props => {
                 </Typography>
                 <KCard className={classes.card}>
                     <CardContent className={classes.content}>
+                        <Typography color="error">{props.authError}</Typography>
                         <Grid container spacing={40}>
                             <Grid item md={5} className={classes.flexed}>
-                                <FormControl className={classes.formControl}>
-                                    
+                                
+                                <FormControl className={classes.formControl} style={{backgroundImage: avatar,}}>
                                         <Input id="firstname" 
                                             placeholder="Your name" 
-                                            value={props.firstname} 
-                                            onChange={props.handleUsernameChange} 
+                                            //value={props.avatar} 
+                                            onChange={props.handleFileupload} 
                                             fullWidth={true}
                                             disableUnderline={true}
                                             classes={{
@@ -177,12 +181,11 @@ const AddYourPicture = props => {
                                 </div>
                             </Grid>
                         </Grid>
-                        
                     </CardContent>
                     <CardActions className={classes.actions}>
                         <div className={classes.next}>
-                            <KBigButtonOutlined variant="outlined" onClick={() => props.setScreen('PersonalInformation')} label="Maybe later" size="small" />
-                            <KBigButton onClick={() => props.setScreen('ChooseCategory')} label="Next" size="small" />
+                            <KBigButtonOutlined variant="outlined" onClick={() => props.setScreen('ChooseCategory')} label="Maybe later" size="small" />
+                            <KBigButton disabled={active} onClick={() => props.setScreen('ChooseCategory')} label="Next" size="small" />
                         </div>
                     </CardActions>
                 </KCard>
