@@ -52,7 +52,7 @@ const styles = theme => ({
   }
 });
 
-function SidebarComponent(props) {
+function SidebarComponent({component: Component, ...props}) {
     
     const { classes, children } = props;
     return (
@@ -69,7 +69,7 @@ function SidebarComponent(props) {
                     loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)} />
                 </div>
                 <div className={classes.body}>
-                    {children}
+                    <Component {...props} />
                 </div>
             </div>
         </div>

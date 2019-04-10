@@ -157,7 +157,7 @@ class LeftUserMenu extends React.Component {
               toggle={this.toggle} open={this.state.open} />
             <List component="nav">
                 <ListItemLink to="/me" primary="Home" path="me" icon={<HomeIcon />} active={classes.active} true />
-                <ListItemLink to="/friends" path="friends" primary="Friends" icon={<GroupIcon />} active={classes.active} />
+                <ListItemLink to="/people" path="friends" primary="People" icon={<GroupIcon />} active={classes.active} />
               <ListItemLink to="/inbox" path="inbox" primary="Inbox" icon={<InboxIcon />} active={classes.active} />
               <ListItemLink to="/activities" path="activities" primary="Activities" icon={<NotificationsIcon />} active={classes.active} />
             </List>

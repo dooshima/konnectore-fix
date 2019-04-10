@@ -28,6 +28,11 @@ const authLogoutSuccess = data => ({
     data,
 });
 
+const authEditProfileSuccess = data => ({
+    type: types.AUTH_LOGOUT_SUCCESS,
+    data,
+})
+
 const authSignupSuccess = account => ({
     type: types.AUTH_SIGNUP_SUCCESS,
     account,
@@ -201,6 +206,25 @@ const handleLogout = (uid) => {
     }
 }
 
+const handleEditProfile = data => {
+    return dispatch => {
+        dispatch(showAuthLoading(true));
+        Auth.handleEditProfile(data)
+            .then( user => {
+                if(user.error !== false) {
+                    const errorMsg = user.error? user.message: "Error editing your profile. Please retry";
+                    throw new Error(errorMsg);
+                }
+                console.log(user);
+                dispatch(authEditProfileSuccess(user.data));
+                dispatch(authError(""));
+            }).catch( error => {
+                dispatch(showAuthLoading(false));
+                dispatch(authError(error.message));
+            });
+    }
+}
+
 const userActions = {
     userViewProfile,
     showAuthLoading,
@@ -217,6 +241,7 @@ const userActions = {
     getTalentCategories,
     processOnboarding,
     authSignupRedirect,
+    handleEditProfile,
 };
 
 export default userActions;

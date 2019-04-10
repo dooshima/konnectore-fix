@@ -101,11 +101,17 @@ const styles = theme => ({
     span: {
         fontSize: theme.typography.fontSize,
         color: '#aaa',
-    }
+    },
+    label: {
+        fontSize: 12,
+        marginBottom: 15,
+    },
 });
 
 const EditBasicInformation = props => {
-    const { classes, currentScreen } = props;
+    const { classes, currentScreen, dob } = props;
+    const sdate = props.dob;
+    console.log(sdate)
     return (
         <div className={classes.main}>
         <div className={classes.wrapper}>
@@ -121,7 +127,7 @@ const EditBasicInformation = props => {
                                         <Input id="firstname" 
                                             placeholder="Your name" 
                                             value={props.firstname} 
-                                            onChange={props.handleUsernameChange} 
+                                            onChange={props.handleChange('firstname')} 
                                             fullWidth={true}
                                             disableUnderline={true}
                                             classes={{
@@ -137,7 +143,7 @@ const EditBasicInformation = props => {
                                         <Input id="lastname" 
                                             placeholder="Your surname" 
                                             value={props.lastname} 
-                                            onChange={props.handleUsernameChange} 
+                                            onChange={props.handleChange('lastname')} 
                                             fullWidth={true}
                                             disableUnderline={true}
                                             classes={{
@@ -149,15 +155,15 @@ const EditBasicInformation = props => {
                             </Grid>
                             <Grid item md={6}>
                             <FormControl className={classes.formControl}>
-                                    <InputLabel htmlFor="lastname" shrink className={classes.bootstrapFormLabel}>Gender</InputLabel>
-                                        <Select id="lastname"
-                                            value={props.lastname} 
-                                            onChange={props.handleUsernameChange} 
+                                    <InputLabel htmlFor="gender" shrink className={classes.bootstrapFormLabel}>Gender</InputLabel>
+                                        <Select id="gender"
+                                            value={props.gender} 
+                                            onChange={props.handleChange('gender')} 
                                             input={
-                                                <Input id="lastname" 
+                                                <Input
                                                     placeholder="Gender" 
                                                     value={props.gender} 
-                                                    onChange={props.handleUsernameChange} 
+                                                    //onChange={props.handleChange} 
                                                     fullWidth={true}
                                                     disableUnderline={true}
                                                     classes={{
@@ -168,27 +174,19 @@ const EditBasicInformation = props => {
                                             }
                                         >
                                             <MenuItem value="">Gender</MenuItem>
-                                            <MenuItem value={20}>Male</MenuItem>
-                                            <MenuItem value={30}>Female</MenuItem>
+                                            <MenuItem value="Male">Male</MenuItem>
+                                            <MenuItem value="Female">Female</MenuItem>
                                         </Select>
                                 </FormControl>
                             </Grid>
                             <Grid item md={6}>
                                 <FormControl className={classes.formControl}>
+                                <Typography color="textSecondary" component="p" className={classes.label}>Date of birth</Typography>
                                     <KDatePicker
-                                        root={
-                                            <Input id="lastname" 
-                                                    placeholder="Dob" 
-                                                    value={props.gender} 
-                                                    onChange={props.handleUsernameChange} 
-                                                    fullWidth={true}
-                                                    disableUnderline={true}
-                                                    classes={{
-                                                        root: classes.bootstrapRoot,
-                                                        input: classes.bootstrapInput,
-                                                    }} 
-                                                />
-                                        }
+                                        handleDateChange={props.handleDateChange}
+                                        dob={sdate}
+                                        init={props.dob}
+                                        some={`some${sdate}${props.dob}`}
                                     />
                                 </FormControl>
                             </Grid>
@@ -197,8 +195,8 @@ const EditBasicInformation = props => {
                                     <InputLabel htmlFor="bio" shrink className={classes.bootstrapFormLabel}>Bio</InputLabel>
                                         <Input id="bio" 
                                             placeholder="Your bio" 
-                                            value={props.firstname} 
-                                            onChange={props.handleUsernameChange} 
+                                            value={props.bio} 
+                                            onChange={props.handleChange('bio')} 
                                             fullWidth={true}
                                             disableUnderline={true}
                                             classes={{
@@ -216,7 +214,7 @@ const EditBasicInformation = props => {
                     </CardContent>
                     <CardActions className={classes.actions}>
                         <div className={classes.next}>
-                            <KBigButton onClick={() => {}} label="Save" size="small" />
+                            <KBigButton onClick={props.handleSubmit} label="Save" size="small" />
                         </div>
                     </CardActions>
                 </KCard>

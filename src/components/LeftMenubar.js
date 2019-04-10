@@ -162,9 +162,9 @@ function LeftMenubar(props) {
                   <ListItemIcon>
                     <GroupIcon />
                   </ListItemIcon>
-                  <ListItemText primary={<NavLink to="/friends" activeClassName={classes.active}>
+                  <ListItemText primary={<NavLink to="/me/people" activeClassName={classes.active}>
                       <Typography>
-                        Friends
+                        People
                       </Typography>
                     </NavLink>
                   } />

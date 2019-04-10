@@ -9,6 +9,7 @@ import showCheckUsernameReducer from "./reduction/showCheckUsernameReducer";
 import authUploadAvatarReducer from "./reduction/authUploadAvatarReducer";
 import talentCategoryReducer from "./reduction/talentCategoryReducer";
 import authSignupRedirectReducer from "./reduction/authSignupRedirectReducer";
+import authEditProfileSuccessReducer from "./reduction/authEditProfileSuccessReducer";
 const initialState = {};
 
 const userUpdateProfile = (state=initialState) => {
@@ -29,9 +30,9 @@ const data = (state={}, action) => {
         case types.AUTH_LOGIN_SUCCESS:
             return authLoginSuccessReducer(state, action);
         case types.AUTH_LOGOUT_SUCCESS:
-            let d =  authLogoutSuccessReducer(state, action);
-            console.log(d);
-            return d;
+            return authLogoutSuccessReducer(state, action);
+        case types.AUTH_EDIT_PROFILE_SUCCESS:
+            return authEditProfileSuccessReducer(state, action);
         default:
             return state;
     }

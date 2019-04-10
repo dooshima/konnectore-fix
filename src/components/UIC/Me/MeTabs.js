@@ -88,7 +88,6 @@ class MeTabs extends React.Component {
   };
 
   processFilter = route => {
-    console.log('Filter: ', route);
   }
 
   render() {

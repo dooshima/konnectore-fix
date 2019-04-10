@@ -13,6 +13,7 @@ const Auth = {
     processOnboarding,
     requestToken,
     signin,
+    handleEditProfile,
 };
 
 function login(email, password) {
@@ -65,6 +66,13 @@ function getTalentCategories() {
 function processOnboarding(data) {
     return Server.post('api/onboard', data)
         .then( resp => resp.data)
+        .catch( error => console.log(error));
+}
+
+function handleEditProfile(data) {
+    console.log(data);
+    return Server.post('api/edit-profile', data)
+        .then( resp => resp.data )
         .catch( error => console.log(error));
 }
 

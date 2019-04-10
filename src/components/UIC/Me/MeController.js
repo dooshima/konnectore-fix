@@ -14,6 +14,8 @@ import PlaceComponents from '../PlaceComponents';
 import EditProfile from './Profile/EditProfile';
 import ManageAccount from './Profile/ManageAccount';
 import { Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropsRoute from '../../Nav/PropsRoute';
 
 class MeController extends React.Component {
     constructor(props) {
@@ -25,7 +27,7 @@ class MeController extends React.Component {
     }
 
     componentDidMount() {
-        
+
     }
 
     static getDerivedStateFromProps(state) {
@@ -48,7 +50,7 @@ class MeController extends React.Component {
                     <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
                         <MeHeader path={match.path} {...this.props} setFilter={this.setFilter.bind(this)} />
                         <Switch>
-                            <Route exact path={`${match.path}/account/edit`} component={EditProfile} />
+                            <PropsRoute exact path={`${match.path}/account/edit`} component={EditProfile} />
                             <Route exact path={`${match.path}/account/manage`} component={ManageAccount} />
                             <Route path={`${match.path}`} render={props => <MeTimeline {...props} recentPosts={recentPosts} />} />
                         </Switch>
@@ -74,7 +76,13 @@ class MeController extends React.Component {
     }
 }
 
-export default MeController;
+const mapStateToProps = state => {
+    return {
+        user: state.user,
+    }
+}
+
+export default connect(mapStateToProps, null)(MeController);
 
 
 

@@ -152,7 +152,6 @@ NewPostButtons.propTypes = {
 };
 
 const mapStateToProps = state => {
-  console.log('Dislog: ', state.dialog)
   return {
     showDM: state.dialog.showDM,
     dataImageURL: state.dialog.dataImageURL,

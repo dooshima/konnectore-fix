@@ -9,6 +9,8 @@ import HomeCompoment from './components/Home/HomeComponent';
 import WithSidebar from './components/UIC/withSidebar';
 import OnboardComponent from './components/Home/OnboardComponent';
 import SidebarComponent from './components/UIC/SidebarComponent';
+import ProtectedRoute from './components/Nav/ProtectedRoute';
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   wrapper: {
@@ -58,17 +60,16 @@ const styles = theme => ({
 });
 
 const UIContestComponent = <SidebarComponent component={ContestComponent} />;
-const UIMeComponent = <SidebarComponent><MeController /></SidebarComponent>;
 
 function MainNavigator(props) {
     return (
         <Switch>
-            <Route exact path="/" component={HomeCompoment} />
+            <ProtectedRoute exact path="/" component={HomeCompoment} />
             <Route exact path="/onboard" component={OnboardComponent} />
-            <Route exact path="/user" render={props => <SearchResultBody uploadprogress={props.uploadprogress} uploadMedia={props.uploadMedia} setFormdata={props.setFormdata} imageurl={props.imageurl} setImageUrl={props.setImageUrl} />} />
-            <Route path="/search" render={renderProps => <SidebarComponent {...renderProps} searchResults={props.searchResults} q={props.q} loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)}><SearchComponent {...renderProps} /></SidebarComponent>} />
-            <Route path="/contest" render={renderProps => <UIContestComponent />} />
-            <Route path="/me" render={p => <SidebarComponent {...p}><MeController {...p} /></SidebarComponent>} />
+            <Route exact path="/friend" render={props => <SearchResultBody uploadprogress={props.uploadprogress} uploadMedia={props.uploadMedia} setFormdata={props.setFormdata} imageurl={props.imageurl} setImageUrl={props.setImageUrl} />} />
+            <Route path="/search" render={renderProps => <SidebarComponent {...renderProps} searchResults={props.searchResults} q={props.q} loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)} component={SearchComponent} />} />
+            <Route path="/contest" render={renderProps => <SidebarComponent component={ContestComponent} />} />
+            <ProtectedRoute path="/me" render={p => <SidebarComponent component={MeController} {...p} />} />
         </Switch>
     )
   }
@@ -76,8 +77,14 @@ function MainNavigator(props) {
   MainNavigator.propTypes = {
     classes: PropTypes.object.isRequired,
   }
+
+  const mapStateToProps = state => {
+    return {
+      user: state.user,
+    }
+  }
   
-  export default withStyles(styles)(MainNavigator);
+  export default connect(mapStateToProps, null)(withStyles(styles)(MainNavigator));
 
   function ContestComponent(props) {
     return (
