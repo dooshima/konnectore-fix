@@ -24,6 +24,10 @@ class MeController extends React.Component {
         }
     }
 
+    componentDidMount() {
+        
+    }
+
     static getDerivedStateFromProps(state) {
         return state.feed? {feed: state.feed}: {feed: 'feed'};
 

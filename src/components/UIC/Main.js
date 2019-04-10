@@ -8,6 +8,7 @@ import { Route, Switch } from 'react-router-dom';
 import SearchComponent from '../Search/SearchComponent';
 import MeController from './Me/MeController';
 import HomeCompoment from '../Home/HomeComponent';
+import ProtectedRoute from '../Nav/ProtectedRoute';
 
 const styles = theme => ({
   wrapper: {
@@ -73,14 +74,11 @@ function Main(props) {
       </div>
       <div className={classes.body}>
         <Switch>
-          
           <Route exact path="/" render={props => <SearchResultBody uploadprogress={props.uploadprogress} uploadMedia={props.uploadMedia} setFormdata={props.setFormdata} imageurl={props.imageurl} setImageUrl={props.setImageUrl} />} />
           <Route path="/search" render={renderProps => <SearchComponent {...renderProps} searchResults={props.searchResults} q={props.q} loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)} />} />
           <Route path="/contest" render={renderProps => <ContestComponent />} />
-          <Route path="/me" component={MeController} />
-          
+          <ProtectedRoute path="/me" component={MeController} />
         </Switch>
-        
       </div>
     </div>
     
