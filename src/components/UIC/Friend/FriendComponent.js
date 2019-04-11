@@ -1,25 +1,16 @@
 import React from 'react';
 import { NavLink as Link, Route } from 'react-router-dom';
-import MeHeader from './MeHeader';
+import MeHeader from './FriendHeader';
 import { Grid, Paper } from '@material-ui/core';
-import CompetitionSummaryCard from '../../Contests/CompetitionSummaryCard';
-import { searchResults } from './../../assets/searchResults';
-import MeTimeline from './MeTimeline';
 import GrowYourNetwork from './GrowYourNetwork';
-import AwardsAndBadges from './AwardsAndBadges';
-import AccountInfoWidget from './AccountInfoWidget';
-import EditPersonalInfoWidget from './EditPersonalInfoWidget';
-import ManageYourAccountWidget from './ManageYourAccountWidget';
 import PlaceComponents from '../PlaceComponents';
-import EditProfile from './Profile/EditProfile';
-import ManageAccount from './Profile/ManageAccount';
-import { Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import PropsRoute from '../../Nav/PropsRoute';
 import dialogActions from '../../../reducers/dialog/actions';
 import PostDetailDialog from './Posts/PostDetailDialog';
+import FriendHeader from './FriendHeader';
+import FriendTimeline from './FriendTimeline';
 
-class MeController extends React.Component {
+class FriendComponent extends React.Component {
     constructor(props) {
         super(props);
 
@@ -76,21 +67,14 @@ class MeController extends React.Component {
                 <Grid container spacing={0}>
                     <Grid item xs={8}>
                     <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
-                        <MeHeader path={match.path} {...this.props} setFilter={this.setFilter.bind(this)} />
-                        <Switch>
-                            <PropsRoute exact path={`${match.path}/account/edit`} component={EditProfile} />
-                            <Route exact path={`${match.path}/account/manage`} component={ManageAccount} />
-                            <Route path={`${match.path}`} render={props => <MeTimeline {...props} fullName={fullName} toggleDialog={this.toggleDialog} recentPosts={recentPosts} />} />
-                        </Switch>
+                        <FriendHeader path={match.path} {...this.props} setFilter={this.setFilter.bind(this)} />
+                        <FriendTimeline {...this.props} fullName={fullName} toggleDialog={this.toggleDialog} recentPosts={recentPosts} />
                     </Paper>
                     </Grid>
                     <Grid item xs={4}>
                         <div style={{marginLeft: 10}}>
                             <PlaceComponents spacer={20}>
-                                <Route exact path={`${match.path}/`} component={AwardsAndBadges} />
-                                <Route exact path={`${match.path}/`} component={AccountInfoWidget} />
-                                <Route exact path={`${match.path}/account/edit`} component={EditPersonalInfoWidget} />
-                                <Route exact path={`${match.path}/account/manage`} component={ManageYourAccountWidget} />
+                                <GrowYourNetwork />
                             </PlaceComponents>
                         </div>
                     </Grid>
@@ -120,7 +104,7 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MeController);
+export default connect(mapStateToProps, mapDispatchToProps)(FriendComponent);
 
 
 

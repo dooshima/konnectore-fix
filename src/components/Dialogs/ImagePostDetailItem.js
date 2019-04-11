@@ -65,7 +65,7 @@ const styles = theme => ({
 
 function ImagePostDetailItem(props) {
   const { classes, theme, item } = props;
-
+  console.log(item)
   return (
     <Card className={classes.card}>
         <CardMedia
@@ -77,7 +77,7 @@ function ImagePostDetailItem(props) {
             <CardHeader
                 className={classes.header}
                 avatar={
-                    <Avatar aria-label="Victor Omemu" className={classes.avatar} src="/images/avatar.png" />
+                    <Avatar aria-label={item.fullName} className={classes.avatar} src={item.avatar? item.avatar: "/images/avatar.png"} />
                 }
                 action={
                     <IconButton>
@@ -86,7 +86,7 @@ function ImagePostDetailItem(props) {
                 }
                 title={
                     <Typography component="h6" variant="h6">
-                        Victor Omemu
+                        {item.fullName}
                     </Typography>
                 }
                 subheader={
@@ -100,8 +100,7 @@ function ImagePostDetailItem(props) {
             />
             <CardContent className={classes.content}>
                 <Typography>
-                Watch my latest performance at the annual contest challenge last night. 
-                Thanks to everyone who was a part of this night #Star #SuperStar
+                {item.text}
                 </Typography>
             </CardContent>
             <CardActions>

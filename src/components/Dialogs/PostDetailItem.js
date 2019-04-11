@@ -5,7 +5,6 @@ import { Typography } from '@material-ui/core';
 import TextPostDetailItem from './TextPostDetailItem';
 
 const PostDetailItem = ({item}) => {
-    console.log(item);
     if(item.type === 'image') {
         return <ImagePostDetailItem item={item} />
     } else if(item.type === 'text') {

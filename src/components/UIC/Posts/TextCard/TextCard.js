@@ -106,19 +106,19 @@ class TextCard extends React.Component {
   };
 
   render() {
-    const { classes, src } = this.props;
-    const image = "/images/post-img.png";
+    const { classes, fullName, item } = this.props;
 
     return (
-      <KPaper square={false} className={classes.card} style={{backgroundColor: '#ff91f4'}}>
+      <KPaper square={false} className={classes.card} style={{backgroundColor: `${item.backgroundColor}`}}>
         <TextWidget 
-          text="I used to think some people were Angels till the pressure of the  #10yearschallenge  hit them..I wonder how they will look after another 10…  #jahissupreme"
-          user={{avatar: "/images/avatar.png"}}
+          text={item.text}
+          user={{avatar: item.avatar? item.avatar: "/images/post-img.png"}}
           comments="1725"
           endorsements="580"
-          backgroundColor="#ff91f4"
-          textColor="#ffffff"
-          fullName="Ugo Mouka"
+          backgroundColor={item.backgroundColor}
+          textColor={item.textColor}
+          fullName={fullName}
+          {...this.props}
         />
       </KPaper>
     );

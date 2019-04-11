@@ -11,7 +11,7 @@ const tabs = [
     },
     {
       label: "Contests",
-      route: "text"
+      route: "contest"
     },
     {
       label: "Images",
@@ -22,8 +22,8 @@ const tabs = [
       route: "video"
     },
     {
-        label: "Friends",
-        route: "friends"
+        label: "Posts",
+        route: "text"
     }
   ];
 

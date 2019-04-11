@@ -10,6 +10,8 @@ import authUploadAvatarReducer from "./reduction/authUploadAvatarReducer";
 import talentCategoryReducer from "./reduction/talentCategoryReducer";
 import authSignupRedirectReducer from "./reduction/authSignupRedirectReducer";
 import authEditProfileSuccessReducer from "./reduction/authEditProfileSuccessReducer";
+import addUserPostsReducer from "./reduction/addUserPostsReducer";
+import addUserCommentsReducer from "./reduction/addUserCommentsReducer";
 const initialState = {};
 
 const userUpdateProfile = (state=initialState) => {
@@ -35,6 +37,24 @@ const data = (state={}, action) => {
             return authEditProfileSuccessReducer(state, action);
         default:
             return state;
+    }
+}
+
+const posts = (posts={}, action) => {
+    switch(action.type) {
+        case types.AUTH_ADD_USER_POSTS:
+            return addUserPostsReducer(posts, action);
+        default:
+            return posts;
+    }
+}
+
+const comments = (comments={}, action) => {
+    switch(action.type) {
+        case types.AUTH_ADD_USER_COMMENTS:
+            return addUserCommentsReducer(comments, action);
+        default:
+            return comments;
     }
 }
 
@@ -101,5 +121,7 @@ const userReducers = combineReducers({
     avatar,
     talentCategories,
     signupRedirect,
+    posts,
+    comments,
 });
 export default userReducers;

@@ -22,7 +22,7 @@ const styles = theme => ({
     top: 0,
     boxShadow: `0px 2px 4px -1px rgba(0,0,0,0), 0px 4px 5px 0px rgba(0,0,0,0), 0px 1px 10px 0px rgba(0,0,0,0.12)`,
   },
-  content: {
+  contentWrapper: {
     marginTop: theme.spacing.unit * 9.4,
     marginRight: theme.spacing.unit * 10,
   },
@@ -60,7 +60,7 @@ function SidebarComponent({component: Component, ...props}) {
             <div className={classes.header}>
                 <PrimaryNavBar loggedIn={props.loggedIn} handleLogin={props.handleLogin} handleLogout={props.handleLogout} handleSearch={q => props.handleSearch(q)} />
             </div>
-            <div className={classes.content}>
+            <div className={classes.contentWrapper}>
                 <div className={classes.sidebar}>
                     <LeftSidebar
                     imageurl={props.imageurl} setImageUrl={props.setImageUrl} 

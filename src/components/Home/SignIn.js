@@ -92,7 +92,7 @@ class SignIn extends React.Component {
         const { classes } = this.props;
         if(this.props.authRedirect) {
             const data = this.props.userData;
-            if(!data.username) {
+            if(!data.username || data.username === null || !data.firstname || data.firstname === null || !data.lastname) {
                 this.props.authSignupSuccess({id: data.id, email: data.email});
                 this.props.authSignupRedirect(false);
                 this.props.history.push('/onboard/');

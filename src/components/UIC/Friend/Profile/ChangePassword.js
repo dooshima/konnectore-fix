@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { CardContent, Typography, FormControl, InputLabel, Input, MenuItem, CardActions, Grid, CardHeader, Select } from '@material-ui/core';
 import KBigButton from '../../KBigButton';
 import SelectInput from '@material-ui/core/Select/SelectInput';
-import KDatePicker from './KDatePicker';
+import KDatePicker from './KDatePicker1';
 
 
 const styles = theme => ({
@@ -102,47 +102,38 @@ const styles = theme => ({
         fontSize: theme.typography.fontSize,
         color: '#aaa',
     },
-    label: {
-        fontSize: 12,
-        marginBottom: 15,
-    },
+    grid: {
+        paddingTop: '0px !important',
+        paddingBottom: '0px !important',
+    }
 });
 
-const EditBasicInformation = props => {
-    const { classes, currentScreen, dob } = props;
-    const sdate = props.dob;
+const ChangePassword = props => {
+    const { classes, currentScreen } = props;
     return (
         <div className={classes.main}>
         <div className={classes.wrapper}>
-        <Grid container spacing={0}>
-            <Grid item md={12}>
+        <Grid container spacing={0} className={classes.grid}>
+            <Grid item md={12} className={classes.grid}>
                 <KCard className={classes.card}>
-                    <CardHeader title="Basic Information" />
+                    <CardHeader title="Change your password" />
                     <CardContent className={classes.content}>
-                        <Grid container spacing={40}>
-                            <Grid item md={6}>
+                        <Grid container spacing={40} className={classes.grid}>
+                            <Grid item md={6}className={classes.grid}>
                                 <FormControl className={classes.formControl}>
-                                    <InputLabel htmlFor="firstname" shrink className={classes.bootstrapFormLabel}>Firstname</InputLabel>
-                                        <Input id="firstname" 
-                                            placeholder="Your name" 
-                                            value={props.firstname} 
-                                            onChange={props.handleChange('firstname')} 
-                                            fullWidth={true}
-                                            disableUnderline={true}
-                                            classes={{
-                                                root: classes.bootstrapRoot,
-                                                input: classes.bootstrapInput,
-                                            }} 
-                                        />
+                                    <Typography color="textSecondary"
+                                    className={classes.bootstrapFormLabel}>
+                                        Enter your current password
+                                    </Typography>
                                 </FormControl>
                             </Grid>
-                            <Grid item md={6}>
+                            <Grid item md={6}className={classes.grid}>
                                 <FormControl className={classes.formControl}>
-                                    <InputLabel htmlFor="lastname" shrink className={classes.bootstrapFormLabel}>Lastname</InputLabel>
                                         <Input id="lastname" 
-                                            placeholder="Your surname" 
+                                            placeholder=""
+                                            type="password" 
                                             value={props.lastname} 
-                                            onChange={props.handleChange('lastname')} 
+                                            onChange={props.handleUsernameChange} 
                                             fullWidth={true}
                                             disableUnderline={true}
                                             classes={{
@@ -152,59 +143,53 @@ const EditBasicInformation = props => {
                                         />
                                 </FormControl>
                             </Grid>
-                            <Grid item md={6}>
-                            <FormControl className={classes.formControl}>
-                                    <InputLabel htmlFor="gender" shrink className={classes.bootstrapFormLabel}>Gender</InputLabel>
-                                        <Select id="gender"
-                                            value={props.gender} 
-                                            onChange={props.handleChange('gender')} 
-                                            input={
-                                                <Input
-                                                    placeholder="Gender" 
-                                                    value={props.gender} 
-                                                    //onChange={props.handleChange} 
-                                                    fullWidth={true}
-                                                    disableUnderline={true}
-                                                    classes={{
-                                                        root: classes.bootstrapRoot,
-                                                        input: classes.bootstrapInput,
-                                                    }} 
-                                                />
-                                            }
-                                        >
-                                            <MenuItem value="">Gender</MenuItem>
-                                            <MenuItem value="Male">Male</MenuItem>
-                                            <MenuItem value="Female">Female</MenuItem>
-                                        </Select>
+                            
+                            <Grid item md={6} className={classes.grid}>
+                                <FormControl className={classes.formControl}>
+                                    <Typography color="textSecondary"
+                                    className={classes.bootstrapFormLabel}>
+                                        Enter a new password
+                                    </Typography>
                                 </FormControl>
                             </Grid>
-                            <Grid item md={6}>
+                            <Grid item md={6} className={classes.grid}>
                                 <FormControl className={classes.formControl}>
-                                <Typography color="textSecondary" component="p" className={classes.label}>Date of birth</Typography>
-                                    <KDatePicker
-                                        handleDateChange={props.handleDateChange}
-                                        dob={sdate}
-                                        init={props.dob}
-                                        some={`some${sdate}${props.dob}`}
-                                    />
-                                </FormControl>
-                            </Grid>
-                            <Grid item md={12}>
-                                <FormControl className={classes.formControl}>
-                                    <InputLabel htmlFor="bio" shrink className={classes.bootstrapFormLabel}>Bio</InputLabel>
-                                        <Input id="bio" 
-                                            placeholder="Your bio" 
-                                            value={props.bio} 
-                                            onChange={props.handleChange('bio')} 
+                                        <Input id="lastname" 
+                                            placeholder=""
+                                            type="password" 
+                                            value={props.lastname} 
+                                            onChange={props.handleUsernameChange} 
                                             fullWidth={true}
                                             disableUnderline={true}
                                             classes={{
                                                 root: classes.bootstrapRoot,
-                                                input: classes.bootstrapTextarea,
-                                            }}
-                                            multiline
-                                            rows={4}
-                                            style={{borderRadius: 10,}}
+                                                input: classes.bootstrapInput,
+                                            }} 
+                                        />
+                                </FormControl>
+                            </Grid>
+
+                            <Grid item md={6} className={classes.grid}>
+                                <FormControl className={classes.formControl}>
+                                    <Typography color="textSecondary"
+                                    className={classes.bootstrapFormLabel}>
+                                        Retype new password
+                                    </Typography>
+                                </FormControl>
+                            </Grid>
+                            <Grid item md={6} className={classes.grid}>
+                                <FormControl className={classes.formControl}>
+                                        <Input id="lastname" 
+                                            placeholder=""
+                                            type="password" 
+                                            value={props.lastname} 
+                                            onChange={props.handleUsernameChange} 
+                                            fullWidth={true}
+                                            disableUnderline={true}
+                                            classes={{
+                                                root: classes.bootstrapRoot,
+                                                input: classes.bootstrapInput,
+                                            }} 
                                         />
                                 </FormControl>
                             </Grid>
@@ -213,7 +198,7 @@ const EditBasicInformation = props => {
                     </CardContent>
                     <CardActions className={classes.actions}>
                         <div className={classes.next}>
-                            <KBigButton onClick={props.handleSubmit} label="Save" size="small" />
+                            <KBigButton onClick={() => {}} label="Save" size="small" />
                         </div>
                     </CardActions>
                 </KCard>
@@ -225,8 +210,8 @@ const EditBasicInformation = props => {
     )
 };
 
-EditBasicInformation.propTypes = {
+ChangePassword.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(EditBasicInformation);
+export default withStyles(styles)(ChangePassword);

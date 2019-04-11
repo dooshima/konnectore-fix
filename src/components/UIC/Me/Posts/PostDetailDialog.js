@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import { withStyles, Button } from '@material-ui/core';
-import PostDetailSlider from './PostDetailSlider';
-import { searchResults } from './../assets/searchResults';
+import PostDetailSlider from '../../../Dialogs/PostDetailSlider';
 
 const styles = theme => ({
   contentHolder: {
@@ -41,11 +40,11 @@ const styles = theme => ({
   }
 });
 
-class PostDetailDialogController extends React.Component {
+class PostDetailDialog extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            open: this.props.open,
+            open: false,
             postText: ''
         };
     }
@@ -55,35 +54,37 @@ class PostDetailDialogController extends React.Component {
   }
 
   handleClickOpen = () => {
-    //this.props.showDialog(true);
+    this.props.toggleDialog(this.props.postItem)
   };
 
   handleClose = () => {
-      this.props.showDialog(false);
+    this.props.toggleDialog(this.props.postItem)
       console.log('Close dialog')
   };
 
   render() {
-    const { fullScreen, classes, postText, dataImageURL } = this.props;
+    const { fullScreen, classes, postText, dataImageURL, user } = this.props;
     const p = postText && dataImageURL? {}: {disabled: true};
     const funcs = {
         setPostText: this.setPostText,
         handleClickOpen: this.handleClickOpen,
         handleClose: this.handleClose,
     }
-
-    let posts = [this.props.postItem];
-    console.log(posts)
+    let item = this.props.postItem;
+    item['fullName'] = user.data.firstname + ' ' + user.data.lastname;
+    item['avatar'] = user.data.avatar;
+    let posts = [item];
 
     /*for (let i in this.props.items) {
       let item = this.props.items[i];
       posts.push(item);
     }*/
+    
     if(posts) {
     return (
         <Dialog
           fullScreen={fullScreen}
-          open={this.props.showDM}
+          open={this.props.open}
           onClose={this.handleClose}
           maxWidth="lg"
           aria-labelledby="post-detail-dialog"
@@ -95,7 +96,7 @@ class PostDetailDialogController extends React.Component {
           //disableBackdropClick={false}
           // <PostDetailSlider posts={posts} /> <PostDetailItem item={this.props.postItem} />
         >
-          <div>Loading</div>
+          <PostDetailSlider posts={posts} />
 
         </Dialog>
     );
@@ -105,9 +106,9 @@ class PostDetailDialogController extends React.Component {
   }
 }
 
-PostDetailDialogController.propTypes = {
+PostDetailDialog.propTypes = {
   fullScreen: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(withMobileDialog()(PostDetailDialogController));
+export default withStyles(styles)(withMobileDialog()(PostDetailDialog));

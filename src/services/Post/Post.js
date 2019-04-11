@@ -35,6 +35,6 @@ const progress = (event) => {
     let val = Math.ceil(loaded / total * 100);
     this.setState({ uploadprogress: val });
 
-  };
+};
 
 export default Post;

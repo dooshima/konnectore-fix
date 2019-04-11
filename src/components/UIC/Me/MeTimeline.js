@@ -4,6 +4,7 @@ import MasonryGrid from './../MasonryGrid/MasonryGrid';
 import ImageCard from '../Posts/ImageCard/ImageCard';
 import TextCard from '../Posts/TextCard/TextCard';
 import VideoCard from '../Posts/VideoCard/VideoCard';
+import PostDetailDialogController from '../../Dialogs/PostDetailDialogController';
 
 const MeTimeline = props => {
     return (
@@ -14,11 +15,11 @@ const MeTimeline = props => {
                 let counter = Math.ceil(Math.random() * 100);
                 let chooser = counter % 2 === 0? true: false;
                 if(item.type === 'image'){
-                return <ImageCard key={i} index={i} item={item} />;
+                return <ImageCard key={i} index={i} item={item} {...props} />;
                 } else if (item.type === 'text') {
-                return <TextCard key={i} index={i} item={item} />;
+                return <TextCard key={i} index={i} item={item} {...props} />;
                 } else {
-                return <VideoCard key={i} item={item} />
+                return <VideoCard key={i} item={item} {...props} />
                 }
             })
             }

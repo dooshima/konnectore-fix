@@ -11,7 +11,6 @@ const PlaceComponents = props => {
         <>
         {
             items.map( item => {
-                console.log(item.height);
                 return <>
                     {item}
                     <div style={{flex:1,height:spacer}} />

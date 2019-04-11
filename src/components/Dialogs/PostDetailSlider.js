@@ -2,6 +2,7 @@ import React from 'react';
 import { Slide } from 'react-slideshow-image';
 import { withStyles } from '@material-ui/core/styles';
 import PostDetailItem from './PostDetailItem';
+import { Typography } from '@material-ui/core';
  
 const slideImages = [
   '/images/post02.png',
@@ -57,11 +58,15 @@ const styles = theme => ({
 })
 
 const PostDetailSlider = ({classes, posts}) => {
+  if(posts) {
     return (
       <Slide {...properties} style={{height: '100%',}}>
         {posts.map( item => <PostDetailItem item={item} />)}
       </Slide>
     )
+  } else {
+    return <Typography>Loading ...</Typography>
+  }
 };
 
 

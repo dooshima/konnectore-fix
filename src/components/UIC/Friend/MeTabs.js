@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import Link from '@material-ui/core/Link';
 import FilterLink from '../../FilterLink';
-import { Link } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
 
 const styles = theme => ({
   root: {
@@ -69,22 +70,26 @@ class MeTabs extends React.Component {
         filter = 'feed';
         break;
       case 1:
-        filter = 'contests';
+        filter = 'contest';
         break;
       case 2:
-        filter = 'images';
+        filter = 'image';
         break;
       case 3:
-        filter = 'videos';
+        filter = 'video';
         break;
       case 4:
-        filter = 'friends';
+        filter = 'text';
+        break;
       default:
         filter = 'feed';
         break;
     }
     this.props.setFilter(filter);
   };
+
+  processFilter = route => {
+  }
 
   render() {
     const { classes, tabs, baseUrl } = this.props;
@@ -100,13 +105,14 @@ class MeTabs extends React.Component {
           textColor="primary"
         >
         {tabs.map( (tab, i) =>
-          <LinkTab
+          <Tab
+            component="a"
             key={i}
             disableRipple
             classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
             label={tab.label}
-            to={`${baseUrl}/${tab.route}`}
-            
+            //to={`${baseUrl}/${tab.route}`}
+            onClick={() => this.processFilter(tab.route)}
           />
         )}
         </Tabs>

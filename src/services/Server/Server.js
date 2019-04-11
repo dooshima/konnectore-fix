@@ -20,6 +20,13 @@ const post = (url, data, options={}) => {
         options = {...headers, ...options}
     }
     return axios.post(Constants.BASE_URL + url, data, {headers: options});
+} 
+
+const authPost = (url, data, token) => {
+    const authToken = {Authorization: 'Bearer ' + token};
+    const options = {...headers, ...authToken}
+    
+    return axios.post(Constants.BASE_URL + url, data, {headers: options});
 }
 
 const loginDemo = {"error":false,"message":"Login request successful","data":{"id":"3","email":"ola@mindwalks.org","likes":0,"followers":2,"following":0,"contests":3,"wallet":"223.60","profileData":{"username":"hollaholla","email":"ola@mindwalks.org","firstName":"Holla","lastName":"Holla","gender":"","dateOfBirth":"","avatar":"default.png","bio":""}}}
@@ -31,6 +38,7 @@ const Server = {
     post,
     loginDemo,
     searchResultsDemo,
+    authPost,
 }
 
 export default Server;

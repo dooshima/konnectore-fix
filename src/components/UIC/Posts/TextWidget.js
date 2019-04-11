@@ -13,9 +13,14 @@ import { loadCSS } from 'fg-loadcss/src/loadCSS';
 import classNames from 'classnames';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import PhotoIcon from '@material-ui/icons/Photo';
+import { Link } from '@material-ui/core';
+import PostDetailDialogController from '../../Dialogs/PostDetailDialogController';
+import dialogActions from '../../../reducers/dialog/actions';
+import { connect } from 'react-redux';
 
 
 const styles = theme => ({
+
   card: {
     flex: 1,
   },
@@ -92,6 +97,19 @@ const styles = theme => ({
     color: 'rgba(255,255,255,0.6)'
   },
   rule: {borderTop: '1px solid rgba(255,255,255,0.4)', margin: `0 ${theme.spacing.unit * 2}px`, height: 1},
+  link: {
+    textDecoration: 'none',
+    fontStyle: 'normal',
+    cursor: 'pointer',
+    '&:hover, &:focus': {
+      textDecoration: 'none',
+      outline: 'none'
+    },
+    backgroundColor: 'transparent',
+    background: 'none',
+    border: 'none',
+    outline: 'none',
+  }
 });
 
 class TextWidget extends React.Component {
@@ -114,11 +132,15 @@ class TextWidget extends React.Component {
 
     }
 
+    showDetails(item) {
+      this.props.toggleDialog(item);
+    }
+
   render() {
-    const { classes, type, text, user, comments, endorsements, backgroundColor, textColor, fullName, contentStyle } = this.props;
+    const { classes, type, text, user, comments, endorsements, item, fullName, contentStyle } = this.props;
 
     return (
-      <>
+      <button className={classes.link} onClick={() => this.showDetails(item)}>
         <CardContent
           className={classes.content}
           style={contentStyle}
@@ -166,7 +188,8 @@ class TextWidget extends React.Component {
                 <MoreHorizIcon />
             </IconButton>
         </CardActions>
-        </>
+
+        </button>
     );
   }
 }
@@ -175,4 +198,18 @@ TextWidget.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(TextWidget);
+const mapStateToProps = state => {
+  return {
+    showDM: state.dialog.showDM,
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    showDialog: open => {
+      dispatch(dialogActions.showDialog(open));
+    }
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(TextWidget));

@@ -2,6 +2,7 @@ import * as types from './actionTypes';
 import Auth from '../../services/Auth/Auth';
 import { showSearchForm } from '../search/actions';
 import KError from '../../models/KError';
+import appActions from '../app/actions';
 
 const userViewProfile = user => ({
     type: types.USER_VIEW_PROFILE,
@@ -102,6 +103,16 @@ const uploadAvatar = avatar => ({
     avatar,
 })
 
+const addUserPosts = posts => ({
+    type: types.AUTH_ADD_USER_POSTS,
+    posts,
+});
+
+const addUserComments = comments => ({
+    type: types.AUTH_ADD_USER_COMMENTS,
+    comments,
+})
+
 const handleUploadAvatar = file => {
     return dispatch => {
         dispatch(showAuthLoading(true));
@@ -166,12 +177,16 @@ const handleLogin = (email, password) => {
             .then (accessToken => {
                 return Auth.signin(accessToken);
             })
-            .then( user => {
+            .then( data => {
+                const {user, posts, comments} = data;
+                console.log(user, posts, comments);
                 dispatch(showAuthLoading(false));
                 if(!user) {
                     const errorMsg = user.error? user.message: "Error logging in. Please retry";
                     throw new Error(errorMsg);
                 }
+                dispatch(addUserPosts(extractPosts(posts)));
+                dispatch(addUserComments(comments));
                 dispatch(authLoginSuccess(user));
                 dispatch(showSearchForm(true));
                 dispatch(authError(""));
@@ -208,9 +223,10 @@ const handleLogout = (uid) => {
 
 const handleEditProfile = data => {
     return dispatch => {
-        dispatch(showAuthLoading(true));
+        dispatch(appActions.appIsLoading(true));
         Auth.handleEditProfile(data)
             .then( user => {
+                dispatch(appActions.appIsLoading(false));
                 if(user.error !== false) {
                     const errorMsg = user.error? user.message: "Error editing your profile. Please retry";
                     throw new Error(errorMsg);
@@ -219,10 +235,21 @@ const handleEditProfile = data => {
                 dispatch(authEditProfileSuccess(user.data));
                 dispatch(authError(""));
             }).catch( error => {
-                dispatch(showAuthLoading(false));
+                dispatch(appActions.appIsLoading(false));
                 dispatch(authError(error.message));
             });
     }
+}
+
+function extractPosts(postData) {
+
+    const { byId, allIds } = postData.data;
+    let posts = postData;
+    delete posts['data'];
+    posts['byId'] = byId;
+    posts['allIds'] = allIds;
+
+    return posts;
 }
 
 const userActions = {

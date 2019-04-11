@@ -8,8 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { Button } from '@material-ui/core';
 import KButton from '../KButton';
-import PostDetailDialogController from '../../Dialogs/PostDetailDialogController';
-import ImagePostDetailDialog from '../../Dialogs/ImagePostDetailDialog';
+import { withRouter } from 'react-router-dom';
 
 const styles = theme => ({
   root: {
@@ -38,9 +37,13 @@ const styles = theme => ({
   }
 });
 
-const MeHeaderSummary = props => {
-  const { classes } = props;
-  const [open, openDialog] = useState(false);
+const FriendHeaderSummary = props => {
+  const { classes, editProfile } = props;
+  const KButtonLink = withRouter( ({history}) => {
+    return <KButton
+      onClick={() => this.followFriend}
+      label="Follow" size="small" />
+  })
   return (
     <div className={classes.root}>
       <Paper elevation={0} className={classes.paper}>
@@ -77,11 +80,7 @@ const MeHeaderSummary = props => {
               </Grid>
             </Grid>
             <Grid item>
-              <KButton
-               onClick={() => openDialog(!open)}
-               label="Follow" size="small" />
-
-               <PostDetailDialogController open={open} openDialog={openDialog} />
+              <KButtonLink />
             </Grid>
             
           </Grid>
@@ -91,8 +90,8 @@ const MeHeaderSummary = props => {
   );
 }
 
-MeHeaderSummary.propTypes = {
+FriendHeaderSummary.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(MeHeaderSummary);
+export default withStyles(styles)(FriendHeaderSummary);

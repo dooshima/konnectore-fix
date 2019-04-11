@@ -1,13 +1,13 @@
 import * as types from './actionTypes';
 
-const showDM1 = showDM => ({
+const showDialog = showDM => ({
    type: types.DIALOG_SHOW_DM,
    showDM 
 });
 
 const toggleDM = showDM => {
     return dispatch => {
-        dispatch(showDM1(showDM));
+        dispatch(showDialog(showDM));
     }
 }
 
@@ -32,7 +32,7 @@ const setPostTextColor = postTextColor => ({
 })
 
 const dialogActions = {
-    showDM1,
+    showDialog,
     toggleDM,
     setDataImageURL,
     setFormData,

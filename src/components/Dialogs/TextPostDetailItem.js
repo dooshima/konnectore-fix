@@ -77,7 +77,7 @@ function TextPostDetailItem(props) {
 
   return (
     <Card className={classes.card}>
-        <div className={classes.cover} title="Post title" style={{backgroundColor: '#ffb91b'}}>
+        <div className={classes.cover} title="Post title" style={{backgroundColor: item.backgroundColor}}>
             <Typography component="h3" color="textSecondary" className={classes.text}>
                 {item.text}
             </Typography>
@@ -86,7 +86,7 @@ function TextPostDetailItem(props) {
             <CardHeader
                 className={classes.header}
                 avatar={
-                    <Avatar aria-label="Victor Omemu" className={classes.avatar} src="/images/avatar.png" />
+                    <Avatar aria-label={item.fullName} className={classes.avatar} src={item.avatar? item.avatar: "/images/avatar.png"} />
                 }
                 action={
                     <IconButton>
@@ -95,7 +95,7 @@ function TextPostDetailItem(props) {
                 }
                 title={
                     <Typography component="h6" variant="h6">
-                        Victor Omemu
+                        {item.fullName}
                     </Typography>
                 }
                 subheader={
@@ -109,8 +109,7 @@ function TextPostDetailItem(props) {
             />
             <CardContent className={classes.content}>
                 <Typography>
-                Watch my latest performance at the annual contest challenge last night. 
-                Thanks to everyone who was a part of this night #Star #SuperStar
+                {item.text}
                 </Typography>
             </CardContent>
             <CardActions>
