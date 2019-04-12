@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import SearchResultBody from './components/SearchResultBody';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core';
-import { Route, Switch } from 'react-router-dom';
+import { withStyles, Typography } from '@material-ui/core';
+import { Route, Switch, Link } from 'react-router-dom';
 import SearchComponent from './components/Search/SearchComponent';
 import MeController from './components/UIC/Me/MeController';
 import HomeCompoment from './components/Home/HomeComponent';
@@ -12,6 +12,7 @@ import SidebarComponent from './components/UIC/SidebarComponent';
 import ProtectedRoute from './components/Nav/ProtectedRoute';
 import { connect } from 'react-redux';
 import FriendComponent from './components/UIC/Friend/FriendComponent';
+import PropsRoute from './components/Nav/PropsRoute';
 
 const styles = theme => ({
   wrapper: {
@@ -67,10 +68,11 @@ function MainNavigator(props) {
         <Switch>
             <ProtectedRoute exact path="/" component={HomeCompoment} />
             <Route exact path="/onboard" component={OnboardComponent} />
-            <Route exact path="/friend" render={props => <SidebarComponent component={FriendComponent} {...props} />} />
+            <Route exact path="/people" render={props => <SidebarComponent component={FriendComponent} {...props} />} />
             <Route path="/search" render={renderProps => <SidebarComponent {...renderProps} searchResults={props.searchResults} q={props.q} loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)} component={SearchComponent} />} />
             <Route path="/contest" render={renderProps => <SidebarComponent component={ContestComponent} />} />
             <ProtectedRoute path="/me" render={p => <SidebarComponent component={MeController} {...p} />} />
+            <PropsRoute component={NotFoundComponent} user={props.user} />
         </Switch>
     )
   }
@@ -92,6 +94,17 @@ function MainNavigator(props) {
       <div>
         <h1>This is Contest Component</h1>
         <p>{JSON.stringify(props)}</p>
+      </div>
+    )
+  }
+
+  function NotFoundComponent({user}) {
+    return (
+      <div style={{display: 'flex', height: '100vh', alignItems: 'center', justifyContent: 'center'}}>
+        <Typography component="h1" style={{fontSize: 34,}} color="textSecondary"> Page not found! &nbsp;
+          {!user.authToken && <Link to="/">Back to home page</Link>}
+          {user.authToken && <Link to="/me">Visit your dashboard</Link>}
+        </Typography>
       </div>
     )
   }

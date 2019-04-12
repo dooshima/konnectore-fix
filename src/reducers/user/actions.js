@@ -111,6 +111,11 @@ const addUserPosts = posts => ({
 const addUserComments = comments => ({
     type: types.AUTH_ADD_USER_COMMENTS,
     comments,
+});
+
+const addAuthToken = authToken => ({
+    type: types.AUTH_TOKEN_ADD,
+    authToken,
 })
 
 const handleUploadAvatar = file => {
@@ -170,6 +175,7 @@ const handleLogin = (email, password) => {
             .then( token => {
                 const accessToken = token.access_token;
                 if(accessToken) {
+                    dispatch(addAuthToken(accessToken));
                     return accessToken;
                 } 
                 throw new KError(true, "Invalid username or password")

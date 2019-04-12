@@ -12,6 +12,7 @@ import authSignupRedirectReducer from "./reduction/authSignupRedirectReducer";
 import authEditProfileSuccessReducer from "./reduction/authEditProfileSuccessReducer";
 import addUserPostsReducer from "./reduction/addUserPostsReducer";
 import addUserCommentsReducer from "./reduction/addUserCommentsReducer";
+import authTokenReducer from "./reduction/authTokenReducer";
 const initialState = {};
 
 const userUpdateProfile = (state=initialState) => {
@@ -112,6 +113,15 @@ const signupRedirect = (signupRedirect=false, action) => {
     }
 }
 
+const authToken = (authToken="", action) => {
+    switch(action.type) {
+        case types.AUTH_TOKEN_ADD:
+            return authTokenReducer(authToken, action);
+        default:
+            return authToken;
+    }
+}
+
 const userReducers = combineReducers({ 
     isLoading,
     data,
@@ -123,5 +133,6 @@ const userReducers = combineReducers({
     signupRedirect,
     posts,
     comments,
+    authToken,
 });
 export default userReducers;

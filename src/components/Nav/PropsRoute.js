@@ -7,7 +7,7 @@ const PropsRoute = ({component: Component, user, ...rest}) => {
         <Route
             {...rest}
             render={ props => {
-                return <Component {...props} {...{user: user}} />;
+                return <Component {...props} {...{user: user}} {...rest} />;
                 }
             }
         />

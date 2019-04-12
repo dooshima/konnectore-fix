@@ -7,13 +7,15 @@ import appReducers from './reducers/app/reducers';
 import dialogReducers from './reducers/dialog/reducers';
 import thunkMiddleware from 'redux-thunk';
 import postReducers from './reducers/post/reducers';
+import friendReducers from './reducers/friend/reducers';
 
 const reducers = combineReducers({
     search: searchReducers,
     user: userReducers,
     app: appReducers,
     dialog: dialogReducers,
-    post: postReducers
+    post: postReducers,
+    friend: friendReducers,
 });
 
 const configureStore = () => {

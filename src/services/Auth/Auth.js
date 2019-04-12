@@ -14,6 +14,7 @@ const Auth = {
     requestToken,
     signin,
     handleEditProfile,
+    getFriends,
 };
 
 function login(email, password) {
@@ -110,6 +111,13 @@ function signin(token) {
     const Authorization = 'Bearer ' + token;
     return Server.get('api/signin', {Authorization: Authorization})
         .then( resp => resp.data);
+}
+
+function getFriends(token) {
+    return Server.authGet('api/get-friends', token)
+        .then ( friends => {
+            console.log(friends)
+        });
 }
 
 function isEmail(email) {
