@@ -14,7 +14,7 @@ function getFriends (token) {
 };
 
 function follow(user_id, token) {
-    return Server.authPost('api/follow', {user_id}, token)
+    return Server.authPost('api/follow', {user_id: user_id}, token)
         .then( resp => resp.data );
 }
 

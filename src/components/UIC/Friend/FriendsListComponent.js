@@ -12,10 +12,10 @@ const styles = theme =>({
     }
 })
 
-const FriendsListComponent = ({people, handleFollow, classes}) => {
+const FriendsListComponent = ({people, handleFollow, classes, user}) => {
 
     if(people) {
-        const friendsList = people.map( person => <FriendConnectCard person={person} handleFollow={handleFollow} />);
+        const friendsList = people.map( person => <FriendConnectCard person={person} user={user.data} handleFollow={handleFollow} />);
         return (
             <>
             <FriendHeaderNav />

@@ -52,29 +52,19 @@ class FriendComponent extends React.Component {
     }
     render() {
         const {match, user, follow, friend} = this.props;
-        let people1 = [];
-        let people2 = [];
+        let people = [];
         const fullName = user.data.firstname + ' ' + user.data.lastname;
 
         let count = 1;
-        const followers = friend.followers.byId? friend.followers.byId: [];
-        const followings = friend.followings.byId? friend.followings.byId: [];
-        for(let i in followers) {
-            let item = followers[i];
-            people1.push(item);
-            if(count >= 20) 
+        const friends = friend.friends.byId? friend.friends.byId: [];
+        
+        for(let i in friends) {
+            let item = friends[i];
+            people.push(item);
+            if(count >= 50)
                 break;
             count++;
         }
-
-        for(let i in followings) {
-            let item = followings[i];
-            people2.push(item);
-            if(count >= 20) 
-                break;
-            count++;
-        }
-        const people = people1.concat(people2).sort( (a, b) => a.created_at > b.created_at);
 
         return (
             <div style={{marginTop: 30, marginLeft: 20, marginRight: 20}}>
@@ -82,7 +72,7 @@ class FriendComponent extends React.Component {
                     <Grid item xs={8}>
                     <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
                         <Switch>
-                            <PropsRoute exact path={`${match.path}`} component={FriendsListComponent} people={people} handleFollow={this.handleFollow} />
+                            <PropsRoute exact path={`${match.path}`} component={FriendsListComponent} people={people} user={user} handleFollow={this.handleFollow} />
                             <Route exact path={`${match.path}/:id`} render={ props => 
                                 <FriendHeader path={match.path} {...this.props} 
                                 setFilter={this.setFilter.bind(this)} />}                    

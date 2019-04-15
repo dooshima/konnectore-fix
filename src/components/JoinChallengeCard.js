@@ -22,7 +22,7 @@ const styles = {
 function JoinChallengeCard(props) {
   const { classes } = props;
   return (
-    <KPaper className={classes.card} style={{marginTop: 20}}>
+    <KPaper className={classes.card}>
       <CardActionArea>
         <CardMedia
           className={classes.media}

@@ -13,6 +13,7 @@ import ProtectedRoute from './components/Nav/ProtectedRoute';
 import { connect } from 'react-redux';
 import FriendComponent from './components/UIC/Friend/FriendComponent';
 import PropsRoute from './components/Nav/PropsRoute';
+import DashboardComponent from './components/Dashboard/DashboardComponent';
 
 const styles = theme => ({
   wrapper: {
@@ -64,9 +65,11 @@ const styles = theme => ({
 const UIContestComponent = <SidebarComponent component={ContestComponent} />;
 
 function MainNavigator(props) {
+  console.log(props.user.authToken && props.user.data.hasOwnProperty('id'))
     return (
         <Switch>
-            <ProtectedRoute exact path="/" component={HomeCompoment} />
+            <ProtectedRoute exact path="/" component={
+              (props.user.authToken && props.user.data.hasOwnProperty('id'))? DashboardComponent: HomeCompoment} {...props}/>
             <Route exact path="/onboard" component={OnboardComponent} />
             <Route exact path="/people" render={props => <SidebarComponent component={FriendComponent} {...props} />} />
             <Route path="/search" render={renderProps => <SidebarComponent {...renderProps} searchResults={props.searchResults} q={props.q} loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)} component={SearchComponent} />} />

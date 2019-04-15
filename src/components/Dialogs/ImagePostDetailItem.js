@@ -65,7 +65,7 @@ const styles = theme => ({
 
 function ImagePostDetailItem(props) {
   const { classes, theme, item } = props;
-  console.log(item)
+
   return (
     <Card className={classes.card}>
         <CardMedia

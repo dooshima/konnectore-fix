@@ -2,15 +2,15 @@ import * as types from './actionTypes';
 import appActions from '../app/actions';
 import Friend from '../../services/Friend/Friend';
 
-const addFollowers = followers => ({
-   type: types.FRIEND_ADD_FOLLOWERS,
-   followers,
+const addFriends = friends => ({
+   type: types.FRIEND_ADD_FRIENDS,
+   friends,
 });
 
-const addFollowings = followings => ({
-    type: types.FRIEND_ADD_FOLLOWINGS,
-    followings,
-});
+const updateFriends = friend => ({
+    type: types.FRIEND_UPDATE_FRIENDS,
+    friend,
+})
 
 const getFriends = token => {
     return dispatch => {
@@ -18,8 +18,7 @@ const getFriends = token => {
         Friend.getFriends(token)
             .then( people => {
                 dispatch(appActions.appIsLoading(false));
-                dispatch(addFollowers(people.followers));
-                dispatch(addFollowings(people.followings));
+                dispatch(addFriends(people));
             } )
             .catch( error => {
                 dispatch(appActions.appIsLoading(false));
@@ -28,20 +27,21 @@ const getFriends = token => {
     }
 }
 
-const follow = (user_id, token) => {
+const follow = (user, token) => {
     return dispatch => {
-        Friend.follow(user_id, token)
+        Friend.follow(user, token)
             .then( friend => {
-                console.log(friend);
+                dispatch(updateFriends(friend));
             } )
     }
 }
 
 const friendActions = {
-    addFollowers,
-    addFollowings,
+    addFriends,
     getFriends,
     follow,
+    updateFriends,
+
 };
 
 export default friendActions;

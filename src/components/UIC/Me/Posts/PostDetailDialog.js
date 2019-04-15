@@ -63,7 +63,7 @@ class PostDetailDialog extends React.Component {
   };
 
   render() {
-    const { fullScreen, classes, postText, dataImageURL, user } = this.props;
+    const { fullScreen, classes, postText, dataImageURL, user, toggleDialog } = this.props;
     const p = postText && dataImageURL? {}: {disabled: true};
     const funcs = {
         setPostText: this.setPostText,
@@ -96,7 +96,7 @@ class PostDetailDialog extends React.Component {
           //disableBackdropClick={false}
           // <PostDetailSlider posts={posts} /> <PostDetailItem item={this.props.postItem} />
         >
-          <PostDetailSlider posts={posts} />
+          <PostDetailSlider posts={posts} toggleDialog={toggleDialog}/>
 
         </Dialog>
     );

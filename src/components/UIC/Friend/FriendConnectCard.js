@@ -15,7 +15,7 @@ const styles = theme => ({
 })
 
 const FriendConnectCard = props => {
-    const { classes, person, handleFollow } = props;
+    const { classes, person, handleFollow, user } = props;
     if(!person.profile) {
         return null;
     }
@@ -26,8 +26,8 @@ const FriendConnectCard = props => {
         <div className={classes.item}>
             <Avatar alt={fullName} src={src} />
             <Typography style={{margin: '.6em auto'}}>{fullName}</Typography>
-            {person.type == 1 ? <KButtonSmall label="Follow" 
-                size="small" onClick={() => handleFollow(person.profile.user_id)} />: 
+            {person.following < 1 ? <KButtonSmall label="Follow" 
+                size="small" onClick={() => handleFollow(person.id)} />: 
                 <Typography color="textSecondary">Following</Typography>}
         </div>
     )
