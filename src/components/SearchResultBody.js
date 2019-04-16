@@ -28,7 +28,7 @@ import classNames from 'classnames';
 import SinglePostCard from './SinglePostCard';
 import SectionListHeader from './SectionListHeader';
 import JoinChallengeCard from './JoinChallengeCard';
-import CompetitionSummaryCard from './Contests/CompetitionSummaryCard';
+import CompetitionSummaryCard from './Contest/CompetitionSummaryCard';
 import SearchFilterLink from './SearchFilterLink';
 import LeftSidebar from './LeftSidebar';
 import KTabs from './UIC/KTabs';

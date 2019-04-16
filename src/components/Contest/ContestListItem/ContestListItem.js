@@ -13,15 +13,15 @@ const styles = theme => ({
     }
 })
 function ContestListItem(props) {
-    const { classes, url, title } = props;
+    const { classes, item } = props;
     return (
         <Card square>
             <CardMedia
-                image={url}
+                image={item.coverImage}
                 className={ classes.media }
             />
             <CardActions>
-                <Typography className={classes.title}>{title}</Typography>                
+                <Typography className={classes.title}>{item.title}</Typography>                
             </CardActions>
         </Card>
     )

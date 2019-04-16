@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Card, CardActionArea, CardActions, CardMedia, Typography, Icon, withStyles } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
 import KPaper from './UIC/KPaper';
+import { Link, withRouter } from 'react-router-dom';
 
 const styles = theme => ({
     media: {
@@ -11,19 +12,31 @@ const styles = theme => ({
     title: {
         fontSize: theme.spacing.unit * 1.15,
         marginLeft: theme.spacing.unit * 1,
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+    item: {
+        width: '33.3%',
+    },
+    link: {
+        textDecoration: 'none',
+        fontStyle: 'normal',
     }
 })
 function ContestListItem(props) {
-    const { classes, url, title } = props;
+    const { classes, item } = props;
     return (
-        <KPaper square>
+        <KPaper square classes={classes.item}>
+        <Link to={`/contest/${item.slug}`} className={classes.link}>
             <CardMedia
-                image={url}
+                image={item.coverImage}
                 className={ classes.media }
             />
             <CardActions>
-                <Typography className={classes.title}>{title}</Typography>                
+                <Typography className={classes.title}>{item.title}</Typography>                
             </CardActions>
+        </Link>
         </KPaper>
     )
 }
@@ -35,4 +48,4 @@ ContestListItem.propTypes = {
     contest: PropTypes.object
 }
 
-export default withStyles(styles)(ContestListItem);
+export default withRouter(withStyles(styles)(ContestListItem));

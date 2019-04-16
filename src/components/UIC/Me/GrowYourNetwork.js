@@ -11,7 +11,7 @@ const styles = theme => {
 function GrowYourNetwork(props) {
     const { classes } = props;
     return (
-        <KPaper style={{marginTop: 20}}>
+        <KPaper>
                 <List subheader={<ListSubheader>GROW YOUR NETWORK</ListSubheader>} style={{textAlign: 'left'}} className={classes.root}>
             <ListItem>
                 <Avatar alt="Ademide Lawal" src="/images/avatar.png" />

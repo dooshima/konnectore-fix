@@ -1,25 +1,25 @@
 import React from 'react';
 import { NavLink as Link, Route } from 'react-router-dom';
-import MeHeader from './MeHeader';
 import { Grid, Paper } from '@material-ui/core';
-import CompetitionSummaryCard from '../../Contest/CompetitionSummaryCard';
-import { searchResults } from './../../assets/searchResults';
-import MeTimeline from './MeTimeline';
-import GrowYourNetwork from './GrowYourNetwork';
-import AwardsAndBadges from './AwardsAndBadges';
-import AccountInfoWidget from './AccountInfoWidget';
-import EditPersonalInfoWidget from './EditPersonalInfoWidget';
-import ManageYourAccountWidget from './ManageYourAccountWidget';
-import PlaceComponents from '../PlaceComponents';
-import EditProfile from './Profile/EditProfile';
-import ManageAccount from './Profile/ManageAccount';
 import { Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import PropsRoute from '../../Nav/PropsRoute';
-import dialogActions from '../../../reducers/dialog/actions';
-import PostDetailDialog from './Posts/PostDetailDialog';
+import ContestHeader from './ContestHeader';
+import PropsRoute from '../Nav/PropsRoute';
+import PlaceComponents from '../UIC/PlaceComponents';
+import AwardsAndBadges from '../UIC/Me/AwardsAndBadges';
+import dialogActions from '../../reducers/dialog/actions';
+import ContestFeedComponent from './ContestFeedComponent';
+import ContestGuideComponent from './ContestGuideComponent';
+import PageInfoWidget from './PageInfoWidget';
+import RecentContestant from './RecentContestantsWidget';
+import RecentContestantsWidget from './RecentContestantsWidget';
+import TopContestantsWidget from './TopContestantsWidget';
+import AvailablePositionsWidget from './AvailablePositionsWidget';
+import MyContestsWidget from './MyContestsWidget';
+import AddEntryComponent from './AddEntryComponent';
+import contestActions from '../../reducers/contest/actions';
 
-class MeController extends React.Component {
+class ContestController extends React.Component {
     constructor(props) {
         super(props);
 
@@ -32,7 +32,7 @@ class MeController extends React.Component {
     }
 
     componentDidMount() {
-
+        this.props.getContest(this.props.match.params.slug);
     }
 
     static getDerivedStateFromProps(state) {
@@ -61,6 +61,7 @@ class MeController extends React.Component {
         let recentPosts = [];
         const fullName = user.data.firstname + ' ' + user.data.lastname;
 
+        console.log(match.params.slug)
         let count = 1;
         const userPosts = this.filterPosts(user.posts.byId);
         for(let i in userPosts) {
@@ -76,26 +77,28 @@ class MeController extends React.Component {
                 <Grid container spacing={0}>
                     <Grid item xs={8}>
                     <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
-                        <MeHeader path={match.path} {...this.props} setFilter={this.setFilter.bind(this)} />
+                        <ContestHeader path={match.path} {...this.props} setFilter={this.setFilter.bind(this)} />
                         <Switch>
-                            <PropsRoute exact path={`${match.path}/account/edit`} component={EditProfile} />
-                            <Route exact path={`${match.path}/account/manage`} component={ManageAccount} />
-                            <Route path={`${match.path}`} render={props => <MeTimeline {...props} fullName={fullName} toggleDialog={this.toggleDialog} recentPosts={recentPosts} />} />
+                            <PropsRoute exact path={`${match.path}`} component={ContestFeedComponent} />
+                            <Route exact path={`${match.path}/guide`} component={ContestGuideComponent} />
+                            <Route exact path={`${match.path}/entry`} component={AddEntryComponent} />
                         </Switch>
                     </Paper>
                     </Grid>
                     <Grid item xs={4}>
                         <div style={{marginLeft: 10}}>
                             <PlaceComponents spacer={20}>
-                                <Route exact path={`${match.path}/`} component={AwardsAndBadges} />
-                                <Route exact path={`${match.path}/`} component={AccountInfoWidget} />
-                                <Route exact path={`${match.path}/account/edit`} component={EditPersonalInfoWidget} />
-                                <Route exact path={`${match.path}/account/manage`} component={ManageYourAccountWidget} />
+                                <PropsRoute exact path={`${match.path}/`} component={PageInfoWidget} />
+                                <Route exact path={`${match.path}`} component={TopContestantsWidget} />
+                                <PropsRoute exact path={`${match.path}/guide`} component={AvailablePositionsWidget} url={`${match.url}`} />
+                                <Route exact path={`${match.path}/guide`} component={RecentContestantsWidget} />
+                                <Route exact path={`${match.path}/entry`} component={TopContestantsWidget} />
+                                <Route exact path={`${match.path}/submissions`} component={TopContestantsWidget} />
+                                <Route path={`${match.path}/`} component={MyContestsWidget} />
                             </PlaceComponents>
                         </div>
                     </Grid>
                 </Grid>
-                <PostDetailDialog postItem={this.state.item} open={this.state.open} user={this.props.user} toggleDialog={this.toggleDialog} />
             </div>
         )
     }
@@ -109,6 +112,7 @@ class MeController extends React.Component {
 const mapStateToProps = state => {
     return {
         user: state.user,
+        accessToken: state.user.authToken,
     }
 }
 
@@ -116,11 +120,14 @@ const mapDispatchToProps = dispatch => {
     return {
       showDialog: open => {
         dispatch(dialogActions.showDialog(open));
+      },
+      getContest: slug => {
+          dispatch(contestActions.getContest(slug));
       }
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MeController);
+export default connect(mapStateToProps, mapDispatchToProps)(ContestController);
 
 
 

@@ -8,6 +8,7 @@ import dialogReducers from './reducers/dialog/reducers';
 import thunkMiddleware from 'redux-thunk';
 import postReducers from './reducers/post/reducers';
 import friendReducers from './reducers/friend/reducers';
+import contestReducers from './reducers/contest/reducers';
 
 const reducers = combineReducers({
     search: searchReducers,
@@ -16,6 +17,7 @@ const reducers = combineReducers({
     dialog: dialogReducers,
     post: postReducers,
     friend: friendReducers,
+    contest: contestReducers,
 });
 
 const configureStore = () => {

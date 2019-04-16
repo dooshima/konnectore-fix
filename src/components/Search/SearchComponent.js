@@ -6,7 +6,7 @@ import { withStyles, createMuiTheme } from '@material-ui/core/styles';
 import { Grid, Paper } from '@material-ui/core';
 import classNames from 'classnames';
 import JoinChallengeCard from './../JoinChallengeCard';
-import CompetitionSummaryCard from '../Contests/CompetitionSummaryCard';
+import CompetitionSummaryCard from '../Contest/CompetitionSummaryCard';
 import KTabs from './../UIC/KTabs';
 import FeedCard from './../FeedCard';
 import { connect } from 'react-redux';

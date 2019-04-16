@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import FriendComponent from './components/UIC/Friend/FriendComponent';
 import PropsRoute from './components/Nav/PropsRoute';
 import DashboardComponent from './components/Dashboard/DashboardComponent';
+import ContestController from './components/Contest/ContestController';
 
 const styles = theme => ({
   wrapper: {
@@ -73,7 +74,8 @@ function MainNavigator(props) {
             <Route exact path="/onboard" component={OnboardComponent} />
             <Route exact path="/people" render={props => <SidebarComponent component={FriendComponent} {...props} />} />
             <Route path="/search" render={renderProps => <SidebarComponent {...renderProps} searchResults={props.searchResults} q={props.q} loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)} component={SearchComponent} />} />
-            <Route path="/contest" render={renderProps => <SidebarComponent component={ContestComponent} />} />
+            <Route exact path="/contest" render={renderProps => <SidebarComponent component={ContestComponent} />} />
+            <Route path="/contest/:slug" render={props => <SidebarComponent component={ContestController} {...props} />} />
             <ProtectedRoute path="/me" render={p => <SidebarComponent component={MeController} {...p} />} />
             <PropsRoute component={NotFoundComponent} user={props.user} />
         </Switch>

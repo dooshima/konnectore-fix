@@ -2,12 +2,12 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-const PropsRoute = ({component: Component, user, ...rest}) => {
+const PropsRoute = ({component: Component, ...rest}) => {
     return (
         <Route
             {...rest}
             render={ props => {
-                return <Component {...props} {...{user: user}} {...rest} />;
+                return <Component {...props} {...rest} />;
                 }
             }
         />
@@ -15,9 +15,4 @@ const PropsRoute = ({component: Component, user, ...rest}) => {
     )
 };
 
-const mapStateToProps = state => {
-    return {
-        user: state.user,
-    }
-}
-export default connect(mapStateToProps)(PropsRoute);
+export default PropsRoute;

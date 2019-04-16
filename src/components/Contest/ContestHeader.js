@@ -1,0 +1,61 @@
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+import ContestHeaderNav from './ContestHeaderNav';
+import ContentHeaderCard from './ContentHeaderCard';
+import ContestTabs from './ContestTabs';
+import { Switch, Route } from 'react-router-dom';
+import PropsRoute from '../Nav/PropsRoute';
+
+const tabs = [
+    {
+      label: "Contests",
+      route: "contests"
+    },
+    {
+      label: "News Feed",
+      route: "feeds"
+    },
+    {
+      label: "Images",
+      route: "images"
+    },
+    {
+        label: "Videos",
+        route: "videos"
+    }
+  ];
+
+const ContestHeader = withRouter( (props) => {
+    //const path = props.location.pathname;
+    
+    return (
+      <Switch>
+        <PropsRoute exact path={`${props.path}/guide`} 
+          component={ContestHeaderNav} 
+          back={props.match.url}
+          title="The Sctage Contest - Guidelines" />
+        <PropsRoute exact path={`${props.path}/entry`} 
+          component={ContestHeaderNav} 
+          back={props.match.url}
+          title="The Sctage Contest - Entry Submissions" />
+        <PropsRoute exact path={`${props.path}/submissions`} 
+          component={ContestHeaderNav} 
+          back={props.match.url}
+          title="The Sctage Contest - Submissions" />
+        <Route exact path={props.path} render={ p => <TopNav {...p} /> } />
+      </Switch>
+            
+
+        )
+});
+
+export default ContestHeader;
+
+function TopNav(props) {
+  return (
+    <>
+      <ContentHeaderCard {...props}/>
+      <ContestTabs tabs={tabs} baseUrl={props.match.url} setFilter={props.setFilter} size="small" />
+    </>
+  )
+}

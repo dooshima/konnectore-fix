@@ -9,11 +9,14 @@ import MasonryGrid from '../UIC/MasonryGrid/MasonryGrid';
 import ImageCard from '../UIC/Posts/ImageCard/ImageCard';
 import TextCard from '../UIC/Posts/TextCard/TextCard';
 import VideoCard from '../UIC/Posts/VideoCard/VideoCard';
-import CompetitionSummaryCard from '../Contests/CompetitionSummaryCard';
+import CompetitionSummaryCard from '../Contest/CompetitionSummaryCard';
 import JoinChallengeCard from '../JoinChallengeCard';
 import FeedCard from '../FeedCard';
 import PlaceComponents from '../UIC/PlaceComponents';
 import PostDetailDialog from '../UIC/Me/Posts/PostDetailDialog';
+import { connect } from 'react-redux';
+import contestActions from './../../reducers/contest/actions';
+import ContestFeedHorizontal from './Scrollables/ContestFeedHorizontal';
 
 const activeLink = classNames({'link': true, 'active': true});
 const dudUrl = 'javascript:;';
@@ -157,14 +160,20 @@ class DashboardComponent extends React.Component {
         }
     }
 
+    componentDidMount() {
+      //activate fetching of contests
+      this.props.getContestFeed();
+    }
+
     toggleDialog = item => {
         this.setState({item: item, open: !this.state.open})
     }
 
     render() {
-    const { classes, user } = this.props;
+    const { classes, user, contestFeed } = this.props;
     let recentPosts = [];
-    console.log(user)
+    const contestList = !contestFeed.data? []: contestFeed.data;
+    console.log(contestList)
     const posts = user && user.posts.byId? user.posts.byId: [];
     for(let i in posts) {
       let item = posts[i];
@@ -178,19 +187,7 @@ class DashboardComponent extends React.Component {
               <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
                 
                 <div style={{display: 'flex'}}>
-                {
-                  [
-                    {url: '/images/c1.png', title: 'Street Dance Contest'},
-                    {url: '/images/c2.png', title: 'Double Homicide Challenge'},
-                    {url: '/images/c3.png', title: 'The Sctage Contest'}
-                  ].map( (item, i) => {
-                    return (
-                      <div key={i} style={{ marginLeft: `${i > 0? 20: 0}px`, flex: 1 }}>
-                      <ContestListItem url={item.url} title={item.title} coverImage=""  />
-                      </div>
-                    )
-                  })
-                }
+                <ContestFeedHorizontal contests={contestList} />
                 </div>
                 <Paper elevation={0} style={{marginTop: 30}}>
                   <MasonryGrid>
@@ -230,4 +227,17 @@ DashboardComponent.propTypes = {
     classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(DashboardComponent);
+const mapStateToProps = state => {
+  return {
+    contestFeed: state.contest.feed,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getContestFeed: () => {
+      dispatch(contestActions.getContestFeed());
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(DashboardComponent));
