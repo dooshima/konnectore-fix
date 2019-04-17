@@ -9,6 +9,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import { Button } from '@material-ui/core';
 import KButton from '../KButton';
 import { withRouter } from 'react-router-dom';
+import KButtonSmall from '../KButtonSmall';
 
 const styles = theme => ({
   root: {
@@ -20,15 +21,16 @@ const styles = theme => ({
     maxWidth: '100%',
   },
   image: {
-    width: 128,
-    height: 128,
+    width: 150,
+    height: 150,
   },
   img: {
     margin: 'auto',
     display: 'block',
     maxWidth: '100%',
     maxHeight: '100%',
-    width: '70%',
+    width: '80%',
+    borderRadius: '50%',
   },
   summary: {
     backgroundColor: '#F2F7F4',
@@ -38,19 +40,23 @@ const styles = theme => ({
 });
 
 const FriendHeaderSummary = props => {
-  const { classes, editProfile } = props;
+  const { classes, currentUser, handleFollow, handleUnfollow } = props;
   const KButtonLink = withRouter( ({history}) => {
     return <KButton
       onClick={() => this.followFriend}
       label="Follow" size="small" />
   })
+  const person = currentUser.user;
+  const avatar = person.avatar? person.avatar: "/images/avatar.png";
+  const fullName = person.firstname + " " + person.lastname;
+  
   return (
     <div className={classes.root}>
       <Paper elevation={0} className={classes.paper}>
         <Grid container spacing={8}>
           <Grid item>
             <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src="/images/avatar.png" />
+              <img className={classes.img} alt="complex" src={avatar} />
             </ButtonBase>
           </Grid>
           <Grid item xs={8} sm container className={classes.summary}>
@@ -58,9 +64,9 @@ const FriendHeaderSummary = props => {
             <Grid item xs container direction="column" spacing={16}>
               <Grid item xs>
                 <Typography gutterBottom variant="h5" component="b">
-                  Victor Omemu
+                  {fullName}
                 </Typography>
-                <Typography gutterBottom>I dance for fun, but others find it entertaining. This is my user page for the stage contest, and with your votes I can win.</Typography>
+                <Typography gutterBottom>{currentUser.user.bio}</Typography>
               </Grid>
               <Grid item style={{display: 'flex', justifyContent: 'start'}}>
                 <div style={{textAlign: 'center', marginRight: 20,}}>
@@ -80,7 +86,10 @@ const FriendHeaderSummary = props => {
               </Grid>
             </Grid>
             <Grid item>
-              <KButtonLink />
+            {person.following < 1 ? <KButtonSmall label="Follow" 
+                size="small" onClick={() => handleFollow(person.id)} />: 
+                <KButtonSmall label="Unfollow" collor="secondary"
+                size="small" onClick={() => handleUnfollow(person.id)} />}
             </Grid>
             
           </Grid>

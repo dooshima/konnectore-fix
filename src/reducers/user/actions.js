@@ -1,8 +1,12 @@
 import * as types from './actionTypes';
 import Auth from '../../services/Auth/Auth';
-import { showSearchForm } from '../search/actions';
+import searchActions, { showSearchForm } from '../search/actions';
 import KError from '../../models/KError';
 import appActions from '../app/actions';
+import dialogActions from '../dialog/actions';
+import contestActions from '../contest/actions';
+import postActions from '../post/actions';
+import friendActions from '../friend/actions';
 
 const userViewProfile = user => ({
     type: types.USER_VIEW_PROFILE,
@@ -86,7 +90,7 @@ const clearUserCache = () => {
 const isUsernameExist = available => ({
     type: types.AUTH_CHECK_USERNAME,
     available,
-})
+});
 
 const checkUsername = username => {
     return dispatch => {
@@ -107,6 +111,11 @@ const addUserPosts = posts => ({
     type: types.AUTH_ADD_USER_POSTS,
     posts,
 });
+
+const setUserPosts = posts => ({
+    type: types.AUTH_SET_USER_POSTS,
+    posts,
+})
 
 const addUserComments = comments => ({
     type: types.AUTH_ADD_USER_COMMENTS,
@@ -217,8 +226,7 @@ const handleLogout = (uid) => {
                     throw new Error(errorMsg);
                 }
                 console.log(user);
-                dispatch(authLogoutSuccess({}));
-                dispatch(showSearchForm(false));
+                setAppDefault(dispatch);
             }).catch( error => {
                 console.log(error)
                 dispatch(showAuthLoading(false));
@@ -258,6 +266,33 @@ function extractPosts(postData) {
     return posts;
 }
 
+function setDefault() {
+    return dispatch => {
+        dispatch(addTalentCategories([]));
+        dispatch(userViewProfile({}));
+        dispatch(showAuthLoading(false));
+        dispatch(authLoginSuccess({}));
+        dispatch(authError(""));
+        dispatch(authSignupSuccess({}));
+        dispatch(authSignupRedirect(false));
+        dispatch(isUsernameExist(true));
+        dispatch(uploadAvatar(""));
+        dispatch(setUserPosts({}));
+        dispatch(addUserComments({}));
+        dispatch(addAuthToken(""));
+    }
+}
+
+function setAppDefault(dispatch) {
+    dispatch(appActions.setDefault());
+    dispatch(setDefault());
+    dispatch(searchActions.setDefault());
+    dispatch(postActions.setDefault());
+    dispatch(friendActions.setDefault());
+    dispatch(dialogActions.setDefault());
+    dispatch(contestActions.setDefault());
+}
+
 const userActions = {
     userViewProfile,
     showAuthLoading,
@@ -275,6 +310,7 @@ const userActions = {
     processOnboarding,
     authSignupRedirect,
     handleEditProfile,
+    setDefault,
 };
 
 export default userActions;

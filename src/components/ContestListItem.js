@@ -28,7 +28,7 @@ function ContestListItem(props) {
     const { classes, item } = props;
     return (
         <KPaper square classes={classes.item}>
-        <Link to={`/contest/${item.slug}`} className={classes.link}>
+        <Link to={`/contest/${item.slug}/guide`} className={classes.link}>
             <CardMedia
                 image={item.coverImage}
                 className={ classes.media }

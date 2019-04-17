@@ -96,7 +96,6 @@ class HomeCompoment extends React.PureComponent {
     }
 
     toggleForm = (form) => {
-        console.log(form)
         this.setState({form: form});
     }
 

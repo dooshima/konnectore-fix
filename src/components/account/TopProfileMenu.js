@@ -10,6 +10,7 @@ import Avatar from '@material-ui/core/Avatar';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import TopLoginButton from './TopLoginButton';
 import userActions from '../../reducers/user/actions';
+import { withRouter } from 'react-router-dom';
 
 const styles = theme => ({
   root: {
@@ -60,6 +61,10 @@ class TopProfileMenu extends React.Component {
     this.setState({ anchorEl: null });
   };
 
+  gotoProfile = () => {
+    this.props.history.push('/me');
+  }
+
   render() {
     const { classes, user } = this.props;
     const { auth, anchorEl } = this.state;
@@ -98,7 +103,7 @@ class TopProfileMenu extends React.Component {
                   open={open}
                   onClose={this.handleClose}
                 >
-                  <MenuItem onClick={this.handleClose}>My Profile</MenuItem>
+                  <MenuItem onClick={this.gotoProfile}>My Profile</MenuItem>
                   <MenuItem onClick={this.handleClose}>Settings &amp; Privacy</MenuItem>
                   <MenuItem onClick={this.handleClose}>Need help?</MenuItem>
                   <MenuItem onClick={this.props.logout}>Logout</MenuItem>
@@ -135,4 +140,4 @@ const mapDispatchToProps = dispatch => {
     }
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(TopProfileMenu));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter((withStyles(styles)(TopProfileMenu))));

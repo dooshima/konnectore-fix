@@ -37,7 +37,7 @@ const uploadMedia = data => {
 const setProgressNumber = progressNumber => ({
     type: types.POST_PROGRESS_NUMBER,
     progressNumber,
-})
+});
 
 const upload = (data, dispatch)  => {
     if(!data) {
@@ -75,13 +75,23 @@ const progress = (event) => {
     const { total, loaded } = event;
     let val = Math.ceil(loaded / total * 100);
     return val;
-  };
+};
+
+function setDefault() {
+  return dispatch => {
+    dispatch(startUploadMedia(false));
+    dispatch(uploadMediaSuceeded({}));
+    dispatch(uploadMediaFailed(""));
+    dispatch(setProgressNumber(0));
+  }
+}
 
 const postActions = {
     startUploadMedia,
     uploadMediaSuceeded,
     uploadMediaFailed,
-    uploadMedia
+    uploadMedia,
+    setDefault,
 };
 
 export default postActions;

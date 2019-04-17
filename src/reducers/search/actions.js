@@ -45,7 +45,17 @@ const searchFailed = errorMessage => ({
 const setSearchFilter = filter => ({
     type: types.SET_SEARCH_FILTER,
     filter,
-})
+});
+
+function setDefault() {
+    return dispatch => {
+        dispatch(showSearchForm(false));
+        dispatch(addQueryText(""));
+        dispatch(searchSucceeded({}));
+        dispatch(searchFailed(""));
+        dispatch(setSearchFilter(""));
+    }
+}
 
 const searchActions = {
     showSearchForm,
@@ -55,6 +65,7 @@ const searchActions = {
     searchSucceeded,
     searchFailed,
     setSearchFilter,
+    setDefault,
 };
 
 export default searchActions;

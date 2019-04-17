@@ -26,14 +26,19 @@ const tabs = [
     }
   ];
 
-const FriendHeader = withRouter( (props) => {
-    const path = props.location.pathname;
+  class FriendHeader extends React.PureComponent {
+    constructor(props) {
+      super(props);
+    }
+    render() {
+      const props = this.props;
         return (
           <>
             <FriendHeaderSummary {...props} />
             <MeTabs tabs={tabs} baseUrl={props.match.url} setFilter={props.setFilter} size="small" />
           </>
         )
-});
+    }
+};
 
-export default FriendHeader;
+export default withRouter(FriendHeader);

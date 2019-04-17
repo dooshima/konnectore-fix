@@ -156,7 +156,7 @@ class LeftUserMenu extends React.Component {
               uploadMedia={this.props.uploadMedia} showpostform={this.props.showpostform}
               toggle={this.toggle} open={this.state.open} />
             <List component="nav">
-                <ListItemLink to="/me" primary="Home" path="me" icon={<HomeIcon />} active={classes.active} true />
+                <ListItemLink to="/" primary="Home" path="me" icon={<HomeIcon />} active={classes.active} true />
                 <ListItemLink to="/people" path="people" primary="People" icon={<GroupIcon />} active={classes.active} />
               <ListItemLink to="/inbox" path="inbox" primary="Inbox" icon={<InboxIcon />} active={classes.active} />
               <ListItemLink to="/activities" path="activities" primary="Activities" icon={<NotificationsIcon />} active={classes.active} />

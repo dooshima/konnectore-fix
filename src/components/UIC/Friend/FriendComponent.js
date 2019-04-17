@@ -5,11 +5,11 @@ import GrowYourNetwork from './GrowYourNetwork';
 import PlaceComponents from '../PlaceComponents';
 import { connect } from 'react-redux';
 import dialogActions from '../../../reducers/dialog/actions';
-import FriendHeader from './FriendHeader';
-import FriendTimeline from './FriendTimeline';
+import CurrentFriendComponent from './CurrentFriendComponent';
 import FriendsListComponent from './FriendsListComponent';
 import friendActions from '../../../reducers/friend/actions';
 import PropsRoute from '../../Nav/PropsRoute';
+import { withRouter } from 'react-router-dom';
 
 class FriendComponent extends React.Component {
     constructor(props) {
@@ -18,8 +18,14 @@ class FriendComponent extends React.Component {
         this.state = {
             filter: 'feed',
             people: [],
+            currentUserID: '',
         }
     }
+
+    setUser = user => {
+        this.setState({currentUser: user});
+        console.log(user);
+    } 
 
     componentDidMount() {
         this.props.getFriends(this.props.token);
@@ -37,8 +43,11 @@ class FriendComponent extends React.Component {
         this.props.follow(userID, this.props.token);
     }
 
-    filterPosts(posts) {
-        const filter = this.state.filter;
+    handleUnfollow = userID => {
+        this.props.unfollow(userID, this.props.token);
+    }
+
+    filterPosts(posts, filter) {
         if(['image', 'text', 'video'].includes(filter)) {
             let p = [];
             for(let i in posts) {
@@ -72,16 +81,13 @@ class FriendComponent extends React.Component {
                     <Grid item xs={8}>
                     <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
                         <Switch>
-                            <PropsRoute exact path={`${match.path}`} component={FriendsListComponent} people={people} user={user} handleFollow={this.handleFollow} />
-                            <Route exact path={`${match.path}/:id`} render={ props => 
-                                <FriendHeader path={match.path} {...this.props} 
-                                setFilter={this.setFilter.bind(this)} />}                    
-                            />
-                            <Route exact path={`${match.path}/:id`} render={ props =>
-                                <FriendTimeline {...this.props} fullName={fullName} 
-                                toggleDialog={this.toggleDialog} people={people} />}
-                            />
-                        }
+                            <PropsRoute exact path={`${match.path}`} component={FriendsListComponent} people={people} user={user} handleFollow={this.handleFollow} handleUnfollow={this.handleUnfollow} />
+                            <PropsRoute exact path={`${match.path}/:id`} 
+                                component={CurrentFriendComponent} 
+                                {...this.props} filter={this.state.filter} 
+                                setFilter={this.setFilter}
+                                filterPosts={this.filterPosts}
+                                handleFollow={this.handleFollow} handleUnfollow={this.handleUnfollow} />
                         </Switch>
                     </Paper>
                     </Grid>
@@ -99,7 +105,6 @@ class FriendComponent extends React.Component {
 
     setFilter = filter => {
         this.setState({filter: filter});
-        console.log(filter)
     }
 }
 
@@ -108,6 +113,7 @@ const mapStateToProps = state => {
         user: state.user,
         token: state.user.authToken,
         friend: state.friend,
+        currentUser: state.friend.current,
     }
 }
 
@@ -121,11 +127,17 @@ const mapDispatchToProps = dispatch => {
       },
       follow: (userID, token) => {
           dispatch(friendActions.follow(userID, token));
+      },
+      unfollow: (userID, token) => {
+          dispatch(friendActions.unfollow(userID, token));
+      },
+      getFriend: (user_id, token) => {
+          dispatch(friendActions.getFriend(user_id, token));
       }
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FriendComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(FriendComponent));
 
 
 

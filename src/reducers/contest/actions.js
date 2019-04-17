@@ -116,6 +116,17 @@ const getContestFeed = () => {
     }
 }
 
+function setDefault() {
+    return dispatch => {
+        dispatch(setUploadCount(0));
+        dispatch(addEntry({}));
+        dispatch(setAssetUploading(false));
+        dispatch(setEntryFilePath(""));
+        dispatch(setContestFeed({}));
+        dispatch(setContestData({}));
+    }
+}
+
 const contestActions = {
     setAssetUploading,
     setUploadCount,
@@ -125,6 +136,7 @@ const contestActions = {
     handleAddEntry,
     setContestFeed,
     getContestFeed,
+    setDefault,
 };
 
 export default contestActions;

@@ -69,7 +69,6 @@ class SignUp extends React.Component {
 
     render() {
         const { classes } = this.props;
-        console.log(this.props.signupSuccessful);
         if(this.props.signupSuccessful) {
             this.props.history.push("/onboard");
         }

@@ -13,6 +13,7 @@ import authEditProfileSuccessReducer from "./reduction/authEditProfileSuccessRed
 import addUserPostsReducer from "./reduction/addUserPostsReducer";
 import addUserCommentsReducer from "./reduction/addUserCommentsReducer";
 import authTokenReducer from "./reduction/authTokenReducer";
+import setUserPostsReducer from "./reduction/setUserPostsReducer";
 const initialState = {};
 
 const userUpdateProfile = (state=initialState) => {
@@ -45,6 +46,8 @@ const posts = (posts={}, action) => {
     switch(action.type) {
         case types.AUTH_ADD_USER_POSTS:
             return addUserPostsReducer(posts, action);
+        case types.AUTH_SET_USER_POSTS:
+            return setUserPostsReducer(posts, action);
         default:
             return posts;
     }

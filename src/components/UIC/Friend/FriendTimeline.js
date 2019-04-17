@@ -4,14 +4,27 @@ import MasonryGrid from './../MasonryGrid/MasonryGrid';
 import ImageCard from '../Posts/ImageCard/ImageCard';
 import TextCard from '../Posts/TextCard/TextCard';
 import VideoCard from '../Posts/VideoCard/VideoCard';
-import PostDetailDialogController from '../../Dialogs/PostDetailDialogController';
+import { withRouter } from  'react-router-dom';
 
 const FriendTimeline = props => {
+    const { match, currentUser } = props;
+    console.log(currentUser)
+    const postList = [];
+    if(currentUser && currentUser.posts && currentUser.posts.data) {
+        const data = currentUser.posts.data;
+        for(let i in data) {
+            let item = data[i];
+            postList.push(item);
+        }
+    }
+
+    const posts = props.filterPosts(postList, props.filter);
+    
     return (
         <Paper elevation={0} style={{marginTop: 30, overflow: 'hidden'}}>
             <MasonryGrid>
             {
-            props.recentPosts.map( (item, i) => {
+            posts.map( (item, i) => {
                 let counter = Math.ceil(Math.random() * 100);
                 let chooser = counter % 2 === 0? true: false;
                 if(item.type === 'image'){
@@ -28,4 +41,4 @@ const FriendTimeline = props => {
     )
 }
 
-export default FriendTimeline;
+export default withRouter(FriendTimeline);

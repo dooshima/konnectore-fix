@@ -29,7 +29,17 @@ const setPostText = postText => ({
 const setPostTextColor = postTextColor => ({
     type: types.DIALOG_POST_TEXT_COLOR,
     postTextColor,
-})
+});
+
+function setDefault() {
+    return dispatch => {
+        dispatch(showDialog(false));
+        dispatch(setDataImageURL(""));
+        dispatch(setFormData({}));
+        dispatch(setPostText(""));
+        dispatch(setPostTextColor("#ffb91b"));
+    };
+}
 
 const dialogActions = {
     showDialog,
@@ -38,6 +48,7 @@ const dialogActions = {
     setFormData,
     setPostText,
     setPostTextColor,
+    setDefault,
 };
 
 export default dialogActions;

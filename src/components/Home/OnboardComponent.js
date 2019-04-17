@@ -27,8 +27,6 @@ class OnboardComponent extends React.PureComponent {
     }
 
     componentDidMount() {
-        if(!this.props.userAccount.hasOwnProperty('id'))
-            this.props.history.push('/');
         this.props.getTalentCategories();
     }
 
@@ -78,6 +76,9 @@ class OnboardComponent extends React.PureComponent {
     }
 
     render() {
+        if(!this.props.userAccount.hasOwnProperty('id'))
+            this.props.history.push('/');
+            
         switch(this.state.currentScreen) {
             case 'ChooseUsername':
                 return <ChooseUsername setScreen={this.setScreen} 

@@ -1,6 +1,7 @@
 import KError from '../../models/KError';
 import Server from '../Server/Server';
 import Constants from './../../assets/Constants';
+import { deleteState } from './../../localStorage';
 
 const Auth = {
     login: login,
@@ -36,9 +37,13 @@ function login(email, password) {
 }
 
 function logout(uid) {
+    deleteState();
     return new Promise((resolve, reject) => {
         setTimeout(
-            () => resolve({error: false, message: "Logged Out!", data: {}})
+            () => {
+                
+                resolve({error: false, message: "Logged Out!", data: {}})
+            }
             , 1200
         );
     });

@@ -10,7 +10,12 @@ const addFriends = friends => ({
 const updateFriends = friend => ({
     type: types.FRIEND_UPDATE_FRIENDS,
     friend,
-})
+});
+
+const setFriend = current => ({
+    type: types.FREIND_SET_FRIEND,
+    current
+});
 
 const getFriends = token => {
     return dispatch => {
@@ -36,12 +41,47 @@ const follow = (user, token) => {
     }
 }
 
+const unfollow = (user, token) => {
+    return dispatch => {
+        Friend.unfollow(user, token)
+            .then( friend => {
+                dispatch(updateFriends(friend));
+            } )
+    }
+}
+
+function setDefault() {
+    return dispatch => {
+        dispatch(addFriends({}));
+    }
+}
+
+const getFriend = (user_id, token) => {
+    return dispatch => {
+        dispatch(appActions.appIsLoading(true));
+        Friend.getFriend(user_id, token)
+            .then( response => {
+                console.log(response);
+                dispatch(appActions.appIsLoading(false));
+                if(!response.error)
+                    dispatch(setFriend(response.data));
+            } )
+            .catch( error => {
+                dispatch(appActions.appIsLoading(false));
+                console.log(error);
+            } );
+    }
+}
+
 const friendActions = {
     addFriends,
     getFriends,
     follow,
     updateFriends,
-
+    setDefault,
+    unfollow,
+    setFriend,
+    getFriend,
 };
 
 export default friendActions;

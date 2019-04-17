@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, withStyles, Avatar } from '@material-ui/core';
 import KButtonSmall from '../KButtonSmall';
+import { Link } from 'react-router-dom';
 
 
 const styles = theme => ({
@@ -11,11 +12,15 @@ const styles = theme => ({
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 30,
+    },
+    link: {
+        textDecoration: 'none',
+        fontStyle: 'normal',
     }
 })
 
 const FriendConnectCard = props => {
-    const { classes, person, handleFollow, user } = props;
+    const { classes, person, handleFollow, handleUnfollow, user } = props;
     if(!person.profile) {
         return null;
     }
@@ -24,11 +29,12 @@ const FriendConnectCard = props => {
     const active = person.type === 1? false: true; 
     return (
         <div className={classes.item}>
-            <Avatar alt={fullName} src={src} />
-            <Typography style={{margin: '.6em auto'}}>{fullName}</Typography>
+            <Link to={`/people/${person.id}`}><Avatar alt={fullName} src={src} /></Link>
+            <Link to={`/people/${person.id}`} className={classes.link}><Typography style={{margin: '.6em auto'}}>{fullName}</Typography></Link>
             {person.following < 1 ? <KButtonSmall label="Follow" 
                 size="small" onClick={() => handleFollow(person.id)} />: 
-                <Typography color="textSecondary">Following</Typography>}
+                <KButtonSmall label="Unfollow" collor="secondary"
+                size="small" onClick={() => handleUnfollow(person.id)} />}
         </div>
     )
 }
