@@ -48,7 +48,9 @@ const FriendHeaderSummary = props => {
   })
   const person = currentUser.user;
   const avatar = person && person.avatar? person.avatar: "/images/avatar.png";
-  const fullName = person.firstname + " " + person.lastname;
+  const fname = person? person.firstname: '';
+  const lname = person? person.lastname: '';
+  const fullName = fname + " " + lname;
   
   return (
     <div className={classes.root}>
