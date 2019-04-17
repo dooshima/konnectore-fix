@@ -11,6 +11,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import TopLoginButton from './TopLoginButton';
 import userActions from '../../reducers/user/actions';
 import { withRouter } from 'react-router-dom';
+import Constants from '../../assets/Constants';
 
 const styles = theme => ({
   root: {
@@ -69,7 +70,11 @@ class TopProfileMenu extends React.Component {
     const { classes, user } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
-    const avatar = user.avatar? user.avatar: "/images/avatar.png";
+    let path = '';
+    if(user.avatar) {
+      path = user.avatar.includes('http')? user.avatar: Constants.BASE_URL + "storage/" + user.avatar;
+    }
+    const avatar = path? path: "/images/avatar.png";
 
     return (
       <div className={classes.root}>            

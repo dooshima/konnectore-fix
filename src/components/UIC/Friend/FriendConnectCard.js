@@ -2,6 +2,7 @@ import React from 'react';
 import { Typography, withStyles, Avatar } from '@material-ui/core';
 import KButtonSmall from '../KButtonSmall';
 import { Link } from 'react-router-dom';
+import Utility from '../../../services/Utility';
 
 
 const styles = theme => ({
@@ -25,7 +26,7 @@ const FriendConnectCard = props => {
         return null;
     }
     const fullName = person.profile.firstname + " " + person.profile.lastname;
-    const src = person.profile.avatar? person.profile.avatar: "/images/avatar.png";
+    const src = Utility.getPath(person.profile.avatar);
     const active = person.type === 1? false: true; 
     return (
         <div className={classes.item}>

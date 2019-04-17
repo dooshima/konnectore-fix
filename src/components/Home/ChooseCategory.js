@@ -121,10 +121,10 @@ class ChooseCategory extends React.Component {
             })
         } else {
             let selectedCat = this.state.selectedCategories;
-            selectedCat.splice(selectedCat.indexOf(category));
+            selectedCat.splice(selectedCat.indexOf(category), 1);
             this.setState({
                 selectedCategories: selectedCat,
-            })
+            });
         }
     }
 

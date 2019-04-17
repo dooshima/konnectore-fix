@@ -78,7 +78,7 @@ class MeController extends React.Component {
                     <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
                         <MeHeader path={match.path} {...this.props} setFilter={this.setFilter.bind(this)} />
                         <Switch>
-                            <PropsRoute exact path={`${match.path}/account/edit`} component={EditProfile} />
+                            <PropsRoute exact path={`${match.path}/account/edit`} component={EditProfile} {...this.props} />
                             <Route exact path={`${match.path}/account/manage`} component={ManageAccount} />
                             <Route path={`${match.path}`} render={props => <MeTimeline {...props} fullName={fullName} toggleDialog={this.toggleDialog} recentPosts={recentPosts} />} />
                         </Switch>

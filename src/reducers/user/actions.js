@@ -54,8 +54,9 @@ const processOnboarding = data => {
         dispatch(showAuthLoading(true));
         Auth.processOnboarding(data)
             .then( profile => {
+                console.log(profile);
                 dispatch(showAuthLoading(false));
-                if(!profile.error) {
+                if(profile && !profile.error) {
                     dispatch(authLoginSuccess(profile.data));
                     dispatch(authSignupSuccess({}));
                     dispatch(showSearchForm(true));
@@ -170,7 +171,17 @@ const handleSignup = data => {
                 console.log(user);
                 dispatch(authSignupSuccess(user.data));
                 dispatch(authError(""));
-            }).catch( error => {
+            })
+            .then( () => {
+                Auth.requestToken(data.email, data.password)
+                    .then( token => {
+                        const accessToken = token.access_token;
+                        if(accessToken) {
+                            dispatch(addAuthToken(accessToken));
+                        } 
+                    });
+            })
+            .catch( error => {
                 dispatch(showAuthLoading(false));
                 dispatch(authError(error.message));
             });

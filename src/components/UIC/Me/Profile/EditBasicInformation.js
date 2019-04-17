@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { CardContent, Typography, FormControl, InputLabel, Input, MenuItem, CardActions, Grid, CardHeader, Select } from '@material-ui/core';
 import KBigButton from '../../KBigButton';
-import SelectInput from '@material-ui/core/Select/SelectInput';
 import KDatePicker from './KDatePicker';
 
 
@@ -179,15 +178,7 @@ const EditBasicInformation = props => {
                                 </FormControl>
                             </Grid>
                             <Grid item md={6}>
-                                <FormControl className={classes.formControl}>
-                                <Typography color="textSecondary" component="p" className={classes.label}>Date of birth</Typography>
-                                    <KDatePicker
-                                        handleDateChange={props.handleDateChange}
-                                        dob={sdate}
-                                        init={props.dob}
-                                        some={`some${sdate}${props.dob}`}
-                                    />
-                                </FormControl>
+                                
                             </Grid>
                             <Grid item md={12}>
                                 <FormControl className={classes.formControl}>
@@ -230,3 +221,15 @@ EditBasicInformation.propTypes = {
 };
 
 export default withStyles(styles)(EditBasicInformation);
+
+/**
+ * <FormControl className={classes.formControl}>
+                                <Typography color="textSecondary" component="p" className={classes.label}>Date of birth</Typography>
+                                    <KDatePicker
+                                        handleDateChange={props.handleDateChange}
+                                        dob={sdate}
+                                        init={props.dob}
+                                        some={`some${sdate}${props.dob}`}
+                                    />
+                                </FormControl>
+ */
