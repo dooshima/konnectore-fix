@@ -47,7 +47,7 @@ const FriendHeaderSummary = props => {
       label="Follow" size="small" />
   })
   const person = currentUser.user;
-  const avatar = person.avatar? person.avatar: "/images/avatar.png";
+  const avatar = person && person.avatar? person.avatar: "/images/avatar.png";
   const fullName = person.firstname + " " + person.lastname;
   
   return (
