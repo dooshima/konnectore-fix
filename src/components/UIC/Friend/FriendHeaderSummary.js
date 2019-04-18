@@ -47,7 +47,7 @@ const FriendHeaderSummary = props => {
       onClick={() => this.followFriend}
       label="Follow" size="small" />
   })
-  const person = currentUser.user;
+  const person = null !== currentUser && typeof(currentUser) !== 'undefined'? currentUser.user: {};
   const path = null !== person && typeof(person) !== 'undefined'? person.avatar: "";
   const avatar = Utility.getAvatar(path);
   const fname = null !== person && typeof(person) !== 'undefined'? person.firstname: '';
@@ -70,7 +70,7 @@ const FriendHeaderSummary = props => {
                 <Typography gutterBottom variant="h5" component="b">
                   {fullName}
                 </Typography>
-                <Typography gutterBottom>{currentUser.user.bio}</Typography>
+                <Typography gutterBottom>{person.bio}</Typography>
               </Grid>
               <Grid item style={{display: 'flex', justifyContent: 'start'}}>
                 <div style={{textAlign: 'center', marginRight: 20,}}>
