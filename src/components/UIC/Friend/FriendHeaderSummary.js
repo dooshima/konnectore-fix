@@ -48,7 +48,7 @@ const FriendHeaderSummary = props => {
       label="Follow" size="small" />
   })
   const person = currentUser.user;
-  const path = null !== person && person.avatar? person.avatar: "";
+  const path = null !== person && typeof(person) !== 'undefined'? person.avatar: "";
   const avatar = Utility.getAvatar(path);
   const fname = null !== person && typeof(person) !== 'undefined'? person.firstname: '';
   const lname = null !== person && typeof(person) !== 'undefined'? person.lastname: '';

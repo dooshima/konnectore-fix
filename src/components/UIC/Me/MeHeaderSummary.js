@@ -24,15 +24,24 @@ const styles = theme => ({
     width: 150,
     height: 150,
     position: 'relative',
+    margin: 5,
   },
   img: {
     margin: 'auto',
     display: 'block',
     maxWidth: '100%',
     maxHeight: '100%',
-    width: '80%',
+    width: '100%',
     height: 'auto',
+  },
+  imageHolder: { 
+    width: 140,
+    height: 140,
+    overflow: 'hidden',
     borderRadius: '50%',
+    display: 'flex',
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
   },
   summary: {
     backgroundColor: '#F2F7F4',
@@ -85,7 +94,10 @@ const MeHeaderSummary = props => {
         <Grid container spacing={8}>
           <Grid item className={classes.picker}>
             <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src={avatar} />
+              <div className={classes.imageHolder} style={{backgroundImage: `url(${avatar})`}}>
+                
+              </div>
+              
               <Typography color="textSecondary" className={classes.alert}>Click to change image</Typography>
             </ButtonBase>
             <input type="file" onChange={props.handleAvatarUpload} className={classes.avatar} />
