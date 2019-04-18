@@ -110,6 +110,7 @@ const styles = theme => ({
 
 const ChangePassword = props => {
     const { classes, currentScreen } = props;
+    console.log(props);
     return (
         <div className={classes.main}>
         <div className={classes.wrapper}>
