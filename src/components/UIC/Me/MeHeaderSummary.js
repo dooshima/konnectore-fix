@@ -9,6 +9,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import { Button } from '@material-ui/core';
 import KButton from '../KButton';
 import { withRouter } from 'react-router-dom';
+import Utility from '../../../services/Utility';
 
 const styles = theme => ({
   root: {
@@ -20,62 +21,99 @@ const styles = theme => ({
     maxWidth: '100%',
   },
   image: {
-    width: 128,
-    height: 128,
+    width: 150,
+    height: 150,
+    position: 'relative',
   },
   img: {
     margin: 'auto',
     display: 'block',
     maxWidth: '100%',
     maxHeight: '100%',
-    width: '70%',
+    width: '80%',
+    height: 'auto',
+    borderRadius: '50%',
   },
   summary: {
     backgroundColor: '#F2F7F4',
     borderRadius: 12,
     padding: `${theme.spacing.unit * 2}px !important`,
+  },
+  picker: {
+    position: 'relative',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  avatar: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    zIndex: 100,
+    opacity: 0,
+    cursor: 'pointer',
+  },
+  alert: {
+    padding: 5,
+    backgroundColor: 'transparent',
+    borderRadius: 10,
+    position: 'absolute',
+    marginRight: 20,
+    color: 'white',
+    top: '60%',
   }
 });
 
 const MeHeaderSummary = props => {
-  const { classes, editProfile } = props;
+  const { classes, editProfile, user } = props;
+  const avatar = Utility.getAvatar(props.user.data.avatar);
+  const person = user.data;
+  const fname = null !== person && typeof(person) !== 'undefined'? person.firstname: '';
+  const lname = null !== person && typeof(person) !== 'undefined'? person.lastname: '';
+  const fullName = fname + " " + lname;
   const KButtonLink = withRouter( ({history}) => {
     return <KButton
       onClick={() => history.push("/me/account/edit")}
       label="Edit" size="small" />
-  })
+  });
+
   return (
     <div className={classes.root}>
       <Paper elevation={0} className={classes.paper}>
         <Grid container spacing={8}>
-          <Grid item>
+          <Grid item className={classes.picker}>
             <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src="/images/avatar.png" />
+              <img className={classes.img} alt="complex" src={avatar} />
+              <Typography color="textSecondary" className={classes.alert}>Click to change image</Typography>
             </ButtonBase>
+            <input type="file" onChange={props.handleAvatarUpload} className={classes.avatar} />
+            
           </Grid>
           <Grid item xs={8} sm container className={classes.summary}>
             
             <Grid item xs container direction="column" spacing={16}>
               <Grid item xs>
                 <Typography gutterBottom variant="h5" component="b">
-                  Victor Omemu
+                  { fullName }
                 </Typography>
-                <Typography gutterBottom>I dance for fun, but others find it entertaining. This is my user page for the stage contest, and with your votes I can win.</Typography>
+                <Typography gutterBottom>{ person.bio }</Typography>
               </Grid>
               <Grid item style={{display: 'flex', justifyContent: 'start'}}>
                 <div style={{textAlign: 'center', marginRight: 20,}}>
                   <Typography style={{ cursor: 'pointer' }}>Followers</Typography>
-                  <Typography component="span" style={{fontWeight: 900}}>345</Typography>
+                  <Typography component="span" style={{fontWeight: 900}}>{person.followersCount}</Typography>
                 </div>
 
                 <div style={{textAlign: 'center', marginRight: 20,}}>
                   <Typography style={{ cursor: 'pointer' }}>Following</Typography>
-                  <Typography component="span" style={{fontWeight: 900}}>345</Typography>
+                  <Typography component="span" style={{fontWeight: 900}}>{person.followingsCount}</Typography>
                 </div>
 
                 <div style={{textAlign: 'center'}}>
                   <Typography style={{ cursor: 'pointer' }}>Contests</Typography>
-                  <Typography component="span" style={{fontWeight: 900}}>345</Typography>
+                  <Typography component="span" style={{fontWeight: 900}}>{person.contestsCount}</Typography>
                 </div>
               </Grid>
             </Grid>

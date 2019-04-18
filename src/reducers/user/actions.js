@@ -150,6 +150,12 @@ const addTalentCategories = talentCategories => ({
     type: types.AUTH_TALENT_CATEGORIES,
     talentCategories,
 })
+
+const editUserAvatar = data => ({
+    type: types.AUTH_EDIT_USER_AVATAR,
+    data
+});
+
 const getTalentCategories = () => {
     return dispatch => {
         Auth.getTalentCategories()
@@ -168,7 +174,6 @@ const handleSignup = data => {
                     const errorMsg = user.error? user.message: "Error signing up. Please retry";
                     throw new Error(errorMsg);
                 }
-                console.log(user);
                 dispatch(authSignupSuccess(user.data));
                 dispatch(authError(""));
             })
@@ -205,7 +210,6 @@ const handleLogin = (email, password) => {
             })
             .then( data => {
                 const {user, posts, comments} = data;
-                console.log(user, posts, comments);
                 dispatch(showAuthLoading(false));
                 if(!user) {
                     const errorMsg = user.error? user.message: "Error logging in. Please retry";
@@ -236,7 +240,6 @@ const handleLogout = (uid) => {
                     const errorMsg = user.error? user.message: "Error logging out. Please retry";
                     throw new Error(errorMsg);
                 }
-                console.log(user);
                 setAppDefault(dispatch);
             }).catch( error => {
                 console.log(error)
@@ -256,7 +259,6 @@ const handleEditProfile = data => {
                     const errorMsg = user.error? user.message: "Error editing your profile. Please retry";
                     throw new Error(errorMsg);
                 }
-                console.log(user);
                 dispatch(authEditProfileSuccess(user.data));
                 dispatch(authError(""));
             }).catch( error => {
@@ -265,6 +267,23 @@ const handleEditProfile = data => {
             });
     }
 }
+
+const editAvatar = (form, token) => {
+    return dispatch => {
+        dispatch(appActions.appIsLoading(true));
+        Auth.editAvatar(form, token)
+            .then( response => {
+                dispatch(appActions.appIsLoading(false));
+                if(!response.error)
+                    dispatch(editUserAvatar(response.data));
+                console.log(response);
+            } )
+            .catch( error => {
+                dispatch(appActions.appIsLoading(false));
+                console.log(error);
+            } )
+    }
+};
 
 function extractPosts(postData) {
 
@@ -322,6 +341,7 @@ const userActions = {
     authSignupRedirect,
     handleEditProfile,
     setDefault,
+    editAvatar,
 };
 
 export default userActions;

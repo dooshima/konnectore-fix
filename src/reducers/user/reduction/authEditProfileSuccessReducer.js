@@ -5,12 +5,11 @@
  const defaultUser = {};
 
  const authEditProfileSuccessReducer = (data=defaultUser, action) => {
-     console.log(data, action.data);
      if(null === action.data) {
          return data;
      }
-
-     return {...data, profileData: action.data}
+     const profile = action.data;
+     return {...data, ...profile};
  }
 
  export default authEditProfileSuccessReducer;

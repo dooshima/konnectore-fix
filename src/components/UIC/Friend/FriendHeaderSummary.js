@@ -10,6 +10,7 @@ import { Button } from '@material-ui/core';
 import KButton from '../KButton';
 import { withRouter } from 'react-router-dom';
 import KButtonSmall from '../KButtonSmall';
+import Utility from '../../../services/Utility';
 
 const styles = theme => ({
   root: {
@@ -47,9 +48,10 @@ const FriendHeaderSummary = props => {
       label="Follow" size="small" />
   })
   const person = currentUser.user;
-  const avatar = person && person.avatar? person.avatar: "/images/avatar.png";
-  const fname = person? person.firstname: '';
-  const lname = person? person.lastname: '';
+  const path = null !== person && person.avatar? person.avatar: "";
+  const avatar = Utility.getAvatar(path);
+  const fname = null !== person && typeof(person) !== 'undefined'? person.firstname: '';
+  const lname = null !== person && typeof(person) !== 'undefined'? person.lastname: '';
   const fullName = fname + " " + lname;
   
   return (
@@ -73,17 +75,17 @@ const FriendHeaderSummary = props => {
               <Grid item style={{display: 'flex', justifyContent: 'start'}}>
                 <div style={{textAlign: 'center', marginRight: 20,}}>
                   <Typography style={{ cursor: 'pointer' }}>Followers</Typography>
-                  <Typography component="span" style={{fontWeight: 900}}>345</Typography>
+                  <Typography component="span" style={{fontWeight: 900}}>{person.followersCount}</Typography>
                 </div>
 
                 <div style={{textAlign: 'center', marginRight: 20,}}>
                   <Typography style={{ cursor: 'pointer' }}>Following</Typography>
-                  <Typography component="span" style={{fontWeight: 900}}>345</Typography>
+                  <Typography component="span" style={{fontWeight: 900}}>{person.followingsCount}</Typography>
                 </div>
 
                 <div style={{textAlign: 'center'}}>
                   <Typography style={{ cursor: 'pointer' }}>Contests</Typography>
-                  <Typography component="span" style={{fontWeight: 900}}>345</Typography>
+                  <Typography component="span" style={{fontWeight: 900}}>{person.contestsCount}</Typography>
                 </div>
               </Grid>
             </Grid>

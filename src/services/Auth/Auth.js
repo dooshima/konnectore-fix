@@ -16,6 +16,7 @@ const Auth = {
     signin,
     handleEditProfile,
     getFriends,
+    editAvatar,
 };
 
 function login(email, password) {
@@ -121,8 +122,13 @@ function signin(token) {
 function getFriends(token) {
     return Server.authGet('api/get-friends', token)
         .then ( friends => {
-            console.log(friends)
+            return friends
         });
+}
+
+function editAvatar(form, token) {
+    return Server.authPost('api/edit-avatar', form, token)
+        .then( response => response.data )
 }
 
 function isEmail(email) {

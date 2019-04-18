@@ -12,6 +12,11 @@ const getPath = url => {
     if(url) {
         path = url.includes('http')? url: Constants.BASE_URL + "storage/" + url;
     }
+    return path;
+}
+
+const getAvatar = url => {
+    const path = getPath(url);
     let avatar = path? path: "/images/avatar.png";
     return avatar;
 }
@@ -19,6 +24,7 @@ const getPath = url => {
 const Utility = {
     progress,
     getPath,
+    getAvatar,
 };
 
 export default Utility;

@@ -26,7 +26,7 @@ const FriendConnectCard = props => {
         return null;
     }
     const fullName = person.profile.firstname + " " + person.profile.lastname;
-    const src = Utility.getPath(person.profile.avatar);
+    const src = Utility.getAvatar(person.profile.avatar);
     const active = person.type === 1? false: true; 
     return (
         <div className={classes.item}>

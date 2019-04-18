@@ -14,6 +14,7 @@ import addUserPostsReducer from "./reduction/addUserPostsReducer";
 import addUserCommentsReducer from "./reduction/addUserCommentsReducer";
 import authTokenReducer from "./reduction/authTokenReducer";
 import setUserPostsReducer from "./reduction/setUserPostsReducer";
+import editAvatarReducer from "./reduction/editAvatarReducer";
 const initialState = {};
 
 const userUpdateProfile = (state=initialState) => {
@@ -37,6 +38,8 @@ const data = (state={}, action) => {
             return authLogoutSuccessReducer(state, action);
         case types.AUTH_EDIT_PROFILE_SUCCESS:
             return authEditProfileSuccessReducer(state, action);
+        case types.AUTH_EDIT_USER_AVATAR:
+            return editAvatarReducer(state, action);
         default:
             return state;
     }

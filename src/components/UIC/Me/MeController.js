@@ -18,6 +18,7 @@ import { connect } from 'react-redux';
 import PropsRoute from '../../Nav/PropsRoute';
 import dialogActions from '../../../reducers/dialog/actions';
 import PostDetailDialog from './Posts/PostDetailDialog';
+import userActions from '../../../reducers/user/actions';
 
 class MeController extends React.Component {
     constructor(props) {
@@ -41,6 +42,20 @@ class MeController extends React.Component {
 
     toggleDialog = item => {
         this.setState({item: item, open: !this.state.open})
+    }
+
+    handleAvatarUpload(event) {
+        // Grap the file event and query it for the files selected
+        const file = event.target.files[0];
+        console.log(file);
+        //Create a form field to send to the server
+        let formData = new FormData();
+        //Append the file an assign a name
+        formData.append('avatar', file);
+        // Get the user_id and token
+        formData.append('user_id', this.props.user.data.id);
+        // Submit the form through an action on redux under user reducer
+        this.props.editAvatar(formData, this.props.user.authToken);
     }
 
     filterPosts(posts) {
@@ -76,7 +91,8 @@ class MeController extends React.Component {
                 <Grid container spacing={0}>
                     <Grid item xs={8}>
                     <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
-                        <MeHeader path={match.path} {...this.props} setFilter={this.setFilter.bind(this)} />
+                        <MeHeader path={match.path} {...this.props} setFilter={this.setFilter.bind(this)} 
+                            handleAvatarUpload={this.handleAvatarUpload.bind(this)} />
                         <Switch>
                             <PropsRoute exact path={`${match.path}/account/edit`} component={EditProfile} {...this.props} />
                             <Route exact path={`${match.path}/account/manage`} component={ManageAccount} />
@@ -116,7 +132,10 @@ const mapDispatchToProps = dispatch => {
     return {
       showDialog: open => {
         dispatch(dialogActions.showDialog(open));
-      }
+      },
+      editAvatar: (form, token) => {
+          dispatch(userActions.editAvatar(form, token));
+      },
     }
 };
 
