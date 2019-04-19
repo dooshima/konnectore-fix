@@ -119,23 +119,4 @@ PasswordResetCompoment.propTypes = {
     classes: PropTypes.object.isRequired,
 }
 
-const mapStateToProps = state => {
-    return {
-        user: state.user,
-        appLoading: state.app.isLoading,
-    }
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        handlePasswordReset: form => {
-            dispatch(userActions.handlePasswordReset(form));
-        },
-        loadPasswordReset: token => {
-            dispatch(userActions.loadPasswordReset(token));
-        }
-    }
-}
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(PasswordResetCompoment));
+export default withStyles(styles)(PasswordResetCompoment);
