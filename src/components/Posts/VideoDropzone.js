@@ -25,10 +25,11 @@ const StyledP = styled.p`
   border-radius: 10px;
   opacity: 0.8;
   color: #999;
+  z-index: 101;
   font-family: Acumin Pro,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
 `
 
-function FileDropzone(props) {
+function VideoDropzone(props) {
   const onDrop = useCallback(acceptedFiles => {
     const reader = new FileReader();
 
@@ -41,7 +42,7 @@ function FileDropzone(props) {
       let form = new FormData();
       form.append('mediafile', acceptedFiles[0]);
       form.append('filename', 'mf' + Date.now());
-      form.append('type', 'image');
+      form.append('type', 'video');
       /* form.append('token', props.user.authToken);
       form.append('text', props.postText);
       form.append('backgroundColor', props.postTextColor); */
@@ -50,15 +51,15 @@ function FileDropzone(props) {
     }
 
     reader.readAsDataURL(acceptedFiles[0]);
-  }, [])
+  }, [{acceptedFiles: ['.mp4']}])
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 
   return (
     <StyledDiv {...getRootProps({refKey: 'innerRef'})} dataImageURL={props.dataImageURL}>
-        <input {...getInputProps()} accept="image/png, image/jpeg" />
+        <input {...getInputProps()} accept="video/mp4,video/x-m4v,video/*" />
         <StyledP>Drag 'n' drop some files here, or click to select files</StyledP>
     </StyledDiv>
   )
 }
 
-export default FileDropzone;
+export default VideoDropzone;

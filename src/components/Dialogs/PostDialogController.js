@@ -5,6 +5,7 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import { withStyles } from '@material-ui/core';
 import ImagePostDialog from './ImagePostDialog';
 import TextPostDialog from './TextPostDialog';
+import VideoPostDialog from './VideoPostDialog';
 
 const styles = theme => ({
   contentHolder: {
@@ -13,20 +14,20 @@ const styles = theme => ({
     display: 'block',
     padding: theme.spacing.unit * 2,
   },
-  bordered: {
+  bordered1: {
     backgroundColor: '#efefef',
     border: '2px dashed #bcbcbc',
     padding: theme.spacing.unit * 2,
     flex: 1,
   },
-  content: {
+  content1: {
     backgroundColor: 'transparent',
     padding: theme.spacing.unit * 2,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    minHeight: 150,
-    height: '100%',
+    minHeight: 200,
+    //height: '100%',
     position: 'relative',
   },
   paper: {
@@ -92,12 +93,13 @@ class PostDialogController extends React.Component {
   }
 
   selectDialog = (type, props) => {
-    console.log(type)
     switch(type) {
       case 'Image':
         return <ImagePostDialog {...props} />;
       case 'Text':
         return <TextPostDialog {...props} />;
+      case 'Video':
+        return <VideoPostDialog {...props} />;
       default:
         return null;
     }

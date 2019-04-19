@@ -31,7 +31,7 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    minHeight: 150,
+    minHeight: 200,
     position: 'relative',
   },
   paper: {
@@ -84,12 +84,13 @@ class DialogManager extends React.Component {
                 <div className={classes.contentHolder}>
                     <section className={classes.bordered}>
                     <div className={classes.content}>
+                    <video src="/videos/video.mp4" controls className={classes.video} />
                     <FileDropzone imageurl={this.props.imageurl} setImageUrl={this.props.setImageUrl} setFormdata={this.props.setFormdata} />
                     </div>
                     </section>
                 </div>
                 <KProgressBar progress={this.props.uploadprogress} show={showProgressBar} />
-                <NewTextField showpostform={true} setPostText={this.setPostText} />
+                {this.props.imageurl && <NewTextField showpostform={true} setPostText={this.setPostText} />}
                 </DialogContentText>
             </DialogContent>
             <DialogActions>

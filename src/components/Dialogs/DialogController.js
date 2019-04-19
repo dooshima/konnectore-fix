@@ -25,8 +25,8 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    minHeight: 150,
-    height: '100%',
+    minHeight: 200,
+    //height: '100%',
     position: 'relative',
   },
   paper: {

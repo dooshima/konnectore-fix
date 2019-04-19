@@ -32,7 +32,7 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    minHeight: 150,
+    minHeight: 200,
     position: 'relative',
   },
   paper: {
@@ -41,6 +41,10 @@ const styles = theme => ({
   },
   root: {
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
+  },
+  video: {
+    display: 'flex',
+    
   }
 });
 class ChooseImageDialog extends React.Component {
@@ -84,6 +88,7 @@ class ChooseImageDialog extends React.Component {
               <div className={classes.contentHolder}>
                 <section className={classes.bordered}>
                   <div className={classes.content}>
+                  <video src="/videos/video.mp4" controls className={classes.video} />
                   <FileDropzone imageurl={this.props.imageurl} 
                     setDataImageURL={this.props.setDataImageURL} 
                     setFormData={this.props.setFormData}
@@ -93,8 +98,8 @@ class ChooseImageDialog extends React.Component {
               </div>
               <KProgressBar progressNumber={this.props.progressNumber} show={this.props.isUploading} />
               <div>
-                <NewTextField onChange={this.setPostText} setPostText={this.setPostText} 
-                postText={this.props.postText} />
+                {this.props.imageurl && <NewTextField onChange={this.setPostText} setPostText={this.setPostText} 
+                postText={this.props.postText} />}
               </div>
             </div>
           </DialogContent>

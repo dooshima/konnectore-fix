@@ -89,8 +89,7 @@ class PasswordResetCompoment extends React.Component {
 
     componentDidMount() {
         const match = this.props.match;
-        console.log(match);
-        //this.props.loadPasswordReset(match.params.token)
+        this.props.loadPasswordReset(match.params.token)
     }
 
     toggleForm = (form) => {
@@ -110,7 +109,36 @@ class PasswordResetCompoment extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-            <h1>PRC</h1>
+            <div className={classes.container}>
+            {
+            (this.props.authLoading || this.props.appLoading) && <div className={classes.loaderHolder}><LinearProgress
+            classes={{
+                colorPrimary: classes.linearColorPrimary,
+                barColorPrimary: classes.linearBarColorPrimary,
+            }}
+            /></div>
+            }
+            <div className={classes.wrapper}>
+                <KCard square={false} className={classes.formDiv}>
+                    <div className={classes.buttons}>
+                        <img src="/images/logo.png" 
+                        style={{width: 70, border: 'solid 5px #24b573', 
+                        borderRadius: 10, padding: 10, margin: '2.4em auto 1.5em'}} />
+                    </div>
+                    <CardContent>
+                        <PasswordResetForm {...this.props} />
+                    </CardContent>
+                    
+                </KCard>
+                
+                <div className={classes.bottomContainer}>
+                    <img src="/images/path-home.png" className={classes.pathImage} />
+                    <Typography variant="h3" className={classes.introText}>
+                        The world is waiting to see<br/> what you’ve got!
+                    </Typography>
+                </div>
+            </div>   
+            </div>
         )
     }
 }
@@ -119,4 +147,23 @@ PasswordResetCompoment.propTypes = {
     classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(PasswordResetCompoment);
+const mapStateToProps = state => {
+    return {
+        user: state.user,
+        appLoading: state.app.isLoading,
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        handlePasswordReset: form => {
+            dispatch(userActions.handlePasswordReset(form));
+        },
+        loadPasswordReset: token => {
+            dispatch(userActions.loadPasswordReset(token));
+        }
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(PasswordResetCompoment));

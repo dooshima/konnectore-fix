@@ -18,6 +18,7 @@ import KProgressBar from './../UIC/KProgressBar';
 import NewTextField from './../Posts/NewTextField';
 import KButton from './../UIC/KButton';
 import { withStyles } from '@material-ui/core';
+import VideoDropzone from '../Posts/VideoDropzone';
 
 const styles = theme => ({
     contentHolder: {
@@ -49,10 +50,13 @@ const styles = theme => ({
     },
     root: {
       backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    },
+    video: {
+        zIndex: 100,
     }
   }); 
 
-class ImagePostDialog extends React.Component {
+class VideoPostDialog extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -75,12 +79,14 @@ class ImagePostDialog extends React.Component {
                       }}>
                       <div className={classes.content} 
                         style={{
-                          height: dataImageURL? 280: 200, 
+                          height: dataImageURL? 280: 200,
+                          overflow: 'hidden',
                         }}>
-                      <FileDropzone imageurl={this.props.imageurl} 
+                        {dataImageURL && <video src={dataImageURL} controls className={classes.video} />}
+                      <VideoDropzone imageurl={this.props.imageurl} 
                         setDataImageURL={this.props.setDataImageURL} 
                         setFormData={this.props.setFormData}
-                        dataImageURL={this.props.dataImageURL}
+                        dataImageURL=""
                         {...this.props} />
                       </div>
                     </section>
@@ -101,4 +107,4 @@ class ImagePostDialog extends React.Component {
     }
 }
 
-export default withStyles(styles)(ImagePostDialog);
+export default withStyles(styles)(VideoPostDialog);

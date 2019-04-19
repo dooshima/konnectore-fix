@@ -3,6 +3,7 @@ import axios from 'axios';
 import Post from '../../services/Post/Post';
 import KError from './../../models/KError';
 import dialogActions from '../dialog/actions';
+import Constants from '../../assets/Constants';
 
 const startUploadMedia = isUploading => ({
     type: types.POST_UPLOAD_MEDIA_STARTED,
@@ -19,10 +20,15 @@ const uploadMediaFailed = uploadError => ({
     uploadError,
 });
 
-const uploadMedia = data => {
+const addPost = post => ({
+  type: types.POST_ADD_POST,
+  post,
+});
+
+const uploadMedia = (data, token) => {
     return dispatch => {
         dispatch(startUploadMedia(true));
-        upload(data, dispatch)
+        upload(data, token, dispatch)
             .then( resp => {
                 dispatch(startUploadMedia(false));
                 console.log(resp)
@@ -39,34 +45,48 @@ const setProgressNumber = progressNumber => ({
     progressNumber,
 });
 
-const upload = (data, dispatch)  => {
+const upload = (data, token, dispatch)  => {
+
     if(!data) {
       return new Promise( (resolve, reject) => resolve({error: true, message: "No post data found!", data: {}}) );
     }
-
-    return axios.post("https://helloworld.com.ng/uploadfile.php", data, {
+    // https://helloworld.com.ng/uploadfile.php
+    const headers = {
+        "Content-Type": 'application/json',
+        "Accept": 'application/json',
+        Authorization: 'Bearer ' + token,
+    }
+    return axios.post(Constants.BASE_URL + "api/upload-post", data, {
       onUploadProgress: (progressEvent) => {
         if (progressEvent.lengthComputable) {
            dispatch(setProgressNumber(progress(progressEvent)));
         }
-      }
+      },
+      headers: headers
     })
       .then( resp => {
+        console.log(resp)
         dispatch(setProgressNumber(0));
-        dispatch(dialogActions.showDM1(false));
-        dispatch(dialogActions.setPostText(""));
-            dispatch(dialogActions.setFormData({}));
-            dispatch(dialogActions.setPostTextColor("#ffb91b"));
-        return {error: false, message: "Post was shared successfully!", data: resp};
+        if(!resp.data.error) {
+          dispatch(dialogActions.showDialog(false));
+          dispatch(dialogActions.setPostText(""));
+          dispatch(dialogActions.setFormData({}));
+          dispatch(dialogActions.setPostTextColor("#ffb91b"));
+          dispatch(addPost(resp.data.data));
+        } else {
+
+        }
+        
+        //return {error: false, message: "Post was shared successfully!", data: resp};
       })
       .catch( error => {
             dispatch(setProgressNumber(0));
-            dispatch(dialogActions.showDM1(false));
-            dispatch(dialogActions.setPostText(""));
-            dispatch(dialogActions.setFormData({}));
-            dispatch(dialogActions.setPostTextColor("#ffb91b"));
+            //dispatch(dialogActions.showDialog(false));
+            //dispatch(dialogActions.setPostText(""));
+            //dispatch(dialogActions.setFormData({}));
+            //dispatch(dialogActions.setPostTextColor("#ffb91b"));
           console.log(error)
-          let err = new KError(true, "Error occured while posting");
+          let err = new KError(true, "Error occured while processing your request. Please retry.");
           return err.toObj();
       });
   }
@@ -92,6 +112,7 @@ const postActions = {
     uploadMediaFailed,
     uploadMedia,
     setDefault,
+    addPost,
 };
 
 export default postActions;

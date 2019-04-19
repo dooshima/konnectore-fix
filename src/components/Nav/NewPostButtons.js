@@ -56,6 +56,7 @@ class NewPostButtons extends React.Component {
       open: false,
       openDialog: false,
       dialogType: '',
+      type: '',
     }
   }
 
@@ -71,6 +72,10 @@ class NewPostButtons extends React.Component {
     this.props.setPostTextColor("#ffb91b");
   }
 
+  setType = type => {
+    this.setState({type: type});
+  }
+
   toggleDialog = () => {
     this.setState({openDialog: !this.state.openDialog})
   }
@@ -80,7 +85,7 @@ class NewPostButtons extends React.Component {
       this.props.toggleDM(true);
       return {dialogType: type}
     });
-    
+    this.props.toggle(new Event('click'));
   }
 
   closeDialog = () => {
@@ -88,7 +93,15 @@ class NewPostButtons extends React.Component {
   }
 
   sharePost = () => {
-      this.props.uploadMedia(this.props.formData);
+    let fd = this.props.formData;
+    let form = fd;
+    if(this.state.type !== '') {
+      form.append('type', this.state.type);
+    }
+    form.append('text', this.props.postText);
+    form.append('backgroundColor', this.props.postTextColor);
+    this.props.uploadMedia(form, this.props.user.authToken);
+    this.setType("");
   }
 
   render () {
@@ -127,7 +140,7 @@ class NewPostButtons extends React.Component {
 
       </div>}
       
-      <PostDialogController {...this.props} uploadMedia={this.sharePost} dialog={this.state.dialogType} />
+      <PostDialogController {...this.props} setType={this.setType.bind(this)} uploadMedia={this.sharePost} dialog={this.state.dialogType} />
     </>
   );
   }
@@ -160,6 +173,7 @@ const mapStateToProps = state => {
     progressNumber: state.post.progressNumber,
     isUploading: state.post.isUploading,
     postTextColor: state.dialog.postTextColor,
+    user: state.user,
   }
 }
 const mapDispatchToProps = dispatch => {
@@ -177,8 +191,8 @@ const mapDispatchToProps = dispatch => {
     setPostText: text => {
       dispatch(dialogActions.setPostText(text));
     },
-    uploadMedia: data => {
-      dispatch(postActions.uploadMedia(data));
+    uploadMedia: (data, token) => {
+      dispatch(postActions.uploadMedia(data, token));
     },
     setPostTextColor: color => {
       dispatch(dialogActions.setPostTextColor(color));

@@ -34,7 +34,7 @@ const styles = theme => ({
       flex: 1,
     },
     content: {
-      backgroundColor: '#fff',
+      backgroundColor: 'transparent',
       padding: theme.spacing.unit * 2,
       display: 'flex',
       alignItems: 'center',
@@ -89,8 +89,12 @@ class TextPostDialog extends React.Component {
         super(props);
 
         this.state = {
-          characters: 140,
+          characters: 0,
         }
+    }
+
+    componentDidMount() {
+      this.props.setType('text');
     }
 
     setCharacterCount = text => {

@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import showAuthLoadingReducer from './reduction/showAuthLoadingReducer';
 import authLoginSuccessReducer from './reduction/authLoginSuccessReducer';
 import * as types from './actionTypes';
+import * as postTypes from './../post/actionTypes';
 import authErrorReducer from "./reduction/authErrorReducer";
 import authLogoutSuccessReducer from "./reduction/authLogoutSuccessReducer";
 import authSignupSuccessReducer from "./reduction/authSignupSuccessReducer";
@@ -15,6 +16,7 @@ import addUserCommentsReducer from "./reduction/addUserCommentsReducer";
 import authTokenReducer from "./reduction/authTokenReducer";
 import setUserPostsReducer from "./reduction/setUserPostsReducer";
 import editAvatarReducer from "./reduction/editAvatarReducer";
+import addPostReducer from "../post/reduction/addPostReducer";
 const initialState = {};
 
 const userUpdateProfile = (state=initialState) => {
@@ -51,6 +53,8 @@ const posts = (posts={}, action) => {
             return addUserPostsReducer(posts, action);
         case types.AUTH_SET_USER_POSTS:
             return setUserPostsReducer(posts, action);
+        case postTypes.POST_ADD_POST:
+            return addPostReducer(posts, action);
         default:
             return posts;
     }
