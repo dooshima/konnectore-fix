@@ -89,7 +89,8 @@ class PasswordResetCompoment extends React.Component {
 
     componentDidMount() {
         const match = this.props.match;
-        this.props.loadPasswordReset(match.params.token)
+        console.log(match);
+        //this.props.loadPasswordReset(match.params.token)
     }
 
     toggleForm = (form) => {
