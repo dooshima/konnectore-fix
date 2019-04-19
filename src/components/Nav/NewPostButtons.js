@@ -93,10 +93,13 @@ class NewPostButtons extends React.Component {
   }
 
   sharePost = () => {
-    let fd = this.props.formData;
-    let form = fd;
+    let form = null;
     if(this.state.type !== '') {
+      form = new FormData();
       form.append('type', this.state.type);
+    } else {
+      let fd = this.props.formData;
+      form = fd;
     }
     form.append('text', this.props.postText);
     form.append('backgroundColor', this.props.postTextColor);
