@@ -2,9 +2,7 @@ import React from 'react';
 import ProptTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { FormControl, Input, InputLabel, FormControlLabel, Checkbox, Typography, Button } from '@material-ui/core';
-import KButton from './../UIC/KButton';
-import userActions from '../../reducers/user/actions';
-import { connect } from 'react-redux';
+import KButton from '../../UIC/KButton';
 
 const styles = theme => ({
     form: {
@@ -50,13 +48,17 @@ const styles = theme => ({
           textAlign: 'center',
       }
 })
-class ResetPassword extends React.Component {
+class PasswordResetForm extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             rememberme: false,
         }
+    }
+
+    componentDidMount() {
+        this.props.loadPasswordReset();
     }
 
     handleChange = name => event => {
@@ -70,33 +72,50 @@ class ResetPassword extends React.Component {
     };
 
     handleSubmit = () => {
-        console.log();
-        this.props.createPasswordReset({email: this.state.email, base_url: window.location.href});
+        const {password, password_confirmation} = this.state;
+        const form = {email: this.props.user.account.email, token: this.props.user.account.token, password, password_confirmation};
+        this.props.handlePasswordReset(form);
     }
 
     render() {
         const { classes } = this.props;
-        if(this.props.user.errorMsg === 'passwordreset') {
+        if(this.props.user.account === null || typeof(this.props.user.account) === 'undefined' 
+            || !this.props.user.account.hasOwnProperty('token')) {
             return (
                 <Typography className={classes.reset}>
-                    We've emailed your password reset link. Please check your email to continue.
+                    {this.props.user.errorMsg}
                 </Typography>
             )
         } 
         return (
             <form className={classes.form} noValidate autoComplete="off">
-                <Typography>
-                    Enter your email address in order to regain access to your account. 
-                    We will send you a password reset link.
+                <Typography style={{fontSize: '1.3em'}} color="textSecondary">
+                    Reset your password
                 </Typography>
-                {this.props.user.errorMsg && <Typography color="error">{this.props.user.errorMsg}</Typography>}
+                {this.props.user.errorMsg && this.props.user.errorMsg !== 'resetform' && <Typography color="error">{this.props.user.errorMsg}</Typography>}
                 <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="email" shrink className={classes.bootstrapFormLabel}>Email Address</InputLabel>
-                    <Input id="email" 
-                        placeholder="yourname@domain.com" 
-                        value={this.state.email} 
-                        onChange={this.handleChange('email')} 
+                    <InputLabel htmlFor="password" shrink className={classes.bootstrapFormLabel}>New Password</InputLabel>
+                    <Input id="password" 
+                        placeholder="" 
+                        value={this.state.password} 
+                        onChange={this.handleChange('password')} 
                         fullWidth={true}
+                        disableUnderline={true}
+                        type="password"
+                        classes={{
+                            root: classes.bootstrapRoot,
+                            input: classes.bootstrapInput,
+                        }} 
+                    />
+                </FormControl>
+                <FormControl className={classes.formControl}>
+                    <InputLabel htmlFor="password_confirmation" shrink className={classes.bootstrapFormLabel}>Confirm Password</InputLabel>
+                    <Input id="password_confirmation" 
+                        placeholder="" 
+                        value={this.state.password_confirmation} 
+                        onChange={this.handleChange('password_confirmation')} 
+                        fullWidth={true}
+                        type="password"
                         disableUnderline={true}
                         classes={{
                             root: classes.bootstrapRoot,
@@ -105,9 +124,9 @@ class ResetPassword extends React.Component {
                     />
                 </FormControl>
                 <div className={classes.footer}>
-                    <KButton onClick={this.handleSubmit.bind(this)} label="Submit" size="small" />
+                    <KButton onClick={this.handleSubmit.bind(this)} label="Reset" size="small" />
                     <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                        <Typography>Don't have an account?<Button onClick={() => this.props.toggleForm('signup')} color="primary" transparent>Sign Up</Button></Typography>
+                        <Typography>Don't have an account?<Button onClick={() => this.props.history.push('/')} color="primary" transparent>Sign Up</Button></Typography>
                     </div>
                 </div>
 
@@ -116,22 +135,8 @@ class ResetPassword extends React.Component {
     }
 }
 
-ResetPassword.propTypes = {
+PasswordResetForm.propTypes = {
     classes: ProptTypes.object.isRequired,
 }
 
-const mapStateToProps = state => {
-    return {
-        user: state.user,
-    }
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        createPasswordReset: form => {
-            dispatch(userActions.createPasswordReset(form));
-        }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ResetPassword));
+export default withStyles(styles)(PasswordResetForm);

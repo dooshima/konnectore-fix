@@ -1,14 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, CardHeader, CardContent, TextField, FormControl, InputLabel, Input, Typography, LinearProgress } from '@material-ui/core';
-import KCard from './../../components/UIC/KCard';
-import SocialButtons from './SocialButtons';
-import SignIn from './SignIn';
-import SignUp from './SignUp';
-import ResetPassword from './ResetPassword';
-import Auth from '../../services/Auth/Auth';
-import userActions from '../../reducers/user/actions';
 import { connect } from 'react-redux';
+import PasswordResetForm from './PasswordResetForm';
+import userActions from '../../../reducers/user/actions';
+import KCard from '../../UIC/KCard';
 
 const styles = theme => ({
     container: {
@@ -82,7 +78,7 @@ const styles = theme => ({
         marginBottom: theme.spacing.unit * 0,
       }
 })
-class HomeCompoment extends React.PureComponent {
+class PasswordResetCompoment extends React.Component {
     constructor(props) {
         super(props);
 
@@ -92,15 +88,22 @@ class HomeCompoment extends React.PureComponent {
     }
 
     componentDidMount() {
-        this.props.clearUserCache();
+        const match = this.props.match;
+        this.props.loadPasswordReset(match.params.token)
     }
 
     toggleForm = (form) => {
         this.setState({form: form});
     }
 
-    signup = data => {
-        Auth.signup(data);
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
+    }
+
+    handleSubmit = () => {
+        
     }
 
     render() {
@@ -121,12 +124,9 @@ class HomeCompoment extends React.PureComponent {
                         <img src="/images/logo.png" 
                         style={{width: 70, border: 'solid 5px #24b573', 
                         borderRadius: 10, padding: 10, margin: '2.4em auto 1.5em'}} />
-                        {this.state.form !== 'reset' && <SocialButtons />}
                     </div>
                     <CardContent>
-                        {this.state.form === 'signin' && <SignIn toggleForm={this.toggleForm} signin={this.signin} {...this.props} />}
-                        {this.state.form === 'signup' && <SignUp toggleForm={this.toggleForm} signup={this.signup} {...this.props} />}
-                        {this.state.form === 'reset' && <ResetPassword toggleForm={this.toggleForm} />}
+                        <PasswordResetForm {...this.props} />
                     </CardContent>
                     
                 </KCard>
@@ -143,45 +143,27 @@ class HomeCompoment extends React.PureComponent {
     }
 }
 
-HomeCompoment.propTypes = {
+PasswordResetCompoment.propTypes = {
     classes: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => {
     return {
-        signupSuccessful: state.user.account.hasOwnProperty('id'),
-        userAccount: state.user.account,
-        authError: state.user.errorMsg,
-        authLoading: state.user.isLoading,
-        usernameExists: state.user.available,
-        authRedirect: state.user.signupRedirect,
-        userData: state.user.data,
+        user: state.user,
         appLoading: state.app.isLoading,
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        handleSignup: data => {
-            dispatch(userActions.handleSignup(data));
+        handlePasswordReset: form => {
+            dispatch(userActions.handlePasswordReset(form));
         },
-        clearUserCache: () => {
-            dispatch(userActions.clearUserCache());
-        },
-        checkUsername: username => {
-            dispatch(userActions.checkUsername(username));
-        },
-        handleLogin: (email, password) => {
-            dispatch(userActions.handleLogin(email, password));
-        },
-        authSignupSuccess: account => {
-            dispatch(userActions.authSignupSuccess(account));
-        },
-        authSignupRedirect: bol => {
-            dispatch(userActions.authSignupRedirect(bol))
+        loadPasswordReset: token => {
+            dispatch(userActions.loadPasswordReset(token));
         }
     }
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(HomeCompoment));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(PasswordResetCompoment));

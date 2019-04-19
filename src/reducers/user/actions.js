@@ -156,6 +156,12 @@ const editUserAvatar = data => ({
     data
 });
 
+
+
+const changeUserPassword = () => ({
+    type: types.AUTH_CHANGE_USER_PASSWORD,
+});
+
 const getTalentCategories = () => {
     return dispatch => {
         Auth.getTalentCategories()
@@ -241,6 +247,7 @@ const handleLogout = (uid) => {
                     throw new Error(errorMsg);
                 }
                 setAppDefault(dispatch);
+                dispatch(authError(""));
             }).catch( error => {
                 console.log(error)
                 dispatch(showAuthLoading(false));
@@ -260,7 +267,7 @@ const handleEditProfile = data => {
                     throw new Error(errorMsg);
                 }
                 dispatch(authEditProfileSuccess(user.data));
-                dispatch(authError(""));
+                dispatch(authError("redirectme"));
             }).catch( error => {
                 dispatch(appActions.appIsLoading(false));
                 dispatch(authError(error.message));
@@ -285,6 +292,89 @@ const editAvatar = (form, token) => {
     }
 };
 
+const changePassword = (form, token) => {
+    return dispatch => {
+        dispatch(appActions.appIsLoading(true));
+        Auth.changePassword(form, token)
+            .then( response => {
+                dispatch(appActions.appIsLoading(false));
+                console.log(response);
+                if(!response.error) {
+                    dispatch(authError("redirectme"));
+                } else {
+                    dispatch(authError(response.message));
+                }
+            } )
+            .catch( error => {
+                dispatch(appActions.appIsLoading(false));
+                console.log(error);
+            } )
+    }
+}
+
+const createPasswordReset = form => {
+    return dispatch => {
+        dispatch(appActions.appIsLoading(true));
+        Auth.createPasswordReset(form)
+            .then( response => {
+                console.log(response)
+                dispatch(appActions.appIsLoading(false));
+                if(!response.error) {
+                    dispatch(authError("passwordreset"));
+                } else {
+                    dispatch(authError(response.message));
+                }
+            } )
+            .catch ( error => {
+                dispatch(appActions.appIsLoading(false));
+                console.log(error);
+            } )
+    }
+}
+
+const loadPasswordReset = token => {
+    return dispatch => {
+        dispatch(appActions.appIsLoading(true));
+        Auth.loadPasswordReset(token)
+            .then( response => {
+                console.log(response)
+                dispatch(appActions.appIsLoading(false));
+                if(!response.error) {
+                    dispatch(authError("resetform"));
+                    dispatch(authSignupSuccess(response.data));
+                } else {
+                    dispatch(authError(response.message));
+                    dispatch(authSignupSuccess({}));
+                }
+            } )
+            .catch ( error => {
+                dispatch(appActions.appIsLoading(false));
+                dispatch(authSignupSuccess({}));
+                console.log(error);
+            } )
+    }
+}
+
+const handlePasswordReset = form => {
+    return dispatch => {
+        dispatch(appActions.appIsLoading(true));
+        Auth.handlePasswordReset(form)
+            .then( response => {
+                console.log(response)
+                dispatch(appActions.appIsLoading(false));
+                if(!response.error) {
+                    dispatch(authError(response.message));
+                    dispatch(authSignupSuccess({}));
+                } else {
+                    dispatch(authError(response.message));
+                }
+            } )
+            .catch ( error => {
+                dispatch(appActions.appIsLoading(false));
+                console.log(error);
+            } )
+    }
+}
 function extractPosts(postData) {
 
     const { byId, allIds } = postData.data;
@@ -342,6 +432,11 @@ const userActions = {
     handleEditProfile,
     setDefault,
     editAvatar,
+    changePassword,
+    authError,
+    createPasswordReset,
+    loadPasswordReset,
+    handlePasswordReset,
 };
 
 export default userActions;

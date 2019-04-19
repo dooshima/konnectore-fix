@@ -59,6 +59,7 @@ function setDefault() {
 const getFriend = (user_id, token) => {
     return dispatch => {
         dispatch(appActions.appIsLoading(true));
+        dispatch(setFriend({}));
         Friend.getFriend(user_id, token)
             .then( response => {
                 console.log(response);

@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import App from './App'
+import { ConnectedRouter } from 'connected-react-router'
 
 const theme = createMuiTheme({
   palette: {
@@ -48,13 +49,15 @@ const theme = createMuiTheme({
 
 console.log(theme);
 
-const Root = ({ store }) => (
+const Root = ({ store, history }) => (
   <Provider store={store}>
+    
     <MuiThemeProvider theme={theme}>
     <Router>
       <Route path="/:filter?" component={App} />
     </Router>
     </MuiThemeProvider>
+   
   </Provider>
 )
 
@@ -63,3 +66,5 @@ Root.propTypes = {
 }
 
 export default Root
+
+// <ConnectedRouter history={history}>

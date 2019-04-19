@@ -17,6 +17,10 @@ const Auth = {
     handleEditProfile,
     getFriends,
     editAvatar,
+    changePassword,
+    createPasswordReset,
+    loadPasswordReset,
+    handlePasswordReset,
 };
 
 function login(email, password) {
@@ -131,9 +135,24 @@ function editAvatar(form, token) {
         .then( response => response.data )
 }
 
-function isEmail(email) {
-    const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    return regex.test(email);
+function changePassword(form, token) {
+    return Server.authPost('api/password/change', form, token)
+        .then( response => response.data );
+}
+
+function createPasswordReset(form) {
+    return Server.post('api/password/create', form)
+        .then( response => response.data );
+}
+
+function loadPasswordReset(token) {
+    return Server.get('api/password/find/' + token)
+        .then( response => response.data );
+}
+
+function handlePasswordReset(form) {
+    return Server.post('api/password/reset', form)
+        .then( response => response.data );
 }
 
 export default Auth;

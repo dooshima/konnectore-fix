@@ -110,14 +110,15 @@ const styles = theme => ({
 
 const ChangePassword = props => {
     const { classes, currentScreen } = props;
-    console.log(props);
     return (
         <div className={classes.main}>
         <div className={classes.wrapper}>
         <Grid container spacing={0} className={classes.grid}>
             <Grid item md={12} className={classes.grid}>
                 <KCard className={classes.card}>
-                    <CardHeader title="Change your password" />
+                    <CardHeader title="Change your password"
+                        subheader={
+                            props.user.errorMsg && props.user.errorMsg !== 'redirectme' && <Typography color="error">{props.user.errorMsg}</Typography>} />
                     <CardContent className={classes.content}>
                         <Grid container spacing={40} className={classes.grid}>
                             <Grid item md={6}className={classes.grid}>
@@ -130,11 +131,11 @@ const ChangePassword = props => {
                             </Grid>
                             <Grid item md={6}className={classes.grid}>
                                 <FormControl className={classes.formControl}>
-                                        <Input id="lastname" 
+                                        <Input id="password" 
                                             placeholder=""
                                             type="password" 
-                                            value={props.lastname} 
-                                            onChange={props.handleUsernameChange} 
+                                            value={props.password} 
+                                            onChange={props.handleChange('password')} 
                                             fullWidth={true}
                                             disableUnderline={true}
                                             classes={{
@@ -155,11 +156,11 @@ const ChangePassword = props => {
                             </Grid>
                             <Grid item md={6} className={classes.grid}>
                                 <FormControl className={classes.formControl}>
-                                        <Input id="lastname" 
+                                        <Input id="newPassword" 
                                             placeholder=""
                                             type="password" 
-                                            value={props.lastname} 
-                                            onChange={props.handleUsernameChange} 
+                                            value={props.newPassword} 
+                                            onChange={props.handleChange('newPassword')} 
                                             fullWidth={true}
                                             disableUnderline={true}
                                             classes={{
@@ -180,11 +181,11 @@ const ChangePassword = props => {
                             </Grid>
                             <Grid item md={6} className={classes.grid}>
                                 <FormControl className={classes.formControl}>
-                                        <Input id="lastname" 
+                                        <Input id="newPassword_confirmation" 
                                             placeholder=""
                                             type="password" 
-                                            value={props.lastname} 
-                                            onChange={props.handleUsernameChange} 
+                                            value={props.newPassword_confirmation} 
+                                            onChange={props.handleChange('newPassword_confirmation')} 
                                             fullWidth={true}
                                             disableUnderline={true}
                                             classes={{
@@ -199,7 +200,7 @@ const ChangePassword = props => {
                     </CardContent>
                     <CardActions className={classes.actions}>
                         <div className={classes.next}>
-                            <KBigButton onClick={() => {}} label="Save" size="small" />
+                            <KBigButton onClick={props.handleSubmit} label="Save" size="small" />
                         </div>
                     </CardActions>
                 </KCard>

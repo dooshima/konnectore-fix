@@ -5,6 +5,11 @@ const appIsLoading = isLoading => ({
    isLoading ,
 });
 
+const operationComplete = operation => ({
+    type: types.APP_OPERATION_COMPLETE,
+    operation,
+})
+
 function setDefault() {
     return dispatch => {
         dispatch(appIsLoading(false));
@@ -13,6 +18,7 @@ function setDefault() {
 
 const appActions = {
     appIsLoading,
+    operationComplete,
     setDefault,
 };
 

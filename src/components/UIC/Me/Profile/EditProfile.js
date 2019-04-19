@@ -48,6 +48,10 @@ class EditProfile extends React.Component {
     }
 
     render() {
+        if(this.props.user.errorMsg === 'redirectme') {
+            this.props.history.push('/me')
+            this.props.authError("");
+        }
         return (
             <EditBasicInformation {...this.state} handleSubmit={this.handleSubmit} handleChange={this.handleChange} handleDateChange={this.handleDateChange} />
         )
@@ -58,6 +62,9 @@ const mapDispatchToProps = dispatch => {
     return {
         handleEditProfile: data => {
             dispatch(userActions.handleEditProfile(data));
+        },
+        authError: error => {
+            dispatch(userActions.authError(error));
         }
     }
 }
