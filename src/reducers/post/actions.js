@@ -166,7 +166,7 @@ const handleAddComment = (form, token) => {
         console.log(response)
         if(!response.error) {
           console.log(response.data)
-          //dispatch(addComment(response.data));
+          dispatch(commentActions.addComment(response.data));
         }
       } )
       .catch( error => {
