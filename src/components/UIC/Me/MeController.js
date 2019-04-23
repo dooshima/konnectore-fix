@@ -79,7 +79,7 @@ class MeController extends React.Component {
 
         let count = 1;
         const userPosts = this.filterPosts(user.posts.byId);
-        const keys = typeof(user.posts) !== 'undefined'? user.posts.allIds.sort( (a, b) => b -a): [];
+        const keys = typeof(user.posts) !== 'undefined' && user.posts !== null && typeof(user.posts.allIds) !== 'undefined' && user.posts.allIds !== null? user.posts.allIds.sort( (a, b) => b -a): [];
         if(keys.length > 0) {
             for(let i of keys) {
                 let item = allPosts[i];
