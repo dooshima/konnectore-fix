@@ -33,7 +33,7 @@ class MeController extends React.Component {
     }
 
     componentDidMount() {
-
+        this.props.getUserInfo(this.props.user.data.id, this.props.user.authToken);
     }
 
     static getDerivedStateFromProps(state) {
@@ -143,6 +143,9 @@ const mapDispatchToProps = dispatch => {
       editAvatar: (form, token) => {
           dispatch(userActions.editAvatar(form, token));
       },
+      getUserInfo: (id, token) => {
+          dispatch(userActions.getUser(id, token));
+      }
     }
 };
 

@@ -21,6 +21,7 @@ const Auth = {
     createPasswordReset,
     loadPasswordReset,
     handlePasswordReset,
+    getUser,
 };
 
 function login(email, password) {
@@ -72,6 +73,11 @@ function checkUsername(username) {
 function getTalentCategories() {
     return Server.get('api/get-talent-categories')
         .then( resp => resp.data);
+}
+
+function getUser(id, token) {
+    return Server.authGet('api/get-user/' + id, token)
+        .then( resp => resp.data );
 }
 
 function processOnboarding(data) {

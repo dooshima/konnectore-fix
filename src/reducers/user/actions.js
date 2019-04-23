@@ -221,7 +221,7 @@ const handleLogin = (email, password) => {
                     const errorMsg = user.error? user.message: "Error logging in. Please retry";
                     throw new Error(errorMsg);
                 }
-                console.log(data)
+                
                 const p = extractPosts(posts);
                 dispatch(addUserPosts(p));
                 const byId = null !== p && typeof(p) !== 'undefined'? p.byId: {};
@@ -379,6 +379,31 @@ const handlePasswordReset = form => {
             } )
     }
 }
+
+const getUser = (id, token) => {
+    return dispatch => {
+        dispatch(appActions.appIsLoading(true));
+        Auth.getUser(id, token)
+            .then( response => {
+                if(!response.error) {
+                    const {user, posts, comments} = response.data;
+                    const p = extractPosts(posts);
+                    dispatch(addUserPosts(p));
+                    const byId = null !== p && typeof(p) !== 'undefined'? p.byId: {};
+                    dispatch(postActions.addPosts(byId));
+                    dispatch(addUserComments(comments));
+                    dispatch(authLoginSuccess(user));
+                    dispatch(showSearchForm(true));
+                    dispatch(authError(""));
+                    dispatch(authSignupRedirect(true));
+                }
+            } )
+            .catch( error => {
+                dispatch(appActions.appIsLoading(false));
+                console.log(error);
+            } )
+    }
+}
 function extractPosts(postData) {
 
     const { byId, allIds } = postData.data;
@@ -441,6 +466,7 @@ const userActions = {
     createPasswordReset,
     loadPasswordReset,
     handlePasswordReset,
+    getUser,
 };
 
 export default userActions;
