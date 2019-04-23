@@ -174,7 +174,7 @@ class DashboardComponent extends React.Component {
     let recentPosts = [];
     const contestList = !contestFeed.data? []: contestFeed.data;
     console.log(contestList)
-    const posts = user && user.posts.byId? user.posts.byId: [];
+    const posts = user !== null && typeof(user) !== 'undefined' && user.posts !== null && typeof(user.posts) !== 'undefined'? user.posts.byId: [];
     for(let i in posts) {
       let item = posts[i];
       recentPosts.push(item);

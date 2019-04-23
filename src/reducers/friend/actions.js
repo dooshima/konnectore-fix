@@ -2,6 +2,7 @@ import * as types from './actionTypes';
 import appActions from '../app/actions';
 import Friend from '../../services/Friend/Friend';
 import postActions from '../post/actions';
+import commentActions from '../comment/actions';
 
 const addFriends = friends => ({
    type: types.FRIEND_ADD_FRIENDS,
@@ -76,6 +77,8 @@ const getFriend = (user_id, token) => {
                     const ids = posts !== null && typeof(posts) !== 'undefined'? posts.allIds: [];
                     dispatch(postActions.addPosts(byId));
                     dispatch(addPostIds(ids));
+
+                    dispatch(commentActions.addComments(response.data.comments.byId));
                 }
             } )
             .catch( error => {

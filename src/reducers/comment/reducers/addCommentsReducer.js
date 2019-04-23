@@ -2,13 +2,13 @@
  * Function to add comments to the store
  */
 
- const addCommentsReducer = (commments, action) => {
+ const addCommentsReducer = (comments, action) => {
      if(null === action.commments) {
          return comments;
      }
 
      const newComments = action.comments;
-     return {...commments, newComments};
+     return {...comments, newComments};
  };
 
  export default addCommentsReducer;

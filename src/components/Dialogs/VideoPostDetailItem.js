@@ -13,6 +13,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import { CardHeader, Avatar, CardActions, TextField, FormControl, Input } from '@material-ui/core';
 import AlarmIcon from '@material-ui/icons/Alarm'
 import PostActivityWidget from '../../widgets/posts/PostActivityWidget';
+import Utility from '../../services/Utility';
 
 const styles = theme => ({
   card: {
@@ -80,8 +81,8 @@ function VideoPostDetailItem(props) {
             controls
             classes={{media: classes.media}}
             component="video"
-            src="/videos/video.mp4"
-            title="Live from space album cover"
+            src={Utility.getPath(item.src)}
+            title={item.text}
         />
         <div className={classes.details}>
           <PostActivityWidget item={item} {...props}/>

@@ -8,6 +8,7 @@ import friendReducers from './reducers/friend/reducers';
 import contestReducers from './reducers/contest/reducers';
 import { connectRouter } from 'connected-react-router'
 import { combineReducers } from 'redux';
+import commentReducers from './reducers/comment/reducers';
 
 export default (history) => combineReducers({
     router: connectRouter(history),
@@ -18,4 +19,5 @@ export default (history) => combineReducers({
     post: postReducers,
     friend: friendReducers,
     contest: contestReducers,
+    comment: commentReducers,
 });

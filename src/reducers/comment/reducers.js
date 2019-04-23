@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import * as types from './actionTypes';
-import addCommentsReducer from '../post/reduction/addCommentsReducer';
-import addCommentReducer from '../post/reduction/addCommentReducer';
+import addCommentsReducer from './reducers/addCommentsReducer';
+import addCommentReducer from './reducers/addCommentReducer';
 
 const byId = (comments={}, action) => {
     switch(action.type) {

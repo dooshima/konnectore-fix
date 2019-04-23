@@ -13,6 +13,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import { CardHeader, Avatar, CardActions, TextField, FormControl, Input } from '@material-ui/core';
 import AlarmIcon from '@material-ui/icons/Alarm'
 import PostActivityWidget from '../../widgets/posts/PostActivityWidget';
+import Utility from '../../services/Utility';
 
 const styles = theme => ({
   card: {
@@ -70,8 +71,8 @@ function ImagePostDetailItem(props) {
     <Card className={classes.card}>
         <CardMedia
             className={classes.cover}
-            image={item.coverImage}
-            title="Live from space album cover"
+            image={Utility.getPath(item.coverImage)}
+            title={item.text}
         />
         <div className={classes.details}>
           <PostActivityWidget item={item} {...props} />
