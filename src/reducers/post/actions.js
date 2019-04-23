@@ -163,8 +163,10 @@ const handleAddComment = (form, token) => {
     Post.addComment(form, token)
       .then( response => {
         dispatch(appActions.appIsLoading(false));
+        console.log(response)
         if(!response.error) {
-          dispatch(addComment(response.data));
+          console.log(response.data)
+          //dispatch(addComment(response.data));
         }
       } )
       .catch( error => {

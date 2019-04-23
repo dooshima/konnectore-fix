@@ -26,8 +26,8 @@ const sharePost = (form, token) => {
     .then( response => response.data );
 }
 
-const addComment = (form, token) => {
-  return Server.authPost('api/comment-post', form, token)
+function addComment (form, token) {
+  return Server.authPost('api/add-comment', form, token)
     .then( response => response.data );
 }
 const uploadMedia = data => {

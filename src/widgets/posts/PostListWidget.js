@@ -35,7 +35,11 @@ class PostListWidget extends React.Component {
     }
 
     addComment = (post, comment) => {
-        console.log('Add Comment: ' + comment + ' Author: ' + post.author);
+        this.props.addComment({author: this.props.author.id, post_id: post.id, comment}, this.props.authToken);
+    }
+
+    handleCommentChange = comment => {
+        this.setState({comment});
     }
 
     render() {
@@ -45,14 +49,17 @@ class PostListWidget extends React.Component {
             toggleDialog: this.toggleDialog,
             sharePost: this.sharePost,
             viewPost: this.viewPost,
-            addComment: this.addComment
-        }
+            addComment: this.addComment,
+            comment: this.state.comment,
+            handleCommentChange: this.handleCommentChange,
+        };
+        const posts = props.posts? props.posts: [];
         return (
             <React.Fragment>
                 <Paper elevation={0} style={{marginTop: 30}}>
                     <MasonryGrid>
                     {
-                    props.posts.map( (item, i) => {
+                    posts.map( (item, i) => {
                         let counter = Math.ceil(Math.random() * 100);
                         let chooser = counter % 2 === 0? true: false;
                         if(item.type === 'image'){
@@ -87,6 +94,9 @@ const mapDispatchToProps = dispatch => {
         },
         likePost: (form, token) => {
             dispatch(postActions.handleLikePost(form, token));
+        },
+        addComment: (form, token) => {
+            dispatch(postActions.handleAddComment(form, token));
         }
     }
 };

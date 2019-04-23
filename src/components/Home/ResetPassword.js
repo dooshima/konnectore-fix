@@ -76,6 +76,7 @@ class ResetPassword extends React.Component {
 
     render() {
         const { classes } = this.props;
+        console.log(this.props)
         if(this.props.user.errorMsg === 'passwordreset') {
             return (
                 <Typography className={classes.reset}>
@@ -122,7 +123,7 @@ ResetPassword.propTypes = {
 
 const mapStateToProps = state => {
     return {
-        user: state.user,
+        //user: state.user,
     }
 };
 

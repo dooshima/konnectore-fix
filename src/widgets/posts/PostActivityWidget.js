@@ -58,6 +58,7 @@ const styles = theme => ({
       formControl: {
           flex: 1,
           borderTop: '1px solid #efefef',
+          width: '100%',
       },
       input: {
           padding: 10,
@@ -84,7 +85,7 @@ class PostActivityWidget extends React.Component {
     }
 
     handleChange = event => {
-        this.setState({comment: event.target.value})
+        this.props.handleCommentChange(event.target.value);
     };
 
     addComment = (e) => {
@@ -127,14 +128,14 @@ class PostActivityWidget extends React.Component {
             <CardContent className={classes.content}>
                 <PostActivityContent post={item} {...this.props}/>
             </CardContent>
-            <CardActions>
-                <form onSubmit={this.addComment.bind(this)}>
+            <CardActions style={{flex: 1,}}>
+                <form onSubmit={this.addComment.bind(this)} style={{flex: 1,}}>
                 <FormControl className={classes.formControl}>
                     <Input 
                         disableUnderline={true}
                         placeholder="Add comment"
                         className={classes.input}
-                        value={this.state.comment}
+                        value={this.props.comment}
                         onChange={this.handleChange.bind(this)}
                     />
                 </FormControl>
