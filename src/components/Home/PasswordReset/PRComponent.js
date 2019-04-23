@@ -8,7 +8,7 @@ class PRComponent extends React.Component {
     render() {
         console.log(this.props);
         return (
-            <h1>Password Reset Compoennt</h1>
+            <h1>Password Reset Component</h1>
         )
     }
 }
