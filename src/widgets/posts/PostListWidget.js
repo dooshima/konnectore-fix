@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper } from '@material-ui/core';
+import { Paper, Typography } from '@material-ui/core';
 import MasonryGrid from '../../components/UIC/MasonryGrid/MasonryGrid';
 import ImageCard from '../../components/UIC/Posts/ImageCard/ImageCard';
 import TextCard from '../../components/UIC/Posts/TextCard/TextCard';
@@ -54,10 +54,11 @@ class PostListWidget extends React.Component {
             handleCommentChange: this.handleCommentChange,
         };
         const posts = props.posts? props.posts: [];
+        console.log(posts);
         return (
             <React.Fragment>
                 <Paper elevation={0} style={{marginTop: 30}}>
-                    <MasonryGrid>
+                    {posts.length > 0 && <MasonryGrid>
                     {
                     posts.map( (item, i) => {
                         let counter = Math.ceil(Math.random() * 100);
@@ -71,7 +72,10 @@ class PostListWidget extends React.Component {
                         }
                     })
                     }
-                    </MasonryGrid>
+                    </MasonryGrid>}
+                    {posts.length < 1 && <Typography color="textSecondary" style={{textAlign: 'center', fontSize: 15,}}>
+                        No posts found!
+                    </Typography>}
                 </Paper>
                 <PostDetailWidget postItem={this.state.item} open={this.state.open} 
                     user={this.props.user} {...funcs}/>
