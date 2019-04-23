@@ -63,12 +63,14 @@ class PostListWidget extends React.Component {
                     posts.map( (item, i) => {
                         let counter = Math.ceil(Math.random() * 100);
                         let chooser = counter % 2 === 0? true: false;
-                        if(item.type === 'image'){
-                        return <ImageCard key={i} index={i} item={item} {...props} {...funcs} />;
-                        } else if (item.type === 'text') {
-                        return <TextCard key={i} index={i} item={item} {...props} {...funcs}/>;
-                        } else {
-                        return <VideoCard key={i} item={item} {...props} {...funcs}/>
+                        if(item) {
+                            if(item.type === 'image'){
+                            return <ImageCard key={i} index={i} item={item} {...props} {...funcs} />;
+                            } else if (item.type === 'text') {
+                            return <TextCard key={i} index={i} item={item} {...props} {...funcs}/>;
+                            } else {
+                            return <VideoCard key={i} item={item} {...props} {...funcs}/>
+                            }
                         }
                     })
                     }
