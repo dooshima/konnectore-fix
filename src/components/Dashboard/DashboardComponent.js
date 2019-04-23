@@ -196,7 +196,7 @@ class DashboardComponent extends React.Component {
                     recentPosts.map( (item, i) => {
                       let counter = Math.ceil(Math.random() * 100);
                       let chooser = counter % 2 === 0? true: false;
-                      if(type !== null && typeof(type) !== 'undefined') {
+                      if(item !== null && typeof(item) !== 'undefined') {
                         if(item.type === 'image'){
                           return <ImageCard key={i} index={i} item={item}  toggleDialog={this.toggleDialog}/>;
                         } else if (item.type === 'text') {
