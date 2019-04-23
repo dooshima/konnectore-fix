@@ -16,6 +16,7 @@ import PropsRoute from './components/Nav/PropsRoute';
 import DashboardComponent from './components/Dashboard/DashboardComponent';
 import ContestController from './components/Contest/ContestController';
 import PasswordResetComponent from './components/Home/PasswordReset/PasswordResetComponent';
+import PRComponent from './components/Home/PasswordReset/PRComponent';
 
 const styles = theme => ({
   wrapper: {
@@ -73,7 +74,7 @@ function MainNavigator(props) {
             <ProtectedRoute exact path="/" component={
               (props.user.authToken && props.user.data.hasOwnProperty('id'))? DashboardComponent: HomeCompoment} {...props}/>
             <Route exact path="/onboard" component={OnboardComponent} />
-            <PropsRoute exact path="/password/reset/:token" component={PasswordResetComponent} {...props} />
+            <PropsRoute exact path="/password/reset/:token" component={PRComponent} {...props} />
             <Route path="/people" render={props => <SidebarComponent component={FriendComponent} {...props} />} />
             <Route path="/search" render={renderProps => <SidebarComponent {...renderProps} searchResults={props.searchResults} q={props.q} loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)} component={SearchComponent} />} />
             <Route exact path="/contest" render={renderProps => <SidebarComponent component={ContestComponent} />} />
