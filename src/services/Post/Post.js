@@ -5,10 +5,32 @@ import axios from 'axios';
 
 const Post = {
     uploadMedia,
+    likePost,
+    viewPost,
+    sharePost,
+    addComment,
 };
 
+function likePost (form, token) {
+  return Server.authPost('api/like-post', form, token)
+    .then( response => response.data );
+}
+
+function viewPost (form, token) {
+  return Server.authPost('api/view-post', form, token)
+    .then( response => response.data );
+}
+
+const sharePost = (form, token) => {
+  return Server.authPost('api/share-post', form, token)
+    .then( response => response.data );
+}
+
+const addComment = (form, token) => {
+  return Server.authPost('api/comment-post', form, token)
+    .then( response => response.data );
+}
 const uploadMedia = data => {
-    console.log(data);
     if(!data) {
       return new Promise( (resolve, reject) => resolve({error: true, message: "No post data found!", data: {}}) );
     }

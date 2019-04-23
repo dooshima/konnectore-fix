@@ -62,6 +62,9 @@ class PostDialogController extends React.Component {
     this.props.setPostText("");
   };
 
+  componentDidMount() {
+  }
+
   
 
   render() {

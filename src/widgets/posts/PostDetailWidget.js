@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import { withStyles, Button } from '@material-ui/core';
-import PostDetailSlider from '../../../Dialogs/PostDetailSlider';
+import PostDetailSliderWidget from './PostDetailSliderWidget';
 
 const styles = theme => ({
-  contentHolder: {
+  /* contentHolder: {
     backgroundColor: '#efefef',
     border: 'none',
     display: 'block',
@@ -37,16 +37,20 @@ const styles = theme => ({
   root: {
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
     height: '80vh',
-  }
+  } */
 });
 
-class PostDetailDialog extends React.Component {
+class PostDetailWidget extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             open: false,
             postText: ''
         };
+    }
+
+    componentDidMount() {
+      console.log('increment view count text2 pure');
     }
 
   setPostText = text => {
@@ -58,8 +62,7 @@ class PostDetailDialog extends React.Component {
   };
 
   handleClose = () => {
-    this.props.toggleDialog(this.props.postItem)
-      console.log('Close dialog')
+    this.props.toggleDialog(this.props.postItem);
   };
 
   render() {
@@ -70,8 +73,9 @@ class PostDetailDialog extends React.Component {
         handleClickOpen: this.handleClickOpen,
         handleClose: this.handleClose,
     }
-    let item = this.props.postItem;
-    item['fullName'] = user.data.firstname + ' ' + user.data.lastname;
+
+    let item = this.props.postItem || [];
+    item['fullName'] = user && user.data.firstname || '' + ' ' + user && user.data.lastname || '';
     item['avatar'] = user.data.avatar;
     let posts = [item];
 
@@ -92,11 +96,8 @@ class PostDetailDialog extends React.Component {
             paper: classes.paper,
             root: classes.root,
           }}
-          //disableEscapeKeyDown={false}
-          //disableBackdropClick={false}
-          // <PostDetailSlider posts={posts} /> <PostDetailItem item={this.props.postItem} />
         >
-          <PostDetailSlider posts={posts} toggleDialog={toggleDialog}/>
+          <PostDetailSliderWidget posts={posts} toggleDialog={toggleDialog} {...this.props} />
 
         </Dialog>
     );
@@ -106,9 +107,9 @@ class PostDetailDialog extends React.Component {
   }
 }
 
-PostDetailDialog.propTypes = {
+PostDetailWidget.propTypes = {
   fullScreen: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(withMobileDialog()(PostDetailDialog));
+export default withStyles(styles)(withMobileDialog()(PostDetailWidget));

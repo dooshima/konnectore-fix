@@ -1,6 +1,7 @@
 import * as types from './actionTypes';
 import appActions from '../app/actions';
 import Friend from '../../services/Friend/Friend';
+import postActions from '../post/actions';
 
 const addFriends = friends => ({
    type: types.FRIEND_ADD_FRIENDS,
@@ -12,6 +13,10 @@ const updateFriends = friend => ({
     friend,
 });
 
+const addPostIds = postIds => ({
+    type: types.FRIEND_ADD_POST_IDS,
+    postIds,
+})
 const setFriend = current => ({
     type: types.FREIND_SET_FRIEND,
     current
@@ -64,14 +69,31 @@ const getFriend = (user_id, token) => {
             .then( response => {
                 console.log(response);
                 dispatch(appActions.appIsLoading(false));
-                if(!response.error)
+                if(!response.error) {
                     dispatch(setFriend(response.data));
+                    const posts = extractPosts(response.data.posts);
+                    const byId = posts !== null && typeof(posts) !== 'undefined'? posts.byId: {};
+                    const ids = posts !== null && typeof(posts) !== 'undefined'? posts.allIds: [];
+                    dispatch(postActions.addPosts(byId));
+                    dispatch(addPostIds(ids));
+                }
             } )
             .catch( error => {
                 dispatch(appActions.appIsLoading(false));
                 console.log(error);
             } );
     }
+}
+
+function extractPosts(postData) {
+
+    const { byId, allIds } = postData.data;
+    let posts = postData;
+    delete posts['data'];
+    posts['byId'] = byId;
+    posts['allIds'] = allIds;
+
+    return posts;
 }
 
 const friendActions = {

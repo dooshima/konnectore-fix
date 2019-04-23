@@ -12,6 +12,9 @@ import SkipNextIcon from '@material-ui/icons/SkipNext';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import { CardHeader, Avatar, CardActions, TextField, FormControl, Input } from '@material-ui/core';
 import AlarmIcon from '@material-ui/icons/Alarm'
+import PostStatsWidget from '../../widgets/posts/PostStatsWidget';
+import PostCommentItem from '../../widgets/comments/PostCommentItem';
+import PostActivityWidget from '../../widgets/posts/PostActivityWidget';
 
 const styles = theme => ({
   card: {
@@ -26,6 +29,10 @@ const styles = theme => ({
   },
   content: {
     flex: '1 0 auto',
+    overflowY: 'scroll',
+    overflowX: 'hidden',
+    padding: '1em 1.5em',
+    height: 250,
   },
   cover: {
     width: '50%',
@@ -68,13 +75,17 @@ const styles = theme => ({
       padding: '40px 60px',
       fontSize: 30,
       color: 'white',
-
+  },
+  postText: {
+      fontSize: theme.typography.fontSize * 1.2,
+      //lineHeight: theme.typography.fontSize * 2,
+      
   }
 });
 
 function TextPostDetailItem(props) {
   const { classes, theme, item } = props;
-
+  
   return (
     <Card className={classes.card}>
         <div className={classes.cover} title="Post title" style={{backgroundColor: item.backgroundColor}}>
@@ -83,44 +94,7 @@ function TextPostDetailItem(props) {
             </Typography>
         </div>
         <div className={classes.details}>
-            <CardHeader
-                className={classes.header}
-                avatar={
-                    <Avatar aria-label={item.fullName} className={classes.avatar} src={item.avatar? item.avatar: "/images/avatar.png"} />
-                }
-                action={
-                    <IconButton>
-                    <ArrowDropDownIcon />
-                    </IconButton>
-                }
-                title={
-                    <Typography component="h6" variant="h6">
-                        {item.fullName}
-                    </Typography>
-                }
-                subheader={
-                    <div className={classes.subheader}>
-                    <AlarmIcon size="small" className={classes.alarmIcon} />
-                    <Typography variant="subtitle1" color="textSecondary">
-                        30 mins ago
-                    </Typography>
-                    </div>
-                }
-            />
-            <CardContent className={classes.content}>
-                <Typography>
-                {item.text}
-                </Typography>
-            </CardContent>
-            <CardActions>
-                <FormControl className={classes.formControl}>
-                    <Input 
-                        disableUnderline={true}
-                        placeholder="Add comment"
-                        className={classes.input}
-                    />
-                </FormControl>
-            </CardActions>
+            <PostActivityWidget item={item} {...props}/>
         </div>
     </Card>
   );

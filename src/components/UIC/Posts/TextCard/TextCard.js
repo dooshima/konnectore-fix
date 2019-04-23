@@ -24,6 +24,7 @@ import { H4, Link } from '@material-ui/core/Typography';
 import SvgIcon from '@material-ui/icons/MoreVert';
 import TextWidget from '../TextWidget';
 import KPaper from '../../KPaper';
+import Utility from '../../../../services/Utility';
 
 
 const styles = theme => ({
@@ -67,7 +68,7 @@ const styles = theme => ({
     transform: 'rotate(180deg)',
   },
   avatar: {
-    backgroundColor: red[500],
+    backgroundColor: 'transparent',
     borderColor: '#00927d',
     borderWidth: 2,
     borderStyle: 'solid'
@@ -112,7 +113,7 @@ class TextCard extends React.Component {
       <KPaper square={false} className={classes.card} style={{backgroundColor: `${item.backgroundColor}`}}>
         <TextWidget 
           text={item.text}
-          user={{avatar: item.avatar? item.avatar: "/images/post-img.png"}}
+          user={{avatar: item.user && item.user.avatar? Utility.getAvatar(item.user.avatar): Utility.getAvatar("")}}
           comments="1725"
           endorsements="580"
           backgroundColor={item.backgroundColor}

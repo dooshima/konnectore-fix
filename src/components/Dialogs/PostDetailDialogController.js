@@ -50,6 +50,10 @@ class PostDetailDialogController extends React.Component {
         };
     }
 
+    componentDidMount() {
+      console.log('increment view count text2');
+    }
+
   setPostText = text => {
     this.props.setPostText(text);
   }

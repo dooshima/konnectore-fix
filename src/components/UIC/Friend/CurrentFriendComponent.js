@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import FriendHeader from './FriendHeader';
 import FriendTimeline from './FriendTimeline';
-import PostDetailDialog from '../Me/Posts/PostDetailDialog';
+import PostDetailWidget from '../../../widgets/posts/PostDetailWidget';
 
 class CurrentFriendComponent extends React.Component {
     constructor(props) {
@@ -29,7 +29,7 @@ class CurrentFriendComponent extends React.Component {
             <>
                 <FriendHeader {...this.props} />
                 <FriendTimeline {...this.props} />
-                <PostDetailDialog postItem={this.state.item} 
+                <PostDetailWidget postItem={this.state.item} 
                 open={this.state.open} user={this.props.user} 
                 toggleDialog={this.toggleDialog} />
             </>

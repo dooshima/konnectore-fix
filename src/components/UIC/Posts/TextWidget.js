@@ -17,6 +17,7 @@ import { Link } from '@material-ui/core';
 import PostDetailDialogController from '../../Dialogs/PostDetailDialogController';
 import dialogActions from '../../../reducers/dialog/actions';
 import { connect } from 'react-redux';
+import Utility from '../../../services/Utility';
 
 
 const styles = theme => ({
@@ -173,7 +174,7 @@ class TextWidget extends React.Component {
         <div className={classes.rule} />
 
         <CardActions className={classes.actions} disableActionSpacing >
-            <Avatar alt={fullName} src={user.avatar} className={classes.avatar} />
+            <Avatar alt={fullName} src={item.user? Utility.getAvatar(item.user.avatar): Utility.getAvatar("")} className={classes.avatar} />
             <div className={classes.title}>
                 <Typography component="h4" className={classes.h4}>{fullName}</Typography>
                 <Typography className={classes.titleStat}>12 hours ago</Typography>

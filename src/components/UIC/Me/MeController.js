@@ -17,8 +17,8 @@ import { Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropsRoute from '../../Nav/PropsRoute';
 import dialogActions from '../../../reducers/dialog/actions';
-import PostDetailDialog from './Posts/PostDetailDialog';
 import userActions from '../../../reducers/user/actions';
+import PostDetailWidget from '../../../widgets/posts/PostDetailWidget';
 
 class MeController extends React.Component {
     constructor(props) {
@@ -41,6 +41,7 @@ class MeController extends React.Component {
     }
 
     toggleDialog = item => {
+        console.log('toggle 1')
         this.setState({item: item, open: !this.state.open})
     }
 
@@ -72,15 +73,15 @@ class MeController extends React.Component {
             return posts;
     }
     render() {
-        const {match, user} = this.props;
+        const {match, user, allPosts} = this.props;
         let recentPosts = [];
         const fullName = user.data.firstname + ' ' + user.data.lastname;
 
         let count = 1;
         const userPosts = this.filterPosts(user.posts.byId);
-        const keys = user.data.allIds.sort( (a, b) => b -a);
-        for(let i in keys) {
-            let item = userPosts[i];
+        const keys = user.posts.allIds.sort( (a, b) => b -a);
+        for(let i of keys) {
+            let item = allPosts[i];
             recentPosts.push(item);
             if(count >= 20) 
                 break;
@@ -99,7 +100,7 @@ class MeController extends React.Component {
                         <Switch>
                             <PropsRoute exact path={`${match.path}/account/edit`} component={EditProfile} {...this.props} />
                             <Route exact path={`${match.path}/account/manage`} component={ManageAccount} />
-                            <Route path={`${match.path}`} render={props => <MeTimeline {...props} fullName={fullName} toggleDialog={this.toggleDialog} recentPosts={recentPosts} />} />
+                            <PropsRoute path={`${match.path}`} component={MeTimeline} {...this.props} fullName={fullName} toggleDialog={this.toggleDialog} posts={recentPosts} />} />
                         </Switch>
                     </Paper>
                     </Grid>
@@ -114,7 +115,7 @@ class MeController extends React.Component {
                         </div>
                     </Grid>
                 </Grid>
-                <PostDetailDialog postItem={this.state.item} open={this.state.open} user={this.props.user} toggleDialog={this.toggleDialog} />
+                
             </div>
         )
     }
@@ -128,6 +129,7 @@ class MeController extends React.Component {
 const mapStateToProps = state => {
     return {
         user: state.user,
+        allPosts: state.post.byId,
     }
 }
 

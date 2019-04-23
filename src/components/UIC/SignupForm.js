@@ -112,11 +112,10 @@ class SignupForm extends React.Component {
     this.setState({
       data: data,
     });
-    console.log(data);
   };
 
   handleInput(e, key) {
-    console.log(e.target.value, key);
+    
   }
   submit() {
     const data = this.state.data;

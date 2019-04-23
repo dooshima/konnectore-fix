@@ -12,6 +12,7 @@ import SkipNextIcon from '@material-ui/icons/SkipNext';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import { CardHeader, Avatar, CardActions, TextField, FormControl, Input } from '@material-ui/core';
 import AlarmIcon from '@material-ui/icons/Alarm'
+import PostActivityWidget from '../../widgets/posts/PostActivityWidget';
 
 const styles = theme => ({
   card: {
@@ -72,7 +73,6 @@ const styles = theme => ({
 
 function VideoPostDetailItem(props) {
   const { classes, theme, item } = props;
-
   return (
     <Card className={classes.card}>
         <CardMedia
@@ -84,45 +84,7 @@ function VideoPostDetailItem(props) {
             title="Live from space album cover"
         />
         <div className={classes.details}>
-            <CardHeader
-                className={classes.header}
-                avatar={
-                    <Avatar aria-label="Victor Omemu" className={classes.avatar} src="/images/avatar.png" />
-                }
-                action={
-                    <IconButton>
-                    <ArrowDropDownIcon />
-                    </IconButton>
-                }
-                title={
-                    <Typography component="h6" variant="h6">
-                        Victor Omemu
-                    </Typography>
-                }
-                subheader={
-                    <div className={classes.subheader}>
-                    <AlarmIcon size="small" className={classes.alarmIcon} />
-                    <Typography variant="subtitle1" color="textSecondary">
-                        30 mins ago
-                    </Typography>
-                    </div>
-                }
-            />
-            <CardContent className={classes.content}>
-                <Typography>
-                Watch my latest performance at the annual contest challenge last night. 
-                Thanks to everyone who was a part of this night #Star #SuperStar
-                </Typography>
-            </CardContent>
-            <CardActions>
-                <FormControl className={classes.formControl}>
-                    <Input 
-                        disableUnderline={true}
-                        placeholder="Add comment"
-                        className={classes.input}
-                    />
-                </FormControl>
-            </CardActions>
+          <PostActivityWidget item={item} {...props}/>
         </div>
     </Card>
   );

@@ -66,6 +66,7 @@ class FriendComponent extends React.Component {
 
         let count = 1;
         const friends = friend.friends.byId? friend.friends.byId: [];
+        const keys = friend.friends.allIds;
         
         for(let i in friends) {
             let item = friends[i];
@@ -84,7 +85,7 @@ class FriendComponent extends React.Component {
                             <PropsRoute exact path={`${match.path}`} component={FriendsListComponent} people={people} user={user} handleFollow={this.handleFollow} handleUnfollow={this.handleUnfollow} />
                             <PropsRoute exact path={`${match.path}/:id`} 
                                 component={CurrentFriendComponent} 
-                                {...this.props} filter={this.state.filter} 
+                                {...this.props} filter={this.state.filter}
                                 setFilter={this.setFilter}
                                 filterPosts={this.filterPosts}
                                 handleFollow={this.handleFollow} handleUnfollow={this.handleUnfollow} />
@@ -114,6 +115,7 @@ const mapStateToProps = state => {
         token: state.user.authToken,
         friend: state.friend,
         currentUser: state.friend.current,
+        allPosts: state.post.byId,
     }
 }
 

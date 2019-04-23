@@ -4,6 +4,7 @@ import Post from '../../services/Post/Post';
 import KError from './../../models/KError';
 import dialogActions from '../dialog/actions';
 import Constants from '../../assets/Constants';
+import appActions from '../app/actions';
 
 const startUploadMedia = isUploading => ({
     type: types.POST_UPLOAD_MEDIA_STARTED,
@@ -24,6 +25,31 @@ const addPost = post => ({
   type: types.POST_ADD_POST,
   post,
 });
+
+const likePost = like => ({
+  type: types.POST_LIKE_POST,
+  like,
+});
+
+const viewPost = view => ({
+  type: types.POST_VIEW_POST,
+  view
+});
+
+const addComment = comment => ({
+  type: types.POST_ADD_COMMENT,
+  comment,
+});
+
+const sharePost = share => ({
+  type: types.POST_SHARE_PSOT,
+  share
+});
+
+const addPosts = byId => ({
+  type: types.POST_ADD_POSTS,
+  byId,
+})
 
 const uploadMedia = (data, token) => {
     return dispatch => {
@@ -97,6 +123,57 @@ const progress = (event) => {
     return val;
 };
 
+const handleLikePost = (form, token) => {
+  return dispatch => {
+    dispatch(appActions.appIsLoading(true));
+    Post.likePost(form, token)
+      .then( response => {
+        dispatch(appActions.appIsLoading(false));
+        if(!response.error) {
+          dispatch(likePost(response.data));
+        }
+      } )
+      .catch( error => {
+        dispatch(appActions.appIsLoading(false));
+        console.log(error);
+      })
+  }
+}
+
+const handleViewPost = (form, token) => {
+  return dispatch => {
+    dispatch(appActions.appIsLoading(true));
+    Post.viewPost(form, token)
+      .then( response => {
+        dispatch(appActions.appIsLoading(false));
+        if(!response.error) {
+          dispatch(viewPost(response.data));
+        }
+      } )
+      .catch( error => {
+        dispatch(appActions.appIsLoading(false));
+        console.log(error);
+      })
+  }
+}
+
+const handleAddComment = (form, token) => {
+  return dispatch => {
+    dispatch(appActions.appIsLoading(true));
+    Post.addComment(form, token)
+      .then( response => {
+        dispatch(appActions.appIsLoading(false));
+        if(!response.error) {
+          dispatch(addComment(response.data));
+        }
+      } )
+      .catch( error => {
+        dispatch(appActions.appIsLoading(false));
+        console.log(error);
+      })
+  }
+}
+
 function setDefault() {
   return dispatch => {
     dispatch(startUploadMedia(false));
@@ -113,6 +190,10 @@ const postActions = {
     uploadMedia,
     setDefault,
     addPost,
+    handleAddComment,
+    handleLikePost,
+    handleViewPost,
+    addPosts,
 };
 
 export default postActions;

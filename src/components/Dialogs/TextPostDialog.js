@@ -95,6 +95,7 @@ class TextPostDialog extends React.Component {
 
     componentDidMount() {
       this.props.setType('text');
+      console.log('increment view count text2');
     }
 
     setCharacterCount = text => {

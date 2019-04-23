@@ -221,7 +221,11 @@ const handleLogin = (email, password) => {
                     const errorMsg = user.error? user.message: "Error logging in. Please retry";
                     throw new Error(errorMsg);
                 }
-                dispatch(addUserPosts(extractPosts(posts)));
+                console.log(data)
+                const p = extractPosts(posts);
+                dispatch(addUserPosts(p));
+                const byId = null !== p && typeof(p) !== 'undefined'? p.byId: {};
+                dispatch(postActions.addPosts(byId));
                 dispatch(addUserComments(comments));
                 dispatch(authLoginSuccess(user));
                 dispatch(showSearchForm(true));

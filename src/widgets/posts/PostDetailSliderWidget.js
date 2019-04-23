@@ -1,8 +1,8 @@
 import React from 'react';
 import { Slide } from 'react-slideshow-image';
 import { withStyles } from '@material-ui/core/styles';
-import PostDetailItem from './PostDetailItem';
 import { Typography } from '@material-ui/core';
+import PostDetailItemSelector from './PostDetailItemSelector';
  
 const slideImages = [
   '/images/post02.png',
@@ -57,19 +57,20 @@ const styles = theme => ({
   },
 })
 
-class PostDetailSlider extends React.Component {
+class PostDetailSliderWidget extends React.Component {
   constructor(props) {
     super(props);
   }
   componentDidMount() {
-    console.log('increment view count for postID: ' + this.props.posts[0].id);
+    //console.log('increment view count for postID: ' + this.props.posts[0].id);
+    this.props.viewPost(this.props.posts[0]);
   }
   render() {
   const {classes, posts} = this.props;
   if(posts) {
     return (
       <Slide {...properties} style={{height: '100%',}}>
-        {posts.map( item => <PostDetailItem item={item} />)}
+        {posts.map( item => <PostDetailItemSelector item={item} {...this.props} />)}
       </Slide>
     )
   } else {
@@ -78,9 +79,7 @@ class PostDetailSlider extends React.Component {
 }
 };
 
-
-
-export default withStyles(styles)(PostDetailSlider);
+export default withStyles(styles)(PostDetailSliderWidget);
 
 /*
 <div className={classes.eachSlide}>

@@ -13,10 +13,10 @@ import CompetitionSummaryCard from '../Contest/CompetitionSummaryCard';
 import JoinChallengeCard from '../JoinChallengeCard';
 import FeedCard from '../FeedCard';
 import PlaceComponents from '../UIC/PlaceComponents';
-import PostDetailDialog from '../UIC/Me/Posts/PostDetailDialog';
 import { connect } from 'react-redux';
 import contestActions from './../../reducers/contest/actions';
 import ContestFeedHorizontal from './Scrollables/ContestFeedHorizontal';
+import PostDetailWidget from '../../widgets/posts/PostDetailWidget';
 
 const activeLink = classNames({'link': true, 'active': true});
 const dudUrl = 'javascript:;';
@@ -207,7 +207,7 @@ class DashboardComponent extends React.Component {
                   </MasonryGrid>
                 </Paper>
               </Paper>
-              <PostDetailDialog postItem={this.state.item} open={this.state.open} user={user} toggleDialog={this.toggleDialog} />
+              <PostDetailWidget postItem={this.state.item} open={this.state.open} user={user} toggleDialog={this.toggleDialog} />
             </Grid>
             <Grid item xs={4}>
                 <PlaceComponents spacer={20}>
