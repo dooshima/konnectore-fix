@@ -74,8 +74,8 @@ function MainNavigator(props) {
             <ProtectedRoute exact path="/" component={
               (props.user.authToken && props.user.data.hasOwnProperty('id'))? DashboardComponent: HomeCompoment} {...props}/>
             <Route exact path="/onboard" component={OnboardComponent} />
-            <Route path="/password-reset" component={PRComponent} />
-            <Route path="/password-reset/:token" component={PasswordResetComponent} />
+            <PropsRoute exact path="/password/reset" component={PRComponent} />
+            <PropsRoute exact path="/password/reset/:token" component={PasswordResetComponent} />
             <Route path="/people" render={props => <SidebarComponent component={FriendComponent} {...props} />} />
             <Route path="/search" render={renderProps => <SidebarComponent {...renderProps} searchResults={props.searchResults} q={props.q} loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)} component={SearchComponent} />} />
             <Route exact path="/contest" render={renderProps => <SidebarComponent component={ContestComponent} />} />

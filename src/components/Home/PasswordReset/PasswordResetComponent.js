@@ -149,7 +149,7 @@ PasswordResetCompoment.propTypes = {
 
 const mapStateToProps = state => {
     return {
-        //user: state.user,
+        user: state.user,
         appLoading: state.app.isLoading,
     }
 };
