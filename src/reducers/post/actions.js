@@ -5,6 +5,7 @@ import KError from './../../models/KError';
 import dialogActions from '../dialog/actions';
 import Constants from '../../assets/Constants';
 import appActions from '../app/actions';
+import commentActions from '../comment/actions';
 
 const startUploadMedia = isUploading => ({
     type: types.POST_UPLOAD_MEDIA_STARTED,
