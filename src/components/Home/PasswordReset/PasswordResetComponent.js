@@ -108,11 +108,10 @@ class PasswordResetCompoment extends React.Component {
 
     render() {
         const { classes } = this.props;
-        console.log(this.props)
         return (
             <div className={classes.container}>
             {
-            (this.props.appLoading) && <div className={classes.loaderHolder}><LinearProgress
+            (this.props.authLoading || this.props.appLoading) && <div className={classes.loaderHolder}><LinearProgress
             classes={{
                 colorPrimary: classes.linearColorPrimary,
                 barColorPrimary: classes.linearBarColorPrimary,
@@ -127,7 +126,7 @@ class PasswordResetCompoment extends React.Component {
                         borderRadius: 10, padding: 10, margin: '2.4em auto 1.5em'}} />
                     </div>
                     <CardContent>
-                        
+                        <PasswordResetForm {...this.props} />
                     </CardContent>
                     
                 </KCard>
