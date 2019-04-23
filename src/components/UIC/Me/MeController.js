@@ -79,13 +79,15 @@ class MeController extends React.Component {
 
         let count = 1;
         const userPosts = this.filterPosts(user.posts.byId);
-        const keys = user.posts.allIds.sort( (a, b) => b -a);
-        for(let i of keys) {
-            let item = allPosts[i];
-            recentPosts.push(item);
-            if(count >= 20) 
-                break;
-            count++;
+        const keys = typeof(user.posts) !== 'undefined'? user.posts.allIds.sort( (a, b) => b -a): [];
+        if(keys.length > 0) {
+            for(let i of keys) {
+                let item = allPosts[i];
+                recentPosts.push(item);
+                if(count >= 20) 
+                    break;
+                count++;
+            }
         }
 
         recentPosts = recentPosts.sort((a, b) => b.id > a.id);
