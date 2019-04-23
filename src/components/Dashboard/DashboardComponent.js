@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes, { nominalTypeHack } from 'prop-types';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles, createMuiTheme } from '@material-ui/core/styles';
-import { Grid, Paper, LinearProgress } from '@material-ui/core';
+import { Grid, Paper, LinearProgress, Typography } from '@material-ui/core';
 import classNames from 'classnames';
 import ContestListItem from '../ContestListItem';
 import MasonryGrid from '../UIC/MasonryGrid/MasonryGrid';
@@ -190,21 +190,26 @@ class DashboardComponent extends React.Component {
                 <ContestFeedHorizontal contests={contestList} />
                 </div>
                 <Paper elevation={0} style={{marginTop: 30}}>
+                {recentPosts.length > 0 &&
                   <MasonryGrid>
                   {
                     recentPosts.map( (item, i) => {
                       let counter = Math.ceil(Math.random() * 100);
                       let chooser = counter % 2 === 0? true: false;
-                      if(item.type === 'image'){
-                        return <ImageCard key={i} index={i} item={item}  toggleDialog={this.toggleDialog}/>;
-                      } else if (item.type === 'text') {
-                        return <TextCard key={i} index={i} item={item} toggleDialog={this.toggleDialog}/>;
-                      } else {
-                        return <VideoCard key={i} item={item} toggleDialog={this.toggleDialog}/>
+                      if(type !== null && typeof(type) !== 'undefined') {
+                        if(item.type === 'image'){
+                          return <ImageCard key={i} index={i} item={item}  toggleDialog={this.toggleDialog}/>;
+                        } else if (item.type === 'text') {
+                          return <TextCard key={i} index={i} item={item} toggleDialog={this.toggleDialog}/>;
+                        } else {
+                          return <VideoCard key={i} item={item} toggleDialog={this.toggleDialog}/>
+                        }
                       }
                     })
                   }
-                  </MasonryGrid>
+                  </MasonryGrid>}
+                  {recentPosts.length < 1 && <Typography color="textSecondary" 
+                    style={{textAlign: "center", fontSize: 15,}}>No posts found.</Typography>}
                 </Paper>
               </Paper>
               <PostDetailWidget postItem={this.state.item} open={this.state.open} user={user} toggleDialog={this.toggleDialog} />
