@@ -35,7 +35,7 @@ class PostListWidget extends React.Component {
     }
 
     addComment = (post, comment) => {
-        this.props.addComment({author: this.props.author.id, post_id: post.id, comment}, this.props.authToken);
+        this.props.addComment({author: this.props.author.id, post_id: post.id, comment: this.state.comment}, this.props.authToken);
     }
 
     handleCommentChange = comment => {
@@ -54,7 +54,6 @@ class PostListWidget extends React.Component {
             handleCommentChange: this.handleCommentChange,
         };
         const posts = props.posts? props.posts: [];
-        console.log(posts);
         return (
             <React.Fragment>
                 <Paper elevation={0} style={{marginTop: 30}}>
