@@ -108,7 +108,8 @@ class ImageCard extends React.Component {
 
   render() {
     const { classes, src, item, fullName } = this.props;
-    const image = item.src? item.src: "/images/post-img.png";
+    const cover = Utility.getPath(item.src);
+    const image = cover? cover: "/images/post-img.png";
 
     return (
       <KPaper square={false} className={classes.card} style={{backgroundImage: `url(${image})`, backgroundSize: 'cover'}}>

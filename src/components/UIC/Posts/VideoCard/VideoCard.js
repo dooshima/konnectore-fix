@@ -104,11 +104,11 @@ class VideoCard extends React.Component {
 
   render() {
     const { classes, item, fullName } = this.props;
-    const src = item.src? item.src: "/videos/video.mp4";
-    const image = item.coverImage? item.coverImage: "/images/post-img.png";
+    const video = Utility.getPath(item.src);
+    const src = video;
 
     return (
-      <KPaper square={false} className={classes.card} style={{backgroundImage: `url(${image})`, backgroundSize: 'auto', backgroundPosition: 'center'}}>
+      <KPaper square={false} className={classes.card} style={{backgroundColor: `#999`, backgroundSize: 'auto', backgroundPosition: 'center'}}>
 
         <TextWidget
           component="video"
