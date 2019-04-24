@@ -18,12 +18,22 @@ const appendPostId = postId => ({
 const appendCommentId = commentId => ({
     type: types.ME_APPEND_COMMENT_ID,
     commentId,
-}) 
+});
+
+const clearPostIds = postIds => ({
+    type: types.ME_CLEAR_POST_IDS,
+    postIds,
+});
+
+const clearCommentIds = commentIds => ({
+    type: types.ME_CLEAR_COMMENT_IDS,
+    commentIds,
+});
 
 function setDefault() {
     return dispatch => {
-        dispatch(addPostIds([]));
-        dispatch(addCommentIds([]));
+        dispatch(clearPostIds([]));
+        dispatch(clearCommentIds([]));
     }
 }
 

@@ -5,7 +5,7 @@ const Constants = {
     "CLIENT_ID": 2,
     "CLIENT_SECRET": "qx7kdepPeBt2JuInD3OvtoQrHy6pz6pnGUXYcpWm",
     "GRANT_TYPE": "password",
-    "BASE_URL": "https://e5838256.ngrok.io/konnectoreapi/public/",
+    "BASE_URL": "https://99419fed.ngrok.io/konnectoreapi/public/",
 }
 
 export default Constants;

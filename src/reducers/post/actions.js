@@ -76,7 +76,12 @@ const setProgressNumber = progressNumber => ({
 const updatePostComment = comment => ({
     type: types.POST_UPDATE_POST_COMMENT,
     comment,
-})
+});
+
+const clearPosts = byId => ({
+    type: types.POST_CLEAR_POST,
+    byId,
+});
 
 const upload = (data, token, dispatch)  => {
 
@@ -170,7 +175,6 @@ const handleAddComment = (form, token) => {
     Post.addComment(form, token)
       .then( response => {
         dispatch(appActions.appIsLoading(false));
-        console.log(response)
         if(!response.error) {
           dispatch(commentActions.addComment(response.data));
           dispatch(meActions.appendCommentId(response.data.id));
@@ -191,6 +195,7 @@ function setDefault() {
     dispatch(uploadMediaSuceeded({}));
     dispatch(uploadMediaFailed(""));
     dispatch(setProgressNumber(0));
+    dispatch(clearPosts({}));
   }
 }
 

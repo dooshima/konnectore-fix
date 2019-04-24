@@ -219,13 +219,14 @@ const handleLogin = (email, password) => {
             })
             .then( data => {
                 const {user, posts, comments} = data;
+                //console.log(posts, posts.byId)
                 dispatch(showAuthLoading(false));
                 if(!user) {
                     const errorMsg = user.error? user.message: "Error logging in. Please retry";
                     throw new Error(errorMsg);
                 }
-                dispatch(postActions.addPosts(posts.byId));
-                dispatch(meActions.addPostIds(posts.allIds));
+                dispatch(postActions.addPosts(posts.data.byId));
+                dispatch(meActions.addPostIds(posts.data.allIds));
                 dispatch(meActions.addCommentIds(comments.allIds));
                 dispatch(commentActions.addComments(comments.byId));
                 
@@ -395,12 +396,12 @@ const getUser = (id, token) => {
                 dispatch(appActions.appIsLoading(false));
                 if(!response.error) {
                     const {user, posts, comments} = response.data;
-                    
+                    console.log(posts)
                     //const p = extractPosts(posts);
                     //const byId = null !== p && typeof(p) !== 'undefined'? p.byId: {};
                     //const allIds = Utility.isset(p) && Utility.isset(p.allIds)? p.allIds: [];
-                    dispatch(postActions.addPosts(posts.byId));
-                    dispatch(meActions.addPostIds(posts.allIds));
+                    dispatch(postActions.addPosts(posts.data.byId));
+                    dispatch(meActions.addPostIds(posts.data.allIds));
                     dispatch(meActions.addCommentIds(comments.allIds));
                     dispatch(commentActions.addComments(comments.byId));
                     dispatch(authLoginSuccess(user));
