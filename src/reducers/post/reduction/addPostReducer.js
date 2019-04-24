@@ -12,9 +12,11 @@
          return posts;
      }
      const id = post.id;   
-     const allIds = [...posts.allIds, id];
-     const byId = Object.assign(posts.byId, {[id]: post});
-     return {...posts, byId, allIds};
+     //const allIds = [...posts.allIds, id];
+     
+     //const byId = Object.assign(posts, {[id]: post});
+     //console.log(post, posts, byId)
+     return {...posts, ...{[id]: post}};
  }
 
  export default addPostReducer;

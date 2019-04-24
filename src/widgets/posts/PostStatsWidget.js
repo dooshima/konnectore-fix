@@ -6,6 +6,7 @@ import { IconButton, withStyles, Typography, Icon, Link, Button } from '@materia
 import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
 import ShareIcon from '@material-ui/icons/Share';
 import StarIcon from '@material-ui/icons/Star';
+import Utility from '../../services/Utility';
 
 const styles = theme => ({
     iconButton: {
@@ -100,6 +101,8 @@ class PostStatsWidget extends React.Component {
 
     render () { 
         const {classes, likes, views, id, item} = this.props;
+        const user = Utility.isset(item.user)?item.user: {};
+        const album = item.type === 'video'? 'Videos': (item.type === 'image'? 'Images': 'Posts');
     return (
         <>
         <div className={classes.row}>
@@ -141,7 +144,7 @@ class PostStatsWidget extends React.Component {
 
             <div className={classes.postedIn}>
                 <Typography color="textSecondary">Posted in</Typography>
-                <Typography color="textPrimary" className={classes.postedWhere}>Victor Oyemade's Videos</Typography>
+                <Typography color="textPrimary" className={classes.postedWhere}>{user.firstname} {user.lastname}'s {album}</Typography>
             </div>
         </div>
         </>

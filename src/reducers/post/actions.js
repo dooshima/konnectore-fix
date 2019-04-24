@@ -59,7 +59,6 @@ const uploadMedia = (data, token) => {
         upload(data, token, dispatch)
             .then( resp => {
                 dispatch(startUploadMedia(false));
-                console.log(resp)
             } )
             .catch( error => {
                 dispatch(startUploadMedia(false));
@@ -103,7 +102,6 @@ const upload = (data, token, dispatch)  => {
       headers: headers
     })
       .then( resp => {
-        console.log(resp)
         dispatch(setProgressNumber(0));
         if(!resp.data.error) {
           dispatch(dialogActions.showDialog(false));
@@ -111,6 +109,7 @@ const upload = (data, token, dispatch)  => {
           dispatch(dialogActions.setFormData({}));
           dispatch(dialogActions.setPostTextColor("#ffb91b"));
           dispatch(addPost(resp.data.data));
+          dispatch(meActions.appendPostId(resp.data.data.id));
         } else {
 
         }
