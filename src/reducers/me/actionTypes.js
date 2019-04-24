@@ -1,0 +1,4 @@
+export const ME_ADD_POST_IDS = 'ME_ADD_POST_IDS';
+export const ME_ADD_COMMENT_IDS = 'ME_ADD_COMMENT_IDS';
+export const ME_APPEND_POST_ID = 'ME_APPEND_POST_ID';
+export const ME_APPEND_COMMENT_ID = 'ME_APPEND_COMMENT_ID';

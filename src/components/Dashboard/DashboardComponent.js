@@ -173,12 +173,14 @@ class DashboardComponent extends React.Component {
     const { classes, user, contestFeed } = this.props;
     let recentPosts = [];
     const contestList = !contestFeed.data? []: contestFeed.data;
-    console.log(contestList)
+    const keys = typeof(user.posts) !== 'undefined' && user.posts !== null && typeof(user.posts.allIds) !== 'undefined' && user.posts.allIds !== null? user.posts.allIds.sort( (a, b) => b -a): [];
     const posts = user !== null && typeof(user) !== 'undefined' && user.posts !== null && typeof(user.posts) !== 'undefined'? user.posts.byId: [];
-    for(let i in posts) {
+    for(let i of keys) {
       let item = posts[i];
       recentPosts.push(item);
     }
+
+    recentPosts = recentPosts.sort((a, b) => b.id > a.id);
 
     return (
 <div style={{marginTop: 30, marginLeft: 20, marginRight: 20}}>

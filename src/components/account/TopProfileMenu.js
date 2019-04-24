@@ -63,6 +63,7 @@ class TopProfileMenu extends React.Component {
   };
 
   gotoProfile = () => {
+    this.props.getUserInfo(this.props.user.id, this.props.authToken);
     this.props.history.push('/me');
   }
 
@@ -135,6 +136,7 @@ const mapStateToProps = state => {
   return {
     loggedIn: state.user.data.hasOwnProperty('id'),
     user: state.user.data,
+    authToken: state.user.authToken,
   }
 }
 
@@ -142,7 +144,10 @@ const mapDispatchToProps = dispatch => {
   return {
     logout: uid => {
       dispatch(userActions.handleLogout(uid));
-    }
+    },
+    getUserInfo: (id, token) => {
+      dispatch(userActions.getUser(id, token));
+  }
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter((withStyles(styles)(TopProfileMenu))));

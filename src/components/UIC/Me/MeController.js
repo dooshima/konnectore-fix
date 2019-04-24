@@ -20,7 +20,7 @@ import dialogActions from '../../../reducers/dialog/actions';
 import userActions from '../../../reducers/user/actions';
 import PostDetailWidget from '../../../widgets/posts/PostDetailWidget';
 
-class MeController extends React.Component {
+class MeController extends React.PureComponent {
     constructor(props) {
         super(props);
 
@@ -33,7 +33,7 @@ class MeController extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getUserInfo(this.props.user.data.id, this.props.user.authToken);
+        console.log('call the get user info function');
     }
 
     static getDerivedStateFromProps(state) {

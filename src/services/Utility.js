@@ -26,11 +26,16 @@ function isEmail(email) {
     return regex.test(email);
 }
 
+function isset(item) {
+    return null !== item && typeof(item) !== 'undefined';
+}
+
 const Utility = {
     progress,
     getPath,
     getAvatar,
     isEmail,
+    isset,
 };
 
 export default Utility;

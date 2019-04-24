@@ -385,17 +385,17 @@ const getUser = (id, token) => {
         dispatch(appActions.appIsLoading(true));
         Auth.getUser(id, token)
             .then( response => {
+                dispatch(appActions.appIsLoading(false));
                 if(!response.error) {
                     const {user, posts, comments} = response.data;
+                    console.log(user, posts, comments);
+                    
                     const p = extractPosts(posts);
                     dispatch(addUserPosts(p));
                     const byId = null !== p && typeof(p) !== 'undefined'? p.byId: {};
                     dispatch(postActions.addPosts(byId));
                     dispatch(addUserComments(comments));
-                    dispatch(authLoginSuccess(user));
-                    dispatch(showSearchForm(true));
-                    dispatch(authError(""));
-                    dispatch(authSignupRedirect(true));
+                    //dispatch(authLoginSuccess(user));
                 }
             } )
             .catch( error => {
