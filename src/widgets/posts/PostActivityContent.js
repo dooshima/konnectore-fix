@@ -19,7 +19,7 @@ const PostActivityContent = (props) => {
                 {post.text}
                 </Typography>
                 <PostStatsWidget post={post} {...props}/>
-                <CommentListWidget comments={comments} />
+                <CommentListWidget post={post} />
         </React.Fragment>
     )
 }

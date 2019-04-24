@@ -1,6 +1,7 @@
 import React from 'react';
 import { Avatar, Typography, withStyles, IconButton, Button } from '@material-ui/core';
 import StarIcon from '@material-ui/icons/Star';
+import Utility from '../../services/Utility';
 
 const styles = theme => ({
     row: {
@@ -58,22 +59,18 @@ class PostCommentItem extends React.Component {
     }
 
     render() {
-        const {classes} = this.props;
+        const {classes, item, user} = this.props;
         return (
                 <div class={classes.row}>
-                    <Avatar src="/images/avatar.png" className={classes.avatar} />
+                    <Avatar src={Utility.getAvatar(user.avatar)} className={classes.avatar} />
                     <div className={classes.comment}>
-                        <Typography className={classes.author}>Junior Kelechi</Typography>
+                        <Typography className={classes.author}>{user.firstname} {user.lastname}</Typography>
                         <Typography color="textSecondary">
-                            I was there, and was an amazing show indeed! I think the organisers did a fantastic job.
-                            I was there, and was an amazing show indeed! I think the organisers did a fantastic job.
+                            {item.comment}
                         </Typography>
                         <div className={classes.controls}>
                             <div className={classes.actions}>
-                                <IconButton className={classes.iconButton}>
-                                    <StarIcon className={classes.icon}/>
-                                </IconButton>
-                                <Typography color="textSecondary" className={classes.statsText}>17</Typography>
+                                
                                 <Button>
                                     <Typography className={classes.reply}>Reply</Typography>
                                 </Button>
@@ -88,3 +85,10 @@ class PostCommentItem extends React.Component {
 }
 
 export default withStyles(styles)(PostCommentItem);
+
+/**
+ * <IconButton className={classes.iconButton}>
+                                    <StarIcon className={classes.icon}/>
+                                </IconButton>
+                                <Typography color="textSecondary" className={classes.statsText}>17</Typography>
+ */

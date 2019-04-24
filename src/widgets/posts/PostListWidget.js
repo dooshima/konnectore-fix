@@ -36,6 +36,7 @@ class PostListWidget extends React.Component {
 
     addComment = (post, comment) => {
         this.props.addComment({author: this.props.author.id, post_id: post.id, comment: this.state.comment}, this.props.authToken);
+        this.handleCommentChange("");
     }
 
     handleCommentChange = comment => {
