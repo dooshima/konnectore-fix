@@ -6,6 +6,7 @@ import dialogActions from '../dialog/actions';
 import Constants from '../../assets/Constants';
 import appActions from '../app/actions';
 import commentActions from '../comment/actions';
+import meActions from '../me/actions';
 
 const startUploadMedia = isUploading => ({
     type: types.POST_UPLOAD_MEDIA_STARTED,
@@ -71,6 +72,11 @@ const setProgressNumber = progressNumber => ({
     type: types.POST_PROGRESS_NUMBER,
     progressNumber,
 });
+
+const updatePostComment = comment => ({
+    type: types.POST_UPDATE_POST_COMMENT,
+    comment,
+})
 
 const upload = (data, token, dispatch)  => {
 
@@ -166,8 +172,10 @@ const handleAddComment = (form, token) => {
         dispatch(appActions.appIsLoading(false));
         console.log(response)
         if(!response.error) {
-          console.log(response.data)
           dispatch(commentActions.addComment(response.data));
+          dispatch(meActions.appendCommentId(response.data.id));
+          dispatch(meActions.appendPostId(response.data.commentable_id));
+          dispatch(updatePostComment(response.data));
         }
       } )
       .catch( error => {

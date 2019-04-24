@@ -10,9 +10,29 @@ const addCommentIds = commentIds => ({
     commentIds,
 });
 
+const appendPostId = postId => ({
+    type: types.ME_APPEND_POST_ID,
+    postId,
+});
+
+const appendCommentId = commentId => ({
+    type: types.ME_APPEND_COMMENT_ID,
+    commentId,
+}) 
+
+function setDefault() {
+    return dispatch => {
+        dispatch(addPostIds([]));
+        dispatch(addCommentIds([]));
+    }
+}
+
 const meActions = {
     addPostIds,
     addCommentIds,
+    setDefault,
+    appendCommentId,
+    appendPostId,
 };
 
 export default meActions;

@@ -17,6 +17,7 @@ import { connect } from 'react-redux';
 import contestActions from './../../reducers/contest/actions';
 import ContestFeedHorizontal from './Scrollables/ContestFeedHorizontal';
 import PostDetailWidget from '../../widgets/posts/PostDetailWidget';
+import Utility from '../../services/Utility';
 
 const activeLink = classNames({'link': true, 'active': true});
 const dudUrl = 'javascript:;';
@@ -170,11 +171,11 @@ class DashboardComponent extends React.Component {
     }
 
     render() {
-    const { classes, user, contestFeed } = this.props;
+    const { classes, user, contestFeed, me, post } = this.props;
     let recentPosts = [];
     const contestList = !contestFeed.data? []: contestFeed.data;
-    const keys = typeof(user.posts) !== 'undefined' && user.posts !== null && typeof(user.posts.allIds) !== 'undefined' && user.posts.allIds !== null? user.posts.allIds.sort( (a, b) => b -a): [];
-    const posts = user !== null && typeof(user) !== 'undefined' && user.posts !== null && typeof(user.posts) !== 'undefined'? user.posts.byId: [];
+    const keys = Utility.isset(me) && Utility.isset(me.postIds)? me.postIds.sort( (a, b) => b -a): [];
+    const posts = Utility.isset(post.byId) ? post.byId: [];
     for(let i of keys) {
       let item = posts[i];
       recentPosts.push(item);
@@ -237,6 +238,8 @@ DashboardComponent.propTypes = {
 const mapStateToProps = state => {
   return {
     contestFeed: state.contest.feed,
+    me: state.me,
+    post: state.post,
   }
 }
 

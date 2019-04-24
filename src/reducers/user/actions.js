@@ -7,6 +7,9 @@ import dialogActions from '../dialog/actions';
 import contestActions from '../contest/actions';
 import postActions from '../post/actions';
 import friendActions from '../friend/actions';
+import meActions from '../me/actions';
+import Utility from '../../services/Utility';
+import commentActions from '../comment/actions';
 
 const userViewProfile = user => ({
     type: types.USER_VIEW_PROFILE,
@@ -221,12 +224,16 @@ const handleLogin = (email, password) => {
                     const errorMsg = user.error? user.message: "Error logging in. Please retry";
                     throw new Error(errorMsg);
                 }
+                dispatch(postActions.addPosts(posts.byId));
+                dispatch(meActions.addPostIds(posts.allIds));
+                dispatch(meActions.addCommentIds(comments.allIds));
+                dispatch(commentActions.addComments(comments.byId));
                 
-                const p = extractPosts(posts);
-                dispatch(addUserPosts(p));
-                const byId = null !== p && typeof(p) !== 'undefined'? p.byId: {};
-                dispatch(postActions.addPosts(byId));
-                dispatch(addUserComments(comments));
+                //const p = extractPosts(posts);
+                //dispatch(addUserPosts(p));
+                //const byId = null !== p && typeof(p) !== 'undefined'? p.byId: {};
+                //dispatch(postActions.addPosts(byId));
+                //dispatch(addUserComments(comments));
                 dispatch(authLoginSuccess(user));
                 dispatch(showSearchForm(true));
                 dispatch(authError(""));
@@ -388,14 +395,15 @@ const getUser = (id, token) => {
                 dispatch(appActions.appIsLoading(false));
                 if(!response.error) {
                     const {user, posts, comments} = response.data;
-                    console.log(user, posts, comments);
                     
-                    const p = extractPosts(posts);
-                    dispatch(addUserPosts(p));
-                    const byId = null !== p && typeof(p) !== 'undefined'? p.byId: {};
-                    dispatch(postActions.addPosts(byId));
-                    dispatch(addUserComments(comments));
-                    //dispatch(authLoginSuccess(user));
+                    //const p = extractPosts(posts);
+                    //const byId = null !== p && typeof(p) !== 'undefined'? p.byId: {};
+                    //const allIds = Utility.isset(p) && Utility.isset(p.allIds)? p.allIds: [];
+                    dispatch(postActions.addPosts(posts.byId));
+                    dispatch(meActions.addPostIds(posts.allIds));
+                    dispatch(meActions.addCommentIds(comments.allIds));
+                    dispatch(commentActions.addComments(comments.byId));
+                    dispatch(authLoginSuccess(user));
                 }
             } )
             .catch( error => {
@@ -440,6 +448,8 @@ function setAppDefault(dispatch) {
     dispatch(friendActions.setDefault());
     dispatch(dialogActions.setDefault());
     dispatch(contestActions.setDefault());
+    dispatch(meActions.setDefault());
+    dispatch(commentActions.setDefault());
 }
 
 const userActions = {

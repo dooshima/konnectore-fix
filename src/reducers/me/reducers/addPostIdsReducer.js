@@ -8,8 +8,15 @@ import Utility from "../../../services/Utility";
      if(!Utility.isset(action.postIds)) {
          return postIds;
      }
-
-     return [...postIds, action.postIds];
+     const newIds = action.postIds;
+     const ids = [...postIds, ...newIds];
+     const pIds = [];
+     for(let id of ids) {
+         if(!pIds.includes(id)) {
+             pIds.push(id);
+         }
+     }
+     return pIds;
  };
 
  export default addPostIdsReducer;

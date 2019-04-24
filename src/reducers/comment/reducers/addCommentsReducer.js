@@ -8,7 +8,7 @@
      }
 
      const newComments = action.comments;
-     return {...comments, newComments};
+     return {...comments, ...newComments};
  };
 
  export default addCommentsReducer;

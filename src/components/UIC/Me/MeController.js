@@ -19,6 +19,7 @@ import PropsRoute from '../../Nav/PropsRoute';
 import dialogActions from '../../../reducers/dialog/actions';
 import userActions from '../../../reducers/user/actions';
 import PostDetailWidget from '../../../widgets/posts/PostDetailWidget';
+import Utility from '../../../services/Utility';
 
 class MeController extends React.PureComponent {
     constructor(props) {
@@ -73,13 +74,14 @@ class MeController extends React.PureComponent {
             return posts;
     }
     render() {
-        const {match, user, allPosts} = this.props;
+        const {match, user, allPosts, me} = this.props;
         let recentPosts = [];
         const fullName = user.data.firstname + ' ' + user.data.lastname;
 
         let count = 1;
-        const userPosts = this.filterPosts(user.posts.byId);
-        const keys = typeof(user.posts) !== 'undefined' && user.posts !== null && typeof(user.posts.allIds) !== 'undefined' && user.posts.allIds !== null? user.posts.allIds.sort( (a, b) => b -a): [];
+        
+        const keys = Utility.isset(me) && Utility.isset(me.postIds)? me.postIds.sort( (a, b) => b -a): [];
+
         if(keys.length > 0) {
             for(let i of keys) {
                 let item = allPosts[i];
@@ -132,6 +134,7 @@ const mapStateToProps = state => {
     return {
         user: state.user,
         allPosts: state.post.byId,
+        me: state.me,
     }
 }
 

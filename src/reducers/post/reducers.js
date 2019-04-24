@@ -5,6 +5,7 @@ import progressNumberReducer from './reduction/progressNumberReducer';
 import addPostsReducer from './reduction/addPostsReducer';
 import addViewReducer from './reduction/addViewReducer';
 import addLikeReducer from './reduction/addLikeReducer';
+import updatePostCommentReducer from './reduction/updatePostCommentReducer';
 
 const progressNumber = (progressNumber=0, action) => {
     switch(action.type) {
@@ -23,6 +24,8 @@ const byId = (posts={}, action) => {
             return addViewReducer(posts, action);
         case types.POST_LIKE_POST:
             return addLikeReducer(posts, action);
+        case types.POST_UPDATE_POST_COMMENT:
+            return updatePostCommentReducer(posts, action);
         default:
             return posts;
     }

@@ -10,9 +10,18 @@ const addComment = comment => ({
     comment,
 });
 
+function setDefault() {
+    return dispatch => {
+        dispatch(addComment({}));
+        dispatch(addComments({}));
+    }
+}
+
 const commentActions = {
     addComment,
     addComments,
+    setDefault,
 };
+
 
 export default commentActions;

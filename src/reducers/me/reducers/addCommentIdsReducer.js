@@ -8,8 +8,15 @@ import Utility from "../../../services/Utility";
      if(!Utility.isset(action.commentIds)) {
          return commentIds;
      }
-
-     return [...commentIds, action.commentIds];
+     const newIds = action.commentIds;
+     const ids = [...commentIds, ...newIds];
+     const cIds = [];
+     for(let id of ids) {
+         if(!cIds.includes(id)) {
+             cIds.push(id);
+         }
+     }
+     return cIds;
  };
 
  export default addCommentIdsReducer;
