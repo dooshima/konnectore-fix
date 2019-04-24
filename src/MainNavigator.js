@@ -17,6 +17,8 @@ import DashboardComponent from './components/Dashboard/DashboardComponent';
 import ContestController from './components/Contest/ContestController';
 import PasswordResetComponent from './components/Home/PasswordReset/PasswordResetComponent';
 import PRComponent from './components/Home/PasswordReset/PRComponent';
+import InboxComponent from './components/Inbox/InboxComponent';
+import NotificationComponent from './components/Notification/NotificationComponent';
 
 const styles = theme => ({
   wrapper: {
@@ -81,6 +83,8 @@ function MainNavigator(props) {
             <Route exact path="/contest" render={renderProps => <SidebarComponent component={ContestComponent} />} />
             <Route path="/contest/:slug" render={props => <SidebarComponent component={ContestController} {...props} />} />
             <ProtectedRoute path="/me" render={p => <SidebarComponent component={MeController} {...p} />} />
+            <ProtectedRoute exact path="/inbox" render={p => <SidebarComponent component={InboxComponent} {...props} />} />
+            <ProtectedRoute exact path="/activities" render={p => <SidebarComponent component={NotificationComponent} {...props} />} />
             <PropsRoute component={NotFoundComponent} user={props.user} />
         </Switch>
     )
