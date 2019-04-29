@@ -42,7 +42,7 @@ const ContestHeader = withRouter( (props) => {
           component={ContestHeaderNav} 
           back={props.match.url}
           title="The Sctage Contest - Submissions" />
-        <Route exact path={props.path} render={ p => <TopNav {...p} /> } />
+        <PropsRoute exact path={props.path} component={TopNav} {...props} />
       </Switch>
             
 

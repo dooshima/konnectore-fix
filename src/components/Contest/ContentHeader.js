@@ -53,11 +53,21 @@ const styles = theme => ({
   }
 });
 
-const ContentHeader = props => {
-  const { classes, editProfile } = props;
+class ContentHeader extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  handleFollowContest = () => {
+    console.log(this.props.contest, this.props.accessToken)
+  }
+
+  render() {
+
+  const { classes, editProfile } = this.props;
   const KButtonLink = withRouter( ({history}) => {
     return <KButton
-      onClick={() => history.push("/me/account/edit")}
+      onClick={this.handleFollowContest}
       label="Follow" size="small" />
   })
   return (
@@ -65,7 +75,7 @@ const ContentHeader = props => {
         <Grid container spacing={8}>
           <Grid item>
             <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src="/contests/download.png" />
+              <img className={classes.img} alt="complex" src="/contests/banner-img.png" />
             </ButtonBase>
           </Grid>
           <Grid item xs={8} sm container className={classes.summary}>
@@ -88,6 +98,7 @@ const ContentHeader = props => {
         </Grid>
     </div>
   );
+  }
 }
 
 ContentHeader.propTypes = {

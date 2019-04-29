@@ -8,6 +8,7 @@ const Contest = {
     addEntry,
     getContest,
     getContestFeed,
+    follow,
 };
 
 function addEntry (form, token) {
@@ -15,9 +16,14 @@ function addEntry (form, token) {
         .then( response => response.data );
 }
 
-function getContest (slug) {
-    return Server.post('api/get-contest', {slug})
+function getContest (slug, user_id) {
+    return Server.post('api/get-contest', {slug, user_id})
         .then( response => response.data );
+}
+
+function follow (form, token) {
+    return Server.authPost('api/follow-contest', form, token)
+        .then( response => response.data )
 }
 
 function getContestFeed () {

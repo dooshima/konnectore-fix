@@ -1,0 +1,9 @@
+.payButton {
+    background-color: #00a294;
+    padding: 10px 20px;
+    min-width: 34px;
+    border-radius: 17px;
+    color: white;
+    cursor: pointer;
+    outline: none;
+}

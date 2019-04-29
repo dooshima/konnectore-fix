@@ -66,19 +66,16 @@ class ContestTabs extends React.Component {
     let filter = '';
     switch(value) {
       case 0:
-        filter = 'feed';
+        filter = 'contest';
         break;
       case 1:
-        filter = 'contest';
+        filter = 'news';
         break;
       case 2:
         filter = 'image';
         break;
       case 3:
         filter = 'video';
-        break;
-      case 4:
-        filter = 'text';
         break;
       default:
         filter = 'feed';

@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import contestActions from '../../reducers/contest/actions';
 import ContestUploadProgress from './ContestUploadProgress';
 import Constants from '../../assets/Constants';
+import EntrySubmissionMenu from './EntrySubmissionMenu';
 
 
 const styles = theme => ({
@@ -203,7 +204,8 @@ class AddEntryComponent extends React.Component {
         
                 <KCard className={classes.card}>
                 <ContentHeader />
-                    <CardHeader title="Add an entry" className={classes.title} />
+                    {false && <CardHeader title="Add an entry" className={classes.title} />}
+                    <CardHeader title={<EntrySubmissionMenu />} />
                     <CardContent className={classes.content}>
                         <div className={classes.pickerWrapper}>
                             <div className={classes.picker} 

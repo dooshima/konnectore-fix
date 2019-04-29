@@ -18,6 +18,7 @@ import AvailablePositionsWidget from './AvailablePositionsWidget';
 import MyContestsWidget from './MyContestsWidget';
 import AddEntryComponent from './AddEntryComponent';
 import contestActions from '../../reducers/contest/actions';
+import StageListWidget from './StageListWidget';
 
 class ContestController extends React.Component {
     constructor(props) {
@@ -32,7 +33,7 @@ class ContestController extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getContest(this.props.match.params.slug);
+        this.props.getContest(this.props.match.params.slug, this.props.user.id);
     }
 
     static getDerivedStateFromProps(state) {
@@ -45,31 +46,40 @@ class ContestController extends React.Component {
 
     filterPosts(posts) {
         const filter = this.state.filter;
-        if(['image', 'text', 'video'].includes(filter)) {
+        if(['image', 'news', 'video'].includes(filter)) {
             let p = [];
             for(let i in posts) {
                 let post = posts[i];
-                if(post.type === filter)
+                if(post.type === filter || post.content_type == filter)
                     p.push(post);
             }
             return p;
         } else
             return posts;
     }
+
+    handleFollowContest = () => {
+        this.props.followContest({contest_id: this.props.contest.id}, this.props.accessToken);
+    }
+    
     render() {
-        const {match, user} = this.props;
+        const {match, user, contest} = this.props;
         let recentPosts = [];
         const fullName = user.data.firstname + ' ' + user.data.lastname;
-
-        console.log(match.params.slug)
+        
         let count = 1;
-        const userPosts = this.filterPosts(user.posts.byId);
-        for(let i in userPosts) {
-            let item = userPosts[i];
+        const cPosts = this.filterPosts(contest.posts);
+        for(let i in cPosts) {
+            let item = cPosts[i];
             recentPosts.push(item);
             if(count >= 20) 
                 break;
             count++;
+        }
+
+        const funcs = {
+            filter: this.state.filter,
+            posts: cPosts,
         }
 
         return (
@@ -77,9 +87,9 @@ class ContestController extends React.Component {
                 <Grid container spacing={0}>
                     <Grid item xs={8}>
                     <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
-                        <ContestHeader path={match.path} {...this.props} setFilter={this.setFilter.bind(this)} />
+                        <ContestHeader path={match.path} {...this.props} setFilter={this.setFilter.bind(this)} handleFollowContest={this.handleFollowContest} />
                         <Switch>
-                            <PropsRoute exact path={`${match.path}`} component={ContestFeedComponent} />
+                            <PropsRoute exact path={`${match.path}`} component={ContestFeedComponent} {...this.props} {...funcs} />
                             <Route exact path={`${match.path}/guide`} component={ContestGuideComponent} />
                             <Route exact path={`${match.path}/entry`} component={AddEntryComponent} />
                         </Switch>
@@ -90,6 +100,7 @@ class ContestController extends React.Component {
                             <PlaceComponents spacer={20}>
                                 <PropsRoute exact path={`${match.path}/`} component={PageInfoWidget} />
                                 <Route exact path={`${match.path}`} component={TopContestantsWidget} />
+                                <Route exact path={`${match.path}/entry`} component={StageListWidget} />
                                 <PropsRoute exact path={`${match.path}/guide`} component={AvailablePositionsWidget} url={`${match.url}`} />
                                 <Route exact path={`${match.path}/guide`} component={RecentContestantsWidget} />
                                 <Route exact path={`${match.path}/entry`} component={TopContestantsWidget} />
@@ -113,6 +124,7 @@ const mapStateToProps = state => {
     return {
         user: state.user,
         accessToken: state.user.authToken,
+        contest: state.contest.data,
     }
 }
 
@@ -121,8 +133,11 @@ const mapDispatchToProps = dispatch => {
       showDialog: open => {
         dispatch(dialogActions.showDialog(open));
       },
-      getContest: slug => {
-          dispatch(contestActions.getContest(slug));
+      getContest: (slug, user_id) => {
+          dispatch(contestActions.getContest(slug, user_id));
+      },
+      followContest: (form, token) => {
+          dispatch(contestActions.followContest(form, token));
       }
     }
 };

@@ -53,6 +53,7 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    overflow: 'hidden',
   },
   avatar: {
     position: 'absolute',
@@ -114,17 +115,17 @@ const MeHeaderSummary = props => {
               </Grid>
               <Grid item style={{display: 'flex', justifyContent: 'start'}}>
                 <div style={{textAlign: 'center', marginRight: 20,}}>
-                  <Typography style={{ cursor: 'pointer' }}>Followers</Typography>
+                  <Typography>Followers</Typography>
                   <Typography component="span" style={{fontWeight: 900}}>{person.followersCount}</Typography>
                 </div>
 
                 <div style={{textAlign: 'center', marginRight: 20,}}>
-                  <Typography style={{ cursor: 'pointer' }}>Following</Typography>
+                  <Typography>Following</Typography>
                   <Typography component="span" style={{fontWeight: 900}}>{person.followingsCount}</Typography>
                 </div>
 
                 <div style={{textAlign: 'center'}}>
-                  <Typography style={{ cursor: 'pointer' }}>Contests</Typography>
+                  <Typography>Contests</Typography>
                   <Typography component="span" style={{fontWeight: 900}}>{person.contestsCount}</Typography>
                 </div>
               </Grid>

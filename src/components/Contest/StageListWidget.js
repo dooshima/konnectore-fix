@@ -52,21 +52,21 @@ const styles = theme => ({
         fontSize: theme.typography.fontSize * .9,
         margin: 20,
         textAlign: 'center',
+    },
+    stageItem: {
+        borderBottom: '1px solid #efefef',
+        paddingLeft: 0,
     }
 });
 
 const contestants = [...Array(20)].map((v, i) => i);
-class AvailablePositionsWidget extends React.Component {
+class StageListWidget extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            category: 1,
-        }
     }
 
-    handleChange = value => {
-        this.setState({category: value})
+    handleChange = event => {
+        console.log(event);
     }
 
     render() {
@@ -80,20 +80,26 @@ class AvailablePositionsWidget extends React.Component {
                     <img src="/contests/award2.png" className={classes.award} />
                     <img src="/contests/award3.png" className={classes.award} />
                 </div>
-                {false && <div className={classes.categoryList}>
+                <div className={classes.categoryList}>
                     <div style={{lineHeight: '5px'}}>
                         <Typography>Categor(ies) </Typography>&nbsp;
                         <Typography color="primary">Vocalists, Comedians, Dancers</Typography>
                     </div>
-                </div>}
-                <KFormSelect options={[{label: 'Singer', value: 1}, {label: 'Comedian', value: 2} ]} handleChange={this.handleChange} value={this.state.category} label="Category" name="category" />
-                <Typography className={classes.mentioned}>
-                    Select one of the above categories
-                </Typography>
-                <KBigButton onClick={() => history.push(`${url}/entry`)} label="Join the contest" />
-                <Typography className={classes.agree}>
-                    By joining, you agree that you understand the contest guidelines
-                </Typography>
+                </div>
+                <List style={{width: '100%'}}>
+                    <ListItem className={classes.stageItem}>
+                        <Typography>Stage 1</Typography>
+                    </ListItem>
+                    <ListItem className={classes.stageItem}>
+                        <Typography>Stage 2</Typography>
+                    </ListItem>
+                    <ListItem className={classes.stageItem}>
+                        <Typography>Stage 3</Typography>
+                    </ListItem>
+                    <ListItem className={classes.stageItem}>
+                        <Typography>Stage 4</Typography>
+                    </ListItem>
+                </List>
             </CardContent>
         </KCard>
     )
@@ -101,4 +107,4 @@ class AvailablePositionsWidget extends React.Component {
 }
 
 
-export default withStyles(styles)(AvailablePositionsWidget);
+export default withStyles(styles)(StageListWidget);

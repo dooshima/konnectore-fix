@@ -202,7 +202,7 @@ class SignupForm extends React.Component {
 
         <div>
           <Typography className={classes.headerIntro}>
-            Don't have an account? <Link to="/signup" color="primary">Signup</Link>
+            Don't have an account? <Link to="/" color="primary">Signup</Link>
           </Typography>
         </div>
       </form>

@@ -114,8 +114,8 @@ class TextCard extends React.Component {
         <TextWidget 
           text={item.text}
           user={{avatar: item.user && item.user.avatar? Utility.getAvatar(item.user.avatar): Utility.getAvatar("")}}
-          comments="1725"
-          endorsements="580"
+          comments={item.comments_count}
+          endorsements={item.likes_count}
           backgroundColor={item.backgroundColor}
           textColor={item.textColor}
           fullName={fullName}

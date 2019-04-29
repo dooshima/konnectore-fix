@@ -2,6 +2,7 @@ import React from 'react';
 import { Avatar, Typography, withStyles, IconButton, Button } from '@material-ui/core';
 import StarIcon from '@material-ui/icons/Star';
 import Utility from '../../services/Utility';
+import ReactTimeAgo from 'react-time-ago/commonjs/ReactTimeAgo';
 
 const styles = theme => ({
     row: {
@@ -76,7 +77,7 @@ class PostCommentItem extends React.Component {
                                 </Button>
                                 
                             </div>
-                            <Typography color="textSecondary">30 mins ago</Typography>
+                            <Typography color="textSecondary"><ReactTimeAgo date={new Date(item.created_at)} locale="en" /></Typography>
                         </div>
                     </div>
                 </div>

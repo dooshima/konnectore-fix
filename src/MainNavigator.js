@@ -19,6 +19,7 @@ import PasswordResetComponent from './components/Home/PasswordReset/PasswordRese
 import PRComponent from './components/Home/PasswordReset/PRComponent';
 import InboxComponent from './components/Inbox/InboxComponent';
 import NotificationComponent from './components/Notification/NotificationComponent';
+import AccountCreatedComponent from './components/Home/AccountCreatedComponent';
 
 const styles = theme => ({
   wrapper: {
@@ -77,6 +78,7 @@ function MainNavigator(props) {
               (props.user.authToken && props.user.data.hasOwnProperty('id'))? DashboardComponent: HomeCompoment} {...props}/>
             <Route exact path="/onboard" component={OnboardComponent} />
             <PropsRoute exact path="/password/reset" component={PRComponent} />
+            <PropsRoute exact path="/signed-up" component={AccountCreatedComponent} user={props.user} />
             <PropsRoute exact path="/password/reset/:token" component={PasswordResetComponent} />
             <Route path="/people" render={props => <SidebarComponent component={FriendComponent} {...props} />} />
             <Route path="/search" render={renderProps => <SidebarComponent {...renderProps} searchResults={props.searchResults} q={props.q} loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)} component={SearchComponent} />} />

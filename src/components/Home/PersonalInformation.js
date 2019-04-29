@@ -2,7 +2,7 @@ import React from 'react';
 import KCard from '../UIC/KCard';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { CardContent, Typography, FormControl, InputLabel, Input, AppBar, Toolbar, Button, CardActions, Grid } from '@material-ui/core';
+import { CardContent, Typography, FormControl, InputLabel, Input, AppBar, Toolbar, Button, CardActions, Grid, Select, MenuItem } from '@material-ui/core';
 import KButton from '../UIC/KButton';
 import OnboardMenu from './OnboardMenu';
 import KBigButton from '../UIC/KBigButton';
@@ -181,6 +181,29 @@ const PersonalInformation = props => {
                                             rows={4}
                                             style={{borderRadius: 10,}}
                                         />
+                                </FormControl>
+                            </Grid>
+                            <Grid item md={6}>
+                                <FormControl className={classes.formControl}>
+                                    <InputLabel htmlFor="usertype" shrink className={classes.bootstrapFormLabel}>Goal (Optional)</InputLabel>
+                                        <Select 
+                                            value={props.usertype} 
+                                            onChange={props.handleChange('usertype')}
+                                            input={<Input id="usertype" 
+                                                
+                                                 
+                                                fullWidth={true}
+                                                disableUnderline={true}
+                                                classes={{
+                                                    root: classes.bootstrapRoot,
+                                                    input: classes.bootstrapInput,
+                                                }} 
+                                            />}
+                                            >
+                                            <MenuItem value="3">Workforce</MenuItem>
+                                            <MenuItem value="4">Business</MenuItem>
+                                            <MenuItem value="2">Regular User</MenuItem>
+                                            </Select>
                                 </FormControl>
                             </Grid>
                         </Grid>

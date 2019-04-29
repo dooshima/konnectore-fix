@@ -70,7 +70,7 @@ class SignUp extends React.Component {
     render() {
         const { classes } = this.props;
         if(this.props.signupSuccessful) {
-            this.props.history.push("/onboard");
+            this.props.history.push("/signed-up");
         }
         return (
             <form className={classes.form} noValidate autoComplete="off">

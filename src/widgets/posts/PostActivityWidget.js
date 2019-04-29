@@ -8,6 +8,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import { CardHeader, Avatar, CardActions, TextField, FormControl, Input } from '@material-ui/core';
 import AlarmIcon from '@material-ui/icons/Alarm'
 import Utility from '../../services/Utility';
+import ReactTimeAgo from 'react-time-ago/commonjs/ReactTimeAgo';
 
 const styles = theme => ({
     postText: {
@@ -120,7 +121,7 @@ class PostActivityWidget extends React.Component {
                     <div className={classes.subheader}>
                     <AlarmIcon size="small" className={classes.alarmIcon} />
                     <Typography variant="subtitle1" color="textSecondary">
-                        30 mins ago
+                        <ReactTimeAgo date={new Date(item.created_at)} locale="en" />
                     </Typography>
                     </div>
                 }

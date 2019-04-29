@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { FormControl, InputLabel, Input, Select } from '@material-ui/core';
+import { FormControl, InputLabel, Input, Select, MenuItem } from '@material-ui/core';
 
 
 const styles = theme => ({
@@ -27,24 +27,26 @@ const styles = theme => ({
         },
       },
     formInput: {
-        borderRadius: 20,
+        borderRadius: 5,
         position: 'relative',
-        backgroundColor: '#f8f8f8',
-        border: '1px solid transparent',
+        backgroundColor: 'transparent',
+        border: '1px solid #444',
         fontSize: 14,
-        color: '#a2a2a2',
-        padding: '10px 12px',
+        color: '#444', // '#a2a2a2',
+        padding: '4px 8px',
         transition: theme.transitions.create(['border-color', 'box-shadow']),
         '&:focus': {
           borderRadius: 20,
           borderColor: 'transparent',
           boxShadow: '0 0 0 0.2rem rgba(0,0,0,.01)',
+          backgroundColor: 'transparent',
         },
         '&::placeholder': {
             textOverflow: 'ellipsis !important',
-            color: '#a2a2a2',
+            color: '#444', // '#a2a2a2',
             fontSize: 14,
-        }
+        },
+        marginTop: 20,
     },
     bootstrapTextarea: {
         flex: 1,
@@ -69,11 +71,12 @@ const styles = theme => ({
       },
     bootstrapFormLabel: {
         fontSize: 16,
+        
     },
     
 });
 
-class KFormInput extends React.Component {
+class KFormSelect extends React.Component {
     constructor(props) {
         super(props);
 
@@ -81,23 +84,35 @@ class KFormInput extends React.Component {
         }
     }
 
+    handleSelect = name => value => {
+        this.props.handleChange(value.target.value);
+    }
+
     render() {
-    const { classes, placeholder, name, handleChange, ...rest } = this.props;
+    const { classes, placeholder, name, value, handleChange, options, label, ...rest } = this.props;
     return (
         <FormControl className={classes.formControl}>
-            <Input placeholder={placeholder}
-            disableUnderline={true}
-            multiline={true}
-            onChange={handleChange(name)}
-            className={classes.formInput}
-            {...rest} />
+            {label && <InputLabel htmlFor={label} shrink className={classes.bootstrapFormLabel}>{label}</InputLabel>}
+            <Select
+                onChange={this.handleSelect(name)}
+                value={value}
+                input={
+                    <Input placeholder={placeholder}
+                    disableUnderline={true}
+                    className={classes.formInput} 
+                    />
+                } {...rest}>
+                    {
+                        options.map( option => <MenuItem value={option.value}>{option.label}</MenuItem>)
+                    }
+                </Select>
         </FormControl>
     )
     }
 };
 
-KFormInput.propTypes = {
+KFormSelect.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(KFormInput);
+export default withStyles(styles)(KFormSelect);

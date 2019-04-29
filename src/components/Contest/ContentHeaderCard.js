@@ -42,19 +42,30 @@ const styles = theme => ({
 });
 
 const ContestHeaderCard = props => {
-  const { classes, editProfile } = props;
+  const { classes, editProfile, contest } = props;
   const KButtonLink = withRouter( ({history}) => {
+    if(contest.followed == -1) {
+      return <KButton
+      onClick={() => props.handleFollowContest()}
+      label="Login to Follow" disabled={true} size="small" />
+    } else if(contest.followed > 0) {
+      return <KButton
+      onClick={() => props.handleFollowContest()}
+      label="Following" disabled size="small" />
+    } else {
     return <KButton
-      onClick={() => history.push("/me/account/edit")}
+      onClick={() => props.handleFollowContest()}
       label="Follow" size="small" />
-  })
+    }
+  });
+  
   return (
     <div className={classes.root}>
       <Paper elevation={0} className={classes.paper} style={{backgroundImage: `url('/contests/cover-img-grp.png')`}}>
         <Grid container spacing={8}>
           <Grid item>
             <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src="/contests/download.png" />
+              <img className={classes.img} alt="complex" src="/contests/banner-img.png" />
             </ButtonBase>
           </Grid>
           <Grid item xs={8} sm className={classes.summary}>

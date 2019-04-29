@@ -35,10 +35,10 @@ const setContestData = data => ({
     data,
 })
 
-const getContest = (slug) => {
+const getContest = (slug, user_id) => {
     return dispatch => {
         dispatch(appActions.appIsLoading(true));
-        Contest.getContest(slug)
+        Contest.getContest(slug, user_id)
             .then( response => {
                 dispatch(appActions.appIsLoading(false));
                 if(!response.error) {
@@ -46,6 +46,7 @@ const getContest = (slug) => {
                 }
             })
             .catch( error => {
+                dispatch(appActions.appIsLoading(false));
                 console.log(error)
             })
     }
@@ -116,6 +117,21 @@ const getContestFeed = () => {
     }
 }
 
+const followContest = (form, token) => {
+    return dispatch => {
+        dispatch(appActions.appIsLoading(true));
+        Contest.follow(form, token)
+            .then( response => {
+                dispatch(appActions.appIsLoading(false));
+                console.log(response)
+            } )
+            .catch( error => {
+                dispatch(appActions.appIsLoading(false));
+                console.log(error)
+            } )
+    }
+}
+
 function setDefault() {
     return dispatch => {
         dispatch(setUploadCount(0));
@@ -137,6 +153,7 @@ const contestActions = {
     setContestFeed,
     getContestFeed,
     setDefault,
+    followContest,
 };
 
 export default contestActions;

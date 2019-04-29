@@ -1,15 +1,19 @@
-import React, { Component } from 'react';
-  //import the library
-  import PaystackButton from 'react-paystack';
+import React, { Component, StyleSheet } from 'react';
+import PaystackButton from 'react-paystack';
 import KFormInput from '../../widgets/form/KFormInput';
+import Constants from './../../assets/Constants';
+import './payButton.css';
 
   class KPaystackButton extends Component {
+    constructor(props) {
+      super(props);
+    
+      this.state = {
+        key: Constants.PAYSTACK_PUBLIC_KEY, //PAYSTACK PUBLIC KEY
+        email: props.user.email,
+        amount: "",
 
-    state = {
-      key: "", //PAYSTACK PUBLIC KEY
-      email: "",
-      amount: 0,
-
+      }
     }
 
     callback = (response) => {
@@ -32,28 +36,35 @@ import KFormInput from '../../widgets/form/KFormInput';
     }
 
     handleChange = name => event => {
-      this.setState({[name]: event.target.value})
+      this.setState({[name]: name === 'amount'? +event.target.value * 100: event.target.value});
+    }
+
+    callback = data => {
+      console.log(data);
     }
 
     render() {
-      console.log(this.state);
+      //console.log(this.state)
       return (
         <div>
-          <p>
-            <KFormInput placeholder="Enter amount" handleChange={this.handleChange} name="amount" />
-            <PaystackButton
+          <p style={{width: 350, margin: "3em auto", overflow: "hidden"}}>
+            <KFormInput placeholder="Enter amount" 
+              handleChange={this.handleChange} 
+              name="amount"
+              style={{marginBottom: 30,}} />
+            {this.state.email && this.state.amount && <PaystackButton
               text="Make Payment"
               class="payButton"
               callback={this.callback}
               close={this.close}
-              disabled={true}
-              embed={true}
+              disabled={false}
+              embed={false}
               reference={this.getReference()}
               email={this.state.email}
               amount={this.state.amount}
               paystackkey={this.state.key}
               tag="button"
-            />
+            />}
           </p>
         </div>
       );

@@ -18,6 +18,7 @@ import PostDetailDialogController from '../../Dialogs/PostDetailDialogController
 import dialogActions from '../../../reducers/dialog/actions';
 import { connect } from 'react-redux';
 import Utility from '../../../services/Utility';
+import ReactTimeAgo from 'react-time-ago'
 
 
 const styles = theme => ({
@@ -33,6 +34,7 @@ const styles = theme => ({
   actions: {
     display: 'flex',
     padding: `${theme.spacing.unit * 0.7}px ${theme.spacing.unit * 1.5}px`,
+    flex: 1,
   },
   p: {
     color: '#fff',
@@ -84,11 +86,13 @@ const styles = theme => ({
   },
   title: {
     marginLeft: theme.spacing.unit * 1.5,
+    textAlign: 'center',
   },
   titleStat: {
       color: 'rgba(255,255,255,0.6)',
       fontSize: theme.spacing.unit * 1.1,
       fontWeight: 200,
+      textAlign: 'left',
   },
   icon: {
     margin: theme.spacing.unit * 0,
@@ -110,6 +114,8 @@ const styles = theme => ({
     background: 'none',
     border: 'none',
     outline: 'none',
+    display: 'block',
+    width: '100%',
   }
 });
 
@@ -138,8 +144,8 @@ class TextWidget extends React.Component {
     }
 
   render() {
-    const { classes, type, text, user, comments, endorsements, item, fullName, contentStyle } = this.props;
-
+    const { classes, type, text, user, comments, endorsements, item, contentStyle } = this.props;
+    const fullName = item.user.firstname + ' ' + item.user.lastname;
     return (
       <button className={classes.link} onClick={() => this.showDetails(item)}>
         <CardContent
@@ -177,7 +183,8 @@ class TextWidget extends React.Component {
             <Avatar alt={fullName} src={item.user? Utility.getAvatar(item.user.avatar): Utility.getAvatar("")} className={classes.avatar} />
             <div className={classes.title}>
                 <Typography component="h4" className={classes.h4}>{fullName}</Typography>
-                <Typography className={classes.titleStat}>12 hours ago</Typography>
+                
+                <Typography className={classes.titleStat}><ReactTimeAgo date={new Date(item.created_at)} locale="en" /></Typography>
             </div>
 
             <IconButton

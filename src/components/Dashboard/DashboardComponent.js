@@ -18,6 +18,7 @@ import contestActions from './../../reducers/contest/actions';
 import ContestFeedHorizontal from './Scrollables/ContestFeedHorizontal';
 import PostDetailWidget from '../../widgets/posts/PostDetailWidget';
 import Utility from '../../services/Utility';
+import ContestInfoBanners from '../../widgets/carousels/ContestInfoBanners';
 
 const activeLink = classNames({'link': true, 'active': true});
 const dudUrl = 'javascript:;';
@@ -189,9 +190,9 @@ class DashboardComponent extends React.Component {
             <Grid item xs={8}>
               <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
                 
-                <div style={{display: 'flex'}}>
-                <ContestFeedHorizontal contests={contestList} />
-                </div>
+                
+                <ContestInfoBanners />
+                
                 <Paper elevation={0} style={{marginTop: 30}}>
                 {recentPosts.length > 0 &&
                   <MasonryGrid>
