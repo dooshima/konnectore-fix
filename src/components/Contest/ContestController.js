@@ -19,6 +19,8 @@ import MyContestsWidget from './MyContestsWidget';
 import AddEntryComponent from './AddEntryComponent';
 import contestActions from '../../reducers/contest/actions';
 import StageListWidget from './StageListWidget';
+import ContestSubmissionComponent from './Submission/ContestSubmissionComponent';
+import Utility from '../../services/Utility';
 
 class ContestController extends React.Component {
     constructor(props) {
@@ -77,9 +79,13 @@ class ContestController extends React.Component {
             count++;
         }
 
+        const stages = Utility.isset(contest) && Utility.isset(contest.stages) ? contest.stages: [];
+        const entries = Utility.isset(contest) && Utility.isset(contest.stage_posts) ? contest.stage_posts: [];
         const funcs = {
             filter: this.state.filter,
             posts: cPosts,
+            stages,
+            entries,
         }
 
         return (
@@ -92,6 +98,7 @@ class ContestController extends React.Component {
                             <PropsRoute exact path={`${match.path}`} component={ContestFeedComponent} {...this.props} {...funcs} />
                             <Route exact path={`${match.path}/guide`} component={ContestGuideComponent} />
                             <Route exact path={`${match.path}/entry`} component={AddEntryComponent} />
+                            <PropsRoute exact path={`${match.path}/submissions`} component={ContestSubmissionComponent} {...this.props} {...funcs} />
                         </Switch>
                     </Paper>
                     </Grid>

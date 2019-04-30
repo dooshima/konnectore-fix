@@ -6,6 +6,8 @@ import entryFilePathReducer from './reduction/entryFilePathReducer';
 import setContestDataReducer from './reduction/setContestDataReducer';
 import addEntryReducer from './reduction/addEntryReducer';
 import setContestFeedReducer from './reduction/setContestFeedReducer';
+import addEntriesReducer from './reduction/addEntriesReducer';
+import addToEntriesReducer from './reduction/addToEntriesReducer';
 
 const uploadCount = (uploadCount=0, action) => {
     switch(action.type) {
@@ -52,6 +54,17 @@ const entry = (entry={}, action) => {
     }
 }
 
+const entries = (entries=[], action) => {
+    switch(action.type) {
+        case types.CONTEST_ADD_ENTRIES:
+            return addEntriesReducer(entries, action);
+        case types.CONTEST_ADD_TO_ENTRIES:
+            return addToEntriesReducer(entries, action);
+        default:
+            return entries;
+    }
+}
+
 const feed = (feed=[], action) => {
     switch(action.type) {
         case types.CONTEST_SET_CONTEST_FEED:
@@ -68,6 +81,7 @@ const contestReducers = combineReducers({
     data,
     entry,
     feed,
+    entries,
 });
 
 export default contestReducers;

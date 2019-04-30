@@ -205,6 +205,22 @@ const PersonalInformation = props => {
                                             <MenuItem value="2">Regular User</MenuItem>
                                             </Select>
                                 </FormControl>
+                                </Grid>
+                                <Grid item md={6}>
+                                <FormControl className={classes.formControl}>
+                                    <InputLabel htmlFor="referrer" shrink className={classes.bootstrapFormLabel}>Who referred you? (Enter Referrer ID)</InputLabel>
+                                        <Input id="referrer" 
+                                            placeholder="Your referrer ID" 
+                                            value={props.referrer} 
+                                            onChange={props.handleChange('referrer')} 
+                                            fullWidth={true}
+                                            disableUnderline={true}
+                                            classes={{
+                                                root: classes.bootstrapRoot,
+                                                input: classes.bootstrapInput,
+                                            }} 
+                                        />
+                                </FormControl>
                             </Grid>
                         </Grid>
                         

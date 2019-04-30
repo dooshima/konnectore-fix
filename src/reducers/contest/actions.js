@@ -33,6 +33,16 @@ const setContestFeed = feed => ({
 const setContestData = data => ({
     type: types.CONTEST_SET_DATA,
     data,
+});
+
+const addToEntries = entries => ({
+    type: types.CONTEST_ADD_TO_ENTRIES,
+    entries,
+});
+
+const addEntries = entries => ({
+    type: types.CONTEST_ADD_ENTRIES,
+    entries,
 })
 
 const getContest = (slug, user_id) => {
@@ -43,6 +53,7 @@ const getContest = (slug, user_id) => {
                 dispatch(appActions.appIsLoading(false));
                 if(!response.error) {
                     dispatch(setContestData(response.data))
+                    dispatch(addEntries(response.data.posts));
                 }
             })
             .catch( error => {
@@ -85,11 +96,13 @@ const handleAddEntry = (form, token) => {
         dispatch(appActions.appIsLoading(true));
         Contest.addEntry(form, token)
             .then( response => {
+                console.log(response)
                 dispatch(appActions.appIsLoading(false));
                 dispatch(setEntryFilePath(""));
                 const entry = response.data;
                 if(!response.error) {
                     dispatch(addEntry(entry));
+                    dispatch(addToEntries(entry));
                 }
             })
             .catch( error => {

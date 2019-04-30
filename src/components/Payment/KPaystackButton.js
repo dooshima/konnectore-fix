@@ -3,6 +3,7 @@ import PaystackButton from 'react-paystack';
 import KFormInput from '../../widgets/form/KFormInput';
 import Constants from './../../assets/Constants';
 import './payButton.css';
+import Server from '../../services/Server/Server';
 
   class KPaystackButton extends Component {
     constructor(props) {
@@ -41,6 +42,11 @@ import './payButton.css';
 
     callback = data => {
       console.log(data);
+      Server.get('api/return/?trxref=' + data.reference + '&reference=' + data.reference)
+        .then( response => response.data )
+        .then( payment => {
+          console.log(payment);
+        } )
     }
 
     render() {

@@ -35,7 +35,6 @@ class ContestFeedComponent extends React.Component {
 
     render() {
         const { classes, contest, filter, posts } = this.props;
-        console.log(filter, posts)
         let editions = [];
         if(Utility.isset(contest) && Utility.isset(contest.editions)) {
             for(let edition of contest.editions) {

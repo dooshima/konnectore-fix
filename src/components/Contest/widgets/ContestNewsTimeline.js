@@ -24,8 +24,8 @@ const ContestNewsTimelineItem = withStyles(styles)(({classes, post}) => {
     return (
         <KCard classes={classes.postItem}>
             <CardContent>
-                {post.type === 'image' && <img src={Utility.getPath(post.path)} />}
-                {post.type === 'video' && <video src={Utility.getPath(post.path)} controls autoPlay={false} />}
+                {post.type === 'image' && <img src={Utility.getPath(post.src)} />}
+                {post.type === 'video' && <video src={Utility.getPath(post.src)} controls autoPlay={false} />}
             </CardContent>
         </KCard>
     )
