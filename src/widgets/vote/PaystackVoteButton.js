@@ -55,7 +55,7 @@ import Server from '../../services/Server/Server';
     render() {
       //console.log(this.state)
       const { email, amount, metadata} = this.props;
-      const mdata = {...metadata, cart_id: this.state.key}
+      const mdata = {...metadata, cart_id: this.state.reference}
       return (
         <PaystackButton
               text="Confirm Vote"
