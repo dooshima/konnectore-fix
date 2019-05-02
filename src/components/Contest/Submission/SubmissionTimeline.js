@@ -18,7 +18,12 @@ const SubmissionTimeline = props => {
     return (
         <div className={classes.list}>
             {
-                props.entries.map( entry => <ContestEntryItemCard entry={entry} />)
+                props.entries.map( entry => {
+                    entry['postType'] = 'entry';
+                    entry['text'] = entry.description;
+                    entry['coverImage'] = entry.src;
+                    return <ContestEntryItemCard entry={entry} {...props} />;
+                })
             }
         </div>
     )

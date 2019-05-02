@@ -7,6 +7,7 @@ import VideoCard from '../../components/UIC/Posts/VideoCard/VideoCard';
 import PostDetailWidget from './PostDetailWidget';
 import postActions from './../../reducers/post/actions';
 import { connect } from 'react-redux';
+import SubmissionTimeline from '../../components/Contest/Submission/SubmissionTimeline';
 
 class PostListWidget extends React.Component {
     constructor(props) {
@@ -23,7 +24,11 @@ class PostListWidget extends React.Component {
     }
 
     likePost = post => {
-        this.props.likePost({author: this.props.author.id, post_id: post.id}, this.props.authToken);
+        this.props.likePost({author: this.props.author.id, post_id: post.id, 'postType': post.postType}, this.props.authToken);
+    }
+
+    vote = post => {
+        this.props.vote({author: this.props.author.id, post_id: post.id, 'postType': post.postType}, this.props.authToken);
     }
 
     sharePost = post => {
@@ -31,11 +36,11 @@ class PostListWidget extends React.Component {
     }
 
     viewPost = post => {
-        this.props.viewPost({author: this.props.author.id, post_id: post.id}, this.props.authToken);
+        this.props.viewPost({author: this.props.author.id, post_id: post.id, 'postType': post.postType}, this.props.authToken);
     }
 
     addComment = (post, comment) => {
-        this.props.addComment({author: this.props.author.id, post_id: post.id, comment: this.state.comment}, this.props.authToken);
+        this.props.addComment({author: this.props.author.id, post_id: post.id, comment: this.state.comment, 'postType': post.postType}, this.props.authToken);
         this.handleCommentChange("");
     }
 
@@ -57,6 +62,11 @@ class PostListWidget extends React.Component {
         const posts = props.posts? props.posts: [];
         return (
             <React.Fragment>
+                {props.listType === 'contest' && 
+                    <SubmissionTimeline entries={posts} {...props} {...funcs} />
+                }
+
+                {props.listType !== 'contest' &&
                 <Paper elevation={0} style={{marginTop: 30}}>
                     {posts.length > 0 && <MasonryGrid>
                     {
@@ -79,6 +89,7 @@ class PostListWidget extends React.Component {
                         No posts found!
                     </Typography>}
                 </Paper>
+                }
                 <PostDetailWidget postItem={this.state.item} open={this.state.open} 
                     user={this.props.user} {...funcs}/>
             </React.Fragment>
@@ -103,6 +114,9 @@ const mapDispatchToProps = dispatch => {
         },
         addComment: (form, token) => {
             dispatch(postActions.handleAddComment(form, token));
+        },
+        vote: (form, token) => {
+            dispatch(postActions.handleVote(form, token));
         }
     }
 };

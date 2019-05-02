@@ -13,6 +13,7 @@ import Utility from '../../../services/Utility';
 import ReactTimeAgo from 'react-time-ago/commonjs/ReactTimeAgo';
 import { Avatar } from '@material-ui/core';
 import KCard from '../../UIC/KCard';
+import PostAuthorWidget from '../../../widgets/posts/PostAuthorWidget';
 
 const styles = theme => ({
   card: {
@@ -20,6 +21,7 @@ const styles = theme => ({
     //marginBottom: theme.spacing.unit,
     width: '50%',
     //margin: 5,
+    position: 'relative',
   },
   details: {
     display: 'flex',
@@ -31,7 +33,7 @@ const styles = theme => ({
   },
   cover: {
     margin: 8,
-    height: 200,
+    height: 300,
     marginBottom: 0,
   },
   controls: {
@@ -46,20 +48,41 @@ const styles = theme => ({
   },
   description: {
       margin: '1em 0',
+  },
+  link: {
+    textDecoration: 'none',
+    fontStyle: 'normal',
+    cursor: 'pointer',
+    '&:hover, &:focus': {
+      textDecoration: 'none',
+      outline: 'none'
+    },
+    backgroundColor: 'transparent',
+    background: 'none',
+    border: 'none',
+    outline: 'none',
+    display: 'block',
+    width: '100%',
   }
 });
 
 function ContestEntryItemCard(props) {
   const { classes, theme, entry } = props;
-  console.log(entry)
   return (
+    
     <Card elevation={0} className={classes.card}>
+    <button className={classes.link} onClick={() => props.toggleDialog(entry)}>
         <CardMedia
             className={classes.cover}
             component={entry.type === 'image'? 'img': 'video'}
             src={Utility.getPath(entry.src)}
             title={entry.description}
-        />
+        /></button>
+        <PostAuthorWidget 
+          avatar={Utility.isset(entry.user)? entry.user.avatar: ""}
+          fullName={Utility.isset(entry.user)? entry.user.firstname + " " + entry.user.lastname: ""}
+          date={entry.created_at}
+          />
     </Card>
   );
 }

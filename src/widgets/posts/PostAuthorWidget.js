@@ -7,8 +7,8 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { loadCSS } from 'fg-loadcss/src/loadCSS';
-import Utility from '../../../services/Utility';
 import ReactTimeAgo from 'react-time-ago'
+import Utility from '../../services/Utility';
 
 
 const styles = theme => ({
@@ -106,6 +106,11 @@ const styles = theme => ({
     outline: 'none',
     display: 'block',
     width: '100%',
+  },
+  author: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
   }
 });
 
@@ -130,18 +135,17 @@ class PostAuthorWidget extends React.Component {
     }
 
   render() {
-    const { classes, type, text, user, comments, endorsements, item, contentStyle } = this.props;
-    const fullName = item.user.firstname + ' ' + item.user.lastname;
+    const { classes, avatar, fullName, date } = this.props;
     return (
-        <>
+        <div className={classes.author}>
         <div className={classes.rule} />
 
         <CardActions className={classes.actions} disableActionSpacing >
-            <Avatar alt={fullName} src={item.user? Utility.getAvatar(item.user.avatar): Utility.getAvatar("")} className={classes.avatar} />
+            <Avatar alt={fullName} src={avatar? Utility.getAvatar(avatar): Utility.getAvatar("")} className={classes.avatar} />
             <div className={classes.title}>
                 <Typography component="h4" className={classes.h4}>{fullName}</Typography>
                 
-                <Typography className={classes.titleStat}><ReactTimeAgo date={new Date(item.created_at)} locale="en" /></Typography>
+                <Typography className={classes.titleStat}><ReactTimeAgo date={new Date(date)} locale="en" /></Typography>
             </div>
 
             <IconButton
@@ -154,7 +158,7 @@ class PostAuthorWidget extends React.Component {
             </IconButton>
         </CardActions>
 
-        </>
+        </div>
     );
   }
 }

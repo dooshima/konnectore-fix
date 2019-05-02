@@ -108,7 +108,7 @@ class ContestController extends React.Component {
                                 <PropsRoute exact path={`${match.path}/`} component={PageInfoWidget} />
                                 <Route exact path={`${match.path}`} component={TopContestantsWidget} />
                                 <Route exact path={`${match.path}/entry`} component={StageListWidget} />
-                                <PropsRoute exact path={`${match.path}/guide`} component={AvailablePositionsWidget} url={`${match.url}`} />
+                                <PropsRoute exact path={`${match.path}/guide`} component={AvailablePositionsWidget} url={`${match.url}`} {...this.props} />
                                 <Route exact path={`${match.path}/guide`} component={RecentContestantsWidget} />
                                 <Route exact path={`${match.path}/entry`} component={TopContestantsWidget} />
                                 <Route exact path={`${match.path}/submissions`} component={TopContestantsWidget} />

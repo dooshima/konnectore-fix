@@ -119,6 +119,7 @@ function requestToken(email, password) {
         client_id: Constants.CLIENT_ID,
         client_secret: Constants.CLIENT_SECRET,
     }
+    
     return Server.post('oauth/token', data)
         .then( resp => resp.data);
 }

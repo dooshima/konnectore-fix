@@ -7,6 +7,7 @@ import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
 import ShareIcon from '@material-ui/icons/Share';
 import StarIcon from '@material-ui/icons/Star';
 import Utility from '../../services/Utility';
+import VoteAmountDialog from '../form/VoteAmountDialog';
 
 const styles = theme => ({
     iconButton: {
@@ -90,6 +91,14 @@ const styles = theme => ({
 class PostStatsWidget extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            open: false,
+        }
+    }
+
+    toggleDialog = open => {
+        this.setState({open: open});
     }
 
     componentDidMount() {
@@ -103,6 +112,14 @@ class PostStatsWidget extends React.Component {
         const {classes, likes, views, id, item} = this.props;
         const user = Utility.isset(item.user)?item.user: {};
         const album = item.type === 'video'? 'Videos': (item.type === 'image'? 'Images': 'Posts');
+        const metadata = {
+            //cart_id: 
+            user_id: this.props.user.data.id,
+            payment_for: 2,
+            contestant_id: item.user_id,
+            contest_edition_id: item.contest_edition_id,
+            contest_stage_id: item.contest_stage_id,
+        }
     return (
         <>
         <div className={classes.row}>
@@ -133,19 +150,25 @@ class PostStatsWidget extends React.Component {
             
         </div>
         <div className={classes.like}>
-            {this.props.user.data.id !== item.author && <Button variant="contained" size="small" onClick={() => this.props.likePost(item)} className={classes.button}>
+            {item.voting_type !== 'vote' && item.liked < 1 && <Button variant="contained" size="small" onClick={() => this.props.likePost(item)} className={classes.button}>
                 <StarIcon className={classNames(classes.leftIcon, classes.iconSmall, classes.starIcon)} />
-                {item.likes_count} 
+                {item.likes_count}
             </Button>}
-            {this.props.user.data.id === item.author && <Button variant="contained" size="small" onClick1={this.props.unlikePost} className={classes.liked}>
+            {item.voting_type !== 'vote' && item.liked > 0 && <Button variant="contained" size="small" onClick1={this.props.unlikePost} className={classes.liked}>
                 <StarIcon className={classNames(classes.leftIcon, classes.iconSmall, classes.starIconLiked)} />
                 {item.likes_count} 
+            </Button>}
+            {item.postType === 'entry' && item.voting_type === 'vote' && <Button variant="contained" size="small" onClick={() => this.toggleDialog(true)} className={classes.liked}>
+                <StarIcon className={classNames(classes.leftIcon, classes.iconSmall, classes.starIconLiked)} />
+                {item.votes_count} Vote
             </Button>}
 
             <div className={classes.postedIn}>
                 <Typography color="textSecondary">Posted in</Typography>
                 <Typography color="textPrimary" className={classes.postedWhere}>{user.firstname} {user.lastname}'s {album}</Typography>
             </div>
+
+            <VoteAmountDialog item={item} user={this.props.user.data} metadata={metadata} open={this.state.open} toggleDialog={this.toggleDialog} />
         </div>
         </>
     )

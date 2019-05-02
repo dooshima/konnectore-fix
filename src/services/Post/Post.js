@@ -9,6 +9,7 @@ const Post = {
     viewPost,
     sharePost,
     addComment,
+    vote,
 };
 
 function likePost (form, token) {
@@ -28,6 +29,10 @@ const sharePost = (form, token) => {
 
 function addComment (form, token) {
   return Server.authPost('api/add-comment', form, token)
+    .then( response => response.data );
+}
+function vote(form, token) {
+  return Server.authPost('api/vote', form, token)
     .then( response => response.data );
 }
 const uploadMedia = data => {

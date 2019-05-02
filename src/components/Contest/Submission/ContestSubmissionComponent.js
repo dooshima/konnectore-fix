@@ -5,6 +5,7 @@ import ContestHeader from '../ContestHeader';
 import ContentHeader from '../ContentHeader';
 import SubmissionFilterNav from './SubmissionFilterNav';
 import SubmissionTimeline from './SubmissionTimeline';
+import PostListWidget from '../../../widgets/posts/PostListWidget';
 
 class ContestSubmissionComponent extends React.PureComponent {
     constructor(props) {
@@ -20,12 +21,12 @@ class ContestSubmissionComponent extends React.PureComponent {
     }
 
     render() {
-        const { classes, stages, entries } = this.props;
+        const { classes, stages, entries, user } = this.props;
         return (
             <KPaper>
                 <ContentHeader />
                 <SubmissionFilterNav stages={stages} filter={this.state.filter} handleChange={this.handleChange.bind(this)} />
-                <SubmissionTimeline entries={entries} />
+                <PostListWidget posts={entries} listType="contest" user={user} />
             </KPaper>
         )
     }

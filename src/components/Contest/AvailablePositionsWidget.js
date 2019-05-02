@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, List, ListSubheader, ListItem, CardContent, Typography } from '@material-ui/core';
+import { Avatar, List, ListSubheader, ListItem, CardContent, Typography, Link } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import KPaper from '../UIC/KPaper';
 import KCard from '../UIC/KCard';
@@ -52,7 +52,20 @@ const styles = theme => ({
         fontSize: theme.typography.fontSize * .9,
         margin: 20,
         textAlign: 'center',
-    }
+    },
+    viewLink: {
+        textAlign: 'center',
+        textDecoration: 'none',
+        fontStyle: 'normal',
+        fontSize: 15,
+        cursor: 'pointer',
+    },
+    infoText: {
+        fontSize: theme.typography.fontSize * 1.8,
+        margin: 20,
+        textAlign: 'center',
+        color: '#0000008a',
+    },
 });
 
 const contestants = [...Array(20)].map((v, i) => i);
@@ -70,7 +83,9 @@ class AvailablePositionsWidget extends React.Component {
     }
 
     render() {
-        const {classes, match, history, url} = this.props;
+        const {classes, match, history, url, user} = this.props;
+        let content = '';
+        console.log(user);
     return (
         <KCard style={{marginTop: 5}}>
             <CardContent className={classes.contestants}>
@@ -86,6 +101,10 @@ class AvailablePositionsWidget extends React.Component {
                         <Typography color="primary">Vocalists, Comedians, Dancers</Typography>
                     </div>
                 </div>}
+
+                {user.data.usertype === 3 && <Typography className={classes.infoText}>You're a workforce. You can't join a contest</Typography>}
+                
+                {user.data.usertype === 2 && user.data.referralsCount >= 20 && <div>
                 <KFormSelect options={[{label: 'Singer', value: 1}, {label: 'Comedian', value: 2} ]} handleChange={this.handleChange} value={this.state.category} label="Category" name="category" />
                 <Typography className={classes.mentioned}>
                     Select one of the above categories
@@ -94,6 +113,12 @@ class AvailablePositionsWidget extends React.Component {
                 <Typography className={classes.agree}>
                     By joining, you agree that you understand the contest guidelines
                 </Typography>
+                </div>}
+
+                {user.data.usertype === 2 && user.data.referralsCount < 20 && <Typography className={classes.infoText}>
+                    To join the contest, you much refer at least 20 contests.
+                </Typography>}
+                <Link onClick={() => history.push(`${url}/submissions`)} className={classes.viewLink}><Typography color="textSecondary">View entries</Typography></Link>
             </CardContent>
         </KCard>
     )

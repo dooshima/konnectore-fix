@@ -151,11 +151,29 @@ const handleLikePost = (form, token) => {
   }
 }
 
+const handleVote = (form, token) => {
+  return dispatch => {
+    dispatch(appActions.appIsLoading(true));
+    Post.vote(form, token)
+      .then( response => {
+        dispatch(appActions.appIsLoading(false));
+        if(!response.error) {
+          //dispatch(vote(response.data));
+        }
+      } )
+      .catch( error => {
+        dispatch(appActions.appIsLoading(false));
+        console.log(error);
+      })
+  }
+}
+
 const handleViewPost = (form, token) => {
   return dispatch => {
     dispatch(appActions.appIsLoading(true));
     Post.viewPost(form, token)
       .then( response => {
+        console.log(response)
         dispatch(appActions.appIsLoading(false));
         if(!response.error) {
           dispatch(viewPost(response.data));
@@ -209,6 +227,7 @@ const postActions = {
     handleLikePost,
     handleViewPost,
     addPosts,
+    handleVote,
 };
 
 export default postActions;

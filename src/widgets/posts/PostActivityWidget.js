@@ -105,7 +105,7 @@ class PostActivityWidget extends React.Component {
             <CardHeader
                 className={classes.header}
                 avatar={
-                    <Avatar aria-label={item.fullName} className={classes.avatar} src={Utility.getAvatar(item.user.avatar)} />
+                    <Avatar aria-label={item.fullName} className={classes.avatar} src={Utility.isset(item.user)? Utility.getAvatar(item.user.avatar): Utility.getAvatar("")} />
                 }
                 action={
                     <IconButton>
