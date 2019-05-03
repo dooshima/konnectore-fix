@@ -116,7 +116,7 @@ class PostStatsWidget extends React.Component {
             //cart_id: 
             user_id: this.props.user.data.id,
             payment_for: 1,
-            contestant_id: item.user_id,
+            post_id: item.id,
             contest_edition_id: item.contest_edition_id,
             contest_stage_id: item.contest_stage_id,
         }
