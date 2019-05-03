@@ -10,6 +10,7 @@ import { connectRouter } from 'connected-react-router'
 import { combineReducers } from 'redux';
 import commentReducers from './reducers/comment/reducers';
 import meReducers from './reducers/me/reducers';
+import notificationReducers from './reducers/notification/reducer';
 
 export default (history) => combineReducers({
     router: connectRouter(history),
@@ -22,4 +23,5 @@ export default (history) => combineReducers({
     contest: contestReducers,
     comment: commentReducers,
     me: meReducers,
+    notifications: notificationReducers,
 });

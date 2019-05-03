@@ -5,6 +5,7 @@ import KPaper from '../UIC/KPaper';
 import KCard from '../UIC/KCard';
 import KBigButton from '../UIC/KBigButton';
 import KFormSelect from '../../widgets/form/KFormSelect';
+import ContestEntryRequirementsWidget from './widgets/ContestEntryRequirementsWidget';
 
 const styles = theme => ({
     contestants: {
@@ -60,12 +61,7 @@ const styles = theme => ({
         fontSize: 15,
         cursor: 'pointer',
     },
-    infoText: {
-        fontSize: theme.typography.fontSize * 1.8,
-        margin: 20,
-        textAlign: 'center',
-        color: '#0000008a',
-    },
+    
 });
 
 const contestants = [...Array(20)].map((v, i) => i);
@@ -83,9 +79,8 @@ class AvailablePositionsWidget extends React.Component {
     }
 
     render() {
-        const {classes, match, history, url, user} = this.props;
+        const {classes, match, history, url, user, contest} = this.props;
         let content = '';
-        console.log(user);
     return (
         <KCard style={{marginTop: 5}}>
             <CardContent className={classes.contestants}>
@@ -102,22 +97,8 @@ class AvailablePositionsWidget extends React.Component {
                     </div>
                 </div>}
 
-                {user.data.usertype === 3 && <Typography className={classes.infoText}>You're a workforce. You can't join a contest</Typography>}
-                
-                {user.data.usertype === 2 && user.data.referralsCount >= 20 && <div>
-                <KFormSelect options={[{label: 'Singer', value: 1}, {label: 'Comedian', value: 2} ]} handleChange={this.handleChange} value={this.state.category} label="Category" name="category" />
-                <Typography className={classes.mentioned}>
-                    Select one of the above categories
-                </Typography>
-                <KBigButton onClick={() => history.push(`${url}/entry`)} label="Join the contest" />
-                <Typography className={classes.agree}>
-                    By joining, you agree that you understand the contest guidelines
-                </Typography>
-                </div>}
+                <ContestEntryRequirementsWidget user={user.data} url={url} contest={contest} />
 
-                {user.data.usertype === 2 && user.data.referralsCount < 20 && <Typography className={classes.infoText}>
-                    To join the contest, you much refer at least 20 contests.
-                </Typography>}
                 <Link onClick={() => history.push(`${url}/submissions`)} className={classes.viewLink}><Typography color="textSecondary">View entries</Typography></Link>
             </CardContent>
         </KCard>

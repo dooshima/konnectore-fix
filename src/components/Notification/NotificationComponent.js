@@ -3,10 +3,15 @@ import NotificationList from './NotificationList';
 import { Typography } from '@material-ui/core';
 import KPaystackButton from '../Payment/KPaystackButton';
 import { connect } from 'react-redux';
+import notificationActions from '../../reducers/notification/actions';
 
 class NotificationComponent extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount() {
+        this.props.getNotifications();
     }
 
     render() {
@@ -27,6 +32,14 @@ const mapStateToProps = state => {
     return {
         user: state.user,
     }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getNotifications: () => {
+            dispatch(notificationActions.getNotifications());
+        }
+    }
 }
 
-export default connect(mapStateToProps)(NotificationComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(NotificationComponent);
