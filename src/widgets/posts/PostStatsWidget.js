@@ -115,7 +115,7 @@ class PostStatsWidget extends React.Component {
         const metadata = {
             //cart_id: 
             user_id: this.props.user.data.id,
-            payment_for: 2,
+            payment_for: 1,
             contestant_id: item.user_id,
             contest_edition_id: item.contest_edition_id,
             contest_stage_id: item.contest_stage_id,
