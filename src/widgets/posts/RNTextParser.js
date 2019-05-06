@@ -1,7 +1,7 @@
 import React from 'react';
 import ParsedText from 'react-native-parsed-text';
 
-class TextParser extends React.Component {
+class RNTextParser extends React.Component {
   static displayName = 'TextParser';
 
   handleUrlPress(url, matchIndex /*: number*/) {

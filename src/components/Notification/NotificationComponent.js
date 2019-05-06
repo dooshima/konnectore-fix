@@ -4,6 +4,7 @@ import { Typography } from '@material-ui/core';
 import KPaystackButton from '../Payment/KPaystackButton';
 import { connect } from 'react-redux';
 import notificationActions from '../../reducers/notification/actions';
+import KPaper from '../UIC/KPaper';
 
 class NotificationComponent extends React.Component {
     constructor(props) {
@@ -16,14 +17,13 @@ class NotificationComponent extends React.Component {
 
     render() {
         return (
-            <div style={{padding: 20}}>
-                <KPaystackButton user={this.props.user.data} />
+            <KPaper style={{margin: 20}}>
                 <Typography style={{fontSize: 20, marginBottom: 20,}}>
                     Notifications
                 </Typography>
                 <NotificationList />
 
-            </div>
+            </KPaper>
         )
     }
 }

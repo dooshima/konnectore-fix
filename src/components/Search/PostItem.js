@@ -12,6 +12,7 @@ import { Avatar, CardHeader, Icon } from '@material-ui/core';
 import KCard from '../UIC/KCard';
 import ReactTimeAgo from 'react-time-ago/commonjs/ReactTimeAgo';
 import Utility from '../../services/Utility';
+import HashtagParser from '../../widgets/posts/HashtagParser';
 
 const styles = theme => ({
   card: {
@@ -75,7 +76,7 @@ class PostItem extends React.Component {
         />
         <CardContent className={classes.content}>
           <Typography variant="body1" color="textSecondary">
-            {item.text}
+            <HashtagParser>{item.text}</HashtagParser>
           </Typography>
         </CardContent>
         <div className={classes.controls}>

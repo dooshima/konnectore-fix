@@ -175,7 +175,7 @@ class SearchComponent extends React.Component {
       let item = post.byId[i];
       if(Utility.isset(item)) {
         searchResult[i] = item;
-        count+= 1;
+        count += 1;
       }
     }
 

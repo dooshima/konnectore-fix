@@ -20,7 +20,9 @@ import PRComponent from './components/Home/PasswordReset/PRComponent';
 import InboxComponent from './components/Inbox/InboxComponent';
 import NotificationComponent from './components/Notification/NotificationComponent';
 import AccountCreatedComponent from './components/Home/AccountCreatedComponent';
+import searchActions from './reducers/search/actions';
 
+const qs = require('query-string');
 const styles = theme => ({
   wrapper: {
     margin: 0,
@@ -68,10 +70,8 @@ const styles = theme => ({
   }
 });
 
-const UIContestComponent = <SidebarComponent component={ContestComponent} />;
-
 function MainNavigator(props) {
-  console.log(props.user.authToken && props.user.data.hasOwnProperty('id'))
+  
     return (
         <Switch>
             <ProtectedRoute exact path="/" component={
@@ -81,7 +81,15 @@ function MainNavigator(props) {
             <PropsRoute exact path="/signed-up" component={AccountCreatedComponent} user={props.user} />
             <PropsRoute exact path="/password/reset/:token" component={PasswordResetComponent} />
             <Route path="/people" render={props => <SidebarComponent component={FriendComponent} {...props} />} />
-            <Route path="/search" render={renderProps => <SidebarComponent {...renderProps} searchResults={props.searchResults} q={props.q} loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)} component={SearchComponent} />} />
+            <Route path="/search" render={rProps => {
+              let q = rProps.location.hash;
+              if(q) {
+                props.addQueryText(q);
+                props.handleSearch(q);
+              }
+              return <SidebarComponent {...rProps} searchResults={props.searchResults} q={props.q} loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)} component={SearchComponent} />
+              }
+              } />
             <Route exact path="/contest" render={renderProps => <SidebarComponent component={ContestComponent} />} />
             <Route path="/contest/:slug" render={props => <SidebarComponent component={ContestController} {...props} />} />
             <ProtectedRoute path="/me" render={p => <SidebarComponent component={MeController} {...p} />} />
@@ -101,8 +109,19 @@ function MainNavigator(props) {
       user: state.user,
     }
   }
+
+  const mapDispatchToProps = dispatch => {
+    return {
+      handleSearch: q => {
+        dispatch(searchActions.handleSearch(q));
+      },
+      addQueryText: q => {
+        dispatch(searchActions.addQueryText(q));
+      }
+    }
+  }
   
-  export default connect(mapStateToProps, null)(withStyles(styles)(MainNavigator));
+  export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(MainNavigator));
 
   function ContestComponent(props) {
     return (
