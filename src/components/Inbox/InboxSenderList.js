@@ -7,6 +7,17 @@ import KPaper from '../UIC/KPaper';
 const styles = theme => ({
     subheader: {
         textTransform: 'normal',
+    },
+    message: {
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+    },
+    date: {
+        textAlign: 'right',
+    },
+    item: {
+        borderTop: '1px solid #efefef',
     }
 });
 
@@ -17,13 +28,16 @@ function InboxSenderList(props) {
             <List subheader={<ListSubheader>Sort by</ListSubheader>} style={{textAlign: 'right'}} className={classes.subheader}>
             {
             [...Array(10).keys()].map( i =>
-            <ListItem>
+            <ListItem className={classes.item}>
                 <Avatar alt="Ademide Lawal" src="/images/avatar.png" />
                 <ListItemText primary="Ademide Lawal" 
                     secondary={
-                        <Typography color="textSecondary">
-                            Okay, thanks. I'll let you know when it's available.
-                        </Typography>
+                        <React.Fragment>
+                            <Typography color="textSecondary" className={classes.message}>
+                                Okay, thanks. I'll let you know when it's available.
+                            </Typography>
+                            <Typography color="textSecondary" className={classes.date}>10 seconds ago</Typography>
+                        </React.Fragment>
                     } 
                 />
             </ListItem>

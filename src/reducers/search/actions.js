@@ -2,6 +2,8 @@ import * as types from './actionTypes';
 import appActions from '../app/actions';
 import axios from 'axios';
 import Search from '../../services/Search/Search';
+import postActions from '../post/actions';
+import commentActions from '../comment/actions';
 
 export const showSearchForm = show => ({
     type: types.SHOW_SEARCH_FORM,
@@ -13,13 +15,22 @@ const addQueryText = queryText => ({
     queryText
 });
 
+const addAllIds = allIds => ({
+    type: types.SEARCH_ADD_ALLIDS,
+    allIds,
+})
+
 const handleSearch = (queryText, queryFilter='') => {
     return dispatch => {
         dispatch(appActions.appIsLoading(true));
         Search.start(queryText, queryFilter)
             .then( result => {
+                console.log(result);
                 dispatch(appActions.appIsLoading(false));
-                dispatch(searchSucceeded(result.data));
+                //dispatch(searchSucceeded(data.result));
+                dispatch(addAllIds(result.data.allIds));
+                dispatch(postActions.addPosts(result.data.byId));
+                dispatch(commentActions.addComments(result.data.commentById));
             })
             .catch( error => {
                 console.log(error);

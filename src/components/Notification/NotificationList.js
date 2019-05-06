@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { List, ListSubheader, ListItem, ListItemText, Avatar, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import KPaper from '../UIC/KPaper';
+import NotificationListItem from '../../widgets/notifications/NotificationListItem';
 
 const styles = theme => ({
     subheader: {
@@ -17,16 +18,7 @@ function NotificationList(props) {
             <List subheader={<ListSubheader>Sort by</ListSubheader>} style={{textAlign: 'right'}} className={classes.subheader}>
             {
             [...Array(10).keys()].map( i =>
-            <ListItem>
-                <Avatar alt="Ademide Lawal" src="/images/avatar.png" />
-                <ListItemText primary="Ademide Lawal" 
-                    secondary={
-                        <Typography color="textSecondary">
-                            Okay, thanks. I'll let you know when it's available.
-                        </Typography>
-                    } 
-                />
-            </ListItem>
+            <NotificationListItem />
             )
             }
             

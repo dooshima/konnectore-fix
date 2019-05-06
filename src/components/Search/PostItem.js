@@ -10,6 +10,8 @@ import classNames from 'classnames';
 import { loadCSS } from 'fg-loadcss/src/loadCSS';
 import { Avatar, CardHeader, Icon } from '@material-ui/core';
 import KCard from '../UIC/KCard';
+import ReactTimeAgo from 'react-time-ago/commonjs/ReactTimeAgo';
+import Utility from '../../services/Utility';
 
 const styles = theme => ({
   card: {
@@ -62,14 +64,14 @@ class PostItem extends React.Component {
       <div className={classes.details}>
         <CardHeader
           avatar={
-            <Avatar alt="Jide Adeleke" src="/images/avatar.png" className={classes.avatar} />
+            <Avatar alt={`${item.user.firstname} ${item.user.lastname}`} src={Utility.getAvatar(item.user.avatar)} className={classes.avatar} />
           }
           title={
             <Typography component="h5" variant="h5" className={classes.title}>
-                Victor Omemu
+                {item.user.firstname} {item.user.lastname}
             </Typography>
           }
-          subheader="30 min ago"
+          subheader={<ReactTimeAgo date={new Date(item.created_at)} />}
         />
         <CardContent className={classes.content}>
           <Typography variant="body1" color="textSecondary">
@@ -80,11 +82,11 @@ class PostItem extends React.Component {
           <IconButton>
             <Icon className={classNames(classes.icon, 'far fa-heart')} />
           </IconButton>
-          <Typography variant="subheading" color="textSecondary" className={classes.small}>1,178 likes</Typography>
+          <Typography variant="subheading" color="textSecondary" className={classes.small}>{item.likes_count} likes</Typography>
           <IconButton style={{marginLeft: 50}}>
             <Icon className={classNames(classes.icon, 'far fa-comment-dots')} />
           </IconButton>
-          <Typography variant="subheading" color="textSecondary" className={classes.small}>178 comments</Typography>
+          <Typography variant="subheading" color="textSecondary" className={classes.small}>{item.comments_count} comments</Typography>
         </div>
       </div>
     </KCard>

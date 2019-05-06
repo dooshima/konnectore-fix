@@ -77,8 +77,8 @@
 
         if (['video', 'image', 'text'].indexOf(filter) !== -1) {
             list = [];
-            for (let i in searchResult.posts.byId) {
-                let item = searchResult.posts.byId[i];
+            for (let i in searchResult) {
+                let item = searchResult[i];
                 if(item.type === filter || filter === 'all'){
                     list.push(item);
                     if(filter === 'all') {
@@ -101,8 +101,8 @@
         }
 
         if (filter === 'all') {
-            for (let i in searchResult.posts.byId) {
-                let item = searchResult.posts.byId[i];
+            for (let i in searchResult) {
+                let item = searchResult[i];
                 list.push(item);
                 types = ['video', 'image', 'text', 'contest', 'person'];
             }

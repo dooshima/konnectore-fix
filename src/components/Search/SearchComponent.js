@@ -12,6 +12,8 @@ import FeedCard from './../FeedCard';
 import { connect } from 'react-redux';
 import SearchList from './SearchList';
 import SearchFilterCard from './SearchFilterCard';
+import Utility from '../../services/Utility';
+import SimpleTextAlert from './../../widgets/alerts/SimpleTextAlert';
 
 const activeLink = classNames({'link': true, 'active': true});
 const dudUrl = 'javascript:;';
@@ -163,8 +165,20 @@ class SearchComponent extends React.Component {
   }
 
   render() {
-    const { classes, q, queryText, searchResult, filter, match, user } = this.props;
+    const { classes, q, queryText, filter, match, user, search, post } = this.props;
     const isLoggedIn = user.hasOwnProperty('data');
+
+    let searchResult = {};
+    const ids = Utility.isset(search.allIds)? search.allIds: [];
+    let count = 0;
+    for(let i of ids ) {
+      let item = post.byId[i];
+      if(Utility.isset(item)) {
+        searchResult[i] = item;
+        count+= 1;
+      }
+    }
+
     return (
       <div style={{marginTop: 30, marginLeft: 20, marginRight: 20}}>
           <Grid container spacing={8}>
@@ -176,9 +190,7 @@ class SearchComponent extends React.Component {
                 </Typography>
                 
                 <KTabs tabs={tabs} baseUrl={match.url} setFilter={this.setFilter} size="small" />
-                {searchResult.hasOwnProperty('posts') && 
-                  <SearchList filter={this.state.filter} searchResult={searchResult} />}
-                {!searchResult.hasOwnProperty('posts') && <div>No results found.</div>}
+                {count > 0? <SearchList filter={this.state.filter} searchResult={searchResult} />: <SimpleTextAlert message="No resulf found" />}
               </Paper>
             </Grid>
             <Grid item xs={4}>
@@ -203,7 +215,8 @@ SearchComponent.propTypes = {
 const mapStateToProps = state => {
   return {
     filter: state.search.filter,
-    searchResult: state.search.searchResult,
+    search: state.search,
+    post: state.post,
     user: state.user, 
     queryText: state.search.queryText,
   }

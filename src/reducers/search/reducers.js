@@ -5,6 +5,7 @@ import { combineReducers } from 'redux';
 import searchStartedReducer from './reduction/searchStartedReducer';
 import searchSucceededReducer from './reduction/searchSucceededReducer';
 import setSearchFilterReducer from './reduction/setSearchFilterReducer';
+import addAllIdsReducer from './reduction/addByIdReducer';
 
 const initialState = {
     showSearchForm: false,
@@ -54,12 +55,22 @@ const filter = (filter='all', action) => {
     }
 }
 
+const allIds = (allIds=[], action) => {
+    switch(action.type) {
+        case types.SEARCH_ADD_ALLIDS:
+            return addAllIdsReducer(allIds, action);
+        default:
+            return allIds;
+    }
+}
+
 const searchReducers = combineReducers({
     show,
     queryText,
     isSearching,
     searchResult,
     filter,
+    allIds,
 });
 
 export default searchReducers;

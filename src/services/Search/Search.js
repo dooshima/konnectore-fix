@@ -12,17 +12,16 @@ function start(queryText, queryFilter) {
             new KError(true, "Please enter what you're looking for")
         ) );
     }
-    return new Promise((resolve, reject) => {
+    /*return new Promise((resolve, reject) => {
         setTimeout(
-            () => resolve(Server.searchResultsDemo)
+            () => 
             , 2000
         );
-    });
-
-    /*
-    return Server.post(Constants.SEARCH_URL, {email: email, pass: password}).then( data => {
-        console.log(data);
     }); */
+
+    
+    return Server.post(Constants.SEARCH_URL, {q: queryText, filter: queryFilter})
+        .then( response => response.data );
 }
 
 

@@ -10,11 +10,14 @@ import classNames from 'classnames';
 import { loadCSS } from 'fg-loadcss/src/loadCSS';
 import { Avatar, CardHeader, Icon } from '@material-ui/core';
 import KCard from '../UIC/KCard';
+import Utility from '../../services/Utility';
+import ReactTimeAgo from 'react-time-ago/commonjs/ReactTimeAgo';
 
 const styles = theme => ({
   card: {
     display: 'flex',
     margin: theme.spacing.unit * 0,
+    marginBottom: theme.spacing.unit * 1,
     padding: 0,
     flexDirection: 'row',
     width: '100%',
@@ -29,6 +32,7 @@ const styles = theme => ({
   },
   cover: {
     width: '40%',
+    height: 200,
   },
   controls: {
     display: 'flex',
@@ -68,20 +72,21 @@ class ImageItem extends React.Component {
     <KCard className={classes.card}>
       <CardMedia
         className={classes.cover}
-        image="/images/post-img.png"
-        title="Live from space album cover"
+        component={item.type === 'video'? 'video': 'img' }
+        src={Utility.getPath(item.src)}
+        title={item.text}
       />
       <div className={classes.details}>
         <CardHeader
           avatar={
-            <Avatar alt="Jide Adeleke" src="/images/avatar.png" className={classes.avatar} />
+            <Avatar alt={`${item.user.firstname} ${item.user.lastname}`} src={Utility.getAvatar(item.user.avatar)} className={classes.avatar} />
           }
           title={
             <Typography component="h5" variant="h5" className={classes.title}>
-                Victor Omemu
+                {item.user.firstname} {item.user.lastname}
             </Typography>
           }
-          subheader="30 min ago"
+          subheader={<ReactTimeAgo date={new Date(item.created_at)} />}
         />
         <CardContent className={classes.content}>
           <Typography variant="body1" color="textSecondary">
@@ -92,11 +97,11 @@ class ImageItem extends React.Component {
           <IconButton>
             <Icon className={classNames(classes.icon, 'far fa-heart')} />
           </IconButton>
-          <Typography variant="subheading" color="textSecondary" className={classes.small}>1,178 likes</Typography>
+          <Typography variant="subheading" color="textSecondary" className={classes.small}>{item.likes_count} likes</Typography>
           <IconButton style={{marginLeft: 50}}>
             <Icon className={classNames(classes.icon, 'far fa-comment-dots')} />
           </IconButton>
-          <Typography variant="subheading" color="textSecondary" className={classes.small}>178 comments</Typography>
+          <Typography variant="subheading" color="textSecondary" className={classes.small}>{item.comments_count} comments</Typography>
         </div>
       </div>
     </KCard>

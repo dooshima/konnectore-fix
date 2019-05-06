@@ -4,6 +4,7 @@ import { withStyles, Paper } from '@material-ui/core';
 import VideoItem from './VideoItem';
 import SectionListHeader from './../SectionListHeader';
 import KPaper from '../UIC/KPaper';
+import Utility from '../../services/Utility';
 
 const styles = theme => ({
     wrapper: {      
@@ -11,7 +12,13 @@ const styles = theme => ({
 });
 
 const VideoItemList = ({ list, classes }) => {
-    const videos = list.filter( item => item.type === 'video');
+    const videos = list.filter( item => {
+        if(Utility.isset(item)) {
+            return item.type === 'video';
+        } else {
+            return false;
+        }
+    });
     const vList = videos.map( (video, i) => {
         return <VideoItem key={i} item={video} />
     });
