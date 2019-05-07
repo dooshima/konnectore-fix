@@ -6,7 +6,7 @@ import { Typography } from '@material-ui/core';
 const CommentListWidget = ({post}) => {
     
     const commentIds = Utility.isset(post.commentIds)? post.commentIds: [];
-    const dcomments = Utility.isset(post.comments)? post.comments: {};
+    const dcomments = Utility.isset(post.comments)? post.comments: [];
     let comments = [];
 
     for(let id of commentIds) {
