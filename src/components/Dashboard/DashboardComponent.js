@@ -19,6 +19,7 @@ import ContestFeedHorizontal from './Scrollables/ContestFeedHorizontal';
 import PostDetailWidget from '../../widgets/posts/PostDetailWidget';
 import Utility from '../../services/Utility';
 import ContestInfoBanners from '../../widgets/carousels/ContestInfoBanners';
+import PostListWidget from './../../widgets/posts/PostListWidget';
 
 const activeLink = classNames({'link': true, 'active': true});
 const dudUrl = 'javascript:;';
@@ -195,23 +196,8 @@ class DashboardComponent extends React.Component {
                 
                 <Paper elevation={0} style={{marginTop: 30}}>
                 {recentPosts.length > 0 &&
-                  <MasonryGrid>
-                  {
-                    recentPosts.map( (item, i) => {
-                      let counter = Math.ceil(Math.random() * 100);
-                      let chooser = counter % 2 === 0? true: false;
-                      if(item !== null && typeof(item) !== 'undefined') {
-                        if(item.type === 'image'){
-                          return <ImageCard key={i} index={i} item={item}  toggleDialog={this.toggleDialog}/>;
-                        } else if (item.type === 'text') {
-                          return <TextCard key={i} index={i} item={item} toggleDialog={this.toggleDialog}/>;
-                        } else {
-                          return <VideoCard key={i} item={item} toggleDialog={this.toggleDialog}/>
-                        }
-                      }
-                    })
-                  }
-                  </MasonryGrid>}
+                  <PostListWidget {...this.props} posts={recentPosts} />
+                }
                   {recentPosts.length < 1 && <Typography color="textSecondary" 
                     style={{textAlign: "center", fontSize: 15,}}>No posts found.</Typography>}
                 </Paper>
