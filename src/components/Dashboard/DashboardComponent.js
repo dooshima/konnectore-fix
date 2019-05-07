@@ -62,12 +62,12 @@ const styles = theme => ({
     color: '#00927d'
   },
   avatar: {
-    borderRadius: 3
+    //borderRadius: 3
   },
   uAvatar: {
     borderRadius: 15
   },
-  link: {
+  link1: {
     margin: theme.spacing.unit,
     textDecoration: 'none',
     paddingLeft: 30,
