@@ -17,7 +17,7 @@ import HashtagParser from '../../widgets/posts/HashtagParser';
 const styles = theme => ({
   card: {
     display: 'flex',
-    margin: theme.spacing.unit * 1,
+    //margin: theme.spacing.unit * 1,
   },
   details: {
     display: 'flex',
