@@ -145,7 +145,7 @@ class TextWidget extends React.Component {
 
   render() {
     const { classes, type, text, user, comments, endorsements, item, contentStyle } = this.props;
-    const fullName = item.user.firstname + ' ' + item.user.lastname;
+    const fullName = (Utility.isset(item) && Utility.isset(item.user)? item.user.firstname: '') + ' ' + (Utility.isset(item) && Utility.isset(item.user)? item.user.lastname: '');
     return (
       <button className={classes.link} onClick={() => this.showDetails(item)}>
         <CardContent
