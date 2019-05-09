@@ -98,6 +98,7 @@ const handleAddEntry = (form, token) => {
             .then( response => {
                 console.log(response)
                 dispatch(appActions.appIsLoading(false));
+                dispatch(appActions.addData(response));
                 dispatch(setEntryFilePath(""));
                 const entry = response.data;
                 if(!response.error) {

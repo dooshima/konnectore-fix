@@ -240,7 +240,7 @@ const handleLogin = (email, password) => {
                 dispatch(authError(""));
                 dispatch(authSignupRedirect(true));
             }).catch( error => {
-                console.log(error)
+                console.log(error);
                 dispatch(authError("Invalid username or password"));
                 dispatch(showAuthLoading(false));
                 //dispatch(authError(error.message));

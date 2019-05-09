@@ -3,6 +3,8 @@ import KCard from '../../components/UIC/KCard';
 import { Button, Avatar, ListItem, Typography, ListItemText } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import KButtonSmall from './../../components/UIC/KButtonSmall';
+import Utility from '../../services/Utility';
+import ReactTimeAgo from 'react-time-ago/commonjs/ReactTimeAgo';
 
 const styles = theme => ({
     row: {
@@ -22,21 +24,25 @@ class NotificationListItem extends React.Component {
         super(props);
     }
         render() {
-            const { classes } = this.props;
+            const { classes, item } = this.props;
+            const avatar = item.avatar;
+            const fullName = item.fullName; 
+            const date = item.date;
+            const message = item.message;
             return (
                 <KCard>
                     <ListItem className={classes.item}>
-                        <Avatar alt="Ademide Lawal" src="/images/avatar.png" />
-                        <ListItemText primary="Ademide Lawal" 
+                        <Avatar alt={fullName} src={Utility.getAvatar(avatar)} />
+                        <ListItemText primary={fullName} 
                             secondary={
                                 <div className={classes.row}>
                                     <div>
                                         <Typography color="textSecondary" className={classes.message}>
-                                            Okay, thanks. I'll let you know when it's available.
+                                            {message}
                                         </Typography>
-                                        <Typography color="textSecondary" className={classes.time}>40 mins ago</Typography>
+                                        <Typography color="textSecondary" className={classes.time}><ReactTimeAgo locale="en" date={new Date(date)} /></Typography>
                                     </div>
-                                    <KButtonSmall label="Follow back" />
+                                    {false && <KButtonSmall label="Follow back" />}
                                 </div>
                             } 
                         />

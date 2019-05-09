@@ -30,12 +30,25 @@ function isset(item) {
     return null !== item && typeof(item) !== 'undefined';
 }
 
+function getNotificationMessage(item) {
+    if(isset(item.data.follow)) {
+        return "Started following you";
+    } else if(isset(item.data.like)) {
+        return "Liked you post";
+    } else if(isset(item.data.contest)) {
+        return "Starting following your contest";
+    } else {
+        return "No message";
+    }
+}
+
 const Utility = {
     progress,
     getPath,
     getAvatar,
     isEmail,
     isset,
+    getNotificationMessage,
 };
 
 export default Utility;

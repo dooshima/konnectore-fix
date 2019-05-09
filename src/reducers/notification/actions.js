@@ -7,9 +7,9 @@ const addNotifications = byId => ({
     byId,
 });
 
-const getNotifications = () => dispatch => {
+const getNotifications = (token) => dispatch => {
     dispatch(appActions.appIsLoading(true));
-    Notification.getNotifications()
+    Notification.getNotifications(token)
         .then( response => {
             dispatch(appActions.appIsLoading(false));
             if(!response.error) {

@@ -4,6 +4,7 @@ import { List, ListSubheader, ListItem, ListItemText, Avatar, Typography } from 
 import { withStyles } from '@material-ui/core/styles';
 import KPaper from '../UIC/KPaper';
 import NotificationListItem from '../../widgets/notifications/NotificationListItem';
+import Utility from '../../services/Utility';
 
 const styles = theme => ({
     subheader: {
@@ -12,13 +13,26 @@ const styles = theme => ({
 });
 
 function NotificationList(props) {
-    const { classes } = props;
+    const { classes, notifications } = props;
+    let list = [];
+    for(let i in notifications) {
+        let item = notifications[i];
+        if(Utility.isset(item)) {
+            let fullName = Utility.isset(item.data) && Utility.isset(item.data.user)? item.data.author.firstname + " " + item.data.author.lastname: "";
+            list.push({
+                avatar: Utility.getAvatar(item.data.author.avatar),
+                fullName: fullName,
+                date: item.created_at,
+                message: Utility.isset(item.message)? item.message: Utility.getNotificationMessage(item),
+            });
+        }
+    }
     return (
         <KPaper>
             <List subheader={<ListSubheader>Sort by</ListSubheader>} style={{textAlign: 'right'}} className={classes.subheader}>
             {
-            [...Array(10).keys()].map( i =>
-            <NotificationListItem />
+            list.map( item =>
+            <NotificationListItem item={item} />
             )
             }
             

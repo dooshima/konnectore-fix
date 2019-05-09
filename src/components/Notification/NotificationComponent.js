@@ -12,7 +12,7 @@ class NotificationComponent extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getNotifications();
+        this.props.getNotifications(this.props.user.authToken);
     }
 
     render() {
@@ -21,7 +21,7 @@ class NotificationComponent extends React.Component {
                 <Typography style={{fontSize: 20, marginBottom: 20,}}>
                     Notifications
                 </Typography>
-                <NotificationList />
+                <NotificationList {...this.props} />
 
             </KPaper>
         )
@@ -31,13 +31,14 @@ class NotificationComponent extends React.Component {
 const mapStateToProps = state => {
     return {
         user: state.user,
+        notifications: state.notifications.byId,
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        getNotifications: () => {
-            dispatch(notificationActions.getNotifications());
+        getNotifications: token => {
+            dispatch(notificationActions.getNotifications(token));
         }
     }
 }

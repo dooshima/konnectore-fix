@@ -10,6 +10,8 @@ import contestActions from '../../reducers/contest/actions';
 import ContestUploadProgress from './ContestUploadProgress';
 import Constants from '../../assets/Constants';
 import EntrySubmissionMenu from './EntrySubmissionMenu';
+import SimpleTextAlert from './../../widgets/alerts/SimpleTextAlert';
+import { Link } from 'react-router-dom';
 
 
 const styles = theme => ({
@@ -151,6 +153,13 @@ const styles = theme => ({
         padding: 10,
         display: 'flex',
         flexDirection: 'column',
+    },
+    success: {
+        display: 'flex',
+        margin: '3em 2em',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 });
 
@@ -196,7 +205,7 @@ class AddEntryComponent extends React.Component {
     }
 
     render() {
-    const { classes, currentScreen, dob } = this.props;
+    const { classes, currentScreen, dob,submissionPath } = this.props;
     const active = !this.props.entryFilePath || !this.state.description || !this.props.contest_slug? true: false;
     return (
         <div className={classes.main}>
@@ -205,6 +214,7 @@ class AddEntryComponent extends React.Component {
                 <KCard className={classes.card}>
                 <ContentHeader />
                     {false && <CardHeader title="Add an entry" className={classes.title} />}
+                    {(this.props.app && this.props.app.error !== false)? <div>
                     <CardHeader title={<EntrySubmissionMenu />} />
                     <CardContent className={classes.content}>
                         <div className={classes.pickerWrapper}>
@@ -236,6 +246,10 @@ class AddEntryComponent extends React.Component {
                             <KBigButton disabled={active} onClick={this.handleSubmit} label="Submit" size="small" />
                         </div>
                     </CardActions>
+                    </div>: <div className={classes.success}>
+                        <SimpleTextAlert message="You have successfully submitted your entry" />
+                        <Link to={submissionPath}><Typography>View entries</Typography></Link>
+                    </div>}
                 </KCard>
         </div>
         </div>
@@ -254,6 +268,7 @@ const mapStateToProps = state => {
         isUploading: state.contest.isUploading,
         entryFilePath: state.contest.entryFilePath,
         contest_slug: state.contest.data.slug,
+        app: state.app.data
     }
 }
 
