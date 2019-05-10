@@ -7,11 +7,19 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PaystackVoteButton from '../vote/PaystackVoteButton';
-import { InputAdornment } from '@material-ui/core';
+import { InputAdornment, Grid, Avatar, Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+  root: {
+    //width: 1000,
+  }
+});
 
 function VoteAmountDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [amount, setAmount] = React.useState(0);
+  const { classes } = props;
 
   function handleClickOpen() {
     setOpen(true);
@@ -28,12 +36,25 @@ function VoteAmountDialog(props) {
   return (
       
     <div>
-      <Dialog open={props.open} onClose={() => props.toggleDialog(false)} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">How much do you want to vote?</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Please enter amount in Naira
-          </DialogContentText>
+      <Dialog classes={{root: classes.root}} open={props.open} onClose={() => props.toggleDialog(false)} aria-labelledby="form-dialog-title">
+      <DialogContent>
+        <Grid container spacing={0}>
+          <Grid item md={6} sm={12} className={classes.gridLeft}>
+            <div className={classes.leftContent}>
+              <div className={classes.avatarWithName}>
+                <Avatar src="/images/avatar.png" />
+                <Typography variant="h5">Tunde Bakare</Typography>
+              </div>
+              <div className={classes.description}>
+                <Typography color="textSecondary">You are voting for the submission entry posted in</Typography>
+                <Typography color="primary">The Sctage 2019 Contest</Typography>
+              </div>
+            </div>
+            <div>
+              <Typography>Need help?</Typography>
+            </div>
+          </Grid>
+          <Grid item md={6} sm={12}>
           <TextField
             autoFocus
             margin="dense"
@@ -46,6 +67,8 @@ function VoteAmountDialog(props) {
                 startAdornment: <InputAdornment position="start">N</InputAdornment>,
             }}
           />
+          </Grid>
+        </Grid>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => props.toggleDialog(false)} color="primary">
@@ -58,4 +81,4 @@ function VoteAmountDialog(props) {
   );
 }
 
-export default VoteAmountDialog;
+export default withStyles(styles)(VoteAmountDialog);

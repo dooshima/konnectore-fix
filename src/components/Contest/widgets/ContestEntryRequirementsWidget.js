@@ -69,7 +69,7 @@ class ContestEntryRequirementsWidget extends React.Component {
                     </div>
                 } else {
                     return <>
-                        <SimpleTextAlert message={`To join ${currentEdition.slogan}, you must refer 20 users or more.`} />
+                        <SimpleTextAlert message={`To join ${currentEdition.slogan}, you must refer 20 users or more. Your referral ID is: ${user.referralID}`} />
                         <Typography color="primary" className={classes.infoText}>You've {user.referralsCount} referrals.</Typography>
                         </>
                 }
