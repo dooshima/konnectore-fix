@@ -132,6 +132,7 @@ const mapStateToProps = state => {
         user: state.user,
         accessToken: state.user.authToken,
         contest: state.contest.data,
+        entryCategory: state.contest.entryCategory,
     }
 }
 
@@ -145,6 +146,9 @@ const mapDispatchToProps = dispatch => {
       },
       followContest: (form, token) => {
           dispatch(contestActions.followContest(form, token));
+      },
+      addEntryCategory: category => {
+          dispatch(contestActions.addEntryCategory(category));
       }
     }
 };

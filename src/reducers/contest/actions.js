@@ -43,7 +43,12 @@ const addToEntries = entries => ({
 const addEntries = entries => ({
     type: types.CONTEST_ADD_ENTRIES,
     entries,
-})
+});
+
+const addEntryCategory = entryCategory => ({
+    type: types.CONTEST_ADD_ENTRY_CATEGORY,
+    entryCategory,
+});
 
 const getContest = (slug, user_id) => {
     return dispatch => {
@@ -154,6 +159,7 @@ function setDefault() {
         dispatch(setEntryFilePath(""));
         dispatch(setContestFeed({}));
         dispatch(setContestData({}));
+        dispatch(addEntryCategory(""));
     }
 }
 
@@ -168,6 +174,7 @@ const contestActions = {
     getContestFeed,
     setDefault,
     followContest,
+    addEntryCategory
 };
 
 export default contestActions;

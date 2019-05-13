@@ -97,7 +97,7 @@ class AvailablePositionsWidget extends React.Component {
                     </div>
                 </div>}
 
-                <ContestEntryRequirementsWidget user={user.data} url={url} contest={contest} />
+                <ContestEntryRequirementsWidget user={user.data} url={url} contest={contest} entryCategory={this.props.entryCategory} addEntryCategory={this.props.addEntryCategory} />
 
                 <Link onClick={() => history.push(`${url}/submissions`)} className={classes.viewLink}><Typography color="textSecondary">View entries</Typography></Link>
             </CardContent>
@@ -105,6 +105,5 @@ class AvailablePositionsWidget extends React.Component {
     )
     }
 }
-
 
 export default withStyles(styles)(AvailablePositionsWidget);

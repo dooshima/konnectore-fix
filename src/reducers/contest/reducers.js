@@ -8,6 +8,7 @@ import addEntryReducer from './reduction/addEntryReducer';
 import setContestFeedReducer from './reduction/setContestFeedReducer';
 import addEntriesReducer from './reduction/addEntriesReducer';
 import addToEntriesReducer from './reduction/addToEntriesReducer';
+import addEntryCategoryReducer from './reduction/addEntryCategoryReducer';
 
 const uploadCount = (uploadCount=0, action) => {
     switch(action.type) {
@@ -74,6 +75,15 @@ const feed = (feed=[], action) => {
     }
 }
 
+const entryCategory = (entryCategory="", action) => {
+    switch(action.type) {
+        case types.CONTEST_ADD_ENTRY_CATEGORY:
+            return addEntryCategoryReducer(entryCategory, action);
+        default:
+            return entryCategory;
+    }
+}
+
 const contestReducers = combineReducers({
     uploadCount,
     isUploading,
@@ -82,6 +92,7 @@ const contestReducers = combineReducers({
     entry,
     feed,
     entries,
+    entryCategory,
 });
 
 export default contestReducers;
