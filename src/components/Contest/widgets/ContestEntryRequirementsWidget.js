@@ -71,7 +71,7 @@ class ContestEntryRequirementsWidget extends React.Component {
             case 3:
                 return <SimpleTextAlert message="You're a workforce. You can't join a contest" />;
             case 2:
-                if(user.referralsCount <= 20) {
+                if(user.referralsCount >= 20) {
                     return <div className={classes.joinInfo}>
                         <KFormSelect options={[{label: 'Singer', value: 1}, {label: 'Comedian', value: 2} ]} handleChange={this.handleChange} value={this.props.entryCategory} label="Category" name="category" />
                         <Typography className={classes.mentioned}>
