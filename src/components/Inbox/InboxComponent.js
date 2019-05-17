@@ -5,6 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import SettingsIcon from '@material-ui/icons/Settings';
 import KPaper from '../UIC/KPaper';
+import InboxMessageThread from './InboxMessageThread';
+import RecentlyAddedUsersDialog from '../../widgets/inbox/RecentlyAddedUsersDialog';
 
 const styles = theme => ({
     controlsRow: {
@@ -24,6 +26,56 @@ const styles = theme => ({
 class InboxComponent extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            message: '',
+            messages: [
+                {
+                    message: "Okay, thanks. I'll let you know when it's available.",
+                    type: 1,
+                    date: "2019-01-09",
+                },
+                {
+                    message: "Okay, thanks. I'll let you know when it's available.",
+                    type: 1,
+                    date: "2019-02-09",
+                },
+                {
+                    message: "Okay, thanks. I'll let you know when it's available.",
+                    type: 2,
+                    date: "2019-03-09",
+                },
+                {
+                    message: "Okay, thanks. I'll let you know when it's available.",
+                    type: 1,
+                    date: "2019-04-09",
+                },
+                {
+                    message: "Okay, thanks. I'll let you know when it's available.",
+                    type: 1,
+                    date: "2019-04-15",
+                }
+            ],
+        }
+    }
+
+    handleChange = name => value => {
+        this.setState({[name]: value.target.value})
+    }
+
+    addMessage(message) {
+        const messages = this.state.messages;
+        const msg = {
+            message: message,
+            type: 2,
+            date: new Date()
+        }
+        this.setState({messages: [...messages, msg]});
+    }
+
+    sendMessage = (e) => {
+        this.addMessage(this.state.message);
+        e.preventDefault();
     }
 
     render() {
@@ -38,9 +90,7 @@ class InboxComponent extends React.Component {
                                 Messages
                             </Typography>
                             <div className={classes.controls}>
-                                <IconButton>
-                                    <CreateNewFolderIcon />
-                                </IconButton>
+                                <RecentlyAddedUsersDialog handleChange={this.handleChange} />
                                 <IconButton>
                                     <SettingsIcon />
                                 </IconButton>
@@ -68,7 +118,7 @@ class InboxComponent extends React.Component {
                         <InboxSenderList />
                     </Grid>
                     <Grid item md="8">
-                    
+                        <InboxMessageThread messages={this.state.messages} message={this.state.message} handleChange={this.handleChange} sendMessage={this.sendMessage} />
                     </Grid>
                 </Grid>
                 

@@ -6,6 +6,8 @@ import searchStartedReducer from './reduction/searchStartedReducer';
 import searchSucceededReducer from './reduction/searchSucceededReducer';
 import setSearchFilterReducer from './reduction/setSearchFilterReducer';
 import addAllIdsReducer from './reduction/addByIdReducer';
+import addEntryIdsReducer from './reduction/addEntryIdsReducer';
+import addPeopleByIdReducer from './reduction/addPeopleByIdReducer';
 
 const initialState = {
     showSearchForm: false,
@@ -64,6 +66,24 @@ const allIds = (allIds=[], action) => {
     }
 }
 
+const entryIds = (entryIds=[], action) => {
+    switch(action.type) {
+        case types.SEARCH_ADD_ENTRY_IDS:
+            return addEntryIdsReducer(entryIds, action);
+        default:
+            return entryIds;
+    }
+}
+
+const peopleById = (peopleById={}, action) => {
+    switch(action.type) {
+        case types.SEARCH_ADD_PEOPLE_BY_ID:
+            return addPeopleByIdReducer(peopleById, action);
+        default:
+            return peopleById;
+    }
+};
+
 const searchReducers = combineReducers({
     show,
     queryText,
@@ -71,6 +91,8 @@ const searchReducers = combineReducers({
     searchResult,
     filter,
     allIds,
+    entryIds,
+    peopleById,
 });
 
 export default searchReducers;

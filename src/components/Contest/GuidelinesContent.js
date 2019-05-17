@@ -16,7 +16,8 @@ const styles = theme => ({
     p: {
         marginTop: theme.spacing.unit * 2,
     }
-})
+});
+
 function GuidelinesContent(props) {
     const { classes } = props;
     return (
@@ -133,7 +134,6 @@ stage2019.ThegrandfinalewillbebroadcastedliveonDSTV.
 		</Typography>
 	</li>
 </ul>
-
 
 <Typography color="textSecondary" className={classes.p}>
 PS:Specificdetailsandinstructionsforeachsegmentwillbemade

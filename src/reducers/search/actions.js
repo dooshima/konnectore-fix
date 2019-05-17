@@ -4,6 +4,7 @@ import axios from 'axios';
 import Search from '../../services/Search/Search';
 import postActions from '../post/actions';
 import commentActions from '../comment/actions';
+import contestActions from '../contest/actions';
 
 export const showSearchForm = show => ({
     type: types.SHOW_SEARCH_FORM,
@@ -18,7 +19,22 @@ const addQueryText = queryText => ({
 const addAllIds = allIds => ({
     type: types.SEARCH_ADD_ALLIDS,
     allIds,
-})
+});
+
+const addEntryIds = entryIds => ({
+    type: types.SEARCH_ADD_ENTRY_IDS,
+    entryIds,
+});
+
+const addPeopleById = peopleById => ({
+    type: types.SEARCH_ADD_PEOPLE_BY_ID,
+    peopleById,
+});
+
+const addPeopleIds = peopleIds => ({
+    type: types.SEARCH_ADD_PEOPLE_IDS,
+    peopleIds,
+});
 
 const handleSearch = (queryText, queryFilter='') => {
     return dispatch => {
@@ -31,6 +47,11 @@ const handleSearch = (queryText, queryFilter='') => {
                 dispatch(addAllIds(result.data.allIds));
                 dispatch(postActions.addPosts(result.data.byId));
                 dispatch(commentActions.addComments(result.data.commentById));
+                dispatch(commentActions.addComments(result.data.contestCommentById));
+                dispatch(contestActions.addEntryById(result.data.contestById));
+                dispatch(addEntryIds(result.data.contestIds));
+                dispatch(addPeopleById(result.data.userById));
+                dispatch(addPeopleIds(result.data.userIds));
             })
             .catch( error => {
                 console.log(error);

@@ -50,6 +50,11 @@ const addEntryCategory = entryCategory => ({
     entryCategory,
 });
 
+const addEntryById = byId => ({
+    type: types.CONTEST_ADD_ENTRY_BY_ID,
+    byId,
+})
+
 const getContest = (slug, user_id) => {
     return dispatch => {
         dispatch(appActions.appIsLoading(true));
@@ -174,7 +179,8 @@ const contestActions = {
     getContestFeed,
     setDefault,
     followContest,
-    addEntryCategory
+    addEntryCategory,
+    addEntryById,
 };
 
 export default contestActions;

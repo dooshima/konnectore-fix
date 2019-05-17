@@ -65,7 +65,7 @@ class KTabs extends React.Component {
   handleChange = (event, value) => {
     this.setState({ value });
     let filter = '';
-    switch(value) {
+    switch(+value) {
       case 0:
         filter = 'all';
         break;
@@ -78,11 +78,18 @@ class KTabs extends React.Component {
       case 3:
         filter = 'video';
         break;
+      case 4:
+        filter = 'person';
+        break;
+      case 5:
+        filter = 'contest';
+        break;
       default:
         filter = 'all';
         break;
     }
     this.props.setFilter(filter);
+
   };
 
   render() {

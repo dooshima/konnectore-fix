@@ -65,7 +65,7 @@ const ContestHeaderCard = props => {
         <Grid container spacing={8}>
           <Grid item>
             <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src="/contests/banner-img.png" />
+              <img className={classes.img} alt="complex" src="/images/post-img.png" />
             </ButtonBase>
           </Grid>
           <Grid item xs={8} sm className={classes.summary}>

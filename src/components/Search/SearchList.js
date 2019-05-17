@@ -55,6 +55,8 @@
  import ImageItemList from './ImageItemList';
  import PostItemList from './PostItemList';
  import { Paper } from '@material-ui/core';
+import ContestItemList from './ContestItemList';
+import PersonItemList from './PersonItemList';
 
  class SearchList extends React.Component {
     constructor(props) {
@@ -69,7 +71,7 @@
     }
 
     static getDerivedStateFromProps(props) {
-        const { filter, searchResult } = props;
+        const { filter, searchResult, contest, persons } = props;
         let list = [];
         let types = [];
         let contests = [];
@@ -91,12 +93,12 @@
         }
    
         if (filter === 'contest') {
-            contests = searchResult.contests.byId;
+            contests = contest.byId;
             types = [filter];
         }
         
         if (filter === 'person') {
-            people = searchResult.contests.byId;
+            people = persons;
             types = [filter];
         }
 
@@ -106,6 +108,8 @@
                 list.push(item);
                 types = ['video', 'image', 'text', 'contest', 'person'];
             }
+            contests = contest.byId;
+            people = persons;
         }
 
         return {
@@ -126,9 +130,9 @@
             if(item === 'text')
                 return <PostItemList list={this.state.list} />
             if(item === 'contest')
-                return null; //<ContestItemList contests={this.state.contests} />
+                return <ContestItemList contests={this.state.contests} />
             if(item === 'person' || item === 'all')
-                return null; //<PersonItemList people={this.state.people} />
+                return <PersonItemList people={this.state.people} />
         });
 
         return items

@@ -141,6 +141,14 @@ const tabs = [
     label: "Videos",
     route: "video"
   },
+  {
+    label: "People",
+    route: 'friend',
+  },
+  {
+    label: "Contests",
+    route: "contest",
+  }
 ];
 
 class SearchComponent extends React.Component {
@@ -165,7 +173,7 @@ class SearchComponent extends React.Component {
   }
 
   render() {
-    const { classes, q, queryText, filter, match, user, search, post } = this.props;
+    const { classes, q, queryText, filter, match, user, search, post, contest } = this.props;
     const isLoggedIn = user.hasOwnProperty('data');
 
     let searchResult = {};
@@ -190,7 +198,7 @@ class SearchComponent extends React.Component {
                 </Typography>
                 
                 <KTabs tabs={tabs} baseUrl={match.url} setFilter={this.setFilter} size="small" />
-                {count > 0? <SearchList filter={this.state.filter} searchResult={searchResult} />: <SimpleTextAlert message="No resulf found" />}
+                {count > 0? <SearchList persons={search.peopleById} contest={contest} filter={this.state.filter} searchResult={searchResult} />: <SimpleTextAlert message="No resulf found" />}
               </Paper>
             </Grid>
             <Grid item xs={4}>
@@ -219,6 +227,7 @@ const mapStateToProps = state => {
     post: state.post,
     user: state.user, 
     queryText: state.search.queryText,
+    contest: state.contest,
   }
 }
 

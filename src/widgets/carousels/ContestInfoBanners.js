@@ -79,7 +79,7 @@ class ContestInfoBanners extends React.Component {
                             <Button className={classes.join}>Join the contest</Button>
                         </Grid>
                         <Grid item md="4" className={classes.img}>
-                            <img src="/contests/banner-img.png" />
+                            <img src="/images/post-img.png" style={{width: 120,}} />
                         </Grid>
                     </Grid>
                 </KPaper>
