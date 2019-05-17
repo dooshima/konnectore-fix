@@ -75,6 +75,7 @@ class InboxComponent extends React.Component {
 
     sendMessage = (e) => {
         this.addMessage(this.state.message);
+        this.setState({message: ''});
         e.preventDefault();
     }
 

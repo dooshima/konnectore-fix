@@ -9,6 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import { loadCSS } from 'fg-loadcss/src/loadCSS';
 import ReactTimeAgo from 'react-time-ago'
 import Utility from '../../services/Utility';
+import { Menu, MenuItem } from '@material-ui/core';
+import Fade from '@material-ui/core/Fade';
 
 
 const styles = theme => ({
@@ -120,7 +122,25 @@ class PostAuthorWidget extends React.Component {
 
         this.state = {
             expanded: false,
+            open: false,
+            anchorEl: null,
         }
+    }
+
+    handleToggle = (event) => {
+      this.setState({open: !this.state.open});
+    } 
+
+    handleDelete = () => {
+      
+    }
+
+    handleClick = event => {
+      this.setState({anchorEl: event.currentTarget});
+    }
+
+    handleClose = () => {
+      this.setState({anchorEl: null});
     }
 
     componentDidMount() {
@@ -136,6 +156,8 @@ class PostAuthorWidget extends React.Component {
 
   render() {
     const { classes, avatar, fullName, date } = this.props;
+    const open = Boolean(this.state.anchorEl);
+    console.log(this.state)
     return (
         <div className={classes.author}>
         <div className={classes.rule} />
@@ -148,14 +170,27 @@ class PostAuthorWidget extends React.Component {
                 <Typography className={classes.titleStat}><ReactTimeAgo date={new Date(date)} locale="en" /></Typography>
             </div>
 
+            
+            <div>
             <IconButton
+                aria-owns={open ? 'fade-menu' : undefined} aria-haspopup="true" onClick={this.handleClick}
                 className={classes.more}
-                onClick={this.handleExpandClick}
+                //onClick={this.handleExpandClick}
                 aria-expanded={this.state.expanded}
                 aria-label="Show more"
             >
                 <MoreHorizIcon />
             </IconButton>
+              <Menu
+                id="fade-menu"
+                anchorEl={this.state.anchorEl}
+                open={open}
+                onClose={this.handleClose}
+                TransitionComponent={Fade}
+              >
+                <MenuItem onClick={this.handleDelete}>Delete</MenuItem>
+              </Menu>
+            </div>
         </CardActions>
 
         </div>
