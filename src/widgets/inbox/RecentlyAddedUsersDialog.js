@@ -42,7 +42,7 @@ const styles = theme => ({
 });
 
 function SimpleDialog(props) {
-  const { classes } = props;
+  const { classes, followings } = props;
   const { onClose, selectedValue, ...other } = props;
 
   function handleClose() {
@@ -50,7 +50,9 @@ function SimpleDialog(props) {
   }
 
   function handleListItemClick(value) {
+    props.addThread(value);
     onClose(value);
+
   }
 
   return (
@@ -81,14 +83,12 @@ function SimpleDialog(props) {
           </div>
           <div><Typography variant="caption">Recently added</Typography></div>
         <List>
-          {emails.map(email => (
-            <ListItem button onClick={() => handleListItemClick(email)} key={email}>
+          {followings.map( (user, i) => (
+            <ListItem button onClick={() => handleListItemClick(user)} key={i}>
               <ListItemAvatar>
-                <Avatar className={classes.avatar}>
-                  <PersonIcon />
-                </Avatar>
+                <Avatar className={classes.avatar} src={user.avatar} />
               </ListItemAvatar>
-              <ListItemText primary={email} />
+              <ListItemText primary={`${user.fname} ${user.lname}`} />
             </ListItem>
           ))}
           <ListItem button onClick={() => handleListItemClick('addAccount')}>
@@ -130,7 +130,14 @@ function RecentlyAddedUsersDialog(props) {
       <IconButton onClick={handleClickOpen}>
         <CreateNewFolderIcon />
     </IconButton>
-      <UsersDialog selectedValue={selectedValue} open={open} onClose={handleClose} handleChange={() => props.handleChange('q')} />
+      <UsersDialog 
+        followings={props.followings} 
+        selectedValue={selectedValue} 
+        open={open} onClose={handleClose} 
+        handleChange={() => props.handleChange('q')} 
+        addThread={props.addThread}
+        //onClick={props.getMessages} 
+        />
     </span>
   );
 }

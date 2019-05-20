@@ -7,6 +7,9 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import KPaper from '../UIC/KPaper';
 import InboxMessageThread from './InboxMessageThread';
 import RecentlyAddedUsersDialog from '../../widgets/inbox/RecentlyAddedUsersDialog';
+import { connect } from 'react-redux';
+import inboxActions from '../../reducers/inbox/actions';
+import Utility from '../../services/Utility';
 
 const styles = theme => ({
     controlsRow: {
@@ -20,6 +23,11 @@ const styles = theme => ({
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
         overflow: 'hidden',
+    },
+    inboxContainer: {
+        minHeight: 600,
+        maxHeight: '100vh',
+        position: 'relative',
     }
 })
 
@@ -29,39 +37,24 @@ class InboxComponent extends React.Component {
 
         this.state = {
             message: '',
-            messages: [
-                {
-                    message: "Okay, thanks. I'll let you know when it's available.",
-                    type: 1,
-                    date: "2019-01-09",
-                },
-                {
-                    message: "Okay, thanks. I'll let you know when it's available.",
-                    type: 1,
-                    date: "2019-02-09",
-                },
-                {
-                    message: "Okay, thanks. I'll let you know when it's available.",
-                    type: 2,
-                    date: "2019-03-09",
-                },
-                {
-                    message: "Okay, thanks. I'll let you know when it's available.",
-                    type: 1,
-                    date: "2019-04-09",
-                },
-                {
-                    message: "Okay, thanks. I'll let you know when it's available.",
-                    type: 1,
-                    date: "2019-04-15",
-                }
-            ],
+            messages: {},
+            threads: [],
+            currentThread: {},
         }
+    }
+
+    componentDidMount() {
+        this.props.getUserFollowing(this.props.user.authToken);
+        this.props.getUserThreads(this.props.user.authToken);
     }
 
     handleChange = name => value => {
         this.setState({[name]: value.target.value})
     }
+
+    getMessages = threadcode => {
+        this.props.getThreadMessages(threadcode, this.props.user.authToken);
+    } 
 
     addMessage(message) {
         const messages = this.state.messages;
@@ -74,15 +67,76 @@ class InboxComponent extends React.Component {
     }
 
     sendMessage = (e) => {
-        this.addMessage(this.state.message);
+        //this.props.handleAddMessage(this.state.message);
+        //this.handleSendMessage()
         this.setState({message: ''});
         e.preventDefault();
     }
 
+    addThread = recipient => {
+
+        const thread = {
+            receiver_id: recipient.userid,
+            sender_id: this.props.user.data.id,
+            receiver_avatar: recipient.avatar,
+            sender_avatar: this.props.user.data.avatar,
+            receiver_fname: recipient.fname,
+            receiver_lname: recipient.lname,
+            sender_fname: this.props.user.data.firstname,
+            sender_lname: this.props.user.data.lastname,
+            most_recent_msg: '',
+            thread_code: null,
+            timestamp: (new Date()).getTime() 
+        };
+        //this.setState({threads: [...this.state.threads, thread], currentThread: thread});
+
+        this.props.setCurrentThread(thread);
+        this.props.addToThreads(thread);
+    }
+
+    handleSelectedThread = thread => {
+        this.setState({currentThread: thread});
+        this.props.setCurrentThread(thread);
+        this.getMessages(thread.thread_code);
+    }
+
+    handleSendMessage = e => {
+        e.preventDefault();
+        const message = this.state.message
+        const thread = this.props.inbox.currentThread;
+        const form = {
+            message,
+            sender: this.props.user.data.id,
+            receiver: thread.receiver_id,
+        };
+        //console.log(form)
+        this.props.sendAMessage(form, this.props.user.authToken);
+        this.setState({message: ''});
+    }
+
     render() {
         const { classes } = this.props;
+        const m = Utility.isset(this.props.inbox.messages)? this.props.inbox.messages: {};
+        let msg = [];
+        for(let i in m) {
+            let mg = m[i];
+            msg.push(mg);
+        }
+        const messageList = msg.filter( (message, i) => {
+            //console.log(message, this.props.inbox.currentThread)
+            const cthread = this.props.inbox.currentThread;
+            const sameCode = Utility.isset(message.thread_code) && message.thread_code === cthread.thread_code;
+            const sameUsers = message.sender === cthread.sender_id && message.receiver === cthread.receiver_id;
+            return sameCode || sameUsers;
+        });
+        let threadList = [];
+        const inboxThreads = Utility.isset(this.props.inbox.threads)? this.props.inbox.threads: {};
+        for(let i in inboxThreads) {
+            let t = inboxThreads[i];
+            threadList.push(t);
+        }
         return (
-            <KPaper style={{margin: 20}}>
+            <KPaper style={{margin: 20}} className={classes.inboxContainer}>
             <KPaper className={classes.inboxHeader}>
                 <Grid container spacing={8}>
                     <Grid item md="4">
@@ -91,7 +145,11 @@ class InboxComponent extends React.Component {
                                 Messages
                             </Typography>
                             <div className={classes.controls}>
-                                <RecentlyAddedUsersDialog handleChange={this.handleChange} />
+                                <RecentlyAddedUsersDialog 
+                                    handleChange={this.handleChange} 
+                                    followings={this.props.inbox.followings}
+                                    addThread={this.addThread}
+                                    getMessages={this.getMessages} />
                                 <IconButton>
                                     <SettingsIcon />
                                 </IconButton>
@@ -100,12 +158,12 @@ class InboxComponent extends React.Component {
                     </Grid>
                     <Grid item md="8">
                         <ListItem className={classes.item}>
-                            <Avatar alt="Ademide Lawal" src="/images/avatar.png" />
-                            <ListItemText primary="Ademide Lawal" 
+                            <Avatar alt={`${this.props.inbox.currentThread.receiver_fname} ${this.props.inbox.currentThread.receiver_lname}`} src={Utility.getAvatar(this.props.inbox.currentThread.receiver_avatar)} />
+                            <ListItemText primary={`${this.props.inbox.currentThread.receiver_fname} ${this.props.inbox.currentThread.receiver_lname}`} 
                                 secondary={
                                     <React.Fragment>
                                         <Typography color="textSecondary" className={classes.message}>
-                                            Okay, thanks. I'll let you know when it's available.
+                                            {this.props.inbox.currentThread.most_recent_msg.message}
                                         </Typography>
                                     </React.Fragment>
                                 } 
@@ -116,10 +174,14 @@ class InboxComponent extends React.Component {
             </KPaper>
                 <Grid container spacing={8}>
                     <Grid item md="4">
-                        <InboxSenderList />
+                        <InboxSenderList threads={threadList} getMessages={this.getMessages} handleSelectedThread={this.handleSelectedThread} />
                     </Grid>
                     <Grid item md="8">
-                        <InboxMessageThread messages={this.state.messages} message={this.state.message} handleChange={this.handleChange} sendMessage={this.sendMessage} />
+                        <InboxMessageThread 
+                            messages={messageList} 
+                            message={this.state.message} 
+                            handleChange={this.handleChange} 
+                            sendMessage={this.handleSendMessage} />
                     </Grid>
                 </Grid>
                 
@@ -128,4 +190,34 @@ class InboxComponent extends React.Component {
     }
 }
 
-export default withStyles(styles)(InboxComponent);
+const mapStateToProps = state => {
+    return {
+        inbox: state.inbox,
+        user: state.user
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getUserFollowing: token => {
+            dispatch(inboxActions.handleGetFollowings(token))
+        },
+        sendAMessage: (form, token) => {
+            dispatch(inboxActions.sendMessage(form, token))
+        },
+        getThreadMessages: (threadcode, token) => {
+            dispatch(inboxActions.getThreadMessages(threadcode, token));
+        },
+        setCurrentThread: thread => {
+            dispatch(inboxActions.setCurrentThread(thread));
+        },
+        addToThreads: thread => {
+            dispatch(inboxActions.addThread(thread));
+        },
+        getUserThreads: token => {
+            dispatch(inboxActions.getUserThreads(token));
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(InboxComponent));

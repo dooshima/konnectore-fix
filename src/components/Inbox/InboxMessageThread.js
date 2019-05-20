@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import KPaper from '../UIC/KPaper';
 import KCard from '../UIC/KCard';
 import ReactTimeAgo from 'react-time-ago/commonjs/ReactTimeAgo';
+import Utility from '../../services/Utility';
 
 const styles = theme => ({
     subheader: {
@@ -73,9 +74,9 @@ function InboxMessageThread(props) {
             {
             props.messages.map( item => {
             return item.type === 1? <ListItem className={classes.item}>
-                <Avatar alt="Ademide Lawal" src="/images/avatar.png" />
+                <Avatar alt={`${item.receiver_fname} ${item.receiver_lname}`} src={Utility.getAvatar(item.receiver_avatar)} />
                 <KCard className={classes.friendCard}>
-                    <ListItemText primary="Ademide Lawal" 
+                    <ListItemText primary={`${item.receiver_fname} ${item.receiver_lname}`} 
                         secondary={
                             <React.Fragment>
                                 <Typography color="textSecondary" className={classes.message}>
@@ -89,18 +90,18 @@ function InboxMessageThread(props) {
             </ListItem>:
             <ListItem className={classes.userItem}>
                 <KCard className={classes.userCard}>
-                    <ListItemText primary="Ademide Lawal" 
+                    <ListItemText primary={`${item.sender_fname} ${item.sender_lname}`} 
                         secondary={
                             <React.Fragment>
                                 <Typography color="textSecondary" className={classes.message}>
                                     {item.message}
                                 </Typography>
-                                <Typography color="textSecondary" className={classes.date}><ReactTimeAgo date={new Date(item.date)} /></Typography>
+                                <Typography color="textSecondary" className={classes.date}><ReactTimeAgo date={new Date(item.timestamp? item.timestamp: (new Date().getTime()))} /></Typography>
                             </React.Fragment>
                         } 
                     />
                 </KCard>
-                <Avatar alt="Ademide Lawal" src="/images/avatar.png" />
+                <Avatar alt={`${item.sender_fname} ${item.sender_lname}`} src={Utility.getAvatar(item.sender_avatar)} />
             </ListItem>
             }
             )

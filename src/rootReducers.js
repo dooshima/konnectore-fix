@@ -11,6 +11,7 @@ import { combineReducers } from 'redux';
 import commentReducers from './reducers/comment/reducers';
 import meReducers from './reducers/me/reducers';
 import notificationReducers from './reducers/notification/reducer';
+import inboxReducers from './reducers/inbox/reducer';
 
 export default (history) => combineReducers({
     router: connectRouter(history),
@@ -24,4 +25,5 @@ export default (history) => combineReducers({
     comment: commentReducers,
     me: meReducers,
     notifications: notificationReducers,
+    inbox: inboxReducers,
 });
