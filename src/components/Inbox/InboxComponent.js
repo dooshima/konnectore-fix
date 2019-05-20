@@ -163,7 +163,7 @@ class InboxComponent extends React.Component {
                                 secondary={
                                     <React.Fragment>
                                         <Typography color="textSecondary" className={classes.message}>
-                                            {Utility(this.props.inbox.currentThread.most_recent_msg)? this.props.inbox.currentThread.most_recent_msg.message: ''}
+                                            {Utility.isset(this.props.inbox.currentThread.most_recent_msg)? this.props.inbox.currentThread.most_recent_msg.message: ''}
                                         </Typography>
                                     </React.Fragment>
                                 } 
