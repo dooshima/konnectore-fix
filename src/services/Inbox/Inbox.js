@@ -27,6 +27,7 @@ function getUserThreads (token) {
 }
 
 function sendMessage (form, token) {
+    console.log('Message: ', form)
     return Server.authPost('api/sendm', form, token)
         .then( response => response.data );
 }

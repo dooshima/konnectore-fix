@@ -6,6 +6,7 @@ import KCard from '../UIC/KCard';
 import KBigButton from '../UIC/KBigButton';
 import KFormSelect from '../../widgets/form/KFormSelect';
 import ContestEntryRequirementsWidget from './widgets/ContestEntryRequirementsWidget';
+import JoinContestWidget from './widgets/JoinContestWidget';
 
 const styles = theme => ({
     contestants: {
@@ -97,7 +98,7 @@ class AvailablePositionsWidget extends React.Component {
                     </div>
                 </div>}
 
-                <ContestEntryRequirementsWidget user={user.data} url={url} contest={contest} entryCategory={this.props.entryCategory} addEntryCategory={this.props.addEntryCategory} />
+                <JoinContestWidget user={user.data} url={url} contest={contest} entryCategory={this.props.entryCategory} addEntryCategory={this.props.addEntryCategory} />
 
                 <Link onClick={() => history.push(`${url}/submissions`)} className={classes.viewLink}><Typography color="textSecondary">View entries</Typography></Link>
             </CardContent>

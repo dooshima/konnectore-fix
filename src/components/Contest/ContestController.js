@@ -149,6 +149,9 @@ const mapDispatchToProps = dispatch => {
       },
       addEntryCategory: category => {
           dispatch(contestActions.addEntryCategory(category));
+      },
+      handleJoinContest: (form, token) => {
+          dispatch(contestActions.joinContest(form, token));
       }
     }
 };
