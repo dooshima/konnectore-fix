@@ -107,11 +107,13 @@ class InboxComponent extends React.Component {
         const form = {
             message,
             sender: this.props.user.data.id,
-            receiver: this.props.user.data.id === thread.receiver_id? thread.sender_id: thread.receiver_id,
+            receiver: this.props.user.data.id === thread.receiver_id? +thread.sender_id: +thread.receiver_id,
         };
         //console.log(form)
-        this.props.sendAMessage(form, this.props.user.authToken);
-        this.setState({message: ''});
+        if(form.sender !== form.receiver) {
+            this.props.sendAMessage(form, this.props.user.authToken);
+            this.setState({message: ''});
+        }
     }
 
     render() {
