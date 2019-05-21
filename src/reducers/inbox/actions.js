@@ -92,7 +92,7 @@ const sendMessage = (form, token) => dispatch => {
                 let message = response.data;
                 let thread_code = response.data.message_thread_code;
                 message.thread_code = thread_code;
-                message.id = response.data.timestanp;
+                message.id = response.data.timestamp;
                 dispatch(addMessage(message));
             }
         })

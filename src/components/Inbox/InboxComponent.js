@@ -104,6 +104,7 @@ class InboxComponent extends React.Component {
         e.preventDefault();
         const message = this.state.message
         const thread = this.props.inbox.currentThread;
+        console.log(thread);
         const form = {
             message,
             sender: this.props.user.data.id,
@@ -183,7 +184,8 @@ class InboxComponent extends React.Component {
                             messages={messageList} 
                             message={this.state.message} 
                             handleChange={this.handleChange} 
-                            sendMessage={this.handleSendMessage} />
+                            sendMessage={this.handleSendMessage}
+                            user={this.props.user} />
                     </Grid>
                 </Grid>
                 
