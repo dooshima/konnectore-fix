@@ -32,7 +32,7 @@ const authPost = (url, data, token) => {
 const authGet = (url, token) => {
     const authToken = {Authorization: 'Bearer ' + token};
     const options = {...headers, ...authToken}
-    console.log(options)
+    console.log(Constants.BASE_URL + url)
     return axios.get(Constants.BASE_URL + url, {headers: options});
 }
 

@@ -109,7 +109,7 @@ class InboxComponent extends React.Component {
             sender: this.props.user.data.id,
             receiver: thread.receiver_id,
         };
-        console.log(form)
+        //console.log(form)
         this.props.sendAMessage(form, this.props.user.authToken);
         this.setState({message: ''});
     }
