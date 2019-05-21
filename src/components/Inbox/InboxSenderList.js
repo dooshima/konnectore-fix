@@ -32,7 +32,7 @@ const styles = theme => ({
 
 function InboxSenderList(props) {
     const { classes, threads } = props;
-    console.log(threads)
+    //console.log(threads)
     return (
         <KPaper>
             {threads.length > 0 ?
