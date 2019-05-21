@@ -71,7 +71,7 @@ function JoinContestButton(props) {
         >
             <DialogTitle id="alert-dialog-title">{"Join " + props.contestEdition}</DialogTitle>
             <DialogContent>
-            {props.referralsCount < 20? <DialogContentText id="alert-dialog-description" style={{display: 'flex', flexDirection: 'column', width: 500,}}>
+            {props.referralsCount >= 20? <DialogContentText id="alert-dialog-description" style={{display: 'flex', flexDirection: 'column', width: 500,}}>
                 <FormControl>
                     <FormLabel>Who referred you? (Optional)</FormLabel>
                 <Input
@@ -96,7 +96,7 @@ function JoinContestButton(props) {
         <Typography color="primary" style={{textAlign: 'center'}}>You've {props.referralsCount} referrals.</Typography>
     </>}
             </DialogContent>
-            {props.referralsCount < 20? <DialogActions>
+            {props.referralsCount >= 20? <DialogActions>
             <Button onClick={handleClose} color="primary">
                 Cancel
             </Button>
