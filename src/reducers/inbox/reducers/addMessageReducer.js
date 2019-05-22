@@ -6,7 +6,9 @@ const addMessageReducer = (messages, action) => {
     }
 
     const message = action.message;
-    return {...messages, [message.id]: message};
+    console.log(message)
+    return {...messages, ...message};
+    //return action.message;
 }
 
 export default addMessageReducer;

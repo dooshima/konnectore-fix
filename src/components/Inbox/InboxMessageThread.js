@@ -71,33 +71,33 @@ function InboxMessageThread(props) {
     // console.log(user)
     return (
         <KPaper>
-            <List subheader={<ListSubheader>Sort by</ListSubheader>} style={{textAlign: 'right'}} className={classes.subheader}>
+            <List className={classes.subheader}>
             {
             props.messages.map( item => {
-            return item.sender === user.data.id? <ListItem className={classes.userItem}>
+            return item.sender == user.data.id? <ListItem className={classes.userItem}>
             <KCard className={classes.userCard}>
-                <ListItemText primary={`${item.sender_fname} ${item.sender_lname}`} 
+                <ListItemText primary={`${item.fname} ${item.lname}`} 
                     secondary={
                         <React.Fragment>
                             <Typography color="textSecondary" className={classes.message}>
                                 {item.message}
                             </Typography>
-                            <Typography color="textSecondary" className={classes.date}><ReactTimeAgo date={new Date(item.timestamp? item.timestamp * 1000: (new Date().getTime()))} /></Typography>
+                            <Typography color="textSecondary" className={classes.date}><ReactTimeAgo date={new Date(item.timestamp? item.timestamp * 1000: (new Date()).getTime())} /></Typography>
                         </React.Fragment>
                     } 
                 />
             </KCard>
-            <Avatar alt={`${item.sender_fname} ${item.sender_lname}`} src={Utility.getAvatar(item.sender_avatar)} />
+            <Avatar alt={`${item.fname} ${item.lname}`} src={Utility.getAvatar(item.avatar)} />
         </ListItem>:<ListItem className={classes.item}>
-                <Avatar alt={`${item.receiver_fname} ${item.receiver_lname}`} src={Utility.getAvatar(item.receiver_avatar)} />
+                <Avatar alt={`${item.fname} ${item.receiver_lname}`} src={Utility.getAvatar(item.receiver_avatar)} />
                 <KCard className={classes.friendCard}>
-                    <ListItemText primary={`${item.receiver_fname} ${item.receiver_lname}`} 
+                    <ListItemText primary={`${item.fname} ${item.lname}`} 
                         secondary={
                             <React.Fragment>
                                 <Typography color="textSecondary" className={classes.message}>
                                     {item.message}
                                 </Typography>
-                                <Typography color="textSecondary" className={classes.date}><ReactTimeAgo date={new Date(item.timestamp? item.timestamp * 1000: (new Date().getTime()))} /></Typography>
+                                <Typography color="textSecondary" className={classes.date}><ReactTimeAgo date={new Date(item.timestamp? item.timestamp * 1000: (new Date()).getTime())} /></Typography>
                             </React.Fragment>
                         } 
                     />

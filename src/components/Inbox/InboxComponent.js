@@ -108,9 +108,9 @@ class InboxComponent extends React.Component {
         const form = {
             message,
             sender: this.props.user.data.id,
-            receiver: this.props.user.data.id === thread.receiver_id? +thread.sender_id: +thread.receiver_id,
+            receiver: this.props.user.data.id == +thread.receiver_id? +thread.sender_id: +thread.receiver_id,
         };
-        //console.log(form)
+        console.log(form, this.props.user.data.id, thread);
         if(form.sender !== form.receiver) {
             this.props.sendAMessage(form, this.props.user.authToken);
             this.setState({message: ''});
@@ -166,7 +166,7 @@ class InboxComponent extends React.Component {
                                 secondary={
                                     <React.Fragment>
                                         <Typography color="textSecondary" className={classes.message}>
-                                            {Utility.isset(this.props.inbox.currentThread.most_recent_msg)? this.props.inbox.currentThread.most_recent_msg.message: ''}
+                                            {false && Utility.isset(this.props.inbox.currentThread.most_recent_msg)? this.props.inbox.currentThread.most_recent_msg.message: ''}
                                         </Typography>
                                     </React.Fragment>
                                 } 
@@ -177,7 +177,10 @@ class InboxComponent extends React.Component {
             </KPaper>
                 <Grid container spacing={8}>
                     <Grid item md="4">
-                        <InboxSenderList threads={threadList} getMessages={this.getMessages} handleSelectedThread={this.handleSelectedThread} />
+                        <InboxSenderList threads={threadList} 
+                        getMessages={this.getMessages} 
+                        handleSelectedThread={this.handleSelectedThread}
+                        user={this.props.user} />
                     </Grid>
                     <Grid item md="8">
                         <InboxMessageThread 

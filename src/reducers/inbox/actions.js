@@ -67,12 +67,14 @@ const getThreadMessages = (code, token) => dispatch => {
         .then(response => {
             dispatch(appActions.appIsLoading(false))
             if(!response.error) {
-                const messages = response.data;
-                for(let i in messages) {
+                //const messages = response.data;
+                /*for(let i in messages) {
                     let message = messages[i];
                     dispatch(addMessage(message));
-                }
+                }*/
                 //dispatch(setCurrentThread(messages[0]));
+                const messages = formatById(response.data);
+                dispatch(addMessage(messages));
             } 
         })
         .catch( error => {
@@ -89,17 +91,29 @@ const sendMessage = (form, token) => dispatch => {
             //console.log(response)
             //dispatch(appActions.appIsLoading(false))
             if(!response.error) {
-                let message = response.data;
+                /*let message = response.data;
                 let thread_code = response.data.message_thread_code;
                 message.thread_code = thread_code;
-                message.id = response.data.timestamp;
-                dispatch(addMessage(message));
+                message.id = response.data.timestamp; */
+                const messages = formatById(response.data);
+                dispatch(addMessage(messages));
             }
         })
         .catch( error => {
             //dispatch(appActions.appIsLoading(false));
             console.log(error);
         })
+}
+
+function formatById(messages) {
+    let byId = {};
+    for(let i in messages) {
+        let message = messages[i];
+        if(Utility.isset(message)) {
+            byId[message.id] = message
+        }
+    }
+    return byId;
 }
 
 const inboxActions = {

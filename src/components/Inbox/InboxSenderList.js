@@ -31,7 +31,7 @@ const styles = theme => ({
 });
 
 function InboxSenderList(props) {
-    const { classes, threads } = props;
+    const { classes, threads, user } = props;
     //console.log(threads)
     return (
         <KPaper>
@@ -40,14 +40,16 @@ function InboxSenderList(props) {
             {
             threads.map( (thread, i) =>
             <ListItem button className={classes.item} key={i} onClick={() => props.handleSelectedThread(thread)}>
-                <Avatar alt={`${thread.receiver_fname} ${thread.receiver_lname}`} src={Utility.getAvatar(thread.receiver_avatar)} />
-                <ListItemText primary={`${thread.receiver_fname} ${thread.receiver_lname}`}
+                <Avatar alt={user.data.id == thread.sender_id? `${thread.receiver_fname} ${thread.receiver_lname}`:`${thread.sender_fname} ${thread.sender_lname}`} src={Utility.getAvatar(thread.receiver_avatar)} />
+                <ListItemText primary={user.data.id == thread.sender_id? `${thread.receiver_fname} ${thread.receiver_lname}`:`${thread.sender_fname} ${thread.sender_lname}`}
                     secondary={
                         <div>
                             <Typography color="textSecondary" className={classes.message}>
-                                
+                                {Utility.isset(thread.most_recent_msg)? thread.most_recent_msg.message: ''}
                             </Typography>
-                            <Typography color="textSecondary" component="div" className={classes.date}><ReactTimeAgo date={new Date(thread.timestamp? thread.timestamp: (new Date()).getTime())} /></Typography>
+                            <Typography color="textSecondary" component="div" className={classes.date}>
+                                <ReactTimeAgo date={new Date(thread.timestamp? thread.timestamp: (new Date()).getTime())} />
+                            </Typography>
                         </div>
                     } 
                 />
