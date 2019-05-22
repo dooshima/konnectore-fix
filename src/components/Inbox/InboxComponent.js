@@ -161,7 +161,7 @@ class InboxComponent extends React.Component {
                     </Grid>
                     <Grid item md="8">
                         <ListItem className={classes.item}>
-                            <Avatar alt={`${this.props.inbox.currentThread.receiver_fname} ${this.props.inbox.currentThread.receiver_lname}`} src={Utility.getAvatar(this.props.inbox.currentThread.receiver_avatar)} />
+                            <Avatar alt={`${this.props.inbox.currentThread.receiver_fname} ${this.props.inbox.currentThread.receiver_lname}`} src={this.props.user.data.id == this.props.inbox.currentThread.sender_id? Utility.getAvatar(this.props.inbox.currentThread.receiver_avatar): Utility.getAvatar(this.props.inbox.currentThread.sender_avatar)}/>
                             <ListItemText primary={`${this.props.inbox.currentThread.receiver_fname} ${this.props.inbox.currentThread.receiver_lname}`} 
                                 secondary={
                                     <React.Fragment>
