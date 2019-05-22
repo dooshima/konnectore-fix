@@ -40,7 +40,7 @@ function InboxSenderList(props) {
             {
             threads.map( (thread, i) =>
             <ListItem button className={classes.item} key={i} onClick={() => props.handleSelectedThread(thread)}>
-                <Avatar alt={user.data.id == thread.sender_id? `${thread.receiver_fname} ${thread.receiver_lname}`:`${thread.sender_fname} ${thread.sender_lname}`} src={Utility.getAvatar(thread.receiver_avatar)} />
+                <Avatar alt={user.data.id == thread.sender_id? `${thread.receiver_fname} ${thread.receiver_lname}`:`${thread.sender_fname} ${thread.sender_lname}`} src={user.data.id == thread.sender_id? Utility.getAvatar(thread.receiver_avatar): Utility.getAvatar(thread.sender_avatar)} />
                 <ListItemText primary={user.data.id == thread.sender_id? `${thread.receiver_fname} ${thread.receiver_lname}`:`${thread.sender_fname} ${thread.sender_lname}`}
                     secondary={
                         <div>
