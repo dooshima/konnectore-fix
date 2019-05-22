@@ -80,11 +80,11 @@ class ImageItem extends React.Component {
       <div className={classes.details}>
         <CardHeader
           avatar={
-            <Avatar alt={`${item.user.firstname} ${item.user.lastname}`} src={Utility.getAvatar(item.user.avatar)} className={classes.avatar} />
+            <Avatar alt={Utility.isset(item.user)? `${item.user.firstname} ${item.user.lastname}`: ''} src={Utility.isset(item.user)? Utility.getAvatar(item.user.avatar): Utility.getAvatar("")} className={classes.avatar} />
           }
           title={
             <Typography component="h5" variant="h5" className={classes.title}>
-                {item.user.firstname} {item.user.lastname}
+                {Utility.isset(item.user)? `${item.user.firstname} ${item.user.lastname}`: ''}
             </Typography>
           }
           subheader={<ReactTimeAgo date={new Date(item.created_at)} />}
