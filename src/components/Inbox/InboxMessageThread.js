@@ -89,7 +89,7 @@ function InboxMessageThread(props) {
             </KCard>
             <Avatar alt={`${item.fname} ${item.lname}`} src={Utility.getAvatar(item.avatar)} />
         </ListItem>:<ListItem className={classes.item}>
-                <Avatar alt={`${item.fname} ${item.receiver_lname}`} src={Utility.getAvatar(item.receiver_avatar)} />
+                <Avatar alt={`${item.fname} ${item.lname}`} src={Utility.getAvatar(item.avatar)} />
                 <KCard className={classes.friendCard}>
                     <ListItemText primary={`${item.fname} ${item.lname}`} 
                         secondary={
