@@ -9,6 +9,7 @@ import ConnectWithPeople from './ConnectWithPeople';
 import { connect } from 'react-redux';
 import userActions from '../../reducers/user/actions';
 import { withRouter } from 'react-router-dom';
+import Utility from '../../services/Utility';
 
 class OnboardComponent extends React.PureComponent {
     constructor(props) {
@@ -76,8 +77,10 @@ class OnboardComponent extends React.PureComponent {
     }
 
     render() {
-        if(!this.props.userAccount.hasOwnProperty('id'))
+        if(!this.props.userAccount.hasOwnProperty('id')) {
+            this.props.logout(this.props.userData.id);
             this.props.history.push('/');
+        }
             
         switch(this.state.currentScreen) {
             case 'ChooseUsername':
@@ -129,6 +132,8 @@ const mapStateToProps = state => {
         avatar: state.user.avatar,
         talentCategories: state.user.talentCategories,
         signupRedirect: state.user.signupRedirect,
+        authToken: state.user.authToken,
+        userData: state.user.data,
     }
 };
 
@@ -151,6 +156,12 @@ const mapDispatchToProps = dispatch => {
         },
         processOnboarding: data => {
             dispatch(userActions.processOnboarding(data));
+        },
+        storeUsername: (username, token) => {
+            dispatch(userActions.storeUsername(username));
+        },
+        logout: (uid) => {
+            dispatch(userActions.handleLogout(uid))
         }
     }
 }

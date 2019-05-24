@@ -22,7 +22,14 @@ const Auth = {
     loadPasswordReset,
     handlePasswordReset,
     getUser,
+    storeUsername,
 };
+
+function storeUsername (username, token) {
+    return Server.authPost('api/store-username', {username}, token)
+        .then( response => response.data )
+        .catch ( error => error )
+}
 
 function login(email, password) {
     const validate = validateLogin(email, password);

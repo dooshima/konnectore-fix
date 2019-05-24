@@ -6,6 +6,7 @@ import { CardContent, Typography, FormControl, InputLabel, Input, AppBar, Toolba
 import KButton from '../UIC/KButton';
 import OnboardMenu from './OnboardMenu';
 import KBigButton from '../UIC/KBigButton';
+import OnboardToolbar from './OnboardToolbar';
 
 const styles = theme => ({
     main: {
@@ -89,14 +90,15 @@ const styles = theme => ({
 const ChooseUsername = props => {
     const { classes, currentScreen } = props;
     const active = (props.username && props.usernameExists && props.username.length > 4)? false: true;
+
+    function handleStoreUsername() {
+        props.storeUsername(props.username, props.authToken);
+        props.setScreen('PersonalInformation');
+    }
     return (
         <div className={classes.main}>
         
-        <Toolbar className={classes.appBar} style={{justifyContent: 'center'}}>
-            <Typography className={classes.alertText}>
-                Your account has not yet been activated. <Button className={classes.alertText} style={{textDecoration: 'underline'}}>Resend activation link</Button>
-            </Typography>
-        </Toolbar>
+        <OnboardToolbar />
         <div className={classes.wrapper}>
         <Grid container spacing={0}>
             <Grid item md={3}>
@@ -141,7 +143,7 @@ const ChooseUsername = props => {
             
         </KCard>
                 <div className={classes.next}>
-                    <KBigButton disabled={active} onClick={() => props.setScreen('PersonalInformation')} label="Next" size="small" />
+                    <KBigButton disabled={active} onClick={handleStoreUsername} label="Next" size="small" />
                 </div>
             </Grid>
         </Grid>

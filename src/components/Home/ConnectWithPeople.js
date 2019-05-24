@@ -9,6 +9,7 @@ import KBigButton from '../UIC/KBigButton';
 import CategoryButton from './CategoryButton';
 import PersonConnectCard from './PersonConnectCard';
 import KBigButtonOutlined from '../UIC/KBigButtonOutlined';
+import OnboardToolbar from './OnboardToolbar';
 
 const styles = theme => ({
     main: {
@@ -112,11 +113,7 @@ class ConnectWithPeople extends React.Component {
     return (
         <div className={classes.main}>
         
-        <Toolbar className={classes.appBar} style={{justifyContent: 'center'}}>
-            <Typography className={classes.alertText}>
-                Your account has not yet been activated. <Button className={classes.alertText} style={{textDecoration: 'underline'}}>Resend activation link</Button>
-            </Typography>
-        </Toolbar>
+        <OnboardToolbar />
         <div className={classes.wrapper}>
         <Grid container spacing={0}>
             <Grid item md={3}>

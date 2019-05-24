@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { List, ListSubheader, ListItem, ListItemText, Avatar, Typography, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import KPaper from '../UIC/KPaper';
+import SnackMessage from '../../widgets/alerts/SnackMessage';
 
 const styles = theme => ({
     link: {
@@ -31,6 +32,8 @@ const styles = theme => ({
 })
 function OnboardMenu(props) {
     const { classes, currentScreen } = props;
+    const [open, setState] = useState();
+
     return (
         <KPaper className={classes.paper}>
             <div className={classes.logoDiv}>
@@ -50,6 +53,7 @@ function OnboardMenu(props) {
                 <Button transparent className={classes.link} style={{borderBottom: 'none'}}><Typography style={{fontWeight: (currentScreen==="ChooseCategory" || currentScreen==="ConnectWithPeople")? 900: 300, color: (currentScreen==="ChooseCategory" || currentScreen==="ConnectWithPeople")? '#000': '#0000008a' }}>Final steps</Typography></Button>
             </ListItem>
             </List>
+            
         </KPaper>
 )
     }

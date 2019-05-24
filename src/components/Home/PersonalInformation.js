@@ -6,6 +6,7 @@ import { CardContent, Typography, FormControl, InputLabel, Input, AppBar, Toolba
 import KButton from '../UIC/KButton';
 import OnboardMenu from './OnboardMenu';
 import KBigButton from '../UIC/KBigButton';
+import OnboardToolbar from './OnboardToolbar';
 
 const styles = theme => ({
     main: {
@@ -112,11 +113,7 @@ const PersonalInformation = props => {
     return (
         <div className={classes.main}>
         
-        <Toolbar className={classes.appBar} style={{justifyContent: 'center'}}>
-            <Typography className={classes.alertText}>
-                Your account has not yet been activated. <Button className={classes.alertText} style={{textDecoration: 'underline'}}>Resend activation link</Button>
-            </Typography>
-        </Toolbar>
+        <OnboardToolbar />
         <div className={classes.wrapper}>
         <Grid container spacing={0}>
             <Grid item md={3}>
@@ -183,45 +180,7 @@ const PersonalInformation = props => {
                                         />
                                 </FormControl>
                             </Grid>
-                            <Grid item md={6}>
-                                <FormControl className={classes.formControl}>
-                                    <InputLabel htmlFor="usertype" shrink className={classes.bootstrapFormLabel}>Goal (Optional)</InputLabel>
-                                        <Select 
-                                            value={props.usertype} 
-                                            onChange={props.handleChange('usertype')}
-                                            input={<Input id="usertype" 
-                                                
-                                                 
-                                                fullWidth={true}
-                                                disableUnderline={true}
-                                                classes={{
-                                                    root: classes.bootstrapRoot,
-                                                    input: classes.bootstrapInput,
-                                                }} 
-                                            />}
-                                            >
-                                            <MenuItem value="3">Workforce</MenuItem>
-                                            <MenuItem value="4">Business</MenuItem>
-                                            <MenuItem value="2">Regular User</MenuItem>
-                                            </Select>
-                                </FormControl>
-                                </Grid>
-                                <Grid item md={6}>
-                                <FormControl className={classes.formControl}>
-                                    <InputLabel htmlFor="referrer" shrink className={classes.bootstrapFormLabel}>Who referred you? (Enter Referrer ID)</InputLabel>
-                                        <Input id="referrer" 
-                                            placeholder="Your referrer ID" 
-                                            value={props.referrer} 
-                                            onChange={props.handleChange('referrer')} 
-                                            fullWidth={true}
-                                            disableUnderline={true}
-                                            classes={{
-                                                root: classes.bootstrapRoot,
-                                                input: classes.bootstrapInput,
-                                            }} 
-                                        />
-                                </FormControl>
-                            </Grid>
+                            
                         </Grid>
                         
                     </CardContent>

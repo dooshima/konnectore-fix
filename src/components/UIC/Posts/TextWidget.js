@@ -19,6 +19,7 @@ import dialogActions from '../../../reducers/dialog/actions';
 import { connect } from 'react-redux';
 import Utility from '../../../services/Utility';
 import ReactTimeAgo from 'react-time-ago'
+import PopoverPostActions from '../../../widgets/alerts/PopoverPostActions';
 
 
 const styles = theme => ({
@@ -147,6 +148,7 @@ class TextWidget extends React.Component {
     const { classes, type, text, user, comments, endorsements, item, contentStyle } = this.props;
     const fullName = (Utility.isset(item) && Utility.isset(item.user)? item.user.firstname: '') + ' ' + (Utility.isset(item) && Utility.isset(item.user)? item.user.lastname: '');
     return (
+      <div>
       <button className={classes.link} onClick={() => this.showDetails(item)}>
         <CardContent
           className={classes.content}
@@ -178,7 +180,7 @@ class TextWidget extends React.Component {
            
         </CardContent>
         <div className={classes.rule} />
-
+        </button>
         <CardActions className={classes.actions} disableActionSpacing >
             <Avatar alt={fullName} src={item.user? Utility.getAvatar(item.user.avatar): Utility.getAvatar("")} className={classes.avatar} />
             <div className={classes.title}>
@@ -187,17 +189,11 @@ class TextWidget extends React.Component {
                 <Typography className={classes.titleStat}><ReactTimeAgo date={new Date(item.created_at)} locale="en" /></Typography>
             </div>
 
-            <IconButton
-                className={classes.more}
-                onClick={this.handleExpandClick}
-                aria-expanded={this.state.expanded}
-                aria-label="Show more"
-            >
-                <MoreHorizIcon />
-            </IconButton>
+            <PopoverPostActions className={classes.more} author={item.author} post_id={item.id} user_id={user.id} />
+            
         </CardActions>
-
-        </button>
+        </div>
+        
     );
   }
 }

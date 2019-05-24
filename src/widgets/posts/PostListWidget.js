@@ -39,6 +39,10 @@ class PostListWidget extends React.Component {
         this.props.viewPost({author: this.props.author.id, post_id: post.id, 'postType': post.postType}, this.props.authToken);
     }
 
+    deletePost = post_id => {
+        this.props.deletePost({post_id: pid}, this.props.authToken);
+    }
+
     addComment = (post, comment) => {
         this.props.addComment({author: this.props.author.id, post_id: post.id, comment: this.state.comment, 'postType': post.postType}, this.props.authToken);
         this.handleCommentChange("");

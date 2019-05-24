@@ -8,6 +8,7 @@ import OnboardMenu from './OnboardMenu';
 import KBigButton from '../UIC/KBigButton';
 import CategoryButton from './CategoryButton';
 import KBigButtonOutlined from '../UIC/KBigButtonOutlined';
+import OnboardToolbar from './OnboardToolbar';
 
 const styles = theme => ({
     main: {
@@ -139,11 +140,7 @@ class ChooseCategory extends React.Component {
     return (
         <div className={classes.main}>
         
-        <Toolbar className={classes.appBar} style={{justifyContent: 'center'}}>
-            <Typography className={classes.alertText}>
-                Your account has not yet been activated. <Button className={classes.alertText} style={{textDecoration: 'underline'}}>Resend activation link</Button>
-            </Typography>
-        </Toolbar>
+        <OnboardToolbar />
         {
             this.props.authLoading && <div className={classes.loaderHolder}><LinearProgress
             classes={{

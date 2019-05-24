@@ -5,6 +5,7 @@ import { Typography } from '@material-ui/core';
 import KBigButton from '../UIC/KBigButton';
 import { withRouter } from 'react-router-dom';
 import Server from './../../services/Server/Server';
+import SnackMessage from '../../widgets/alerts/SnackMessage';
 
 const styles = theme => ({
     header: {
@@ -55,11 +56,19 @@ const KLink = withRouter( ({history}) => {
 class AccountCreatedComponent extends React.PureComponent {
     constructor(props) {
         super(props);
+
+        this.state = {
+            open: false,
+        }
     }
 
-    resendConfirmation = () => ({
-        //Server.
-    });
+    resendConfirmation = () => {
+        this.setState({open: true});
+    };
+
+    handleClose = () => {
+        this.setState({open: false});
+    }
 
     render() {
         const { classes, user } = this.props;
@@ -85,6 +94,7 @@ class AccountCreatedComponent extends React.PureComponent {
                     </Typography>
 
                     <KButtonLink />
+                    <SnackMessage open={this.state.open} handleClose={this.handleClose} message="Confirmation email resent." />
                 </div>
             </div>
         )

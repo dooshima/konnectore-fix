@@ -262,6 +262,7 @@ const handleLogout = (uid) => {
                 dispatch(authError(""));
             }).catch( error => {
                 console.log(error)
+                setAppDefault(dispatch);
                 dispatch(showAuthLoading(false));
                 dispatch(authError(""));
             });
@@ -413,6 +414,15 @@ const getUser = (id, token) => {
             } )
     }
 }
+
+const storeUsername = (username, token) => dispatch => {
+    Auth.storeUsername(username, token)
+        .then( response => {
+            const data = response;
+        })
+        .catch( error => console.log(error))
+};
+
 function extractPosts(postData) {
 
     const { byId, allIds } = postData.data;
@@ -478,6 +488,7 @@ const userActions = {
     loadPasswordReset,
     handlePasswordReset,
     getUser,
+    storeUsername,
 };
 
 export default userActions;

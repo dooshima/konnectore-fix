@@ -49,6 +49,7 @@ class SignUp extends React.Component {
 
         this.state = {
             rememberme: false,
+            error: ''
         }
     }
 
@@ -64,6 +65,14 @@ class SignUp extends React.Component {
     };
 
     signup = () => {
+        if(!this.state.email || !this.state.password || !this.state.repassword) {
+            this.setState({error: "Please fill in all required fields."});
+            return;
+        }
+        if(this.state.password !== this.state.repassword) {
+            this.setState({error: "Passwords do not match"});
+            return;
+        }
         this.props.handleSignup({email: this.state.email, password: this.state.password})
     }
 
@@ -74,7 +83,7 @@ class SignUp extends React.Component {
         }
         return (
             <form className={classes.form} noValidate autoComplete="off">
-                <Typography color="error" style={{textAlign: 'center'}}>{this.props.authError}</Typography>
+                <Typography color="error" style={{textAlign: 'center'}}>{this.props.authError? this.props.authError: this.state.error}</Typography>
                 <FormControl className={classes.formControl}>
                     <InputLabel htmlFor="email" shrink className={classes.bootstrapFormLabel}>Email Address</InputLabel>
                     <Input id="email" 

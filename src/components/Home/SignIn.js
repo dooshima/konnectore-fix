@@ -5,6 +5,8 @@ import { FormControl, Input, InputLabel, FormControlLabel, Checkbox, Typography,
 import KButton from './../UIC/KButton';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
+import Utility from '../../services/Utility';
+import { connect } from 'react-redux';
 
 const styles = theme => ({
     form: {
@@ -63,7 +65,7 @@ class SignIn extends React.Component {
     }
 
     handleChange = name => event => {
-        console.log(name, event.target.name)
+        //console.log(name, event.target.name)
         this.setState({
           [name]: event.target.value,
         });
@@ -74,7 +76,7 @@ class SignIn extends React.Component {
       };
 
     signin = () => {
-        console.log(this.state);
+        //console.log(this.state);
         this.props.handleLogin(this.state.email, this.state.password);
     }
 
@@ -92,7 +94,8 @@ class SignIn extends React.Component {
         const { classes } = this.props;
         if(this.props.authRedirect) {
             const data = this.props.userData;
-            if(!data.username || data.username === null || !data.firstname || data.firstname === null || !data.lastname) {
+            if(!Utility.isset(data.username) || !Utility.isset(data.firstname) || !Utility.isset(data.lastname)) {
+                console.log('Data: ', data, this.props)
                 this.props.authSignupSuccess({id: data.id, email: data.email});
                 this.props.authSignupRedirect(false);
                 this.props.history.push('/onboard/');
@@ -162,4 +165,10 @@ SignIn.propTypes = {
     classes: ProptTypes.object.isRequired,
 }
 
-export default withRouter(withStyles(styles)(SignIn));
+const mapStateToProps = state => {
+    return {
+        user: state.user,
+    }
+}
+
+export default connect(mapStateToProps)(withRouter(withStyles(styles)(SignIn)));
