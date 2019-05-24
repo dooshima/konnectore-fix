@@ -40,7 +40,7 @@ class PostListWidget extends React.Component {
     }
 
     deletePost = post_id => {
-        this.props.deletePost({post_id: pid}, this.props.authToken);
+        this.props.deletePost({post_id}, this.props.authToken);
     }
 
     addComment = (post, comment) => {
