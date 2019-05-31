@@ -89,7 +89,8 @@ const styles = theme => ({
 
 const ChooseUsername = props => {
     const { classes, currentScreen } = props;
-    const active = (props.username && props.usernameExists && props.username.length > 4)? false: true;
+    console.log(props.username, props.userData.username)
+    const active = (props.username === props.userData.username)? false: (props.username && props.usernameExists && props.username.length > 4? false: true);
 
     function handleStoreUsername() {
         props.storeUsername(props.username, props.authToken);
@@ -98,7 +99,7 @@ const ChooseUsername = props => {
     return (
         <div className={classes.main}>
         
-        <OnboardToolbar />
+        <OnboardToolbar {...props} />
         <div className={classes.wrapper}>
         <Grid container spacing={0}>
             <Grid item md={3}>
@@ -134,7 +135,7 @@ const ChooseUsername = props => {
                                 input: classes.bootstrapInput,
                             }} 
                         />
-                        {!props.usernameExists && <Typography color="error" style={{marginLeft: 20,}}>
+                        {!props.usernameExists && !props.userData.username && <Typography color="error" style={{marginLeft: 20,}}>
                             Sorry, that username has been taken
                         </Typography>}
                     </div>

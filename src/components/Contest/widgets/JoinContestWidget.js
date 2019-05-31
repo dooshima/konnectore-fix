@@ -62,7 +62,7 @@ class JoinContestWidget extends React.Component {
 
     render() {
         const { user, classes, history, url, contest } = this.props;
-        const currentEdition = Utility.isset(contest)? contest.currentEdition: {};
+        const currentEdition = Utility.isset(contest) && Utility.isset(contest.currentEdition)? contest.currentEdition: {};
 
         if(!Utility.isset(user) || !Utility.isset(user.usertype)) {
             return <SmallCircularLoader />;

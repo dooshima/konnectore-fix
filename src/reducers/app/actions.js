@@ -15,6 +15,11 @@ const addData = data => ({
     data
 });
 
+const setContext = context => ({
+    type: types.APP_SET_CONTEXT,
+    context,
+});
+
 function setDefault() {
     return dispatch => {
         dispatch(appIsLoading(false));
@@ -27,6 +32,7 @@ const appActions = {
     operationComplete,
     setDefault,
     addData,
+    setContext,
 };
 
 export default appActions;

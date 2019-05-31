@@ -50,7 +50,10 @@ function OnboardMenu(props) {
                 <Button transparent className={classes.link}><Typography style={{fontWeight: currentScreen==="AddYourPicture"? 900: 300, color: currentScreen==="AddYourPicture"? '#000': '#0000008a' }}>Add your picture</Typography></Button>
             </ListItem>
             <ListItem>
-                <Button transparent className={classes.link} style={{borderBottom: 'none'}}><Typography style={{fontWeight: (currentScreen==="ChooseCategory" || currentScreen==="ConnectWithPeople")? 900: 300, color: (currentScreen==="ChooseCategory" || currentScreen==="ConnectWithPeople")? '#000': '#0000008a' }}>Final steps</Typography></Button>
+                <Button transparent className={classes.link}><Typography style={{fontWeight: currentScreen==="ConnectWithPeople"? 900: 300, color: currentScreen==="ConnectWithPeople"? '#000': '#0000008a' }}>Find people</Typography></Button>
+            </ListItem>
+            <ListItem>
+                <Button transparent className={classes.link} style={{borderBottom: 'none'}}><Typography style={{fontWeight: currentScreen==="ChooseCategory" ? 900: 300, color: currentScreen==="ChooseCategory"? '#000': '#0000008a' }}>Final steps</Typography></Button>
             </ListItem>
             </List>
             

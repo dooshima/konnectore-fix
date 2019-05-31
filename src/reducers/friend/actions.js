@@ -9,6 +9,11 @@ const addFriends = friends => ({
    friends,
 });
 
+const addToFriends = friends => ({
+    type: types.FRIEND_ADD_TO_FRIENDS,
+    friends,
+});
+
 const updateFriends = friend => ({
     type: types.FRIEND_UPDATE_FRIENDS,
     friend,
@@ -108,6 +113,7 @@ const friendActions = {
     unfollow,
     setFriend,
     getFriend,
+    addToFriends,
 };
 
 export default friendActions;

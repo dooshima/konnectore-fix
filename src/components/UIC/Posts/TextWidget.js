@@ -145,7 +145,8 @@ class TextWidget extends React.Component {
     }
 
   render() {
-    const { classes, type, text, user, comments, endorsements, item, contentStyle } = this.props;
+    const { classes, type, text, user, comments, endorsements, item, contentStyle, deletePost } = this.props;
+    console.log(user)
     const fullName = (Utility.isset(item) && Utility.isset(item.user)? item.user.firstname: '') + ' ' + (Utility.isset(item) && Utility.isset(item.user)? item.user.lastname: '');
     return (
       <div>
@@ -189,7 +190,7 @@ class TextWidget extends React.Component {
                 <Typography className={classes.titleStat}><ReactTimeAgo date={new Date(item.created_at)} locale="en" /></Typography>
             </div>
 
-            <PopoverPostActions className={classes.more} author={item.author} post_id={item.id} user_id={user.id} />
+            <PopoverPostActions className={classes.more} author={item.author} post_id={item.id} user_id={user.data.id} deletePost={deletePost} />
             
         </CardActions>
         </div>

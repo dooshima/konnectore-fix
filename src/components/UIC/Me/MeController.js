@@ -21,7 +21,7 @@ import userActions from '../../../reducers/user/actions';
 import PostDetailWidget from '../../../widgets/posts/PostDetailWidget';
 import Utility from '../../../services/Utility';
 
-class MeController extends React.PureComponent {
+class MeController extends React.Component {
     constructor(props) {
         super(props);
 
@@ -81,7 +81,7 @@ class MeController extends React.PureComponent {
         let count = 1;
         
         const keys = Utility.isset(me) && Utility.isset(me.postIds)? me.postIds.sort( (a, b) => b -a): [];
-
+        console.log(keys)
         if(keys.length > 0) {
             for(let i of keys) {
                 let item = allPosts[i];
@@ -97,7 +97,7 @@ class MeController extends React.PureComponent {
         return (
             <div style={{marginTop: 30, marginLeft: 20, marginRight: 20}}>
                 <Grid container spacing={0}>
-                    <Grid item xs={8}>
+                    <Grid item md={8} >
                     <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
                         <MeHeader path={match.path} {...this.props} setFilter={this.setFilter.bind(this)} 
                             handleAvatarUpload={this.handleAvatarUpload.bind(this)} />
@@ -108,7 +108,7 @@ class MeController extends React.PureComponent {
                         </Switch>
                     </Paper>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item md={4}>
                         <div style={{marginLeft: 10}}>
                             <PlaceComponents spacer={20}>
                                 <Route exact path={`${match.path}/`} component={AwardsAndBadges} />

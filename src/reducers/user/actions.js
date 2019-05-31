@@ -10,6 +10,7 @@ import friendActions from '../friend/actions';
 import meActions from '../me/actions';
 import Utility from '../../services/Utility';
 import commentActions from '../comment/actions';
+import history from './../../widgets/router/history';
 
 const userViewProfile = user => ({
     type: types.USER_VIEW_PROFILE,
@@ -57,7 +58,7 @@ const processOnboarding = data => {
         dispatch(showAuthLoading(true));
         Auth.processOnboarding(data)
             .then( profile => {
-                console.log(profile);
+                //console.log(profile);
                 dispatch(showAuthLoading(false));
                 if(profile && !profile.error) {
                     dispatch(authLoginSuccess(profile.data));
@@ -66,6 +67,8 @@ const processOnboarding = data => {
                     dispatch(authError(""));
                     dispatch(uploadAvatar(""));
                     dispatch(authSignupRedirect(true));
+
+                    history.push('/me');
                 } else {
                     dispatch(authSignupRedirect(false));
                     dispatch(authError(profile.message));
@@ -159,10 +162,24 @@ const editUserAvatar = data => ({
     data
 });
 
-
-
 const changeUserPassword = () => ({
     type: types.AUTH_CHANGE_USER_PASSWORD,
+});
+
+const updateUsername = username => ({
+    type: types.AUTH_UPDATE_USERNAME,
+    username,
+})
+
+const resendConfirmation = (token) => dispatch => {
+    Auth.resendConfirmation(token)
+        .then( response => console.log(response) )
+        .catch( error => console.log(error) );
+}
+
+const addSuggestion = suggestion => ({
+    type: types.AUTH_FRIEND_SUGGESTION,
+    suggestion,
 });
 
 const getTalentCategories = () => {
@@ -173,6 +190,17 @@ const getTalentCategories = () => {
             } );
     }
 }
+
+const getFriendSuggestion = token => dispatch => {
+    Auth.getFriendSuggestion(token)
+        .then( response => {
+            console.log(response);
+            if(!response.error) {
+                dispatch(addSuggestion(response.allIds));
+                dispatch(friendActions.addToFriends(response.byId));
+            }
+        } )
+};
 
 const handleSignup = data => {
     return dispatch => {
@@ -239,6 +267,14 @@ const handleLogin = (email, password) => {
                 dispatch(showSearchForm(true));
                 dispatch(authError(""));
                 dispatch(authSignupRedirect(true));
+
+                if(!Utility.isset(user.username) || !Utility.isset(user.firstname) || !Utility.isset(user.lastname)) {
+                    console.log('Data: ', user);
+                    history.push('/onboard/');
+                } else {
+                    history.push('/me');
+                }
+
             }).catch( error => {
                 console.log(error);
                 dispatch(authError("Invalid username or password"));
@@ -419,6 +455,9 @@ const storeUsername = (username, token) => dispatch => {
     Auth.storeUsername(username, token)
         .then( response => {
             const data = response;
+            if(!data.error) {
+                dispatch(updateUsername(username));
+            }
         })
         .catch( error => console.log(error))
 };
@@ -489,6 +528,8 @@ const userActions = {
     handlePasswordReset,
     getUser,
     storeUsername,
+    resendConfirmation,
+    getFriendSuggestion,
 };
 
 export default userActions;

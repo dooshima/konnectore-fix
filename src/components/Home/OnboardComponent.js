@@ -10,13 +10,14 @@ import { connect } from 'react-redux';
 import userActions from '../../reducers/user/actions';
 import { withRouter } from 'react-router-dom';
 import Utility from '../../services/Utility';
+import friendActions from '../../reducers/friend/actions';
 
 class OnboardComponent extends React.PureComponent {
     constructor(props) {
         super(props);
 
         this.state = {
-            currentScreen: 'ChooseUsername',
+            currentScreen: 'ChooseUsername', // ConnectWithPeople
         }
 
         this.handleFileupload = this.handleFileupload.bind(this);
@@ -29,6 +30,8 @@ class OnboardComponent extends React.PureComponent {
 
     componentDidMount() {
         this.props.getTalentCategories();
+        this.props.getFriendSuggestion(this.props.authToken);
+        this.setState({username: this.props.userData.username})
     }
 
     setScreen = (screen) => {
@@ -76,10 +79,18 @@ class OnboardComponent extends React.PureComponent {
         this.props.processOnboarding(data);
     }
 
+    handleFollow = userID => {
+        this.props.follow(userID, this.props.authToken);
+    }
+
+    handleUnfollow = userID => {
+        this.props.unfollow(userID, this.props.authToken);
+    }
+
     render() {
         if(!this.props.userAccount.hasOwnProperty('id')) {
-            this.props.logout(this.props.userData.id);
-            this.props.history.push('/');
+            //this.props.logout(this.props.userData.id);
+            //this.props.history.push('/');
         }
             
         switch(this.state.currentScreen) {
@@ -113,7 +124,11 @@ class OnboardComponent extends React.PureComponent {
             case 'ConnectWithPeople':
                 return <ConnectWithPeople setScreen={this.setScreen} 
                     currentScreen={this.state.currentScreen}
-                    connectWith={this.props.connectWith} />;
+                    connectWith={this.props.connectWith}
+                    handleFollow={this.handleFollow}
+                    handleUnfollow={this.handleUnfollow} 
+                    people={this.props.people}
+                    newAccount={this.props.newAccount} />;
             default:
                 return <ChooseUsername />;
         }
@@ -134,6 +149,7 @@ const mapStateToProps = state => {
         signupRedirect: state.user.signupRedirect,
         authToken: state.user.authToken,
         userData: state.user.data,
+        people: state.friend.friends,
     }
 };
 
@@ -158,10 +174,25 @@ const mapDispatchToProps = dispatch => {
             dispatch(userActions.processOnboarding(data));
         },
         storeUsername: (username, token) => {
-            dispatch(userActions.storeUsername(username));
+            dispatch(userActions.storeUsername(username, token));
         },
         logout: (uid) => {
             dispatch(userActions.handleLogout(uid))
+        },
+        resendConfirmation: token => {
+            dispatch(userActions.resendConfirmation(token));
+        },
+        getFriendSuggestion: token => {
+            dispatch(userActions.getFriendSuggestion(token))
+        },
+        follow: (userID, token) => {
+            dispatch(friendActions.follow(userID, token));
+        },
+        unfollow: (userID, token) => {
+            dispatch(friendActions.unfollow(userID, token));
+        },
+        resendConfirmation: token => {
+            dispatch(userActions.resendConfirmation(token));
         }
     }
 }

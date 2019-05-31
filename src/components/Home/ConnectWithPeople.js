@@ -10,6 +10,9 @@ import CategoryButton from './CategoryButton';
 import PersonConnectCard from './PersonConnectCard';
 import KBigButtonOutlined from '../UIC/KBigButtonOutlined';
 import OnboardToolbar from './OnboardToolbar';
+import Utility from '../../services/Utility';
+import SimpleTextAlert from '../../widgets/alerts/SimpleTextAlert';
+import FriendConnectCard from '../UIC/Friend/FriendConnectCard';
 
 const styles = theme => ({
     main: {
@@ -108,12 +111,22 @@ class ConnectWithPeople extends React.Component {
     }
 
     render() {
-    const { classes, currentScreen } = this.props;
+    const { classes, currentScreen, newAccount, people } = this.props;
+    //console.log(newAccount)
+    const suggestion = Utility.isset(newAccount) && Utility.isset(newAccount.suggestion)? newAccount.suggestion: [];
+    const friends = [];
+    //console.log(suggestion)
+    for(let i in people) {
+        let person = people[i];
+        if(suggestion.includes(+i) && Utility.isset(person)) {
+            friends.push(person);
+        }
+    } 
 
     return (
         <div className={classes.main}>
         
-        <OnboardToolbar />
+        <OnboardToolbar {...this.props}/>
         <div className={classes.wrapper}>
         <Grid container spacing={0}>
             <Grid item md={3}>
@@ -127,13 +140,16 @@ class ConnectWithPeople extends React.Component {
                     Build up your profile so your friends can connect with you. <span className={classes.span}>Choose as many as applicable</span>
                 </Typography>
                 <KCard className={classes.card}>
+                    {friends.length > 0?
                     <CardContent className={classes.content}>
-                        {this.state.categories.map( (person, i) => <PersonConnectCard key={i} index={i} person={person} follow={this.follow} />)}
-                    </CardContent>
+                        {friends.map( (person, i) => <FriendConnectCard key={i} index={i} person={person} follow={this.follow} {...this.props} />)}
+                    </CardContent>: 
+                    <SimpleTextAlert message="No friends suggestion yet" />
+                    }
                     <CardActions className={classes.actions}>
                         <div className={classes.next}>
-                            <KBigButtonOutlined variant="outlined" onClick={() => this.props.setScreen('ChooseUsername')} label="Maybe later" size="small" />
-                            <KBigButton onClick={() => this.props.setScreen('ChooseUsername')} label="Next" size="small" />
+                            <KBigButtonOutlined variant="outlined" onClick={() => this.props.setScreen('ChooseCategory')} label="Skip" size="small" />
+                            <KBigButton onClick={() => this.props.setScreen('ChooseCategory')} label="Next" size="small" />
                         </div>
                     </CardActions>
                 </KCard>

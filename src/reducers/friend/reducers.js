@@ -4,6 +4,7 @@ import addFriendsReducer from './reduction/addFriendsReducer';
 import updateFriendsReducer from './reduction/updateFriendsReducer';
 import setFriendReducer from './reduction/setFriendReducer';
 import addPostIdsReducer from './reduction/addPostIdsReducer';
+import addToFriendsReducer from './reduction/addToFriendsReducer';
 
 const friends = (friends=false, action) => {
     switch(action.type) {
@@ -11,6 +12,8 @@ const friends = (friends=false, action) => {
             return addFriendsReducer(friends, action);
         case types.FRIEND_UPDATE_FRIENDS:
             return updateFriendsReducer(friends, action);
+        case types.FRIEND_ADD_TO_FRIENDS:
+            return addToFriendsReducer(friends, action);
         default:
             return friends;
     }

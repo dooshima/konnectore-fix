@@ -10,7 +10,14 @@ const Post = {
     sharePost,
     addComment,
     vote,
+    deletePost,
 };
+
+function deletePost (post_id, token) {
+    return Server.authPost('api/delete-post', {post_id}, token)
+        .then( response => response.data )
+        .catch( error => error );
+}
 
 function likePost (form, token) {
   return Server.authPost('api/like-post', form, token)

@@ -1,8 +1,15 @@
 import React from 'react';
+import MetaContentSection from '../../widgets/meta/MetaContentSection';
+import { Typography } from '@material-ui/core';
 
-function TOSComponent () {
-    return (
-        <div class="wrapper">
+class TOSComponent extends React.PureComponent
+{
+    render() {
+        const links = [{label: "Home", route: "/"}, {label: "Terms of use", route: "/terms"}];
+        return (
+            <div>
+                <MetaContentSection links={links}>
+                    <div class="wrapper">
   <h1>Terms of Use Welcome to Konnectore!</h1>
   <p>These Terms of Use govern your use of Konnectore and provide information about the Konnectore Service, outlined below. When you create a Konnectore account or use Konnectore, you agree to these terms.</p>
   <p>Konnectore is a Community/Platform which enables you to upload pictures and videos of your work/display of talent. Users on the Platform are encouraged to harness their gifts/ skills/talents and showcase to the world. As a User on Konnectore, you are enabled to build a large fan-base without limits, thereby showcasing yourself to the whole world at no costs. From time to time, The Stage (an integral platform on Konnectore) hosts a series of competition which allows Konnectore Users to solicit for votes from their friends, families, fans and members of the public in general. These votes enable Users with the most votes qualify for the finals, and the User with the highest votes automatically becomes the winner of the said competition.</p>
@@ -36,6 +43,11 @@ Choosing to make your information public also means that this information:
 -will be accessible to anyone who uses our APIs.
 Your private data: Konnectore allows you to make most of the information you share private. What “private” means is however up to you. You can either share with all your fans or use the “customize” sharing option accessible on each status update box, which lets you share the status update or photo with certain people, but not others. However, ALL your uploads can be accessed by anyone and everyone. ALL UPLOADS are deemed public and not private.
 </div>
-    )
+                </MetaContentSection>
+            </div>
+            
+        )
+    }
 }
- export default TOSComponent;
+
+export default TOSComponent;

@@ -8,6 +8,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import StarIcon from '@material-ui/icons/Star';
 import Utility from '../../services/Utility';
 import VoteAmountDialog from '../form/VoteAmountDialog';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 
 const styles = theme => ({
     iconButton: {
@@ -123,6 +124,13 @@ class PostStatsWidget extends React.Component {
     return (
         <>
         <div className={classes.row}>
+            <p className={classes.statItem}>
+                <IconButton onClick={() => this.props.likePost(item)} className={classes.iconButton}>
+                    <ThumbUpIcon className={classes.icon}/>
+                </IconButton>
+                <Typography color="textSecondary" className={classes.statsText}>{item.likes_count} Likes</Typography>
+            </p>
+
             <p className={classes.statItem}>
                 <IconButton className={classes.iconButton}>
                     <RemoveRedEyeIcon className={classes.icon}/>

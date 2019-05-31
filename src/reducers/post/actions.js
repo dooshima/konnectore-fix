@@ -48,10 +48,15 @@ const sharePost = share => ({
   share
 });
 
+const deletePost = post_id => ({
+  type: types.POST_DELETE_POST,
+  post_id,
+});
+
 const addPosts = byId => ({
   type: types.POST_ADD_POSTS,
   byId,
-})
+});
 
 const uploadMedia = (data, token) => {
     return dispatch => {
@@ -82,12 +87,24 @@ const clearPosts = byId => ({
     byId,
 });
 
+const handleDeletePost = (post_id, token) => dispatch => {
+  Post.deletePost(post_id, token)
+    .then( response => {
+      console.log(response)
+      if(!response.error) {
+        dispatch(deletePost(post_id));
+        dispatch(meActions.popPostId(post_id));
+      }
+    } )
+    .catch( error => console.log(error) );
+}
+
 const upload = (data, token, dispatch)  => {
 
     if(!data) {
       return new Promise( (resolve, reject) => resolve({error: true, message: "No post data found!", data: {}}) );
     }
-    // https://helloworld.com.ng/uploadfile.php
+    // https://helloworld.com.ng/uploadfile.php 
     const headers = {
         "Content-Type": 'application/json',
         "Accept": 'application/json',
@@ -126,7 +143,7 @@ const upload = (data, token, dispatch)  => {
           let err = new KError(true, "Error occured while processing your request. Please retry.");
           return err.toObj();
       });
-  }
+}
 
 const progress = (event) => {
     const { total, loaded } = event;
@@ -228,6 +245,7 @@ const postActions = {
     handleViewPost,
     addPosts,
     handleVote,
+    handleDeletePost,
 };
 
 export default postActions;

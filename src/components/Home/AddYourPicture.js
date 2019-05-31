@@ -8,6 +8,7 @@ import OnboardMenu from './OnboardMenu';
 import KBigButtonOutlined from '../UIC/KBigButtonOutlined';
 import KBigButton from '../UIC/KBigButton';
 import Constants from '../../assets/Constants';
+import OnboardToolbar from './OnboardToolbar';
 
 const styles = theme => ({
     main: {
@@ -122,11 +123,7 @@ const AddYourPicture = props => {
     const active = (props.avatar)? false: true;
     return (
         <div className={classes.main}>
-        <Toolbar className={classes.appBar} style={{justifyContent: 'center'}}>
-            <Typography className={classes.alertText}>
-                Your account has not yet been activated. <Button className={classes.alertText} style={{textDecoration: 'underline'}}>Resend activation link</Button>
-            </Typography>
-        </Toolbar>
+        <OnboardToolbar {...props} />
         <div className={classes.wrapper}>
         <Grid container spacing={0}>
             <Grid item md={3}>
@@ -185,7 +182,7 @@ const AddYourPicture = props => {
                     <CardActions className={classes.actions}>
                         <div className={classes.next}>
                             <KBigButtonOutlined variant="outlined" onClick={() => props.setScreen('ChooseCategory')} label="Maybe later" size="small" />
-                            <KBigButton disabled={active} onClick={() => props.setScreen('ChooseCategory')} label="Next" size="small" />
+                            <KBigButton disabled={active} onClick={() => props.setScreen('ConnectWithPeople')} label="Next" size="small" />
                         </div>
                     </CardActions>
                 </KCard>

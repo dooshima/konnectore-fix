@@ -6,6 +6,7 @@ import appendCommentIdReducer from './reducers/appendCommentIdReducer';
 import appendPostIdReducer from './reducers/appendPostIdReducer';
 import clearCommentIdsReducer from './reducers/clearCommentIdsReducer';
 import clearPostIdsReducer from './reducers/clearPostIdsReducer';
+import popPostIdReducer from './reducers/popPostIdReducer';
 
 const postIds = (postIds=[], action) => {
     switch(action.type) {
@@ -15,6 +16,8 @@ const postIds = (postIds=[], action) => {
             return appendPostIdReducer(postIds, action);
         case types.ME_CLEAR_POST_IDS:
             return clearPostIdsReducer(postIds, action);
+        case types.ME_POP_POST_ID:
+            return popPostIdReducer(postIds, action);
         default:
             return postIds;
     }

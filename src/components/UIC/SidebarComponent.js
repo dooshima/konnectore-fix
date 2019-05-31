@@ -1,11 +1,16 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createMuiTheme } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import PrimaryNavBar from '../PrimaryNavBar';
 import LeftSidebar from '../LeftSidebar';
 import withSidebar from './withSidebar';
+import AppNavBar from '../../widgets/app/AppNavBar';
 
-const styles = theme => ({
+const theme = createMuiTheme({
+  spacing: 10,
+});
+
+const styles = {
   wrapper: {
     margin: 0,
     padding: 0,
@@ -13,7 +18,7 @@ const styles = theme => ({
   },
   header: {
     position: 'fixed',
-    height: theme.spacing.unit * 5.4,
+    minHeight: theme.spacing.unit * 4.0,
     width: '100%',
     backgroundColor: '#fff',
     zIndex: 200,
@@ -25,6 +30,9 @@ const styles = theme => ({
   contentWrapper: {
     marginTop: theme.spacing.unit * 9.4,
     marginRight: theme.spacing.unit * 10,
+    [theme.breakpoints.down('md')]: {
+      marginRight: 20,
+    }
   },
   sidebar: {
     width: theme.spacing.unit * 26.5,
@@ -44,13 +52,19 @@ const styles = theme => ({
     '&::-webkit-scrollbar-thumb': {
       backgroundColor: 'rgba(0,0,0,0)',
       outline: '1px solid slategrey'
+    },
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
     }
   },
   body: {
     marginLeft: theme.spacing.unit * 35.5,
     //paddingTop: theme.spacing.unit * 2,
+    [theme.breakpoints.down('md')]: {
+      marginLeft: 20,
+    }
   }
-});
+};
 
 function SidebarComponent({component: Component, ...props}) {
     
@@ -58,7 +72,7 @@ function SidebarComponent({component: Component, ...props}) {
     return (
         <div className={classes.wrapper}>
             <div className={classes.header}>
-                <PrimaryNavBar loggedIn={props.loggedIn} handleLogin={props.handleLogin} handleLogout={props.handleLogout} handleSearch={q => props.handleSearch(q)} />
+                <AppNavBar {...props} loggedIn={props.loggedIn} handleLogin={props.handleLogin} handleLogout={props.handleLogout} handleSearch={q => props.handleSearch(q)} />
             </div>
             <div className={classes.contentWrapper}>
                 <div className={classes.sidebar}>

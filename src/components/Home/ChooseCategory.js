@@ -133,14 +133,14 @@ class ChooseCategory extends React.Component {
     const { classes, currentScreen } = this.props;
     //const talents = selected.map( s => s.id );
     this.props.setSelected(this.state.selectedCategories);
-    console.log(this.props.signupRedirect);
+    //console.log(this.props.signupRedirect);
     if(this.props.signupRedirect) {
-        this.props.redirect();
+        //this.props.redirect();
     }
     return (
         <div className={classes.main}>
         
-        <OnboardToolbar />
+        <OnboardToolbar {...this.props}  />
         {
             this.props.authLoading && <div className={classes.loaderHolder}><LinearProgress
             classes={{

@@ -20,6 +20,11 @@ const appendCommentId = commentId => ({
     commentId,
 });
 
+const popPostId = postId => ({
+    type: types.ME_POP_POST_ID,
+    postId,
+});
+
 const clearPostIds = postIds => ({
     type: types.ME_CLEAR_POST_IDS,
     postIds,
@@ -43,6 +48,7 @@ const meActions = {
     setDefault,
     appendCommentId,
     appendPostId,
+    popPostId,
 };
 
 export default meActions;

@@ -41,7 +41,22 @@ const styles = theme => ({
     padding: 0,
     marginLeft: 12,
     
-  }
+  },
+  sectionDesktop: {
+    display: 'none',
+    alignItems: 'center',
+    [theme.breakpoints.up('md')]: {
+      display: 'flex',
+    },
+  },
+  sectionMobile: {
+    display: 'flex',
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 class TopProfileMenu extends React.Component {
@@ -79,7 +94,7 @@ class TopProfileMenu extends React.Component {
 
     return (
       <div className={classes.root}>            
-            {this.props.loggedIn && (
+            {this.props.loggedIn? (
                 <>
                 <div className={classes.sectionDesktop} style={{display: 'flex', alignItems: 'center'}}>
               
@@ -121,9 +136,7 @@ class TopProfileMenu extends React.Component {
                   </IconButton>
                 </div> 
                 </>  
-            )}
-
-            {!this.props.loggedIn && <TopLoginButton handleLogin={this.props.handleLogin} />}
+            ): <TopLoginButton handleLogin={this.props.handleLogin} />}
       </div>
     );
   }

@@ -13,6 +13,14 @@ const styles = theme => ({
     appBar: {
         backgroundColor: '#e19f47',
         border: 'none',
+    },
+    settingUp: {
+        backgroundColor: '#00A294',
+    },
+    settingUpText: {
+        color: 'white',
+        textAlign: 'center',
+        flex: 1,
     }
 });
 
@@ -25,8 +33,12 @@ class OnboardToolbar extends React.Component {
         }
     }
 
-    resendConfirmation = () => {
+    resendConfirmation = (e) => {
+        this.props.resendConfirmation(this.props.authToken)
         this.setState({open: true});
+        e.preventDefault();
+        e.stopPropagation();
+
     };
 
     handleClose = () => {
@@ -36,12 +48,17 @@ class OnboardToolbar extends React.Component {
     render() {
         const { classes } = this.props;
         return (
+            <>
             <Toolbar className={classes.appBar} style={{justifyContent: 'center'}}>
                 <Typography className={classes.alertText}>
-                    Your account has not yet been activated. <Button onClick={this.resendConfirmation} className={classes.alertText} style={{textDecoration: 'underline'}}>Resend activation link</Button>
+                    Your account has not yet been activated. <Button type="button" onClick={this.resendConfirmation} className={classes.alertText} style={{textDecoration: 'underline'}}>Resend activation link</Button>
                 </Typography>
                 <SnackMessage open={this.state.open} handleClose={this.handleClose} message="Confirmation email resent." />
             </Toolbar>
+            <Toolbar className={classes.settingUp}>
+                <Typography variant="h5" className={classes.settingUpText}>Finish setting up</Typography>
+            </Toolbar>
+            </>
         )
     }
 }

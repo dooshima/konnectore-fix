@@ -23,12 +23,27 @@ const Auth = {
     handlePasswordReset,
     getUser,
     storeUsername,
+    resendConfirmation,
+    getFriendSuggestion,
 };
+
 
 function storeUsername (username, token) {
     return Server.authPost('api/store-username', {username}, token)
         .then( response => response.data )
         .catch ( error => error )
+}
+
+function resendConfirmation (token) {
+    return Server.authGet('api/resend', token)
+        .then( response => response.data )
+        .catch ( error => error )
+}
+
+function getFriendSuggestion (token) {
+    return Server.authGet('api/growff', token)
+        .then( response => response.data )
+        .catch( error => error );
 }
 
 function login(email, password) {

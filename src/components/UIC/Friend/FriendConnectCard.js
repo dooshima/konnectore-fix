@@ -17,11 +17,14 @@ const styles = theme => ({
     link: {
         textDecoration: 'none',
         fontStyle: 'normal',
+        color: 'black',
+        cursor: 'pointer',
     }
 })
 
 const FriendConnectCard = props => {
     const { classes, person, handleFollow, handleUnfollow, user } = props;
+    //console.log(props);
     if(!person.profile) {
         return null;
     }

@@ -93,6 +93,7 @@ class SignIn extends React.Component {
     render() {
         const { classes } = this.props;
         if(this.props.authRedirect) {
+            /*
             const data = this.props.userData;
             if(!Utility.isset(data.username) || !Utility.isset(data.firstname) || !Utility.isset(data.lastname)) {
                 console.log('Data: ', data, this.props)
@@ -102,7 +103,7 @@ class SignIn extends React.Component {
             } else {
                 this.props.history.push('/me');
                 this.props.authSignupRedirect(false);
-            }
+            } */
         }
         return (
             <form className={classes.form} noValidate autoComplete="off">

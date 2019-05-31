@@ -40,7 +40,7 @@ class PostListWidget extends React.Component {
     }
 
     deletePost = post_id => {
-        this.props.deletePost({post_id}, this.props.authToken);
+        this.props.handleDeletePost(post_id, this.props.authToken);
     }
 
     addComment = (post, comment) => {
@@ -62,6 +62,7 @@ class PostListWidget extends React.Component {
             addComment: this.addComment,
             comment: this.state.comment,
             handleCommentChange: this.handleCommentChange,
+            deletePost: this.deletePost,
         };
         const posts = props.posts? props.posts: [];
         return (
@@ -121,6 +122,9 @@ const mapDispatchToProps = dispatch => {
         },
         vote: (form, token) => {
             dispatch(postActions.handleVote(form, token));
+        },
+        handleDeletePost: (post_id, token) => {
+            dispatch(postActions.handleDeletePost(post_id, token));
         }
     }
 };

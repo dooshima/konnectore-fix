@@ -17,6 +17,8 @@ import authTokenReducer from "./reduction/authTokenReducer";
 import setUserPostsReducer from "./reduction/setUserPostsReducer";
 import editAvatarReducer from "./reduction/editAvatarReducer";
 import addPostReducer from "../post/reduction/addPostReducer";
+import updateUsernameReducer from "./reduction/updateUsernameReducer";
+import addSuggestionReducer from "./reduction/addSuggestionReducer";
 const initialState = {};
 
 const userUpdateProfile = (state=initialState) => {
@@ -42,6 +44,8 @@ const data = (state={}, action) => {
             return authEditProfileSuccessReducer(state, action);
         case types.AUTH_EDIT_USER_AVATAR:
             return editAvatarReducer(state, action);
+        case types.AUTH_UPDATE_USERNAME:
+            return updateUsernameReducer(state, action);
         default:
             return state;
     }
@@ -82,6 +86,8 @@ const account = (account={}, action) => {
     switch(action.type) {
         case types.AUTH_SIGNUP_SUCCESS:
             return authSignupSuccessReducer(account, action);
+        case types.AUTH_FRIEND_SUGGESTION:
+            return addSuggestionReducer(account, action);
         default:
             return account;
     }

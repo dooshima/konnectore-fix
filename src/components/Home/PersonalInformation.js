@@ -113,7 +113,7 @@ const PersonalInformation = props => {
     return (
         <div className={classes.main}>
         
-        <OnboardToolbar />
+        <OnboardToolbar {...props} />
         <div className={classes.wrapper}>
         <Grid container spacing={0}>
             <Grid item md={3}>

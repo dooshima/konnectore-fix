@@ -13,12 +13,10 @@ const theme = createMuiTheme({
       },
       white: '#ffffff',
   },
-  spacing: {
-    unit: 10,
-  },
   typography: {
     // Use the system font instead of the default Roboto font.
     fontFamily: [
+      'Nunito Sans',
       'Acumin Pro',
       '-apple-system',
       'BlinkMacSystemFont',
@@ -37,6 +35,7 @@ const theme = createMuiTheme({
     '*::-webkit-scrollbar': {
       width: '0.1em'
     },
+    '@font-family': ['Nunito Sans'],
     '*::-webkit-scrollbar-track': {
       '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)'
     },

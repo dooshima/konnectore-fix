@@ -93,7 +93,7 @@ const MeHeaderSummary = props => {
     <div className={classes.root}>
       <Paper elevation={0} className={classes.paper}>
         <Grid container spacing={8}>
-          <Grid item className={classes.picker}>
+          <Grid item className={classes.picker} md={4}>
             <ButtonBase className={classes.image}>
               <div className={classes.imageHolder} style={{backgroundImage: `url(${avatar})`}}>
                 
@@ -104,16 +104,16 @@ const MeHeaderSummary = props => {
             <input type="file" onChange={props.handleAvatarUpload} className={classes.avatar} />
             
           </Grid>
-          <Grid item xs={8} sm container className={classes.summary}>
+          <Grid item md={8} sm container className={classes.summary}>
             
-            <Grid item xs container direction="column" spacing={16}>
-              <Grid item xs>
+            <Grid item xs={12} container direction="column" spacing={0}>
+              <Grid item md={4}>
                 <Typography gutterBottom variant="h5" component="b">
                   { fullName }
                 </Typography>
                 <Typography gutterBottom>{ person.bio }</Typography>
               </Grid>
-              <Grid item style={{display: 'flex', justifyContent: 'start'}}>
+              <Grid item md={8} style={{display: 'flex', justifyContent: 'start'}}>
                 <div style={{textAlign: 'center', marginRight: 20,}}>
                   <Typography>Followers</Typography>
                   <Typography component="span" style={{fontWeight: 900}}>{person.followersCount}</Typography>

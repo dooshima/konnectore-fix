@@ -22,6 +22,8 @@ import NotificationComponent from './components/Notification/NotificationCompone
 import AccountCreatedComponent from './components/Home/AccountCreatedComponent';
 import searchActions from './reducers/search/actions';
 import TOSComponent from './components/Meta/TOSComponent';
+import AboutComponent from './components/Meta/AboutComponent';
+import FAQComponent from './components/Meta/FAQComponent';
 
 const qs = require('query-string');
 const styles = theme => ({
@@ -97,6 +99,10 @@ function MainNavigator(props) {
             <ProtectedRoute exact path="/inbox" render={p => <SidebarComponent component={InboxComponent} {...props} />} />
             <ProtectedRoute exact path="/activities" render={p => <SidebarComponent component={NotificationComponent} {...props} />} />
             <Route exact path="/terms" component={TOSComponent} />
+            
+            <Route exact path="/faq" component={FAQComponent} />
+            <Route exact path="/about" component={AboutComponent} />
+
             <PropsRoute component={NotFoundComponent} user={props.user} />
             
         </Switch>
