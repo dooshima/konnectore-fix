@@ -180,6 +180,45 @@ const PersonalInformation = props => {
                                         />
                                 </FormControl>
                             </Grid>
+                            <Grid item md={6}>
+                                <FormControl className={classes.formControl}>
+                                    <InputLabel htmlFor="usertype" shrink className={classes.bootstrapFormLabel}>Goal (Optional)</InputLabel>
+                                        <Select 
+                                            value={props.usertype} 
+                                            onChange={props.handleChange('usertype')}
+                                            input={<Input id="usertype" 
+                                                
+                                                 
+                                                fullWidth={true}
+                                                disableUnderline={true}
+                                                classes={{
+                                                    root: classes.bootstrapRoot,
+                                                    input: classes.bootstrapInput,
+                                                }} 
+                                            />}
+                                            >
+                                            <MenuItem value="3">Workforce</MenuItem>
+                                            <MenuItem value="4">Business</MenuItem>
+                                            <MenuItem value="2">Regular User</MenuItem>
+                                            </Select>
+                                </FormControl>
+                                </Grid>
+                                <Grid item md={6}>
+                                <FormControl className={classes.formControl}>
+                                    <InputLabel htmlFor="referrer" shrink className={classes.bootstrapFormLabel}>Who referred you? (Enter Referrer ID)</InputLabel>
+                                        <Input id="referrer" 
+                                            placeholder="Your referrer ID" 
+                                            value={props.referrer} 
+                                            onChange={props.handleChange('referrer')} 
+                                            fullWidth={true}
+                                            disableUnderline={true}
+                                            classes={{
+                                                root: classes.bootstrapRoot,
+                                                input: classes.bootstrapInput,
+                                            }} 
+                                        />
+                                </FormControl>
+                            </Grid>
                             
                         </Grid>
                         
