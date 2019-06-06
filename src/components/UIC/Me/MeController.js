@@ -43,7 +43,6 @@ class MeController extends React.Component {
     }
 
     toggleDialog = item => {
-        console.log('toggle 1')
         this.setState({item: item, open: !this.state.open})
     }
 
@@ -80,21 +79,23 @@ class MeController extends React.Component {
         }
     }
     render() {
-        const {match, user, allPosts, me} = this.props;
+        const {match, user, allPosts, me, postIds} = this.props;
         let recentPosts = [];
         const fullName = user.data.firstname + ' ' + user.data.lastname;
 
         let count = 1;
         
-        const keys = Utility.isset(me) && Utility.isset(me.postIds)? me.postIds.sort( (a, b) => b -a): [];
-        //console.log(this.props.followings)
+        const keys = postIds.sort( (a, b) => b -a);
+        console.log(postIds)
         if(keys.length > 0) {
             for(let i of keys) {
                 let item = allPosts[i];
-                recentPosts.push(item);
-                if(count >= 20) 
-                    break;
-                count++;
+                if(Utility.isset(item)) {
+                    recentPosts.push(item);
+                    if(count >= 20) 
+                        break;
+                    count++;
+                }
             }
         }
 
@@ -141,6 +142,7 @@ const mapStateToProps = state => {
         user: state.user,
         allPosts: state.post.byId,
         me: state.me,
+        postIds: state.me.postIds,
         followers: state.user.followers,
         followings: state.user.followings,
     }

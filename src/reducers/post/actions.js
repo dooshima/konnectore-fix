@@ -90,7 +90,6 @@ const clearPosts = byId => ({
 const handleDeletePost = (post_id, token) => dispatch => {
   Post.deletePost(post_id, token)
     .then( response => {
-      console.log(response)
       if(!response.error) {
         dispatch(deletePost(post_id));
         dispatch(meActions.popPostId(post_id));

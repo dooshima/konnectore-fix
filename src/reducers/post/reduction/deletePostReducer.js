@@ -14,7 +14,7 @@ import Utility from "../../../services/Utility";
          return posts;
      }
      delete posts[post_id];
-     return posts;
+     return {...posts, [post_id]: null}
  }
 
  export default deletePostReducer;
