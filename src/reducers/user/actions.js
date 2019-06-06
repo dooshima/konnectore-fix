@@ -69,7 +69,7 @@ const processOnboarding = data => {
                     dispatch(uploadAvatar(""));
                     dispatch(authSignupRedirect(true));
 
-                    history.push('/me');
+                    setTimeout(() => history.push('/me'), 1000);
                 } else {
                     dispatch(authSignupRedirect(false));
                     dispatch(authError(profile.message));
