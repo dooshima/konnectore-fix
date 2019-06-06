@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { FormControl, InputLabel, Input, Select } from '@material-ui/core';
+import { FormControl, InputLabel, Input, Select, FormLabel } from '@material-ui/core';
 
 
 const styles = theme => ({
@@ -19,7 +19,7 @@ const styles = theme => ({
     },
     formControl: {
         width: '100%',
-        marginTop: '1.8em',
+        //marginTop: '1.8em',
     },
     formRoot: {
         'label + &': {
@@ -33,7 +33,7 @@ const styles = theme => ({
         border: '1px solid transparent',
         fontSize: 14,
         color: '#a2a2a2',
-        padding: '10px 12px',
+        padding: '2px 20px',
         transition: theme.transitions.create(['border-color', 'box-shadow']),
         '&:focus': {
           borderRadius: 20,
@@ -81,15 +81,21 @@ class KFormInput extends React.Component {
         }
     }
 
+    onValueChange = name => event => {
+        this.props.handleChange(name, event.target.value);
+    }
+
     render() {
-    const { classes, placeholder, name, handleChange, ...rest } = this.props;
+    const { classes, placeholder, name, value, handleChange, multiline, label, ...rest } = this.props;
     return (
         <FormControl className={classes.formControl}>
+            {label && <FormLabel for={name}>{label}</FormLabel>}
             <Input placeholder={placeholder}
             disableUnderline={true}
-            multiline={true}
-            onChange={handleChange(name)}
+            multiline={multiline}
+            onChange={this.onValueChange(name)}
             className={classes.formInput}
+            //value={value}
             {...rest} />
         </FormControl>
     )

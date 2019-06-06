@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createMuiTheme } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import { Button } from '@material-ui/core';
 
-const styles = theme => ({
+const theme = createMuiTheme({
+  spacing: 10,
+});
+const styles = {
   kbutton: {
     margin: theme.spacing.unit * .8,
     paddingTop: theme.spacing.unit * .8,
@@ -15,14 +18,16 @@ const styles = theme => ({
     boxShadow: 'none',
     borderRadius: 20,
     height: 38,
+    backgroundColor: '#00A294',
+    color: 'white',
   },
   upper: {
     textTransform: 'uppercase',
   },
   normal: {
-    textTransform: 'capitalize',
+    textTransform: 'none',
   }
-});
+};
 
 function KBigButton(props) {
   const { classes, color, upper } = props;

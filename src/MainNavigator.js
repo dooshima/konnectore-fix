@@ -24,6 +24,7 @@ import searchActions from './reducers/search/actions';
 import TOSComponent from './components/Meta/TOSComponent';
 import AboutComponent from './components/Meta/AboutComponent';
 import FAQComponent from './components/Meta/FAQComponent';
+import Utility from './services/Utility';
 
 const qs = require('query-string');
 const styles = theme => ({
@@ -78,8 +79,8 @@ function MainNavigator(props) {
     return (
         <Switch>
             <ProtectedRoute exact path="/" component={
-              (props.user.authToken && props.user.data.hasOwnProperty('id'))? DashboardComponent: HomeCompoment} {...props}/>
-            <Route exact path="/onboard" component={OnboardComponent} />
+              (props.user.authToken && Utility.isset(props.user.data.firstname) && Utility.isset(props.user.data.lastname) && Utility.isset(props.user.data.id))? DashboardComponent: HomeCompoment} {...props}/>
+            <Route exact path="/onboard" component={(props.user.authToken && Utility.isset(props.user.data.firstname) && Utility.isset(props.user.data.lastname) && Utility.isset(props.user.data.id))? DashboardComponent: OnboardComponent} {...props} />
             <PropsRoute exact path="/password/reset" component={PRComponent} />
             <PropsRoute exact path="/signed-up" component={AccountCreatedComponent} user={props.user} />
             <PropsRoute exact path="/password/reset/:token" component={PasswordResetComponent} />

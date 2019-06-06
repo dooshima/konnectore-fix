@@ -15,7 +15,6 @@ const Constants = {
     "CLIENT_ID": 2,
     "CLIENT_SECRET": "qx7kdepPeBt2JuInD3OvtoQrHy6pz6pnGUXYcpWm",
     "BASE_URL": "http://localhost/konnectoreapi/public/", */
-    
 }
 
 export default Constants;

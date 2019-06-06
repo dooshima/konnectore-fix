@@ -25,6 +25,8 @@ const Auth = {
     storeUsername,
     resendConfirmation,
     getFriendSuggestion,
+    getFollowers,
+    getFollowings,
 };
 
 
@@ -42,6 +44,18 @@ function resendConfirmation (token) {
 
 function getFriendSuggestion (token) {
     return Server.authGet('api/growff', token)
+        .then( response => response.data )
+        .catch( error => error );
+}
+
+function getFollowers (token) {
+    return Server.authGet('api/getff', token)
+        .then( response => response.data )
+        .catch( error => error );
+}
+
+function getFollowings (token) {
+    return Server.authGet('api/getffing', token)
         .then( response => response.data )
         .catch( error => error );
 }

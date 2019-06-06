@@ -19,6 +19,8 @@ import editAvatarReducer from "./reduction/editAvatarReducer";
 import addPostReducer from "../post/reduction/addPostReducer";
 import updateUsernameReducer from "./reduction/updateUsernameReducer";
 import addSuggestionReducer from "./reduction/addSuggestionReducer";
+import addFollowingsReducer from "./reduction/addFollowingsReducer";
+import addFollowersReducer from "./reduction/addFollowersReducer";
 const initialState = {};
 
 const userUpdateProfile = (state=initialState) => {
@@ -138,6 +140,24 @@ const authToken = (authToken="", action) => {
     }
 }
 
+const followers = (followers=[], action) => {
+    switch(action.type) {
+        case types.AUTH_ADD_FOLLOWERS:
+            return addFollowersReducer(followers, action);
+        default:
+            return followers;
+    }
+};
+
+const followings = (followings=[], action) => {
+    switch(action.type) {
+        case types.AUTH_ADD_FOLLOWINGS:
+            return addFollowingsReducer(followings, action);
+        default:
+            return followings;
+    }
+}
+
 const userReducers = combineReducers({ 
     isLoading,
     data,
@@ -150,5 +170,7 @@ const userReducers = combineReducers({
     posts,
     comments,
     authToken,
+    followers,
+    followings,
 });
 export default userReducers;

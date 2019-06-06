@@ -19,7 +19,6 @@ class PostListWidget extends React.Component {
     }
 
     toggleDialog = item => {
-        console.log('toggle')
         this.setState({item: item, open: !this.state.open})
     }
 

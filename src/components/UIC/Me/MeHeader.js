@@ -10,10 +10,6 @@ const tabs = [
       route: "feed"
     },
     {
-      label: "Contests",
-      route: "contest"
-    },
-    {
       label: "Images",
       route: "image"
     },
@@ -22,8 +18,12 @@ const tabs = [
       route: "video"
     },
     {
-        label: "Posts",
-        route: "text"
+        label: "Followers",
+        route: "followers"
+    },
+    {
+      label: "Following",
+      route: "followings"
     }
   ];
 

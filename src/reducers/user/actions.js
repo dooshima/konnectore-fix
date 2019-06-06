@@ -11,6 +11,7 @@ import meActions from '../me/actions';
 import Utility from '../../services/Utility';
 import commentActions from '../comment/actions';
 import history from './../../widgets/router/history';
+import inboxActions from '../inbox/actions';
 
 const userViewProfile = user => ({
     type: types.USER_VIEW_PROFILE,
@@ -169,7 +170,17 @@ const changeUserPassword = () => ({
 const updateUsername = username => ({
     type: types.AUTH_UPDATE_USERNAME,
     username,
-})
+});
+
+const addFollowers = followers => ({
+    type: types.AUTH_ADD_FOLLOWERS,
+    followers,
+});
+
+const addFollowings = followings => ({
+    type: types.AUTH_ADD_FOLLOWINGS,
+    followings,
+});
 
 const resendConfirmation = (token) => dispatch => {
     Auth.resendConfirmation(token)
@@ -201,6 +212,30 @@ const getFriendSuggestion = token => dispatch => {
             }
         } )
 };
+
+const handleGetFollowers = token => dispatch => {
+    Auth.getFollowers(token)
+        .then( response => {
+            if(!response.error) {
+                dispatch(addFollowers(response.data));
+            }
+        })
+        .catch( error => {
+            console.log(error);
+        })
+}
+
+const handleGetFollowings = token => dispatch => {
+    Auth.getFollowings(token)
+        .then( response => {
+            if(!response.error) {
+                dispatch(addFollowings(response.data));
+            }
+        })
+        .catch( error => {
+            console.log(error);
+        })
+}
 
 const handleSignup = data => {
     return dispatch => {
@@ -500,6 +535,7 @@ function setAppDefault(dispatch) {
     dispatch(contestActions.setDefault());
     dispatch(meActions.setDefault());
     dispatch(commentActions.setDefault());
+    dispatch(inboxActions.setDefault());
 }
 
 const userActions = {
@@ -530,6 +566,8 @@ const userActions = {
     storeUsername,
     resendConfirmation,
     getFriendSuggestion,
+    handleGetFollowers,
+    handleGetFollowings,
 };
 
 export default userActions;

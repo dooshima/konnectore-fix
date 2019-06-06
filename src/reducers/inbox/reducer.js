@@ -5,6 +5,7 @@ import setCurrentThreadReducer from './reducers/setCurrentThreadReducer';
 import addMessageRecuder from './reducers/addMessageReducer';
 import addThreadReducer from './reducers/addThreadReducer';
 import addThreadsReducer from './reducers/addThreadsReducer';
+import clearMessageReducer from './reducers/clearMessageReducer';
 
 const threads = (threads={}, action) => {
     switch(action.type) {
@@ -30,6 +31,8 @@ const messages = (messages={}, action) => {
     switch(action.type) {
         case types.INBOX_ADD_MESSAGE:
             return addMessageRecuder(messages, action);
+        case types.INBOX_CLEAR_MESSAGES:
+            return clearMessageReducer(messages, action);
         default:
             return messages;
     }

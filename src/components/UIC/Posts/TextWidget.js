@@ -146,7 +146,6 @@ class TextWidget extends React.Component {
 
   render() {
     const { classes, type, text, user, comments, endorsements, item, contentStyle, deletePost } = this.props;
-    console.log(user)
     const fullName = (Utility.isset(item) && Utility.isset(item.user)? item.user.firstname: '') + ' ' + (Utility.isset(item) && Utility.isset(item.user)? item.user.lastname: '');
     return (
       <div>

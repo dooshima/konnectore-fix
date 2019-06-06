@@ -9,6 +9,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import { Button } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import KButton from '../UIC/KButton';
+import Utility from '../../services/Utility';
 
 const styles = theme => ({
   root: {
@@ -64,7 +65,8 @@ class ContentHeader extends React.Component {
 
   render() {
 
-  const { classes, editProfile } = this.props;
+  const { classes, currentEdition } = this.props;
+  console.log(currentEdition)
   const KButtonLink = withRouter( ({history}) => {
     return <KButton
       onClick={this.handleFollowContest}
@@ -92,7 +94,7 @@ class ContentHeader extends React.Component {
                 </Typography>
             </Grid>
             <Grid item xs={4} className={classes.status}>
-                <Button color="primary" variant="contained">Ongoing</Button>
+                <Button color="primary" variant="contained">{ Utility.isset(currentEdition)? currentEdition.status: 'n/a' }</Button>
             </Grid>
           </Grid>
         </Grid>

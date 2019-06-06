@@ -9,6 +9,7 @@ import { CardHeader, Avatar, CardActions, TextField, FormControl, Input } from '
 import AlarmIcon from '@material-ui/icons/Alarm'
 import Utility from '../../services/Utility';
 import ReactTimeAgo from 'react-time-ago/commonjs/ReactTimeAgo';
+import PopoverPostActions from '../alerts/PopoverPostActions';
 
 const styles = theme => ({
     postText: {
@@ -98,7 +99,7 @@ class PostActivityWidget extends React.Component {
     
     render () {
     const comments = [...Array(3).keys()];
-    const { classes, item } = this.props;
+    const { classes, item, user, deletePost } = this.props;
 
     return (
         <React.Fragment>
@@ -108,9 +109,7 @@ class PostActivityWidget extends React.Component {
                     <Avatar aria-label={item.fullName} className={classes.avatar} src={Utility.isset(item.user)? Utility.getAvatar(item.user.avatar): Utility.getAvatar("")} />
                 }
                 action={
-                    <IconButton>
-                    <ArrowDropDownIcon />
-                    </IconButton>
+                    <PopoverPostActions className={classes.more} author={item.author} post_id={item.id} user_id={user.data.id} deletePost={deletePost} />
                 }
                 title={
                     <Typography component="h6" variant="h6">

@@ -44,8 +44,8 @@ const PopoverPostActions = ({author, post_id, user_id, deletePost}) => {
       </IconButton>
       <Menu {...bindMenu(popupState)}>
           <MenuItem onClick={popupState.close}>Share</MenuItem>
-          {user_id === author && <MenuItem onClick={() => deleteAPost(post_id)}>Delete</MenuItem>}
-          {user_id !== author && <MenuItem onClick={popupState.close}>Report Abuse</MenuItem>}
+          {+user_id === +author && <MenuItem onClick={() => deleteAPost(post_id)}>Delete</MenuItem>}
+          {+user_id !== +author && <MenuItem onClick={popupState.close}>Report Abuse</MenuItem>}
       </Menu>
     </div>
   )

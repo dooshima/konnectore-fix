@@ -64,6 +64,8 @@ const unfollow = (user, token) => {
 function setDefault() {
     return dispatch => {
         dispatch(addFriends({}));
+        dispatch(setFriend({}));
+        dispatch(addPostIds([]))
     }
 }
 

@@ -28,6 +28,11 @@ const setCurrentThread = currentThread => ({
     currentThread,
 });
 
+const clearMessages = messages => ({
+    type: types.INBOX_CLEAR_MESSAGES,
+    messages,
+});
+
 const handleGetFollowings = token => dispatch => {
     dispatch(appActions.appIsLoading(true));
     Inbox.getFollowings(token)
@@ -116,6 +121,15 @@ function formatById(messages) {
     return byId;
 }
 
+function setDefault() {
+    return dispatch => {
+        dispatch(setCurrentThread({}));
+        dispatch(addThreads({}));
+        dispatch(addUserFollowings({}));
+        dispatch(clearMessages({}));
+    }
+}
+
 const inboxActions = {
     handleGetFollowings,
     sendMessage,
@@ -123,6 +137,7 @@ const inboxActions = {
     setCurrentThread,
     addThread,
     getUserThreads,
+    setDefault,
 };
 
 export default inboxActions;

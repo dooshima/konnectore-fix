@@ -70,16 +70,16 @@ class MeTabs extends React.Component {
         filter = 'feed';
         break;
       case 1:
-        filter = 'contest';
-        break;
-      case 2:
         filter = 'image';
         break;
-      case 3:
+      case 2:
         filter = 'video';
         break;
+      case 3:
+        filter = 'followers';
+        break;
       case 4:
-        filter = 'text';
+        filter = 'followings';
         break;
       default:
         filter = 'feed';

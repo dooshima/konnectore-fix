@@ -34,7 +34,8 @@ class MeController extends React.Component {
     }
 
     componentDidMount() {
-        console.log('call the get user info function');
+        this.props.getFollowers(this.props.user.authToken);
+        this.props.getFollowings(this.props.user.authToken);
     }
 
     static getDerivedStateFromProps(state) {
@@ -70,8 +71,13 @@ class MeController extends React.Component {
                     p.push(post);
             }
             return p;
-        } else
+        } else if(filter === 'followers') {
+                return this.props.followers;
+        } else if(filter === 'followings') {
+            return this.props.followings;
+        } else {
             return posts;
+        }
     }
     render() {
         const {match, user, allPosts, me} = this.props;
@@ -81,7 +87,7 @@ class MeController extends React.Component {
         let count = 1;
         
         const keys = Utility.isset(me) && Utility.isset(me.postIds)? me.postIds.sort( (a, b) => b -a): [];
-        console.log(keys)
+        //console.log(this.props.followings)
         if(keys.length > 0) {
             for(let i of keys) {
                 let item = allPosts[i];
@@ -135,6 +141,8 @@ const mapStateToProps = state => {
         user: state.user,
         allPosts: state.post.byId,
         me: state.me,
+        followers: state.user.followers,
+        followings: state.user.followings,
     }
 }
 
@@ -148,7 +156,13 @@ const mapDispatchToProps = dispatch => {
       },
       getUserInfo: (id, token) => {
           dispatch(userActions.getUser(id, token));
-      }
+      },
+      getFollowers: (token) => {
+          dispatch(userActions.handleGetFollowers(token));
+      },
+      getFollowings: (token) => {
+            dispatch(userActions.handleGetFollowings(token));
+        }
     }
 };
 

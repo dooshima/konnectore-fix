@@ -271,7 +271,6 @@ class AppNavBar extends React.Component {
     const { classes, user, authToken } = this.props;
     //const user = Utility.isset(this.props.user)? this.props.user.data: {};
     const avatar = Utility.getAvatar(user.avatar);
-    console.log(this.props)
     if(user.avatar) {
       //path = Utility.getAvatar(user.avatar) //user.avatar.includes('http')? user.avatar: Constants.BASE_URL + "storage/" + user.avatar;
     }

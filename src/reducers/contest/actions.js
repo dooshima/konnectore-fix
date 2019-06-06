@@ -53,13 +53,40 @@ const addEntryCategory = entryCategory => ({
 const addEntryById = byId => ({
     type: types.CONTEST_ADD_ENTRY_BY_ID,
     byId,
+});
+
+const setSearchResult = search => ({
+    type: types.CONTEST_SET_SEARCH_RESULT,
+    search,
+});
+
+const setProgress = requesting => ({
+    type: types.CONTEST_SET_PROGRESS,
+    requesting,
 })
+
+const handleContestSearch = (form, token) => dispatch => {
+    dispatch(setProgress(true));
+    Contest.searchContest(form, token)
+        .then( response => {
+            dispatch(setProgress(false));
+            console.log(response);
+            if(!response.error) {
+                dispatch(setSearchResult({byId: response.byId, allIds: response.allIds}));
+            }
+        } )
+        .catch( error => {
+            dispatch(setProgress(false));
+            console.log(error);
+        });
+};
 
 const getContest = (slug, user_id) => {
     return dispatch => {
         dispatch(appActions.appIsLoading(true));
         Contest.getContest(slug, user_id)
             .then( response => {
+                //console.log(response);
                 dispatch(appActions.appIsLoading(false));
                 if(!response.error) {
                     dispatch(setContestData(response.data))
@@ -181,6 +208,7 @@ const contestActions = {
     followContest,
     addEntryCategory,
     addEntryById,
+    handleContestSearch,
 };
 
 export default contestActions;

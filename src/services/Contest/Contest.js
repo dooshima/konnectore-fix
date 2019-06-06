@@ -9,11 +9,19 @@ const Contest = {
     getContest,
     getContestFeed,
     follow,
+    searchContest,
 };
 
 function addEntry (form, token) {
     return Server.authPost('api/add-entry', form, token)
         .then( response => response.data );
+}
+
+function searchContest (form, token) {
+    console.log(form)
+    return Server.authPost('api/search-contest', form, token)
+        .then( response => response.data )
+        .catch( error => error );
 }
 
 function getContest (slug, user_id) {

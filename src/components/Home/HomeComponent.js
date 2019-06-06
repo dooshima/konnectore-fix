@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, CardHeader, CardContent, TextField, FormControl, InputLabel, Input, Typography, LinearProgress } from '@material-ui/core';
+import { withStyles, CardHeader, CardContent, TextField, FormControl, InputLabel, Input, Typography, LinearProgress, createMuiTheme } from '@material-ui/core';
 import KCard from './../../components/UIC/KCard';
 import SocialButtons from './SocialButtons';
 import SignIn from './SignIn';
@@ -10,7 +10,11 @@ import Auth from '../../services/Auth/Auth';
 import userActions from '../../reducers/user/actions';
 import { connect } from 'react-redux';
 
-const styles = theme => ({
+const theme = createMuiTheme({
+    spacing: 10,
+  });
+
+const styles = {
     container: {
         position: 'absolute',
         top: 0,
@@ -81,7 +85,8 @@ const styles = theme => ({
         flex: 1,
         marginBottom: theme.spacing.unit * 0,
       }
-})
+};
+
 class HomeCompoment extends React.PureComponent {
     constructor(props) {
         super(props);

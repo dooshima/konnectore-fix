@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
 import { FormControl, InputLabel, Input, Select, MenuItem } from '@material-ui/core';
 
 
@@ -19,11 +20,11 @@ const styles = theme => ({
     },
     formControl: {
         width: '100%',
-        marginTop: '1.8em',
+        //marginTop: '1.8em',
     },
     formRoot: {
         'label + &': {
-          marginTop: theme.spacing.unit * 3,
+          //marginTop: theme.spacing.unit * 3,
         },
       },
     formInput: {
@@ -46,7 +47,7 @@ const styles = theme => ({
             color: '#444', // '#a2a2a2',
             fontSize: 14,
         },
-        marginTop: 20,
+        //marginTop: 0,
     },
     bootstrapTextarea: {
         flex: 1,
@@ -71,7 +72,6 @@ const styles = theme => ({
       },
     bootstrapFormLabel: {
         fontSize: 16,
-        
     },
     
 });
@@ -84,8 +84,8 @@ class KFormSelect extends React.Component {
         }
     }
 
-    handleSelect = name => value => {
-        this.props.handleChange(value.target.value);
+    handleSelect = name => event => {
+        this.props.handleChange(name, event.target.value);
     }
 
     render() {
@@ -99,7 +99,7 @@ class KFormSelect extends React.Component {
                 input={
                     <Input placeholder={placeholder}
                     disableUnderline={true}
-                    className={classes.formInput} 
+                    className={classNames(classes.formInput, classes.selectStyle)} 
                     />
                 } {...rest}>
                     {

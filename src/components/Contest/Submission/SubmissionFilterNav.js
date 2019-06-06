@@ -39,7 +39,8 @@ const styles = theme => ({
       marginLeft: 10,
   },
   tabs: {
-      width: '60%',
+      width: '100%',
+      margin: '10px 0',
   }
 });
 
@@ -47,8 +48,8 @@ function SubmissionFilterNav(props) {
   const { classes, stages, handleChange, filter } = props;
   return (
     <div className={classes.root}>
+      <Typography className={classes.title}>Submission Entries</Typography>
       <AppBar position="static" color="default" className={classes.nav} elevation={0}>
-        <Typography className={classes.title}>Submission Entries</Typography>
         {stages.length > 0 && <Tabs
           value={filter}
           onChange={handleChange}

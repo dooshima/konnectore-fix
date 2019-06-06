@@ -31,6 +31,7 @@ class ContestController extends React.Component {
             posts: [],
             item: {},
             open: false,
+            search: false,
         }
     }
 
@@ -63,14 +64,25 @@ class ContestController extends React.Component {
     handleFollowContest = () => {
         this.props.followContest({contest_id: this.props.contest.id}, this.props.accessToken);
     }
+
+    setSearchState = show => {
+        this.setState({search: show});
+    }
     
     render() {
+        console.log('Search: ', this.props.search)
         const {match, user, contest} = this.props;
         let recentPosts = [];
         const fullName = user.data.firstname + ' ' + user.data.lastname;
         
         let count = 1;
-        const cPosts = this.filterPosts(contest.posts);
+        let cPosts = [];
+        if(this.state.search) {
+            cPosts = Utility.isset(this.props.contest) && Utility.isset(this.props.contest.search)? this.props.contest.search.byId: [];
+        } else {
+            cPosts = this.filterPosts(contest.posts);
+        }
+        
         for(let i in cPosts) {
             let item = cPosts[i];
             recentPosts.push(item);
@@ -80,12 +92,20 @@ class ContestController extends React.Component {
         }
 
         const stages = Utility.isset(contest) && Utility.isset(contest.stages) ? contest.stages: [];
-        const entries = Utility.isset(contest) && Utility.isset(contest.stage_posts) ? contest.stage_posts: [];
+        let entries = [];
+        if(this.state.search) {
+            entries = Utility.isset(this.props.search)? this.props.search.byId: [];
+        } else {
+            entries = Utility.isset(contest) && Utility.isset(contest.stage_posts) ? contest.stage_posts: [];
+        }
+
+        console.log('Entries: ', entries.length)
         const funcs = {
             filter: this.state.filter,
             posts: cPosts,
             stages,
             entries,
+            setSearchState: this.setSearchState,
         }
 
         return (
@@ -132,7 +152,9 @@ const mapStateToProps = state => {
         user: state.user,
         accessToken: state.user.authToken,
         contest: state.contest.data,
+        currentEdition: state.contest.data.currentEdition,
         entryCategory: state.contest.entryCategory,
+        search: state.contest.search,
     }
 }
 
@@ -152,6 +174,9 @@ const mapDispatchToProps = dispatch => {
       },
       handleJoinContest: (form, token) => {
           dispatch(contestActions.joinContest(form, token));
+      },
+      handleContestSearch: (form, token) => {
+          dispatch(contestActions.handleContestSearch(form, token));
       }
     }
 };
