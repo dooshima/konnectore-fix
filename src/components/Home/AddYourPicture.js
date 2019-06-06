@@ -182,7 +182,7 @@ const AddYourPicture = props => {
                     <CardActions className={classes.actions}>
                         <div className={classes.next}>
                             <KBigButtonOutlined variant="outlined" onClick={() => props.setScreen('ChooseCategory')} label="Maybe later" size="small" />
-                            <KBigButton disabled={active} onClick={() => props.setScreen('ConnectWithPeople')} label="Next" size="small" />
+                            <KBigButton disabled={active} onClick={() => props.setScreen('ChooseCategory')} label="Next" size="small" />
                         </div>
                     </CardActions>
                 </KCard>

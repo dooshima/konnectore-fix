@@ -96,7 +96,7 @@ function signup(form) {
         .then( resp => resp.data );
 }
 
-function uploadAvatar(avatar) {
+function uploadAvatar(uid, avatar) {
     return Server.post("api/upload-avatar", avatar)
         .then( resp => resp.data );
 }

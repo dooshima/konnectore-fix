@@ -8,7 +8,7 @@ import ChooseCategory from './ChooseCategory';
 import ConnectWithPeople from './ConnectWithPeople';
 import { connect } from 'react-redux';
 import userActions from '../../reducers/user/actions';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import Utility from '../../services/Utility';
 import friendActions from '../../reducers/friend/actions';
 
@@ -55,11 +55,11 @@ class OnboardComponent extends React.PureComponent {
     handleFileupload(event) {
         const file = event.target.files[0];
         this.setState({avatar: file})
-        const fd = new FormData();
+        let fd = new FormData();
         fd.append('avatar', file);
-        fd.append('user_id', this.props.newAccount.id);
-        console.log(file);
-        this.props.uploadAvatar(fd);
+        fd.append('user_id', Utility.isset(this.props.userData) &&  Utility.isset(this.props.userData.id)? this.props.userData.id: this.props.newAccount.id);
+        console.log(fd, this.props.userData, this.props.newAccount);
+        this.props.uploadAvatar(false, fd);
     }
 
     setSelectedCategories = selectedCategories => {
@@ -75,7 +75,7 @@ class OnboardComponent extends React.PureComponent {
 
     submit = () => {
         const talents = this.state.categoryList.map( s => s.id );
-        const data = { ...this.state, user_id: this.props.newAccount.id, talents };
+        const data = { ...this.state, user_id: Utility.isset(this.props.userData) &&  Utility.isset(this.props.userData.id)? this.props.userData.id: this.props.newAccount.id, talents };
         this.props.processOnboarding(data);
     }
 
@@ -88,9 +88,11 @@ class OnboardComponent extends React.PureComponent {
     }
 
     render() {
-        if(!this.props.userAccount.hasOwnProperty('id')) {
+        const data = this.props.userData;
+        if(Utility.isset(data.username) && Utility.isset(data.firstname) && !Utility.isset(data.lastname)) {
             //this.props.logout(this.props.userData.id);
-            //this.props.history.push('/');
+            return <Redirect to="/me" />
+            //this.props.history.push('/me');
         }
             
         switch(this.state.currentScreen) {
@@ -126,8 +128,8 @@ class OnboardComponent extends React.PureComponent {
                     currentScreen={this.state.currentScreen}
                     connectWith={this.props.connectWith}
                     handleFollow={this.handleFollow}
-                    handleUnfollow={this.handleUnfollow} 
-                    people={this.props.people}
+                    handleUnfollow={this.handleUnfollow} submit={this.submit}
+                    people={this.props.people} {...this.props}
                     newAccount={this.props.newAccount} />;
             default:
                 return <ChooseUsername />;
@@ -164,8 +166,8 @@ const mapDispatchToProps = dispatch => {
         checkUsername: username => {
             dispatch(userActions.checkUsername(username));
         },
-        uploadAvatar: avatar => {
-            dispatch(userActions.handleUploadAvatar(avatar));
+        uploadAvatar: (user_id, avatar) => {
+            dispatch(userActions.handleUploadAvatar(user_id, avatar));
         },
         getTalentCategories: () => {
             dispatch(userActions.getTalentCategories());

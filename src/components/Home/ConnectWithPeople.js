@@ -146,12 +146,25 @@ class ConnectWithPeople extends React.Component {
                     </CardContent>: 
                     <SimpleTextAlert message="No friends suggestion yet" />
                     }
+                    
+                    {false && <CardContent className={classes.content}>
+                        {this.props.talentCategories.map( (cat, i) => <CategoryButton key={i} index={cat.id} id={cat.id} category={cat} selected={this.state.selectedCategories.findIndex(c => c.id === cat.id) !== -1} toggleCategory={this.toggleCategory} />)}
+                    </CardContent>}
+
                     <CardActions className={classes.actions}>
+                        <div className={classes.next}>
+                            {false && <KBigButtonOutlined variant="outlined" onClick={() => this.props.setScreen('ChooseCategory')} label="Maybe later" size="small" />}
+                            <KBigButton onClick={this.props.submit} label="Done!" size="small" />
+                        </div>
+                    </CardActions>
+                    
+                    {false && <CardActions className={classes.actions}>
                         <div className={classes.next}>
                             <KBigButtonOutlined variant="outlined" onClick={() => this.props.setScreen('ChooseCategory')} label="Skip" size="small" />
                             <KBigButton onClick={() => this.props.setScreen('ChooseCategory')} label="Next" size="small" />
                         </div>
-                    </CardActions>
+                    </CardActions>}
+
                 </KCard>
             </Grid>
         </Grid>

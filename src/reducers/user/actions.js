@@ -69,7 +69,7 @@ const processOnboarding = data => {
                     dispatch(uploadAvatar(""));
                     dispatch(authSignupRedirect(true));
 
-                    setTimeout(() => history.push('/me'), 1000);
+                    setTimeout(() => history.push('/'), 1000);
                 } else {
                     dispatch(authSignupRedirect(false));
                     dispatch(authError(profile.message));
@@ -135,12 +135,14 @@ const addAuthToken = authToken => ({
     authToken,
 })
 
-const handleUploadAvatar = file => {
+const handleUploadAvatar = (uid, file) => {
+    console.log(file)
     return dispatch => {
         dispatch(showAuthLoading(true));
         //dispatch(authSignupRedirect(false));
-        Auth.uploadAvatar(file)
+        Auth.uploadAvatar(uid, file)
             .then( resp => {
+                console.log(resp)
                 dispatch(showAuthLoading(false));
                 if(!resp.error && resp.data) {
                     dispatch(uploadAvatar(resp.data.path));

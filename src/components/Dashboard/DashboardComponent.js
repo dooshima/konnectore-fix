@@ -180,7 +180,9 @@ class DashboardComponent extends React.Component {
     const posts = Utility.isset(post.byId) ? post.byId: [];
     for(let i of keys) {
       let item = posts[i];
-      recentPosts.push(item);
+      if(Utility.isset(item)) {
+        recentPosts.push(item);
+      }
     }
 
     recentPosts = recentPosts.sort((a, b) => b.id > a.id);
@@ -227,6 +229,7 @@ const mapStateToProps = state => {
     contestFeed: state.contest.feed,
     me: state.me,
     post: state.post,
+    user: state.user,
   }
 }
 

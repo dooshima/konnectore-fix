@@ -205,6 +205,7 @@ TextWidget.propTypes = {
 const mapStateToProps = state => {
   return {
     showDM: state.dialog.showDM,
+    user: state.user,
   }
 };
 

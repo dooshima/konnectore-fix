@@ -129,6 +129,14 @@ class ChooseCategory extends React.Component {
         }
     }
 
+    next = () => {
+        if(this.state.selectedCategories.length < 1) {
+            alert("Please select at least on category");
+            return;
+        }
+        this.props.setScreen('ConnectWithPeople');
+    }
+
     render() {
     const { classes, currentScreen } = this.props;
     //const talents = selected.map( s => s.id );
@@ -171,7 +179,7 @@ class ChooseCategory extends React.Component {
                     <CardActions className={classes.actions}>
                         <div className={classes.next}>
                             <KBigButtonOutlined variant="outlined" onClick={() => this.props.setScreen('ConnectWithPeople')} label="Maybe later" size="small" />
-                            <KBigButton onClick={this.props.submit} label="Done!" size="small" />
+                            <KBigButton onClick={this.next} label="Next" size="small" />
                         </div>
                     </CardActions>
                 </KCard>

@@ -67,7 +67,7 @@ const styles = theme => ({
 });
 
 function ContestEntryItemCard(props) {
-  const { classes, theme, entry } = props;
+  const { classes, theme, entry, user } = props;
   return (
     
     <Card elevation={0} className={classes.card}>
@@ -82,6 +82,7 @@ function ContestEntryItemCard(props) {
           avatar={Utility.isset(entry.user)? entry.user.avatar: ""}
           fullName={Utility.isset(entry.user)? entry.user.firstname + " " + entry.user.lastname: ""}
           date={entry.created_at}
+          item={entry} user={user}
           />
     </Card>
   );

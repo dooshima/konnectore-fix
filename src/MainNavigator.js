@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import SearchResultBody from './components/SearchResultBody';
 import PropTypes from 'prop-types';
 import { withStyles, Typography } from '@material-ui/core';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch, Link, Redirect } from 'react-router-dom';
 import SearchComponent from './components/Search/SearchComponent';
 import MeController from './components/UIC/Me/MeController';
 import HomeCompoment from './components/Home/HomeComponent';
@@ -74,13 +74,19 @@ const styles = theme => ({
   }
 });
 
+function RRedirect () {
+  return (
+    <Redirect to="/me" />
+  )
+}
+
 function MainNavigator(props) {
   
     return (
         <Switch>
             <ProtectedRoute exact path="/" component={
               (props.user.authToken && Utility.isset(props.user.data.firstname) && Utility.isset(props.user.data.lastname) && Utility.isset(props.user.data.id))? DashboardComponent: HomeCompoment} {...props}/>
-            <Route exact path="/onboard" component={(props.user.authToken && Utility.isset(props.user.data.firstname) && Utility.isset(props.user.data.lastname) && Utility.isset(props.user.data.id))? DashboardComponent: OnboardComponent} {...props} />
+            <Route exact path="/onboard" component={(props.user.authToken && Utility.isset(props.user.data.firstname) && Utility.isset(props.user.data.lastname) && Utility.isset(props.user.data.id))? RRedirect: OnboardComponent} {...props} />
             <PropsRoute exact path="/password/reset" component={PRComponent} />
             <PropsRoute exact path="/signed-up" component={AccountCreatedComponent} user={props.user} />
             <PropsRoute exact path="/password/reset/:token" component={PasswordResetComponent} />

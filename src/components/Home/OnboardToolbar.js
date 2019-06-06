@@ -46,15 +46,15 @@ class OnboardToolbar extends React.Component {
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, userData } = this.props;
         return (
             <>
-            <Toolbar className={classes.appBar} style={{justifyContent: 'center'}}>
+            {+userData.verified < 1  && <Toolbar className={classes.appBar} style={{justifyContent: 'center'}}>
                 <Typography className={classes.alertText}>
                     Your account has not yet been activated. <Button type="button" onClick={this.resendConfirmation} className={classes.alertText} style={{textDecoration: 'underline'}}>Resend activation link</Button>
                 </Typography>
                 <SnackMessage open={this.state.open} handleClose={this.handleClose} message="Confirmation email resent." />
-            </Toolbar>
+            </Toolbar>}
             <Toolbar className={classes.settingUp}>
                 <Typography variant="h5" className={classes.settingUpText}>Finish setting up</Typography>
             </Toolbar>
