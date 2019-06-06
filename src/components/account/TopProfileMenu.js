@@ -86,6 +86,7 @@ class TopProfileMenu extends React.Component {
     const { classes, user } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
+    console.log('topprofile' , user)
     let path = '';
     if(user.avatar) {
       path = user.avatar.includes('http')? user.avatar: Constants.BASE_URL + "storage/" + user.avatar;
@@ -94,12 +95,13 @@ class TopProfileMenu extends React.Component {
 
     return (
       <div className={classes.root}>            
-            {this.props.loggedIn? (
+            {this.props.authToken? (
                 <>
                 <div className={classes.sectionDesktop} style={{display: 'flex', alignItems: 'center'}}>
               
                 <Typography variant="subtitle2" gutterBottom>
-                  {`${user.firstname} ${user.lastname}`}
+                  {`${user.firstname} ${user.lastname} 90`}<br />
+                  {user.referralID}
                 </Typography>
                   <IconButton
                   aria-owns={open ? 'menu-appbar' : undefined}

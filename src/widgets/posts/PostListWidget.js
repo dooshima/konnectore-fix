@@ -95,7 +95,7 @@ class PostListWidget extends React.Component {
                 </Paper>
                 }
                 <PostDetailWidget postItem={this.state.item} open={this.state.open} 
-                    user={this.props.user} {...funcs}/>
+                    user={this.props.puser} {...funcs}/>
             </React.Fragment>
         )
     }
@@ -105,6 +105,7 @@ const mapStateToProps = state => {
     return {
         authToken: state.user.authToken,
         author: state.user.data,
+        puser: state.user
     }
 };
 
