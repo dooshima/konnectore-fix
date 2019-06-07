@@ -71,7 +71,6 @@ class JoinContestWidget extends React.Component {
 
     render() {
         const { user, classes, history, url, contest } = this.props;
-        console.log(this.state);
         const currentEdition = Utility.isset(contest) && Utility.isset(contest.currentEdition)? contest.currentEdition: {};
 
         if(!Utility.isset(user) || !Utility.isset(user.usertype)) {
@@ -88,12 +87,15 @@ class JoinContestWidget extends React.Component {
                     {false && <Typography className={classes.mentioned}>
                         Select one of the above categories
                     </Typography>}
-                    <KFormInput style={{marginTop: 20,}} label="Referrer" name="referrer" value={this.state.referrer} handleChange={this.handleChange} />
+                    <KFormInput style={{marginTop: 20,}} label="Referrer (Optional)" name="referrer" value={this.state.referrer} handleChange={this.handleChange} />
                     {false && <KBigButton label="Join the contest" upper={true} />}
                     <JoinAsContestantButton category={this.state.category} referrer={this.state.referrer} {...this.props} narration={narration} referralsCount={user.referralsCount} 
                         referralID={user.referralID} 
                         contestEdition={currentEdition.slogan}
-                        contest_edition_id={currentEdition.id} />
+                        contest_edition_id={currentEdition.id}
+                        contestProgress={this.props.contestProgress}
+                        joinAsContestant={this.props.joinAsContestant}
+                         />
                     <Typography className={classes.agree}>
                         By joining, you agree that you understand the contest guidelines
                     </Typography>

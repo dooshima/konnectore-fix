@@ -63,7 +63,17 @@ const setSearchResult = search => ({
 const setProgress = requesting => ({
     type: types.CONTEST_SET_PROGRESS,
     requesting,
-})
+});
+
+const setJoinProgress = progress => ({
+    type: types.CONTEST_SET_JOIN_PROGRESS,
+    progress,
+});
+
+const setUserRole = userRole => ({
+    type: types.CONTEST_SET_USER_ROLE,
+    userRole,
+});
 
 const handleContestSearch = (form, token) => dispatch => {
     dispatch(setProgress(true));
@@ -83,13 +93,15 @@ const handleContestSearch = (form, token) => dispatch => {
 
 const getContest = (slug, user_id) => {
     return dispatch => {
+        dispatch(setDefault());
         dispatch(appActions.appIsLoading(true));
         Contest.getContest(slug, user_id)
             .then( response => {
-                //console.log(response);
+                console.log(response);
                 dispatch(appActions.appIsLoading(false));
                 if(!response.error) {
                     dispatch(setContestData(response.data))
+                    dispatch(setUserRole(Utility.isset(response.data.userRole)? response.data.userRole: 0));
                     dispatch(addEntries(response.data.posts));
                 }
             })
@@ -151,6 +163,19 @@ const handleAddEntry = (form, token) => {
     }
 };
 
+const joinAsContestant = (form, token) => dispatch => {
+    dispatch(setJoinProgress({status: true, message: 'Joining ...'}));
+    Contest.joinAsContestant(form, token)
+        .then( response => {
+            dispatch(setJoinProgress({staus: false, message: 'You are now a contestant!'}));
+            //dispatch(setContestUserRole(1));
+        })
+        .catch ( error => {
+            dispatch(setJoinProgress({status: false, message: 'Couldn\'t join the contest. Pls refresh the window and retry.'}));
+            console.log(error)
+        } )
+}
+
 const getContestFeed = () => {
     return dispatch => {
         dispatch(appActions.appIsLoading(true));
@@ -192,6 +217,8 @@ function setDefault() {
         dispatch(setContestFeed({}));
         dispatch(setContestData({}));
         dispatch(addEntryCategory(""));
+        dispatch(setJoinProgress({}));
+        dispatch(setUserRole(0));
     }
 }
 
@@ -209,6 +236,7 @@ const contestActions = {
     addEntryCategory,
     addEntryById,
     handleContestSearch,
+    joinAsContestant,
 };
 
 export default contestActions;

@@ -29,9 +29,13 @@ const KButtonLink = withRouter(({history}) => {
 
 function JoinAsContestantButton(props) {
   const [open, setOpen] = React.useState(false);
-  const { contest } = props;
+  const { contest, contestProgress } = props;
   const currentEdition = Utility.isset(contest)? contest.currentEdition: {};
   const classes = useStyles();
+  const progress = contestProgress;
+  const continueBtn = progress.status === true? true: false;
+
+  console.log(progress)
   /*const useStyles = makeStyles({
     root: {
       color: green[600],
@@ -56,7 +60,7 @@ function JoinAsContestantButton(props) {
           return;
       }
       alert('Send: ContestEditionID: ' + state.contest_edition_id + ' and Ref: ' + state.ref_code)
-      props.joinContent({contest_edition_id: state.contest_edition_id, ref_code: state.ref_code});
+      props.joinContest({contest_edition_id: state.contest_edition_id, ref_code: state.ref_code});
   }
 
   //const classes = useStyles();
@@ -80,7 +84,11 @@ function JoinAsContestantButton(props) {
         alert("Please select a category.");
         return;
     }
+
+    const form = {category_id: props.category, ref_code: props.referralID, contest_edition_id: props.contest_edition_id};
+    props.joinAsContestant(form, props.authToken)
     handleClickOpen();
+
   }
 
     return (
@@ -114,9 +122,9 @@ function JoinAsContestantButton(props) {
                 label="I've read the TOS"
             />{state.agreed === false && state.showError === true && <FormHelperText style={{color: 'red', fontSize: 12}}>You must accept the TOS to continue</FormHelperText>}</FormControl>
             </DialogContentText>: <div className={classes.joined}>
-        <SimpleTextAlert message="You are now a contestant!" />
-        <img src="/contests/check-joined.png" />
-        <KBigButton onClick={() => props.history.push('/contest/sctage/submissions')} label="Continue" />
+        <SimpleTextAlert message={progress.message} />
+        {progress.status !== true && <img src="/contests/check-joined.png" />}
+        <KBigButton disabled={continueBtn} onClick={() => props.history.push('/contest/sctage/submissions')} label="Continue" />
     </div>}
             </DialogContent>
             <DialogActions><Button onClick={handleClose} color="primary" autoFocus>

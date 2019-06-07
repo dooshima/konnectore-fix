@@ -99,7 +99,6 @@ class ContestController extends React.Component {
             entries = Utility.isset(contest) && Utility.isset(contest.stage_posts) ? contest.stage_posts: [];
         }
 
-        console.log('Entries: ', entries.length)
         const funcs = {
             filter: this.state.filter,
             posts: cPosts,
@@ -152,6 +151,7 @@ const mapStateToProps = state => {
         user: state.user,
         accessToken: state.user.authToken,
         contest: state.contest.data,
+        contestProgress: state.contest.progress,
         currentEdition: state.contest.data.currentEdition,
         entryCategory: state.contest.entryCategory,
         search: state.contest.search,
@@ -177,6 +177,12 @@ const mapDispatchToProps = dispatch => {
       },
       handleContestSearch: (form, token) => {
           dispatch(contestActions.handleContestSearch(form, token));
+      },
+      joinAsContestant: (form, token) => {
+          dispatch(contestActions.joinAsContestant(form, token));
+      },
+      setDefault: () => {
+          dispatch(contestActions.setDefault());
       }
     }
 };

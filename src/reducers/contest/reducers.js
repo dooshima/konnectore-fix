@@ -12,6 +12,8 @@ import addEntryCategoryReducer from './reduction/addEntryCategoryReducer';
 import addEntryByIdReducer from './reduction/addEntryByIdReducer';
 import setSearchResultReducer from './reduction/setSearchResultReducer';
 import isLoadingReducer from './reduction/isLoadingReducer';
+import setJoinProgressReducer from './reduction/setJoinProgressReducer';
+import setUserRoleReducer from './reduction/setUserRoleReducer';
 
 const uploadCount = (uploadCount=0, action) => {
     switch(action.type) {
@@ -37,6 +39,15 @@ const loading = (loading=false, action) => {
             return isLoadingReducer(loading, action);
         default:
             return loading;
+    }
+}
+
+const progress = (progress={}, action) => {
+    switch(action.type) {
+        case types.CONTEST_SET_JOIN_PROGRESS:
+            return setJoinProgressReducer(progress, action);
+        default:
+            return progress;
     }
 }
 
@@ -105,6 +116,15 @@ const byId = (byId={}, action) => {
     }
 };
 
+const userRole = (userRole=0, action) => {
+    switch(action.type) {
+        case types.CONTEST_SET_USER_ROLE:
+            return setUserRoleReducer(userRole, action);
+        default:
+            return userRole;
+    }
+}
+
 const search = (search={}, action) => {
     switch(action.type) {
         case types.CONTEST_SET_SEARCH_RESULT:
@@ -126,6 +146,8 @@ const contestReducers = combineReducers({
     byId,
     search,
     loading,
+    progress,
+    userRole,
 });
 
 export default contestReducers;

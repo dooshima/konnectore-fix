@@ -10,6 +10,7 @@ const Contest = {
     getContestFeed,
     follow,
     searchContest,
+    joinAsContestant,
 };
 
 function addEntry (form, token) {
@@ -37,6 +38,12 @@ function follow (form, token) {
 function getContestFeed () {
     return Server.get('api/get-contest-feed')
         .then( response => response.data );
+}
+
+function joinAsContestant (form, token) {
+    console.log(form);
+    return Server.authPost('api/join-contest', form, token)
+        .then( response => response.data )
 }
 
 export default Contest;

@@ -19,6 +19,7 @@ const post = (url, data, options={}) => {
     if(options) {
         options = {...headers, ...options}
     }
+    console.log(Constants.BASE_URL + url)
     return axios.post(Constants.BASE_URL + url, data, {headers: options});
 } 
 
