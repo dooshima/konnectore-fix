@@ -49,7 +49,7 @@ class OnboardToolbar extends React.Component {
         const { classes, userData } = this.props;
         return (
             <>
-            {+userData.verified < 1  && <Toolbar className={classes.appBar} style={{justifyContent: 'center'}}>
+            {+userData.verified >= 1? null: <Toolbar className={classes.appBar} style={{justifyContent: 'center'}}>
                 <Typography className={classes.alertText}>
                     Your account has not yet been activated. <Button type="button" onClick={this.resendConfirmation} className={classes.alertText} style={{textDecoration: 'underline'}}>Resend activation link</Button>
                 </Typography>

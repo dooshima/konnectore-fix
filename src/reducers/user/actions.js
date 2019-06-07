@@ -53,23 +53,43 @@ const authSignupRedirect = signupRedirect => ({
     signupRedirect,
 })
 
-const processOnboarding = data => {
-    console.log(data);
+const processOnboarding = (data, context) => {
+    // console.log(data);
     return dispatch => {
         dispatch(showAuthLoading(true));
         Auth.processOnboarding(data)
             .then( profile => {
-                //console.log(profile);
+                const data = profile.data;
+                const {user, posts, comments} = data;
+                console.log(profile);
                 dispatch(showAuthLoading(false));
                 if(profile && !profile.error) {
-                    dispatch(authLoginSuccess(profile.data));
+                    /*dispatch(authLoginSuccess(profile.data));
                     dispatch(authSignupSuccess({}));
                     dispatch(showSearchForm(true));
                     dispatch(authError(""));
                     dispatch(uploadAvatar(""));
+                    dispatch(authSignupRedirect(true)); */
+
+                    dispatch(postActions.addPosts(posts.data.byId));
+                    dispatch(meActions.addPostIds(posts.data.allIds));
+                    dispatch(meActions.addCommentIds(comments.allIds));
+                    dispatch(commentActions.addComments(comments.byId));
+                    
+                    //const p = extractPosts(posts);
+                    //dispatch(addUserPosts(p));
+                    //const byId = null !== p && typeof(p) !== 'undefined'? p.byId: {};
+                    //dispatch(postActions.addPosts(byId));
+                    //dispatch(addUserComments(comments));
+                    dispatch(authLoginSuccess(user));
+                    dispatch(showSearchForm(true));
+                    dispatch(authError(""));
                     dispatch(authSignupRedirect(true));
 
                     setTimeout(() => history.push('/'), 1000);
+
+                    //setTimeout(() => context.goto('/me'), 1000);
+
                 } else {
                     dispatch(authSignupRedirect(false));
                     dispatch(authError(profile.message));
@@ -333,6 +353,7 @@ const handleLogout = (uid) => {
                 }
                 setAppDefault(dispatch);
                 dispatch(authError(""));
+                history.push("/");
             }).catch( error => {
                 console.log(error)
                 setAppDefault(dispatch);

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createMuiTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -11,7 +11,11 @@ import KButton from '../KButton';
 import { withRouter } from 'react-router-dom';
 import Utility from '../../../services/Utility';
 
-const styles = theme => ({
+const theme = createMuiTheme({
+  spacing: 10,
+});
+
+const styles = {
   root: {
     flexGrow: 1,
   },
@@ -74,7 +78,7 @@ const styles = theme => ({
     color: 'white',
     top: '60%',
   }
-});
+};
 
 const MeHeaderSummary = props => {
   const { classes, editProfile, user } = props;

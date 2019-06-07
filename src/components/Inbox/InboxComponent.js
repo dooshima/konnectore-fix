@@ -1,7 +1,7 @@
 import React from 'react';
 import InboxSenderList from './InboxSenderList';
 import { Typography, Grid, IconButton, ListItem, Avatar, ListItemText } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createMuiTheme } from '@material-ui/core/styles';
 import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import SettingsIcon from '@material-ui/icons/Settings';
 import KPaper from '../UIC/KPaper';
@@ -11,7 +11,10 @@ import { connect } from 'react-redux';
 import inboxActions from '../../reducers/inbox/actions';
 import Utility from '../../services/Utility';
 
-const styles = theme => ({
+const theme = createMuiTheme({
+    spacing: 10,
+});
+const styles = {
     controlsRow: {
         display: 'flex',
         justifyContent: 'space-between',
@@ -29,7 +32,7 @@ const styles = theme => ({
         maxHeight: '100vh',
         position: 'relative',
     }
-})
+};
 
 class InboxComponent extends React.Component {
     constructor(props) {

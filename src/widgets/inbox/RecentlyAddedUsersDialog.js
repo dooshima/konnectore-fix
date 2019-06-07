@@ -18,6 +18,7 @@ import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import { Toolbar, FormControl, Input } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
+import Utility from '../../services/Utility';
 
 const emails = ['username@gmail.com', 'user02@gmail.com'];
 const styles = theme => ({
@@ -44,6 +45,15 @@ const styles = theme => ({
 function SimpleDialog(props) {
   const { classes, followings } = props;
   const { onClose, selectedValue, ...other } = props;
+
+  const mFollowings = []
+
+  for(let i in followings) {
+    let person = followings[i];
+    if(Utility.isset(person)) {
+      mFollowings.push(person);
+    }
+  }
 
   function handleClose() {
     onClose(selectedValue);
@@ -83,7 +93,7 @@ function SimpleDialog(props) {
           </div>
           <div><Typography variant="caption">Recently added</Typography></div>
         <List>
-          {followings.map( (user, i) => (
+          {mFollowings.map( (user, i) => (
             <ListItem button onClick={() => handleListItemClick(user)} key={i}>
               <ListItemAvatar>
                 <Avatar className={classes.avatar} src={user.avatar} />

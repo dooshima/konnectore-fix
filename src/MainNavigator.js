@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SearchResultBody from './components/SearchResultBody';
 import PropTypes from 'prop-types';
-import { withStyles, Typography } from '@material-ui/core';
+import { withStyles, Typography, createMuiTheme } from '@material-ui/core';
 import { Route, Switch, Link, Redirect } from 'react-router-dom';
 import SearchComponent from './components/Search/SearchComponent';
 import MeController from './components/UIC/Me/MeController';
@@ -27,7 +27,12 @@ import FAQComponent from './components/Meta/FAQComponent';
 import Utility from './services/Utility';
 
 const qs = require('query-string');
-const styles = theme => ({
+
+const theme = createMuiTheme({
+  spacing: 10,
+});
+
+const styles = {
   wrapper: {
     margin: 0,
     padding: 0,
@@ -35,7 +40,7 @@ const styles = theme => ({
   },
   header: {
     position: 'fixed',
-    height: theme.spacing.unit * 5.4,
+    //height: theme.spacing.unit * 5.4,
     width: '100%',
     backgroundColor: '#fff',
     zIndex: 200,
@@ -72,7 +77,7 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit * 35.5,
     //paddingTop: theme.spacing.unit * 2,
   }
-});
+};
 
 function RRedirect () {
   return (

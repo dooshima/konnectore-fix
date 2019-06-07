@@ -47,6 +47,7 @@ const follow = (user, token) => {
     return dispatch => {
         Friend.follow(user, token)
             .then( friend => {
+                console.log(friend)
                 dispatch(updateFriends(friend));
             } )
     }

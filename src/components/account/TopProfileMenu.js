@@ -12,6 +12,7 @@ import TopLoginButton from './TopLoginButton';
 import userActions from '../../reducers/user/actions';
 import { withRouter } from 'react-router-dom';
 import Constants from '../../assets/Constants';
+import Utility from '../../services/Utility';
 
 const styles = theme => ({
   root: {
@@ -100,8 +101,8 @@ class TopProfileMenu extends React.Component {
                 <div className={classes.sectionDesktop} style={{display: 'flex', alignItems: 'center'}}>
               
                 <Typography variant="subtitle2" gutterBottom>
-                  {`${user.firstname} ${user.lastname} 90`}<br />
-                  {user.referralID}
+                  {`${Utility.isset(user.firstname)? user.firstname: ''} ${Utility.isset(user.lastname)? user.lastname: ''} 90`}<br />
+                  
                 </Typography>
                   <IconButton
                   aria-owns={open ? 'menu-appbar' : undefined}

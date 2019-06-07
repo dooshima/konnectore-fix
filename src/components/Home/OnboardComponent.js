@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography } from '@material-ui/core';
+import { Typography, RootRef } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import ChooseUsername from './ChooseUsername';
 import PersonalInformation from './PersonalInformation';
@@ -12,6 +12,9 @@ import { withRouter, Redirect } from 'react-router-dom';
 import Utility from '../../services/Utility';
 import friendActions from '../../reducers/friend/actions';
 
+const RR = (url) => {
+    return <Redirect to="/me" />
+}
 class OnboardComponent extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -73,10 +76,15 @@ class OnboardComponent extends React.PureComponent {
         this.props.history.push('/me');
     }
 
+    goto = url => {
+        return <RR />;
+    }
+
     submit = () => {
         const talents = this.state.categoryList.map( s => s.id );
         const data = { ...this.state, user_id: Utility.isset(this.props.userData) &&  Utility.isset(this.props.userData.id)? this.props.userData.id: this.props.newAccount.id, talents };
-        this.props.processOnboarding(data);
+        //console.log(data)
+        this.props.processOnboarding(data, this);
     }
 
     handleFollow = userID => {
@@ -172,8 +180,8 @@ const mapDispatchToProps = dispatch => {
         getTalentCategories: () => {
             dispatch(userActions.getTalentCategories());
         },
-        processOnboarding: data => {
-            dispatch(userActions.processOnboarding(data));
+        processOnboarding: (data, context) => {
+            dispatch(userActions.processOnboarding(data, context));
         },
         storeUsername: (username, token) => {
             dispatch(userActions.storeUsername(username, token));

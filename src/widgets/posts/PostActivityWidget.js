@@ -100,7 +100,7 @@ class PostActivityWidget extends React.Component {
     render () {
     const comments = [...Array(3).keys()];
     const { classes, item, user, deletePost } = this.props;
-
+    
     return (
         <React.Fragment>
             <CardHeader
