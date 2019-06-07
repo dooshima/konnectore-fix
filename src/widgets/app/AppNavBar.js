@@ -368,7 +368,7 @@ class AppNavBar extends React.Component {
 
 <Typography variant="subtitle2" gutterBottom style={{textAlign: 'center'}}>
                   {`${user.firstname} ${user.lastname}`}<br />
-                  <span style={{color: '#00a294', fontWeight: 500}}>({user.referralID})</span>
+                  <span style={{color: '#00a294', fontWeight: 800}}>{user.referralID}</span>
                 </Typography>
                   <IconButton
                   aria-owns={isMenuOpen ? 'menu-appbar' : undefined}

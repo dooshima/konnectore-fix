@@ -7,19 +7,76 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import KBigButton from '../../UIC/KBigButton';
 import Utility from '../../../services/Utility';
-import { Input, FormControlLabel, Checkbox, FormControl, Typography, FormHelperText, FormLabel } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Input, FormControlLabel, Checkbox, FormControl, Typography, FormHelperText, FormLabel, Grid, InputLabel } from '@material-ui/core';
+import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
 import { Link } from '@material-ui/core';
 import green from '@material-ui/core/colors/green';
 import SimpleTextAlert from '../../../widgets/alerts/SimpleTextAlert';
 
+const theme = createMuiTheme({
+  spacing: 10,
+});
+
 const useStyles = makeStyles({
   viewLink: {
-    textAlign: 'center',
-    textDecoration: 'none',
-    fontStyle: 'normal',
-    fontSize: 15,
-    cursor: 'pointer',
+      textAlign: 'center',
+      textDecoration: 'none',
+      fontStyle: 'normal',
+      fontSize: 15,
+      cursor: 'pointer',
+  },
+  formControl: {
+    width: '100%',
+    marginTop: '1.8em',
+},
+bootstrapRoot: {
+    'label + &': {
+      marginTop: theme.spacing.unit * 3,
+    },
+  },
+bootstrapInput: {
+    borderRadius: 20,
+    position: 'relative',
+    backgroundColor: '#f8f8f8',
+    border: '1px solid transparent',
+    fontSize: 14,
+    color: '#a2a2a2',
+    padding: '10px 12px',
+    transition: theme.transitions.create(['border-color', 'box-shadow']),
+    '&:focus': {
+      borderRadius: 20,
+      borderColor: 'transparent',
+      boxShadow: '0 0 0 0.2rem rgba(0,0,0,.01)',
+    },
+    '&::placeholder': {
+        textOverflow: 'ellipsis !important',
+        color: '#a2a2a2',
+        fontSize: 14,
+    }
+},
+bootstrapTextarea: {
+    borderRadius: 10,
+    position: 'relative',
+    backgroundColor: '#f8f8f8',
+    border: '1px solid transparent',
+    fontSize: 14,
+    color: '#a2a2a2',
+    padding: '10px 12px',
+    width: '80%',
+    transition: theme.transitions.create(['border-color', 'box-shadow']),
+    '&:focus': {
+      borderRadius: 10,
+      borderColor: 'transparent',
+      boxShadow: '0 0 0 0.2rem rgba(0,0,0,.01)',
+    },
+    '&::placeholder': {
+        textOverflow: 'ellipsis !important',
+        color: '#a2a2a2',
+        fontSize: 14,
+    }
+  },
+bootstrapFormLabel: {
+    fontSize: 16,
 },
 });
 
@@ -61,19 +118,36 @@ function JoinAsWorkforceButton(props) {
     ref_code: '',
     agreed: false,
     showError: false,
+    location: '',
+    origin: '',
+    comment: '',
+    joined: false,
   });
 
   const handleCheck = name => event => {
     setState({ ...state, [name]: event.target.checked });
   };
 
+  const handleState = (name, value) => {
+    setState({ ...state, [name]: value });
+  };
+
   const handleChange = name => event => {
     setState({ ...state, [name]: event.target.value });
   };
 
+  const handleJoin = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const form = {category_id: props.category, ref_code: props.referralID, contest_edition_id: props.contest_edition_id};
+    //props.joinAsWorkforce(form, props.authToken)
+    handleClickOpen();
+
+  }
+
     return (
         <div>
-        <Link onClick={handleClickOpen} className={classes.viewLink}><Typography color="primary">Join as workforce</Typography></Link>
+        <Link onClick={handleJoin} className={classes.viewLink}><Typography color="primary">Join as workforce</Typography></Link>
         <Dialog
             open={open}
             onClose={handleClose}
@@ -82,10 +156,66 @@ function JoinAsWorkforceButton(props) {
         >
             <DialogTitle id="alert-dialog-title"><Typography color="textSecondary">BECOME A WORKFORCE</Typography></DialogTitle>
             <DialogContent>
-              <Typography variant="h4">What is Wiki Loves Africa?</Typography>
+              {state.joined === true? <div>
+              <Typography variant="h5">What is Wiki Loves Africa?</Typography>
               <Typography>
 Of all of the millions of subjects you can read about on Wikipedia, subjects relating to Africa have the least coverage. This is due to a number of reasons, but mainly because many people do not know that they can donate their images, videos and audio to Wikipedia.
 We need your help to visually celebrate the richness, diversity and beauty of Africa.</Typography>
+
+<Grid container spacing={40}>
+                            <Grid item md={6}>
+                                <FormControl className={classes.formControl}>
+                                    <InputLabel htmlFor="currentLocation" shrink className={classes.bootstrapFormLabel}>Current Location</InputLabel>
+                                        <Input id="currentLocation" 
+                                            placeholder="Current Location" 
+                                            value={state.location} 
+                                            onChange={handleChange('location')} 
+                                            fullWidth={true}
+                                            disableUnderline={true}
+                                            classes={{
+                                                root: classes.bootstrapRoot,
+                                                input: classes.bootstrapInput,
+                                            }}
+                                        />
+                                </FormControl>
+                            </Grid>
+                            <Grid item md={6}>
+                                <FormControl className={classes.formControl}>
+                                    <InputLabel htmlFor="state" shrink className={classes.bootstrapFormLabel}>State of Origin</InputLabel>
+                                        <Input id="state" 
+                                            placeholder="State of Origin" 
+                                            value={state.origin} 
+                                            onChange={handleChange('origin')} 
+                                            fullWidth={true}
+                                            disableUnderline={true}
+                                            classes={{
+                                                root: classes.bootstrapRoot,
+                                                input: classes.bootstrapInput,
+                                            }} 
+                                        />
+                                </FormControl>
+                            </Grid>
+                            <Grid item md={12}>
+                                <FormControl className={classes.formControl}>
+                                    <InputLabel htmlFor="comment" shrink className={classes.bootstrapFormLabel}>Why do you want to become a workforce agent for the Stage 2019?</InputLabel>
+                                        <Input id="comment" 
+                                            placeholder="Comment" 
+                                            value={props.bio} 
+                                            onChange={handleChange('comment')} 
+                                            fullWidth={true}
+                                            disableUnderline={true}
+                                            classes={{
+                                                root: classes.bootstrapRoot,
+                                                input: classes.bootstrapTextarea,
+                                            }}
+                                            multiline
+                                            rows={4}
+                                            style={{borderRadius: 10,}}
+                                        />
+                                </FormControl>
+                                <KBigButton onChange={() => handleState('joined', true)} label="Join" />
+                            </Grid>
+                          </Grid></div>: <SimpleTextAlert message="You've become a workforce on the Stage." />}
             </DialogContent>
             {props.referralsCount >= 20? <DialogActions>
             <Button onClick={handleClose} color="primary">

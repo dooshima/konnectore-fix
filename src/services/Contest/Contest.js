@@ -11,6 +11,7 @@ const Contest = {
     follow,
     searchContest,
     joinAsContestant,
+    withdrawFromContest,
 };
 
 function addEntry (form, token) {
@@ -41,8 +42,12 @@ function getContestFeed () {
 }
 
 function joinAsContestant (form, token) {
-    console.log(form);
     return Server.authPost('api/join-contest', form, token)
+        .then( response => response.data )
+}
+
+function withdrawFromContest (form, token) {
+    return Server.authPost('api/withdraw-from-contest', form, token)
         .then( response => response.data )
 }
 

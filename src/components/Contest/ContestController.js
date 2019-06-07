@@ -36,7 +36,7 @@ class ContestController extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getContest(this.props.match.params.slug, this.props.user.id);
+        this.props.getContest(this.props.match.params.slug, this.props.user.data.id);
     }
 
     static getDerivedStateFromProps(state) {
@@ -183,6 +183,9 @@ const mapDispatchToProps = dispatch => {
       },
       setDefault: () => {
           dispatch(contestActions.setDefault());
+      },
+      withdrawFromContest: (form, token) => {
+          dispatch(contestActions.withdrawFromContest(form, token));
       }
     }
 };

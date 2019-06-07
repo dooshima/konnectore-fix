@@ -87,7 +87,6 @@ class TopProfileMenu extends React.Component {
     const { classes, user } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
-    console.log('topprofile' , user)
     let path = '';
     if(user.avatar) {
       path = user.avatar.includes('http')? user.avatar: Constants.BASE_URL + "storage/" + user.avatar;
@@ -101,7 +100,7 @@ class TopProfileMenu extends React.Component {
                 <div className={classes.sectionDesktop} style={{display: 'flex', alignItems: 'center'}}>
               
                 <Typography variant="subtitle2" gutterBottom>
-                  {`${Utility.isset(user.firstname)? user.firstname: ''} ${Utility.isset(user.lastname)? user.lastname: ''} 90`}<br />
+                  {`${Utility.isset(user.firstname)? user.firstname: ''} ${Utility.isset(user.lastname)? user.lastname: ''}`}<br />
                   
                 </Typography>
                   <IconButton

@@ -70,7 +70,7 @@ const setJoinProgress = progress => ({
     progress,
 });
 
-const setUserRole = userRole => ({
+const setContestUserRole = userRole => ({
     type: types.CONTEST_SET_USER_ROLE,
     userRole,
 });
@@ -96,12 +96,12 @@ const getContest = (slug, user_id) => {
         dispatch(setDefault());
         dispatch(appActions.appIsLoading(true));
         Contest.getContest(slug, user_id)
-            .then( response => {
-                console.log(response);
+            .then( data => {
+                const response = data;
                 dispatch(appActions.appIsLoading(false));
                 if(!response.error) {
                     dispatch(setContestData(response.data))
-                    dispatch(setUserRole(Utility.isset(response.data.userRole)? response.data.userRole: 0));
+                    dispatch(setContestUserRole(Utility.isset(response.data.userRole)? response.data.userRole: 0));
                     dispatch(addEntries(response.data.posts));
                 }
             })
@@ -168,13 +168,26 @@ const joinAsContestant = (form, token) => dispatch => {
     Contest.joinAsContestant(form, token)
         .then( response => {
             dispatch(setJoinProgress({staus: false, message: 'You are now a contestant!'}));
-            //dispatch(setContestUserRole(1));
+            dispatch(setContestUserRole(2));
         })
         .catch ( error => {
             dispatch(setJoinProgress({status: false, message: 'Couldn\'t join the contest. Pls refresh the window and retry.'}));
             console.log(error)
         } )
 }
+
+const withdrawFromContest = (form, token) => dispatch => {
+    dispatch(setJoinProgress({status: true, message: 'Withdrawing ...'}));
+    Contest.joinAsContestant(form, token)
+        .then( response => {
+            dispatch(setJoinProgress({staus: false, message: 'You\'ve now withdrawn from the contest!'}));
+            dispatch(setContestUserRole(0));
+        })
+        .catch ( error => {
+            dispatch(setJoinProgress({status: false, message: 'Couldn\'t withdraw from the contest. Pls refresh the window and retry.'}));
+            console.log(error)
+        } )
+} 
 
 const getContestFeed = () => {
     return dispatch => {
@@ -218,7 +231,7 @@ function setDefault() {
         dispatch(setContestData({}));
         dispatch(addEntryCategory(""));
         dispatch(setJoinProgress({}));
-        dispatch(setUserRole(0));
+        dispatch(setContestUserRole(0));
     }
 }
 
@@ -237,6 +250,7 @@ const contestActions = {
     addEntryById,
     handleContestSearch,
     joinAsContestant,
+    withdrawFromContest,
 };
 
 export default contestActions;

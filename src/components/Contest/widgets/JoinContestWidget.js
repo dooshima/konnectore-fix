@@ -10,6 +10,7 @@ import JoinContestButton from './JoinContestButton';
 import KFormInput from '../../../widgets/form/KFormInput';
 import JoinAsContestantButton from './JoinAsContestantButton';
 import JoinAsWorkforceButton from './JoinAsWorkforceButton';
+import WithdrawButton from './WithdrawButton';
 
 const styles = theme => ({
     categoryList: {
@@ -70,17 +71,17 @@ class JoinContestWidget extends React.Component {
     }
 
     render() {
-        const { user, classes, history, url, contest } = this.props;
+        const { user, classes, history, url, contest, userRole } = this.props;
         const currentEdition = Utility.isset(contest) && Utility.isset(contest.currentEdition)? contest.currentEdition: {};
 
         if(!Utility.isset(user) || !Utility.isset(user.usertype)) {
             return <SmallCircularLoader />;
         }
 
-        switch(+user.usertype) {
+        switch(+userRole) {
             case 3:
                 return <SimpleTextAlert message="You're a workforce. You can't join a contest" />;
-            case 2:
+            case 0:
                 const narration = `To join ${currentEdition.slogan}, you must refer 20 users or more. Your referral ID is: ${user.referralID}`;
                 return <div className={classes.joinInfo}>
                     <KFormSelect className={classes.selectStyle} value={this.state.category} options={[{label: 'Singer', value: 1}, {label: 'Comedian', value: 2} ]} handleChange={this.handleChange} value1={this.props.entryCategory} label="Category" name="category" />
@@ -103,7 +104,27 @@ class JoinContestWidget extends React.Component {
                     <JoinAsWorkforceButton category={this.state.category} referrer={this.state.referrer} {...this.props} narration={narration} referralsCount={user.referralsCount} 
                         referralID={user.referralID} 
                         contestEdition={currentEdition.slogan}
-                        contest_edition_id={currentEdition.id} />
+                        contest_edition_id={currentEdition.id}
+                        contestProgress={this.props.contestProgress}
+                        joinAsContestant={this.props.joinAsContestant} />
+                </div>
+            case 2:
+                    return <div className={classes.joinInfo}>
+                    
+                    <Typography className={classes.mentioned}>
+                    You currently participating in this contest 
+                    </Typography>
+                    <WithdrawButton category={this.state.category} referrer={this.state.referrer} {...this.props} narration={narration} referralsCount={user.referralsCount} 
+                        referralID={user.referralID} 
+                        contestEdition={currentEdition.slogan}
+                        contest_edition_id={currentEdition.id}
+                        contestProgress={this.props.contestProgress}
+                        joinAsWorkforce={this.props.joinAsWorkforce}
+                        withdrawFromContest={this.props.withdrawFromContest}
+                         />
+                    <Typography className={classes.agree}>
+                        By with, you agree that you understand the contest guidelines
+                    </Typography>
                 </div>
             default:
                 return (
