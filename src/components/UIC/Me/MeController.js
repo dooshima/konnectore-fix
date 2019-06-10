@@ -20,6 +20,7 @@ import dialogActions from '../../../reducers/dialog/actions';
 import userActions from '../../../reducers/user/actions';
 import PostDetailWidget from '../../../widgets/posts/PostDetailWidget';
 import Utility from '../../../services/Utility';
+import AccountReferrals from './Profile/AccountReferrals';
 
 class MeController extends React.Component {
     constructor(props) {
@@ -86,7 +87,7 @@ class MeController extends React.Component {
         let count = 1;
         
         const keys = postIds.sort( (a, b) => b -a);
-        console.log(postIds)
+        //console.log(postIds)
         if(keys.length > 0) {
             for(let i of keys) {
                 let item = allPosts[i];
@@ -110,7 +111,8 @@ class MeController extends React.Component {
                             handleAvatarUpload={this.handleAvatarUpload.bind(this)} />
                         <Switch>
                             <PropsRoute exact path={`${match.path}/account/edit`} component={EditProfile} {...this.props} />
-                            <Route exact path={`${match.path}/account/manage`} component={ManageAccount} />
+                            <Route exact path={`${match.path}/account/change-password`} component={ManageAccount} />
+                            <PropsRoute exact path={`${match.path}/account/referrals`} component={AccountReferrals} {...this.props} />
                             <PropsRoute path={`${match.path}`} component={MeTimeline} {...this.props} fullName={fullName} toggleDialog={this.toggleDialog} posts={recentPosts} />} />
                         </Switch>
                     </Paper>
@@ -121,7 +123,8 @@ class MeController extends React.Component {
                                 <Route exact path={`${match.path}/`} component={AwardsAndBadges} />
                                 <Route exact path={`${match.path}/`} component={AccountInfoWidget} />
                                 <Route exact path={`${match.path}/account/edit`} component={EditPersonalInfoWidget} />
-                                <Route exact path={`${match.path}/account/manage`} component={ManageYourAccountWidget} />
+                                <Route exact path={`${match.path}/account/change-password`} component={ManageYourAccountWidget} />
+                                <Route exact path={`${match.path}/account/referrals`} component={ManageYourAccountWidget} />
                             </PlaceComponents>
                         </div>
                     </Grid>

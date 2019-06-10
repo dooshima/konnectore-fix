@@ -13,8 +13,8 @@ const styles = {
     margin: theme.spacing.unit * .8,
     paddingTop: theme.spacing.unit * .8,
     paddingBottom: theme.spacing.unit * .8,
-    paddingRight: `${theme.spacing.unit * 5}px !important`,
-    paddingLeft: `${theme.spacing.unit * 5}px !important`,
+    paddingRight: `${theme.spacing.unit * 3}px !important`,
+    paddingLeft: `${theme.spacing.unit * 3}px !important`,
     boxShadow: 'none',
     borderRadius: 20,
     height: 38,
@@ -40,7 +40,7 @@ function KBigButton(props) {
           size={props.size}
           color={color? color: "primary"}
           aria-label={props.label}
-          className={classNames(classes.kbutton, upper === true? classes.upper: classes.normal)}
+          className={classNames(classes.kbutton, classes.kBigButton, upper === true? classes.upper: classes.normal)}
           onClick={props.onClick}
           {...d}
         >

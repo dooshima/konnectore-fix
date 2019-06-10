@@ -38,7 +38,7 @@ function AccountInfoWidget(props) {
                 
                
                     <MenuItem className={classes.menuItem}
-                        onClick={() => props.history.push(`${match.url}/account/manage`)}
+                        onClick={() => props.history.push(`${match.url}/account/change-password`)}
                     >
                     <ListItemIcon className={classes.icon}>
                         <EditLocationIcon />
@@ -47,7 +47,7 @@ function AccountInfoWidget(props) {
                     </MenuItem>
                 
                     <MenuItem className={classes.menuItem} 
-                        onClick={() => props.history.push(`${match.url}/account/contestant`)}
+                        onClick={() => props.history.push(`${match.url}/account/contestant-data`)}
                     >
                     <ListItemIcon className={classes.icon}>
                         <StarsIcon />

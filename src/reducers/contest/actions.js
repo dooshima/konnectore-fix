@@ -206,9 +206,10 @@ const joinAsWorkforce = (form, token) => dispatch => {
 
 const withdrawFromContest = (form, token) => dispatch => {
     dispatch(setJoinProgress({status: true, message: 'Withdrawing ...'}));
-    Contest.joinAsContestant(form, token)
+    Contest.withdrawFromContest(form, token)
         .then( response => {
-            dispatch(setJoinProgress({staus: false, message: 'You\'ve now withdrawn from the contest!'}));
+            console.log(response)
+            dispatch(setJoinProgress({status: false, message: 'You\'ve now withdrawn from the contest!'}));
             dispatch(setContestUserRole(0));
         })
         .catch ( error => {

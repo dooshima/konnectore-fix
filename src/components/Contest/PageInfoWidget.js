@@ -41,10 +41,7 @@ function PageInfoWidget(props) {
             <List subheader={<ListSubheader>PAGE INFORMATION</ListSubheader>} style={{textAlign: 'left'}} className={classes.root}>
                 <ListItem className={classes.widgetText}>
                 <Typography color="textSecondary" className={classes.description}>
-                    Over 40 Freestylers from over 20 African countries. 
-                    Over $50, 000 worth prices to be won, including a brand new 
-                    GA3S car + all-expenses paid trip for English Premiership 
-                    halftime performance.
+                The stage is a talent hunt competition with the major focus of providing a platform for talented people to showcase their talent and also get rewarded for their creativity
                 </Typography>
                 <div className={classes.categories}>
                     <Typography>Categor(ies) </Typography>&nbsp;

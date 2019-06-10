@@ -85,9 +85,10 @@ function WithdrawButton(props) {
     if(!note) {
         return;
     }
-    const form = {category_id: props.category, ref_code: props.referralID, contest_edition_id: props.contest_edition_id};
-    //props.withdrawFromContest(form, props.authToken)
     handleClickOpen();
+    const form = {category_id: props.category, ref_code: props.referralID, contest_edition_id: props.contest_edition_id};
+    props.withdrawFromContest(form, props.authToken);
+    
 
   }
 
