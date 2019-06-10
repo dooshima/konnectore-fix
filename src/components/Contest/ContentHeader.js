@@ -60,13 +60,13 @@ class ContentHeader extends React.Component {
   }
 
   handleFollowContest = () => {
-    console.log(this.props.contest, this.props.accessToken)
+    //console.log(this.props.contest, this.props.accessToken)
   }
 
   render() {
 
   const { classes, currentEdition } = this.props;
-  console.log(currentEdition)
+  //console.log(currentEdition)
   const KButtonLink = withRouter( ({history}) => {
     return <KButton
       onClick={this.handleFollowContest}

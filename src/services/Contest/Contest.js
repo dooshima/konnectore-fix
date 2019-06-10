@@ -12,6 +12,8 @@ const Contest = {
     searchContest,
     joinAsContestant,
     withdrawFromContest,
+    joinAsWorkforce,
+    getTopContestants,
 };
 
 function addEntry (form, token) {
@@ -19,8 +21,13 @@ function addEntry (form, token) {
         .then( response => response.data );
 }
 
+function getTopContestants (form, token) {
+    return Server.authGet('api/get-top-contestants/?contest_edition_id=' + form.contest_edition_id + '&contest_stage_id=' + form.contest_stage_id, token)
+        .then( response => response.data )
+        .catch( error => error );
+}
+
 function searchContest (form, token) {
-    console.log(form)
     return Server.authPost('api/search-contest', form, token)
         .then( response => response.data )
         .catch( error => error );
@@ -43,6 +50,11 @@ function getContestFeed () {
 
 function joinAsContestant (form, token) {
     return Server.authPost('api/join-contest', form, token)
+        .then( response => response.data )
+}
+
+function joinAsWorkforce (form, token) {
+    return Server.authPost('api/join-contest-workforce', form, token)
         .then( response => response.data )
 }
 

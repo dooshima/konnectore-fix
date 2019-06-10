@@ -104,12 +104,13 @@ class AvailablePositionsWidget extends React.Component {
 
                 <JoinContestWidget 
                     joinAsContestant={this.props.joinAsContestant}
+                    joinAsWorkforce={this.props.joinAsWorkforce}
                     contestProgress={this.props.contestProgress}
                     userRole={+userRole}
                     withdrawFromContest={this.props.withdrawFromContest}
                     user={user.data} authToken={user.authToken} url={url} contest={contest} entryCategory={this.props.entryCategory} addEntryCategory={this.props.addEntryCategory} />
 
-                {false && <Link onClick={() => history.push(`${url}/submissions`)} className={classes.viewLink}><Typography color="textSecondary">View entries</Typography></Link>}
+                {+userRole === 2 && <Link onClick={() => history.push(`${url}/submissions`)} className={classes.viewLink}><Typography color="textSecondary">View entries</Typography></Link>}
             </CardContent>
         </KCard>
     )

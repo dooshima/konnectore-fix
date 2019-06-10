@@ -157,7 +157,6 @@ class PostAuthorWidget extends React.Component {
 
   render() {
     const { classes, avatar, fullName, date, item, user, deletePost } = this.props;
-    console.log(this.props)
     const open = Boolean(this.state.anchorEl);
     return (
         <div className={classes.author}>

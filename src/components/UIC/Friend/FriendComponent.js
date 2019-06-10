@@ -10,6 +10,8 @@ import FriendsListComponent from './FriendsListComponent';
 import friendActions from '../../../reducers/friend/actions';
 import PropsRoute from '../../Nav/PropsRoute';
 import { withRouter } from 'react-router-dom';
+import Utility from '../../../services/Utility';
+import SimpleTextAlert from '../../../widgets/alerts/SimpleTextAlert';
 
 class FriendComponent extends React.Component {
     constructor(props) {
@@ -29,6 +31,7 @@ class FriendComponent extends React.Component {
 
     componentDidMount() {
         this.props.getFriends(this.props.token);
+        this.props.growFriends(this.props.token);
     }
 
     static getDerivedStateFromProps(state) {
@@ -65,7 +68,7 @@ class FriendComponent extends React.Component {
         const fullName = user.data.firstname + ' ' + user.data.lastname;
 
         let count = 1;
-        const friends = friend.friends.byId? friend.friends.byId: [];
+        const friends = friend.friends.byId? friend.friends.byId: {};
         const keys = friend.friends.allIds;
         
         for(let i in friends) {
@@ -74,6 +77,14 @@ class FriendComponent extends React.Component {
             if(count >= 50)
                 break;
             count++;
+        }
+        const suggestions = friend.grow_friends;
+        const growFriends = [];
+        for(let f of suggestions) {
+            let frd = friend.byId[f];
+            if(Utility.isset(frd)) {
+                growFriends.push(frd);
+            }
         }
 
         return (
@@ -95,7 +106,7 @@ class FriendComponent extends React.Component {
                     <Grid item xs={4}>
                         <div style={{marginLeft: 10}}>
                             <PlaceComponents spacer={20}>
-                                <GrowYourNetwork />
+                                <GrowYourNetwork friends={growFriends} />
                             </PlaceComponents>
                         </div>
                     </Grid>
@@ -135,6 +146,9 @@ const mapDispatchToProps = dispatch => {
       },
       getFriend: (user_id, token) => {
           dispatch(friendActions.getFriend(user_id, token));
+      },
+      growFriends: token => {
+          dispatch(friendActions.growFriends(token));
       }
     }
 };

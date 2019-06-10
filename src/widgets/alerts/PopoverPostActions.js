@@ -11,7 +11,7 @@ import {
 import { IconButton } from '@material-ui/core';
 
 const PopoverPostActions = ({author, post_id, user_id, deletePost}) => {
-    console.log(author, post_id, user_id)
+    
   const popupState = usePopupState({ variant: 'popover', popupId: 'demoMenu' });
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);

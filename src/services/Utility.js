@@ -30,6 +30,27 @@ function isset(item) {
     return null !== item && typeof(item) !== 'undefined';
 }
 
+function person(item) {
+     
+    if(!item) {
+        return {
+            fullName: '',
+            avatar: getAvatar(""),
+            username: '',
+        }
+    }
+    const fName = isset(item.profile) && isset(item.profile.firstname)? item.profile.firstname: (isset(item.firstname)? item.firstname: '');
+    const lName = (isset(item.profile) && isset(item.profile.lastname))? item.profile.lastname: (isset(item.lastname)? item.lastname: '');
+    const fullName = fName + " " + lName;
+    const username = isset(item.username)? item.username: '';
+    const avatar = getAvatar(isset(item.profile) && isset(item.profile.avatar)? item.profile.avatar: '');
+    return {
+        fullName,
+        avatar,
+        username,
+    }
+}
+
 function getNotificationMessage(item) {
     if(isset(item.data.follow)) {
         return "Started following you";
@@ -49,6 +70,7 @@ const Utility = {
     isEmail,
     isset,
     getNotificationMessage,
+    person,
 };
 
 export default Utility;

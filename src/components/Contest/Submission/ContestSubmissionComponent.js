@@ -24,6 +24,11 @@ class ContestSubmissionComponent extends React.PureComponent {
 
     render() {
         const { classes, stages, entries, user } = this.props;
+        const posts = entries.map( item => {
+            let post = item;
+            post.author = post.user_id;
+            return post;
+        })
         return (
             <KPaper>
                 <ContentHeader {...this.props} />
@@ -33,7 +38,7 @@ class ContestSubmissionComponent extends React.PureComponent {
                     accessToken={this.props.accessToken}
                     contest={this.props.contest}
                     setSearchState={this.props.setSearchState} />
-                <PostListWidget posts={entries} listType="contest" user={user} />
+                <PostListWidget posts={posts} listType="contest" user={user} />
             </KPaper>
         )
     }

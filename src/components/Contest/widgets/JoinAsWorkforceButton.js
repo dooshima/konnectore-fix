@@ -85,6 +85,7 @@ function JoinAsWorkforceButton(props) {
   const { contest } = props;
   const currentEdition = Utility.isset(contest)? contest.currentEdition: {};
 
+  
   /*const useStyles = makeStyles({
     root: {
       color: green[600],
@@ -124,6 +125,8 @@ function JoinAsWorkforceButton(props) {
     joined: false,
   });
 
+  console.log(state)
+
   const handleCheck = name => event => {
     setState({ ...state, [name]: event.target.checked });
   };
@@ -140,14 +143,14 @@ function JoinAsWorkforceButton(props) {
     e.preventDefault();
     e.stopPropagation();
     const form = {category_id: props.category, ref_code: props.referralID, contest_edition_id: props.contest_edition_id};
-    //props.joinAsWorkforce(form, props.authToken)
-    handleClickOpen();
+    props.joinAsWorkforce(form, props.authToken);
 
+    console.log(form);
   }
 
     return (
         <div>
-        <Link onClick={handleJoin} className={classes.viewLink}><Typography color="primary">Join as workforce</Typography></Link>
+        <Link onClick={handleClickOpen} className={classes.viewLink}><Typography color="primary">Join as workforce</Typography></Link>
         <Dialog
             open={open}
             onClose={handleClose}
@@ -156,7 +159,7 @@ function JoinAsWorkforceButton(props) {
         >
             <DialogTitle id="alert-dialog-title"><Typography color="textSecondary">BECOME A WORKFORCE</Typography></DialogTitle>
             <DialogContent>
-              {state.joined === true? <div>
+              {state.joined !== true? <div>
               <Typography variant="h5">What is Wiki Loves Africa?</Typography>
               <Typography>
 Of all of the millions of subjects you can read about on Wikipedia, subjects relating to Africa have the least coverage. This is due to a number of reasons, but mainly because many people do not know that they can donate their images, videos and audio to Wikipedia.
@@ -213,7 +216,7 @@ We need your help to visually celebrate the richness, diversity and beauty of Af
                                             style={{borderRadius: 10,}}
                                         />
                                 </FormControl>
-                                <KBigButton onChange={() => handleState('joined', true)} label="Join" />
+                                <KBigButton onClick={handleJoin} label="Join" />
                             </Grid>
                           </Grid></div>: <SimpleTextAlert message="You've become a workforce on the Stage." />}
             </DialogContent>

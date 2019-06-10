@@ -37,6 +37,9 @@ class ContestController extends React.Component {
 
     componentDidMount() {
         this.props.getContest(this.props.match.params.slug, this.props.user.data.id);
+        const contest = this.props.contest;
+        const currentEdition = Utility.isset(contest)? contest.currentEdition: {};
+        this.props.getTopContestants({contest_edition_id: currentEdition.id, contest_stage_id: 0}, this.props.accessToken);
     }
 
     static getDerivedStateFromProps(state) {
@@ -70,7 +73,7 @@ class ContestController extends React.Component {
     }
     
     render() {
-        console.log('Search: ', this.props.search)
+        
         const {match, user, contest} = this.props;
         let recentPosts = [];
         const fullName = user.data.firstname + ' ' + user.data.lastname;
@@ -85,6 +88,7 @@ class ContestController extends React.Component {
         
         for(let i in cPosts) {
             let item = cPosts[i];
+            item.author = item.user_id;
             recentPosts.push(item);
             if(count >= 20) 
                 break;
@@ -125,12 +129,12 @@ class ContestController extends React.Component {
                         <div style={{marginLeft: 10}}>
                             <PlaceComponents spacer={20}>
                                 <PropsRoute exact path={`${match.path}/`} component={PageInfoWidget} />
-                                <Route exact path={`${match.path}`} component={TopContestantsWidget} />
+                                <PropsRoute exact path={`${match.path}`} component={TopContestantsWidget} topContestants={this.props.topContestants} />
                                 <Route exact path={`${match.path}/entry`} component={StageListWidget} />
                                 <PropsRoute exact path={`${match.path}/guide`} component={AvailablePositionsWidget} url={`${match.url}`} {...this.props} />
                                 <Route exact path={`${match.path}/guide`} component={RecentContestantsWidget} />
-                                <Route exact path={`${match.path}/entry`} component={TopContestantsWidget} />
-                                <Route exact path={`${match.path}/submissions`} component={TopContestantsWidget} />
+                                <PropsRoute exact path={`${match.path}/entry`} component={TopContestantsWidget} topContestants={this.props.topContestants} />
+                                <PropsRoute exact path={`${match.path}/submissions`} component={TopContestantsWidget} topContestants={this.props.topContestants} />
                                 <Route path={`${match.path}/`} component={MyContestsWidget} />
                             </PlaceComponents>
                         </div>
@@ -155,6 +159,7 @@ const mapStateToProps = state => {
         currentEdition: state.contest.data.currentEdition,
         entryCategory: state.contest.entryCategory,
         search: state.contest.search,
+        topContestants: state.contest.topContestants,
     }
 }
 
@@ -186,6 +191,12 @@ const mapDispatchToProps = dispatch => {
       },
       withdrawFromContest: (form, token) => {
           dispatch(contestActions.withdrawFromContest(form, token));
+      },
+      joinAsWorkforce: (form, token) => {
+          dispatch(contestActions.joinAsWorkforce(form, token));
+      },
+      getTopContestants: (form, token) => {
+          dispatch(contestActions.getTopContestants(form, token));
       }
     }
 };

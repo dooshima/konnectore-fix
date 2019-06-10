@@ -3,15 +3,31 @@ import appActions from '../app/actions';
 import Friend from '../../services/Friend/Friend';
 import postActions from '../post/actions';
 import commentActions from '../comment/actions';
+import Utility from '../../services/Utility';
 
 const addFriends = friends => ({
    type: types.FRIEND_ADD_FRIENDS,
    friends,
 });
 
+const addFriendIds = allIds => ({
+    type: types.FRIEND_ADD_FRIEND_IDS,
+    allIds,
+});
+
+const addFriendsById = byId => ({
+    type: types.FRIEND_ADD_FRIENDS_BYID,
+    byId,
+})
+
 const addToFriends = friends => ({
     type: types.FRIEND_ADD_TO_FRIENDS,
     friends,
+});
+
+const addToFriendsById = byId => ({
+    type: types.FRIEND_ADD_TO_FRIENDS_BYID,
+    byId,
 });
 
 const updateFriends = friend => ({
@@ -28,6 +44,11 @@ const setFriend = current => ({
     current
 });
 
+const addGrowFriends = grow_friends => ({
+    type: types.FRIEND_GROW_FRIENDS,
+    grow_friends,
+})
+
 const getFriends = token => {
     return dispatch => {
         dispatch(appActions.appIsLoading(true));
@@ -35,12 +56,26 @@ const getFriends = token => {
             .then( people => {
                 dispatch(appActions.appIsLoading(false));
                 dispatch(addFriends(people));
+                dispatch(addFriendIds(people.allIds));
+                dispatch(addFriendsById(people.byId));
             } )
             .catch( error => {
                 dispatch(appActions.appIsLoading(false));
                 console.log(error);
             });
     }
+}
+
+const growFriends = token => dispatch => {
+    Friend.growFriends(token)
+        .then( response => {
+            
+            if(Utility.isset(response.byId)) {
+                dispatch(addToFriendsById(response.byId));
+                dispatch(addGrowFriends(response.allIds));
+            }
+        } )
+        .catch( error => console.log(error) );
 }
 
 const follow = (user, token) => {
@@ -117,6 +152,7 @@ const friendActions = {
     setFriend,
     getFriend,
     addToFriends,
+    growFriends,
 };
 
 export default friendActions;

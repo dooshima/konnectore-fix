@@ -4,47 +4,30 @@ import { List, ListSubheader, ListItem, ListItemText, Avatar, Typography } from 
 import { withStyles } from '@material-ui/core/styles';
 import KButtonSmall from '../KButtonSmall';
 import KPaper from '../KPaper';
+import Utility from '../../../services/Utility';
 
 const styles = theme => {
 
 }
 function GrowYourNetwork(props) {
-    const { classes } = props;
+    const { classes, friends, handleFollow, handleUnfollow } = props;
     return (
         <KPaper style={{marginTop: 20}}>
                 <List subheader={<ListSubheader>GROW YOUR NETWORK</ListSubheader>} style={{textAlign: 'left'}} className={classes.root}>
-            <ListItem>
-                <Avatar alt="Ademide Lawal" src="/images/avatar.png" />
-                <ListItemText primary="Ademide Lawal" 
+            {
+                friends.map( (friend, index) => 
+                <ListItem key={index}>
+                <Avatar alt={Utility.person(friend).fullName} src={Utility.person(friend).avatar} />
+                <ListItemText primary={Utility.person(friend).fullName} 
                     secondary={
-                        <KButtonSmall label="Follow" size="small" />
-                    } 
-                />
-            </ListItem>
-            <ListItem>
-                <Avatar alt="Ademide Lawal" src="/images/avatar.png" />
-                <ListItemText primary="Ademide Lawal" 
-                    secondary={
-                        <KButtonSmall label="Follow" size="small" />
-                    } 
-                />
-            </ListItem>
-            <ListItem>
-                <Avatar alt="Ademide Lawal" src="/images/avatar.png" />
-                <ListItemText primary="Ademide Lawal" 
-                    secondary={
-                        <KButtonSmall label="Follow" size="small" />
-                    } 
-                />
-            </ListItem>
-            <ListItem>
-                <Avatar alt="Ademide Lawal" src="/images/avatar.png" />
-                <ListItemText primary="Ademide Lawal" 
-                    secondary={
-                        <Typography color="textSecondary">Following</Typography>
-                    } 
-                />
-            </ListItem>
+                        friend.following < 1 ? <KButtonSmall label="Follow" 
+                size="small" onClick={() => handleFollow(friend.id)} />: 
+                <KButtonSmall label="Unfollow" collor="secondary"
+                size="small" onClick={() => handleUnfollow(friend.id)} />}
+                /></ListItem>
+                )
+            }
+            
             <ListItem>
                 <Typography color="textSecondary" component="a" style={{flex: 1, textAlign: 'center'}}>SEE ALL</Typography>
             </ListItem>

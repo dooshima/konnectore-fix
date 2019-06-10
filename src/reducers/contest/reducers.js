@@ -14,6 +14,7 @@ import setSearchResultReducer from './reduction/setSearchResultReducer';
 import isLoadingReducer from './reduction/isLoadingReducer';
 import setJoinProgressReducer from './reduction/setJoinProgressReducer';
 import setUserRoleReducer from './reduction/setUserRoleReducer';
+import setTopContestantsReducer from './reduction/setTopContestantsReducer';
 
 const uploadCount = (uploadCount=0, action) => {
     switch(action.type) {
@@ -134,6 +135,15 @@ const search = (search={}, action) => {
     }
 };
 
+const topContestants = (topContestants={}, action) => {
+    switch(action.type) {
+        case types.CONTEST_SET_TOP_CONTESTANTS:
+            return setTopContestantsReducer(topContestants, action);
+        default:
+            return topContestants;
+    }
+};
+
 const contestReducers = combineReducers({
     uploadCount,
     isUploading,
@@ -148,6 +158,7 @@ const contestReducers = combineReducers({
     loading,
     progress,
     userRole,
+    topContestants,
 });
 
 export default contestReducers;

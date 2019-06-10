@@ -123,7 +123,7 @@ class JoinContestWidget extends React.Component {
                         withdrawFromContest={this.props.withdrawFromContest}
                          />
                     <Typography className={classes.agree}>
-                        By with, you agree that you understand the contest guidelines
+                        By withdrawing, you agree that you understand the contest guidelines
                     </Typography>
                 </div>
             default:

@@ -75,6 +75,21 @@ const setContestUserRole = userRole => ({
     userRole,
 });
 
+const setTopContestants = topContestants => ({
+    type: types.CONTEST_SET_TOP_CONTESTANTS,
+    topContestants,
+});
+
+const getTopContestants = (form, token) => dispatch => {
+    Contest.getTopContestants(form, token) 
+        .then( response => {
+            if(!response.error) {
+                setTopContestants({byId: response.byId, allIds: response.allIds});
+            }
+        } )
+        .catch( error => console.log(error))
+}
+
 const handleContestSearch = (form, token) => dispatch => {
     dispatch(setProgress(true));
     Contest.searchContest(form, token)
@@ -176,6 +191,19 @@ const joinAsContestant = (form, token) => dispatch => {
         } )
 }
 
+const joinAsWorkforce = (form, token) => dispatch => {
+    dispatch(setJoinProgress({status: true, message: 'Joining ...'}));
+    Contest.joinAsWorkforce(form, token)
+        .then( response => {
+            dispatch(setJoinProgress({staus: false, message: 'You are now a workforce!'}));
+            dispatch(setContestUserRole(3));
+        })
+        .catch ( error => {
+            dispatch(setJoinProgress({status: false, message: 'Couldn\'t join the contest. Pls refresh the window and retry.'}));
+            console.log(error)
+        } )
+};
+
 const withdrawFromContest = (form, token) => dispatch => {
     dispatch(setJoinProgress({status: true, message: 'Withdrawing ...'}));
     Contest.joinAsContestant(form, token)
@@ -251,6 +279,8 @@ const contestActions = {
     handleContestSearch,
     joinAsContestant,
     withdrawFromContest,
+    joinAsWorkforce,
+    getTopContestants,
 };
 
 export default contestActions;
