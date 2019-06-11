@@ -31,7 +31,7 @@ const styles = theme => ({
   card: {
     flex: 1,
     minHeight: 200,
-    backgroundSize: 'contain',
+    backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     '&$$ ::before':  {

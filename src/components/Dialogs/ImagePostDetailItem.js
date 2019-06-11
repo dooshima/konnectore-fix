@@ -10,16 +10,22 @@ import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import { CardHeader, Avatar, CardActions, TextField, FormControl, Input } from '@material-ui/core';
+import { CardHeader, Avatar, CardActions, TextField, FormControl, Input, createMuiTheme } from '@material-ui/core';
 import AlarmIcon from '@material-ui/icons/Alarm'
 import PostActivityWidget from '../../widgets/posts/PostActivityWidget';
 import Utility from '../../services/Utility';
 
-const styles = theme => ({
+const theme = createMuiTheme({
+  spacing: 10,
+})
+const styles = {
   card: {
     display: 'flex',
     height: '100%',
     borderRadius: 0,
+    [theme.breakpoints.down('md')]: {
+      flexDirection: 'column',
+    }
   },
   details: {
     display: 'flex',
@@ -32,6 +38,11 @@ const styles = theme => ({
   cover: {
     width: '50%',
     height: '100%',
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+      height: 200,
+    }
+
   },
   controls: {
     display: 'flex',
@@ -63,7 +74,7 @@ const styles = theme => ({
   input: {
       padding: 10,
   }
-});
+};
 
 function ImagePostDetailItem(props) {
   const { classes, theme, item } = props;
