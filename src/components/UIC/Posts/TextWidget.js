@@ -36,11 +36,17 @@ const styles = theme => ({
     display: 'flex',
     padding: `${theme.spacing.unit * 0.7}px ${theme.spacing.unit * 1.5}px`,
     flex: 1,
+    justifyContent: 'space-between',
+  },
+  actionAvatar: {
+    display: 'flex',
+    flexDirection: 'row',
   },
   p: {
     color: '#fff',
-    fontSize: theme.spacing.unit * 1.4,
+    fontSize: '0.8571428571428571rem',
     fontWeight: 400,
+    textAlign: 'left',
   },
   h4: {
     color: '#fcfcfc',
@@ -49,7 +55,7 @@ const styles = theme => ({
   },
   stats: {
     color: 'rgba(255,255,255,0.6)',
-    fontSize: theme.spacing.unit * 1.1,
+    fontSize: '0.7rem',
     fontWeight: 300,
     display: 'inline',
     marginRight: 10,
@@ -72,8 +78,8 @@ const styles = theme => ({
   },
   typeIcon: {
       position: 'absolute',
-      right: 5,
-      top: 5,
+      right: 10,
+      top: 10,
   },
   more: {
       color: 'white',
@@ -148,7 +154,7 @@ class TextWidget extends React.Component {
     const { classes, type, text, user, comments, endorsements, item, contentStyle, deletePost } = this.props;
     const fullName = (Utility.isset(item) && Utility.isset(item.user)? item.user.firstname: '') + ' ' + (Utility.isset(item) && Utility.isset(item.user)? item.user.lastname: '');
     return (
-      <div>
+      <div style={{background: item.type !== 'text' ? 'linear-gradient(to bottom, rgba(255,0,0,0), rgba(0, 0, 0, 0.87))': ''}}>
       <button className={classes.link} onClick={() => this.showDetails(item)}>
         <CardContent
           className={classes.content}
@@ -182,13 +188,14 @@ class TextWidget extends React.Component {
         <div className={classes.rule} />
         </button>
         <CardActions className={classes.actions} disableActionSpacing >
+          <div className={classes.actionAvatar}>
             <Avatar alt={fullName} src={item.user? Utility.getAvatar(item.user.avatar): Utility.getAvatar("")} className={classes.avatar} />
             <div className={classes.title}>
                 <Typography component="h4" className={classes.h4}>{fullName}</Typography>
                 
                 <Typography className={classes.titleStat}><ReactTimeAgo date={new Date(item.created_at)} locale="en" /></Typography>
             </div>
-
+          </div>
             <PopoverPostActions className={classes.more} author={item.author} post_id={item.id} user_id={user.data.id} deletePost={deletePost} />
             
         </CardActions>

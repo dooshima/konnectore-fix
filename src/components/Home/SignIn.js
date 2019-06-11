@@ -11,6 +11,9 @@ import { connect } from 'react-redux';
 const styles = theme => ({
     form: {
         width: 400,
+        [theme.breakpoints.down('md')]: {
+            width: '100%',
+        }
     },
     formControl: {
         width: '100%',

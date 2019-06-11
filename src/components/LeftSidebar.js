@@ -7,6 +7,7 @@ import LoginCard from './account/LoginCard';
 import KFooter from './UIC/KFooter';
 import LeftUserMenu from './Nav/LeftUserMenu';
 import { connect } from 'react-redux';
+import ActivityNavList from '../widgets/navigation/ActivityNavList';
 
 const activeLink = classNames({'link': true, 'active': true});
 const dudUrl = 'javascript:;';
@@ -139,11 +140,14 @@ function LeftSidebar(props) {
 
 function LoginMenu(props) {
   if(props.loggedIn) {
-    return <LeftUserMenu 
+    return <div>
+      <LeftUserMenu 
       imageurl={props.imageurl} setImageUrl={props.setImageUrl} 
       setFormdata={props.setFormdata} uploadprogress={props.uploadprogress} 
       uploadMedia={props.uploadMedia} showpostform={props.showpostform}
     />
+      <ActivityNavList />
+    </div>
   } else {
     return <LoginCard />
   }

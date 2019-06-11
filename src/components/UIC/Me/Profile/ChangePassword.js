@@ -121,7 +121,7 @@ const ChangePassword = props => {
                             props.user.errorMsg && props.user.errorMsg !== 'redirectme' && <Typography color="error">{props.user.errorMsg}</Typography>} />
                     <CardContent className={classes.content}>
                         <Grid container spacing={40} className={classes.grid}>
-                            <Grid item md={6}className={classes.grid}>
+                            <Grid item md={6} xs={12} sm={12} className={classes.grid}>
                                 <FormControl className={classes.formControl}>
                                     <Typography color="textSecondary"
                                     className={classes.bootstrapFormLabel}>
@@ -129,7 +129,7 @@ const ChangePassword = props => {
                                     </Typography>
                                 </FormControl>
                             </Grid>
-                            <Grid item md={6}className={classes.grid}>
+                            <Grid item md={6} xs={12} sm={12} className={classes.grid}>
                                 <FormControl className={classes.formControl}>
                                         <Input id="password" 
                                             placeholder=""
@@ -146,7 +146,7 @@ const ChangePassword = props => {
                                 </FormControl>
                             </Grid>
                             
-                            <Grid item md={6} className={classes.grid}>
+                            <Grid item md={6} xs={12} sm={12} className={classes.grid}>
                                 <FormControl className={classes.formControl}>
                                     <Typography color="textSecondary"
                                     className={classes.bootstrapFormLabel}>
@@ -154,7 +154,7 @@ const ChangePassword = props => {
                                     </Typography>
                                 </FormControl>
                             </Grid>
-                            <Grid item md={6} className={classes.grid}>
+                            <Grid item md={6} xs={12} sm={12} className={classes.grid}>
                                 <FormControl className={classes.formControl}>
                                         <Input id="newPassword" 
                                             placeholder=""
@@ -171,7 +171,7 @@ const ChangePassword = props => {
                                 </FormControl>
                             </Grid>
 
-                            <Grid item md={6} className={classes.grid}>
+                            <Grid item md={6} xs={12} sm={12} className={classes.grid}>
                                 <FormControl className={classes.formControl}>
                                     <Typography color="textSecondary"
                                     className={classes.bootstrapFormLabel}>
@@ -179,7 +179,7 @@ const ChangePassword = props => {
                                     </Typography>
                                 </FormControl>
                             </Grid>
-                            <Grid item md={6} className={classes.grid}>
+                            <Grid item md={6} xs={12} sm={12} className={classes.grid}>
                                 <FormControl className={classes.formControl}>
                                         <Input id="newPassword_confirmation" 
                                             placeholder=""

@@ -40,7 +40,7 @@ const PopoverPostActions = ({author, post_id, user_id, deletePost}) => {
         //onClick={handleClick}
         {...bindTrigger(popupState)}
       >
-        <MoreVertIcon />
+        <MoreVertIcon style={{color: 'white'}} />
       </IconButton>
       <Menu {...bindMenu(popupState)}>
           <MenuItem onClick={popupState.close}>Share</MenuItem>

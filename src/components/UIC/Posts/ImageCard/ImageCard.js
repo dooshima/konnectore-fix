@@ -31,6 +31,19 @@ const styles = theme => ({
   card: {
     flex: 1,
     minHeight: 200,
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    '&$$ ::before':  {
+      content:"",
+      display: 'block',
+      height: '100%',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      backgroundColor: 'rgba(255, 255, 255, .8)',
+    }
   },
   content: {
     paddingTop: '60%',
@@ -41,22 +54,7 @@ const styles = theme => ({
     display: 'flex',
     padding: `${theme.spacing.unit * 0.7}px ${theme.spacing.unit * 1.5}px`,
   },
-  p: {
-    color: '#fcfcfc',
-    fontSize: theme.spacing.unit * 1.3,
-    fontWeight: 200,
-  },
-  h4: {
-    color: '#fcfcfc',
-    fontSize: theme.spacing.unit * 1.5,
-    fontWeight: 400,
-  },
-  stats: {
-    color: '#fcfcfc',
-    fontSize: theme.spacing.unit * 1.1,
-    fontWeight: 200,
-    display: 'inline'
-  },
+  
   expand: {
     transform: 'rotate(0deg)',
     marginLeft: 'auto',
@@ -72,11 +70,6 @@ const styles = theme => ({
     borderColor: '#00927d',
     borderWidth: 2,
     borderStyle: 'solid'
-  },
-  typeIcon: {
-      position: 'absolute',
-      right: 20,
-      top: 10,
   },
   more: {
       color: 'white',
@@ -112,7 +105,7 @@ class ImageCard extends React.Component {
     const image = cover? cover: "/images/post-img.png";
 
     return (
-      <KPaper square={false} className={classes.card} style={{backgroundImage: `url(${image})`, backgroundSize: 'cover'}}>
+      <KPaper square={false} className={classes.card} style={{backgroundImage: `url(${image})`}}>
 
         <TextWidget
           type="image"

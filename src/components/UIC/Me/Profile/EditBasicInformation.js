@@ -118,8 +118,8 @@ const EditBasicInformation = props => {
                 <KCard className={classes.card}>
                     <CardHeader title="Basic Information" />
                     <CardContent className={classes.content}>
-                        <Grid container spacing={40}>
-                            <Grid item md={6}>
+                        <Grid container spacing={2}>
+                            <Grid item md={6} xs={12} sm={12} >
                                 <FormControl className={classes.formControl}>
                                     <InputLabel htmlFor="firstname" shrink className={classes.bootstrapFormLabel}>Firstname</InputLabel>
                                         <Input id="firstname" 
@@ -135,7 +135,7 @@ const EditBasicInformation = props => {
                                         />
                                 </FormControl>
                             </Grid>
-                            <Grid item md={6}>
+                            <Grid item md={6} xs={12} sm={12} >
                                 <FormControl className={classes.formControl}>
                                     <InputLabel htmlFor="lastname" shrink className={classes.bootstrapFormLabel}>Lastname</InputLabel>
                                         <Input id="lastname" 
@@ -151,7 +151,7 @@ const EditBasicInformation = props => {
                                         />
                                 </FormControl>
                             </Grid>
-                            <Grid item md={6}>
+                            <Grid item md={6} xs={12} sm={12} >
                             <FormControl className={classes.formControl}>
                                     <InputLabel htmlFor="gender" shrink className={classes.bootstrapFormLabel}>Gender</InputLabel>
                                         <Select id="gender"
@@ -180,7 +180,7 @@ const EditBasicInformation = props => {
                             <Grid item md={6}>
                                 
                             </Grid>
-                            <Grid item md={12}>
+                            <Grid item md={12} xs={12} sm={12} >
                                 <FormControl className={classes.formControl}>
                                     <InputLabel htmlFor="bio" shrink className={classes.bootstrapFormLabel}>Bio</InputLabel>
                                         <Input id="bio" 

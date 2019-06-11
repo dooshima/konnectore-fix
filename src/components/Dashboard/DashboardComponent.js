@@ -188,9 +188,9 @@ class DashboardComponent extends React.Component {
     recentPosts = recentPosts.sort((a, b) => b.id > a.id);
 
     return (
-<div style={{marginTop: 30, marginLeft: 20, marginRight: 20}}>
+<div style1={{marginTop: 30, marginLeft: 20, marginRight: 20}}>
           <Grid container spacing={8}>
-            <Grid item xs={8}>
+            <Grid item md={8} sm={12} xs={12}>
               <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
                 
                 
@@ -206,7 +206,7 @@ class DashboardComponent extends React.Component {
               </Paper>
               <PostDetailWidget postItem={this.state.item} open={this.state.open} user={user} toggleDialog={this.toggleDialog} />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item md={4} sm={12} xs={12}>
                 <PlaceComponents spacer={20}>
                     <FeedCard />     
                     <CompetitionSummaryCard />

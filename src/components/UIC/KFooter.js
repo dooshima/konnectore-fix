@@ -36,16 +36,17 @@ function KFooter(props) {
         <Paper square={true} className={classes.paper}>
             <Typography component="p" className={classes.link}>
                 <KLink filter="/about">About Us</KLink>{bull}
-                <KLink filter="/support">Support</KLink>{bull}
-                <KLink filter="/press">Press</KLink>{bull}
-                <KLink filter="/api">API</KLink>{bull}
-                <KLink filter="/jobs">Jobs</KLink>{bull}
+                {false && <KLink filter="/support">Support</KLink>}
+                {false && <KLink filter="/press">Press</KLink>}
+                {false && <KLink filter="/api">API</KLink>}
+                {false && <KLink filter="/jobs">Jobs</KLink>}
                 <KLink filter="/privacy">Privacy</KLink>{bull}
                 <KLink filter="/terms">Terms</KLink>{bull}
-                <KLink filter="/directory">Directory</KLink>{bull}
-                <KLink filter="/profiles">Profiles</KLink>{bull}
-                <KLink filter="/hashtags">Hashtags</KLink>{bull}
-                <KLink filter="/language">Language</KLink>{bull}
+                <KLink filter="/faq">FAQ</KLink>
+                {false && <KLink filter="/directory">Directory</KLink>}
+                {false && <KLink filter="/profiles">Profiles</KLink>}
+                {false && <KLink filter="/hashtags">Hashtags</KLink>}
+                {false && <KLink filter="/language">Language</KLink>}
             </Typography>
 
             <Typography component="h4" className={classes.footer}>

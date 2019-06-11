@@ -20,7 +20,14 @@ import SearchForm from '../../components/Search/SearchForm';
 import TopProfileMenu from '../../components/account/TopProfileMenu';
 import Utility from '../../services/Utility';
 import userActions from '../../reducers/user/actions';
+import Drawer from '@material-ui/core/Drawer';
+import Hidden from '@material-ui/core/Hidden';
+import MenuIcon from '@material-ui/icons/Menu';
+import LeftSidebar from '../../components/LeftSidebar';
+import clsx from 'clsx';
+import CloseIcon from '@material-ui/icons/Close';
 
+const drawerWidth = 240;
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -203,6 +210,51 @@ const styles = theme => ({
     },
     boxShadow: 'none',
   },
+  noStyle: {
+    color: theme.palette.primary.main,
+    textDecoration: 'none',
+    fontStyle: 'normal',
+    '& :hover': {
+      textDecoration: 'none',
+      fontStyle: 'normal',
+    }
+  },
+  appBarShift: {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: drawerWidth,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  hide: {
+    display: 'none',
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '0 8px',
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
+  },
+  menuIcon: {
+    color: theme.palette.primary.main,
+    fontSize: 20,
+    display: 'none',
+    [theme.breakpoints.down('md')]: {
+      display: 'inline-block',
+    }
+  }
 });
 
 const activeLink = classNames({'link': true, 'active': true});
@@ -248,6 +300,14 @@ class AppNavBar extends React.Component {
     this.setState({anchorEl: event.currentTarget});
   }
 
+  toggleDrawer = open => event => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    this.setState({ openSidebar: open });
+  };
+
   handleMobileMenuClose1() {
     this.setState({mobileMoreAnchorEl: null});
   }
@@ -266,6 +326,14 @@ class AppNavBar extends React.Component {
     this.props.history.push('/me');
   }
 
+  handleDrawerOpen = () => {
+    this.setState({openSidebar: true});
+  }
+
+  handleDrawerClose = () => {
+    this.setState({openSidebar: false});
+  }
+
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
     const { classes, user, authToken } = this.props;
@@ -277,7 +345,9 @@ class AppNavBar extends React.Component {
     const loggedIn = Utility.isset(authToken);
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    //const [open, setOpen] = React.useState(false);
     const dudUrl = 'javascript:;';
+    
 
     const renderMenu = (
         <Menu
@@ -329,8 +399,10 @@ class AppNavBar extends React.Component {
       <div className={classes.root}>
         <div className={classes.holder}>
           {false && <Toolbar style={{flexGrow: 1, minHeight: 54, backgroundColor: 'white', paddingLeft: 0, paddingRight: 0,}}>
-            <Grid container spacing={8}>
+          <Grid container spacing={8}>
               <Grid item xs={2} style={{display: 'flex', alignItems: 'center'}}>
+              
+              
                 <div style={{display: 'flex', justifyContent: 'start', alignItems: 'center'}}>
                   <Link to="/">
                     <Avatar className={classes.avatar} alt="Konnectore Logo" src="/images/logo.png" />
@@ -347,6 +419,16 @@ class AppNavBar extends React.Component {
          
           </Toolbar>}
           <Toolbar className={classes.toolbar}>
+          <IconButton
+                color="inherit"
+                aria-label="Open drawer"
+                onClick={this.handleDrawerOpen}
+                edge="start"
+                className={classes.menuIcon}
+                //className={clsx(classes.menuButton, this.openSidebar && classes.hide)}
+              >
+                <MenuIcon />
+              </IconButton>
           <Link to="/" className={classes.noStyle}>
           <IconButton
             edge="start"
@@ -400,6 +482,26 @@ class AppNavBar extends React.Component {
               />
             </div>
           }
+          
+                <Drawer
+                  classes={{
+                    paper: classes.drawerPaper,
+                  }}
+                  variant="temporary"
+                  open={this.state.openSidebar}
+                  onClose={this.toggleDrawer(false)}
+                >
+                  <IconButton
+                      color="inherit"
+                      aria-label="Close drawer"
+                      onClick={this.handleDrawerClose}
+                      edge="start"
+                      className={clsx(classes.menuButton, this.openSidebar && classes.hide)}
+                    >
+                      <CloseIcon />
+                  </IconButton>
+                  <LeftSidebar />
+                </Drawer>
       </div>
     );
   }

@@ -14,6 +14,7 @@ const styles = theme => ({
         margin: `${theme.spacing.unit * 1.2} ${theme.spacing.unit * .5}` ,
         textDecoration: 'none',
         color: '#bcbcbc',
+        cursor: 'pointer',
         '&:hover': {
           fontStyle: 'normal',
         },

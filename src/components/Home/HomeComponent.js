@@ -23,6 +23,9 @@ const styles = {
         left: 0,
         backgroundColor: '#fff',
         overflowY: 'scroll',
+        [theme.breakpoints.down('md')]: {
+            position: 'relative',
+        }
     },
     formDiv: {
         minHeight: 500,
@@ -36,6 +39,13 @@ const styles = {
         //display: 'flex',
         //justifyContent: 'center',
         alignItems: 'center',
+        [theme.breakpoints.down('md')]: {
+            width: '90%',
+            borderRadius: 10,
+            minHeight: 'auto',
+            margin: '5%',
+            padding: 0,
+        },
     },
     wrapper: {
         width: '100%',
@@ -47,6 +57,13 @@ const styles = {
         backgroundSize: 'cover',
         backgroundAttachment: 'scroll',
         backgroundColor: '#fff',
+        [theme.breakpoints.down('md')]: {
+            justifyContent: 'center',
+            minHeight: 'auto',
+            flexDirection: 'column-reverse',
+            justifyContent: 'center',
+            alignItems: 'center',
+        }
     },
     bottomContainer: {
         position: 'absolute',
@@ -55,11 +72,20 @@ const styles = {
         left: 0,
         zIndex: 5,
         overflow: 'hidden',
+        [theme.breakpoints.down('md')]: {
+            justifyContent: 'center',
+            position: 'relative',
+            width: '100%',
+            overflow: 'hidden',
+        }
     },
     pathImage: {
         width: '100%',
         height: 'auto',
         marginBottom: '-10px',
+        [theme.breakpoints.down('md')]: {
+            display: 'none',
+        }
     },
     buttons: {
         display: 'flex',
@@ -74,6 +100,17 @@ const styles = {
         bottom: 125,
         color: 'white',
         lineHeight: '50px',
+        [theme.breakpoints.down('md')]: {
+            position: 'static',
+            left: 0,
+            bottom: 0,
+            lineHeight: '35px',
+            fontSize: 28,
+            textAlign: 'center',
+            paddingTop: 30,
+            fontWeight: '800',
+            color: '#24b573',
+        }
     },
     linearColorPrimary: {
         backgroundColor: '#b2dfdb',

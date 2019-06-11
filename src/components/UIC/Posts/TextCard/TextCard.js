@@ -40,23 +40,6 @@ const styles = theme => ({
     display: 'flex',
     padding: `${theme.spacing.unit * 0.7}px ${theme.spacing.unit * 1.5}px`,
   },
-  p: {
-    color: '#fff',
-    fontSize: theme.spacing.unit * 1.4,
-    fontWeight: 400,
-  },
-  h4: {
-    color: '#fcfcfc',
-    fontSize: theme.spacing.unit * 1.5,
-    fontWeight: 400,
-  },
-  stats: {
-    color: 'rgba(255,255,255,0.6)',
-    fontSize: theme.spacing.unit * 1.1,
-    fontWeight: 300,
-    display: 'inline',
-    marginRight: 10,
-  },
   expand: {
     transform: 'rotate(0deg)',
     marginLeft: 'auto',
@@ -72,11 +55,6 @@ const styles = theme => ({
     borderColor: '#00927d',
     borderWidth: 2,
     borderStyle: 'solid'
-  },
-  typeIcon: {
-      position: 'absolute',
-      right: 20,
-      top: 10,
   },
   more: {
       color: 'white',

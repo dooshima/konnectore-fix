@@ -96,8 +96,8 @@ const MeHeaderSummary = props => {
   return (
     <div className={classes.root}>
       <Paper elevation={0} className={classes.paper}>
-        <Grid container spacing={8}>
-          <Grid item className={classes.picker} md={4}>
+        <Grid container spacing={2}>
+          <Grid item className={classes.picker} md={4} sm={12} xs={12}>
             <ButtonBase className={classes.image}>
               <div className={classes.imageHolder} style={{backgroundImage: `url(${avatar})`}}>
                 
@@ -108,16 +108,22 @@ const MeHeaderSummary = props => {
             <input type="file" onChange={props.handleAvatarUpload} className={classes.avatar} />
             
           </Grid>
-          <Grid item md={8} sm container className={classes.summary}>
-            
-            <Grid item xs={12} container direction="column" spacing={0}>
-              <Grid item md={4}>
+          <Grid item md={8} spacing={16} sm={12} xs={12} direction="row" container className={classes.summary}>
+            <Grid item container>
+            <Grid item md={9} container direction="column" spacing={0}>
+
+            <Grid item xs={12} direction="row">
                 <Typography gutterBottom variant="h5" component="b">
                   { fullName }
                 </Typography>
                 <Typography gutterBottom>{ person.bio }</Typography>
               </Grid>
-              <Grid item md={8} style={{display: 'flex', justifyContent: 'start'}}>
+            </Grid>
+            <Grid item md={3}>
+              <KButtonLink />
+            </Grid>
+            </Grid>
+            <Grid item xs={12} style={{display: 'flex', justifyContent: 'start'}}>
                 <div style={{textAlign: 'center', marginRight: 20,}}>
                   <Typography>Followers</Typography>
                   <Typography component="span" style={{fontWeight: 900}}>{person.followersCount}</Typography>
@@ -133,10 +139,6 @@ const MeHeaderSummary = props => {
                   <Typography component="span" style={{fontWeight: 900}}>{person.contestsCount}</Typography>
                 </div>
               </Grid>
-            </Grid>
-            <Grid item>
-              <KButtonLink />
-            </Grid>
             
           </Grid>
         </Grid>

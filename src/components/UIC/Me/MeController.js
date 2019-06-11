@@ -21,6 +21,7 @@ import userActions from '../../../reducers/user/actions';
 import PostDetailWidget from '../../../widgets/posts/PostDetailWidget';
 import Utility from '../../../services/Utility';
 import AccountReferrals from './Profile/AccountReferrals';
+import AccountWallet from './Profile/AccountWallet';
 
 class MeController extends React.Component {
     constructor(props) {
@@ -103,9 +104,9 @@ class MeController extends React.Component {
         recentPosts = recentPosts.sort((a, b) => b.id > a.id);
 
         return (
-            <div style={{marginTop: 30, marginLeft: 20, marginRight: 20}}>
+            <div style1={{marginTop: 30, marginLeft: 20, marginRight: 20}}>
                 <Grid container spacing={0}>
-                    <Grid item md={8} >
+                    <Grid item md={8} sm={12} xs={12}>
                     <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
                         <MeHeader path={match.path} {...this.props} setFilter={this.setFilter.bind(this)} 
                             handleAvatarUpload={this.handleAvatarUpload.bind(this)} />
@@ -113,11 +114,12 @@ class MeController extends React.Component {
                             <PropsRoute exact path={`${match.path}/account/edit`} component={EditProfile} {...this.props} />
                             <Route exact path={`${match.path}/account/change-password`} component={ManageAccount} />
                             <PropsRoute exact path={`${match.path}/account/referrals`} component={AccountReferrals} {...this.props} />
+                            <PropsRoute exact path={`${match.path}/account/wallet`} component={AccountWallet} {...this.props} />
                             <PropsRoute path={`${match.path}`} component={MeTimeline} {...this.props} fullName={fullName} toggleDialog={this.toggleDialog} posts={recentPosts} />} />
                         </Switch>
                     </Paper>
                     </Grid>
-                    <Grid item md={4}>
+                    <Grid item md={4} sm={12} xs={12}>
                         <div style={{marginLeft: 10}}>
                             <PlaceComponents spacer={20}>
                                 <Route exact path={`${match.path}/`} component={AwardsAndBadges} />
@@ -125,6 +127,7 @@ class MeController extends React.Component {
                                 <Route exact path={`${match.path}/account/edit`} component={EditPersonalInfoWidget} />
                                 <Route exact path={`${match.path}/account/change-password`} component={ManageYourAccountWidget} />
                                 <Route exact path={`${match.path}/account/referrals`} component={ManageYourAccountWidget} />
+                                <Route exact path={`${match.path}/account/wallet`} component={ManageYourAccountWidget} />
                             </PlaceComponents>
                         </div>
                     </Grid>

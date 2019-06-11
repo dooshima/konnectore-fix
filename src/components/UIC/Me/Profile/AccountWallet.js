@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import KCard from '../../KCard';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -128,9 +128,15 @@ const styles = theme => ({
     }
 });
 
-const AccountReferrals = props => {
+const AccountWallet = props => {
     const { classes, currentScreen, user } = props;
     const userData = Utility.isset(user.data)? user.data: {};
+    const [amount, setAmount] = useState(0);
+
+    function handleSubmit() {
+        console.log('handle submit');
+    }
+
     return (
         <div className={classes.main}>
         <div className={classes.wrapper}>
@@ -139,27 +145,20 @@ const AccountReferrals = props => {
                 <KCard className={classes.card}>
                     <CardContent className={classes.content}>
                         <Grid container spacing={2} className={classes.grid}>
-                            <Grid item md={6} sm={12} xs={12} style={{display: 'flex', alignItems: 'center',}}>
-                                <Typography color="textSecondary"
-                                //className={classes.bootstrapFormLabel}
-                                >
-                                    Referral Code
-                                </Typography>
-                            </Grid>
-                            <Grid item md={6} sm={12} xs={12} className={classes.refCountRow}>
-                                <Typography color="textSecondary">Your referral code is</Typography>
-                                <span className={classes.refCount}>{userData.referralsCount}</span>
+                            <Grid item md={12}className={classes.refCountRow}>
+                                <Typography color="textSecondary">Your wallet balance is</Typography>
+                                <span className={classes.refCount}>{userData.walletBalance? userData.walletBalance: 'N18,000'}</span>
                             </Grid>
                             
-                            <Grid item md={6} sm={12} xs={12} className={classes.grid}>
-                                <Typography>Your referral code is</Typography>
+                            <Grid item md={6} className={classes.grid}>
+                                
                             </Grid>
                             <Grid item md={8} sm={12} xs={12} className={classes.grid}>
                                 <FormControl className={classes.formControl}>
-                                        <Input id="newPassword_confirmation" 
+                                        <Input id="amount" 
                                             placeholder=""
                                             type="text" 
-                                            value={userData.referralID} 
+                                            value={amount} 
                                             //onChange={props.handleChange('newPassword_confirmation')} 
                                             fullWidth={true}
                                             disableUnderline={true}
@@ -172,7 +171,7 @@ const AccountReferrals = props => {
                             </Grid>
                             <Grid item md={4} className={classes.grid}>
                                 <div className={classes.next}>
-                                    <KBigButton className={classes.kBigButton} onClick={props.handleSubmit} label="Copy link" size="small" />
+                                    <KBigButton className={classes.kBigButton} onClick={handleSubmit} label="FUND WALLET" size="small" />
                                 </div>
                             </Grid>
 
@@ -189,8 +188,8 @@ const AccountReferrals = props => {
     )
 };
 
-AccountReferrals.propTypes = {
+AccountWallet.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AccountReferrals);
+export default withStyles(styles)(AccountWallet);

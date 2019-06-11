@@ -67,8 +67,8 @@ class ContestInfoBanners extends React.Component {
         return (
             <Link to="/contest/sctage" className={classes.link}>
                 <KPaper className={classes.banner}>
-                    <Grid container>
-                        <Grid item md="8">
+                    <Grid container spacing={2}>
+                        <Grid item xs="8">
                             <Typography className={classes.tagText}>POPULAR</Typography>
                             <Typography className={classes.titleText}>The Stage 2019</Typography>
                             <Typography color="textSecondary" className={classes.contentText}>
@@ -76,10 +76,12 @@ class ContestInfoBanners extends React.Component {
                             rounds.
                             </Typography>
                             <Typography className={classes.dateText}>Starts 11 Sept 2019</Typography>
-                            <Button className={classes.join}>Join the contest</Button>
                         </Grid>
-                        <Grid item md="4" className={classes.img}>
+                        <Grid item xs="4" className={classes.img}>
                             <img src="/images/post-img.png" style={{width: 120,}} />
+                        </Grid>
+                        <Grid item xd={12}>
+                        <Button className={classes.join}>Join the contest</Button>
                         </Grid>
                     </Grid>
                 </KPaper>

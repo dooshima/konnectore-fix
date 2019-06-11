@@ -38,7 +38,16 @@ const styles = theme => ({
     backgroundColor: '#F2F7F4',
     borderRadius: 12,
     padding: `${theme.spacing.unit * 2}px !important`,
-  }
+  },
+  imageHolder: { 
+    width: 140,
+    height: 140,
+    overflow: 'hidden',
+    borderRadius: '50%',
+    display: 'flex',
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+  },
 });
 
 const FriendHeaderSummary = props => {
@@ -58,10 +67,12 @@ const FriendHeaderSummary = props => {
   return (
     <div className={classes.root}>
       <Paper elevation={0} className={classes.paper}>
-        <Grid container spacing={8}>
-          <Grid item>
+        <Grid container spacing={2}>
+          <Grid item xs={4}>
             <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src={avatar} />
+            <div className={classes.imageHolder} style={{backgroundImage: `url(${avatar})`}}>
+                
+                </div>
             </ButtonBase>
           </Grid>
           <Grid item xs={8} sm container className={classes.summary}>

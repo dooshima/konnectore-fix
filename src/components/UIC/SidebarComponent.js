@@ -31,7 +31,9 @@ const styles = {
     marginTop: theme.spacing.unit * 9.4,
     marginRight: theme.spacing.unit * 10,
     [theme.breakpoints.down('md')]: {
-      marginRight: 20,
+      marginRight: 5,
+      margin: 5,
+      marginTop: theme.spacing.unit * 9.4,
     }
   },
   sidebar: {
@@ -61,7 +63,7 @@ const styles = {
     marginLeft: theme.spacing.unit * 35.5,
     //paddingTop: theme.spacing.unit * 2,
     [theme.breakpoints.down('md')]: {
-      marginLeft: 20,
+      marginLeft: 0,
     }
   }
 };
