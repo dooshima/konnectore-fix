@@ -7,6 +7,7 @@ import KButton from '../UIC/KButton';
 import OnboardMenu from './OnboardMenu';
 import KBigButton from '../UIC/KBigButton';
 import OnboardToolbar from './OnboardToolbar';
+import Utility from '../../services/Utility';
 
 const styles = theme => ({
     main: {
@@ -32,6 +33,9 @@ const styles = theme => ({
           marginTop: theme.spacing.unit * 3,
         },
         width: '60%',
+        [theme.breakpoints.down('md')]: {
+            width: '100%',
+        }
       },
     bootstrapInput: {
         borderRadius: 20,
@@ -84,13 +88,19 @@ const styles = theme => ({
     span: {
         fontSize: theme.typography.fontSize,
         color: '#aaa',
+    },
+    rightContent: {
+        paddingLeft: 80,
+        [theme.breakpoints.down('md')]: {
+            paddingLeft: 0,
+        }
     }
 });
 
 const ChooseUsername = props => {
     const { classes, currentScreen } = props;
     console.log(props.username, props.userData.username)
-    const active = (props.username === props.userData.username)? false: (props.username && props.usernameExists && props.username.length > 4? false: true);
+    const active = (Utility.isset(props.username) && props.username === props.userData.username)? false: (props.username && props.usernameExists && props.username.length > 4? false: true);
 
     function handleStoreUsername() {
         props.storeUsername(props.username, props.authToken);
@@ -105,7 +115,7 @@ const ChooseUsername = props => {
             <Grid item md={3}>
                 <OnboardMenu currentScreen={currentScreen} />
             </Grid>
-            <Grid item md={9} style={{paddingLeft: 80,}}>
+            <Grid item md={9} xs={12} sm={12}  className={classes.rightContent}>
                 <Typography variant="h3" style={{fontSize: '2em', opacity: 0.8, marginBottom: '.6em'}}>
                     Hi There,
                 </Typography>

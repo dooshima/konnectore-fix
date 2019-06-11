@@ -20,6 +20,8 @@ import PostDetailWidget from '../../widgets/posts/PostDetailWidget';
 import Utility from '../../services/Utility';
 import ContestInfoBanners from '../../widgets/carousels/ContestInfoBanners';
 import PostListWidget from './../../widgets/posts/PostListWidget';
+import AccountInfoWidget from '../UIC/Me/AccountInfoWidget';
+import ManageYourAccountWidget from '../UIC/Me/ManageYourAccountWidget';
 
 const activeLink = classNames({'link': true, 'active': true});
 const dudUrl = 'javascript:;';
@@ -208,9 +210,11 @@ class DashboardComponent extends React.Component {
             </Grid>
             <Grid item md={4} sm={12} xs={12}>
                 <PlaceComponents spacer={20}>
-                    <FeedCard />     
+                    {false && <><FeedCard />     
                     <CompetitionSummaryCard />
-                    <JoinChallengeCard />
+                    <JoinChallengeCard /></>}
+                    <AccountInfoWidget />
+                    <ManageYourAccountWidget />
                 </PlaceComponents>
             </Grid>
           </Grid>

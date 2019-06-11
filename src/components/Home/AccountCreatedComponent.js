@@ -17,10 +17,18 @@ const styles = theme => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'flex-end',
+        [theme.breakpoints.down('md')]: {
+            minHeight: 250,
+            backgroundPosition: 'top center',
+        }
     },
     headerText: {
         color: 'white',
         marginBottom: 20,
+        [theme.breakpoints.down('md')]: {
+            margin: 20,
+            textAlign: 'center',
+        }
     },
     content: {
         display: 'flex',
@@ -31,6 +39,9 @@ const styles = theme => ({
     },
     title: {
         margin: 20,
+        [theme.breakpoints.down('md')]: {
+            textAlign: 'center',
+        }
     },
     desc: {
         textAlign: 'center',
@@ -75,7 +86,7 @@ class AccountCreatedComponent extends React.PureComponent {
         console.log(user);
         return (
             <div>
-                <PrimaryNavBar loggedIn={false} handleLogin={() => {}} />
+                <PrimaryNavBar showMenu={false} loggedIn={false} handleLogin={() => {}} />
                 <header className={classes.header}>
                     <Typography variant="h4" className={classes.headerText}>Your account has been created</Typography>
                 </header>

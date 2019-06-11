@@ -2,13 +2,16 @@ import React from 'react';
 import KCard from '../UIC/KCard';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { CardContent, Typography, FormControl, InputLabel, Input, AppBar, Toolbar, Button, CardActions, Grid, Select, MenuItem } from '@material-ui/core';
+import { CardContent, Typography, FormControl, InputLabel, Input, AppBar, Toolbar, Button, CardActions, Grid, Select, MenuItem, createMuiTheme } from '@material-ui/core';
 import KButton from '../UIC/KButton';
 import OnboardMenu from './OnboardMenu';
 import KBigButton from '../UIC/KBigButton';
 import OnboardToolbar from './OnboardToolbar';
 
-const styles = theme => ({
+const theme = createMuiTheme({
+    spacing: 10,
+})
+const styles = {
     main: {
         backgroundColor: '#f9fffc',
     },
@@ -104,8 +107,14 @@ const styles = theme => ({
     span: {
         fontSize: theme.typography.fontSize,
         color: '#aaa',
+    },
+    rightContent: {
+        paddingLeft: 80,
+        [theme.breakpoints.down('md')]: {
+            paddingLeft: 0,
+        }
     }
-});
+};
 
 const PersonalInformation = props => {
     const { classes, currentScreen } = props;
@@ -116,10 +125,10 @@ const PersonalInformation = props => {
         <OnboardToolbar {...props} />
         <div className={classes.wrapper}>
         <Grid container spacing={0}>
-            <Grid item md={3}>
+            <Grid item md={3} xs={12} sm={12}>
                 <OnboardMenu currentScreen={currentScreen} />
             </Grid>
-            <Grid item md={9} style={{paddingLeft: 80,}}>
+            <Grid item md={9} xs={12} sm={12}  className={classes.rightContent}>
                 <Typography variant="h3" style={{fontSize: '2em', opacity: 0.8, marginBottom: '.6em'}}>
                     Let’s get you to stardom!
                 </Typography>
@@ -128,8 +137,8 @@ const PersonalInformation = props => {
                 </Typography>
                 <KCard className={classes.card}>
                     <CardContent className={classes.content}>
-                        <Grid container spacing={40}>
-                            <Grid item md={6}>
+                        <Grid container spacing={16}>
+                            <Grid item md={6} xs={12} sm={12}>
                                 <FormControl className={classes.formControl}>
                                     <InputLabel htmlFor="firstname" shrink className={classes.bootstrapFormLabel}>Firstname</InputLabel>
                                         <Input id="firstname" 
@@ -145,7 +154,7 @@ const PersonalInformation = props => {
                                         />
                                 </FormControl>
                             </Grid>
-                            <Grid item md={6}>
+                            <Grid item md={6} xs={12} sm={12}>
                                 <FormControl className={classes.formControl}>
                                     <InputLabel htmlFor="lastname" shrink className={classes.bootstrapFormLabel}>Lastname</InputLabel>
                                         <Input id="lastname" 
@@ -161,7 +170,7 @@ const PersonalInformation = props => {
                                         />
                                 </FormControl>
                             </Grid>
-                            <Grid item md={12}>
+                            <Grid item md={12} xs={12} sm={12}>
                                 <FormControl className={classes.formControl}>
                                     <InputLabel htmlFor="bio" shrink className={classes.bootstrapFormLabel}>A little description about yourself and what you do so that people can connect with you</InputLabel>
                                         <Input id="bio" 
@@ -180,7 +189,7 @@ const PersonalInformation = props => {
                                         />
                                 </FormControl>
                             </Grid>
-                            <Grid item md={6}>
+                            {false && <Grid item md={6} xs={12} sm={12}>
                                 <FormControl className={classes.formControl}>
                                     <InputLabel htmlFor="usertype" shrink className={classes.bootstrapFormLabel}>Goal (Optional)</InputLabel>
                                         <Select 
@@ -202,8 +211,8 @@ const PersonalInformation = props => {
                                             <MenuItem value="2">Regular User</MenuItem>
                                             </Select>
                                 </FormControl>
-                                </Grid>
-                                <Grid item md={6}>
+                                </Grid>}
+                                <Grid item md={6} xs={12} sm={12}>
                                 <FormControl className={classes.formControl}>
                                     <InputLabel htmlFor="referrer" shrink className={classes.bootstrapFormLabel}>Who referred you? (Enter Referrer ID)</InputLabel>
                                         <Input id="referrer" 

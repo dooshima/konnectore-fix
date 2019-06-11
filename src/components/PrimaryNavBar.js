@@ -38,7 +38,7 @@ const theme = createMuiTheme({
 const styles = theme => ({
   root: {
     display: 'flex',
-    margin: `0 ${theme.spacing.unit * 10}px`,
+    margin: `0 ${theme.spacing.unit * 5}px`,
   },
   grow: {
     flexGrow: 1,
@@ -146,6 +146,7 @@ class PrimaryNavBar extends React.Component {
     this.state = {
       anchorEl: null,
       mobileMoreAnchorEl: null,
+      showMenu: this.props.showMenu? this.props.showMenu: true,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -170,6 +171,10 @@ class PrimaryNavBar extends React.Component {
   handleSubmit (q) {
     this.props.handleSearch(q);
   };
+
+  componentDidMount() {
+    this.setState({showMenu: this.props.showMenu});
+  }
 
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
@@ -226,9 +231,18 @@ class PrimaryNavBar extends React.Component {
 
     return (
       <div className={classes.root}>
+        { this.props.isLoading && <div className={classes.loaderHolder}>
+              <LinearProgress
+                classes={{
+                  colorPrimary: classes.linearColorPrimary,
+                  barColorPrimary: classes.linearBarColorPrimary,
+                }}
+              />
+            </div>
+          }
         <div className={classes.holder}>
           <Toolbar style={{flexGrow: 1, minHeight: 54, backgroundColor: 'white', paddingLeft: 0, paddingRight: 0,}}>
-            <Grid container spacing={8}>
+            <Grid container spacing={0}>
               <Grid item xs={2} style={{display: 'flex', alignItems: 'center'}}>
                 <div style={{display: 'flex', justifyContent: 'start', alignItems: 'center'}}>
                   <Link to="/">
@@ -240,20 +254,12 @@ class PrimaryNavBar extends React.Component {
                 <SearchForm loggedIn={this.props.loggedIn} handleSubmit={this.handleSubmit} />
               </Grid>
               <Grid item xs={3} style={{display: 'flex', flexDirection: 'row-reverse', justifyContent: 'end', alignItems: 'center'}}>
-                <TopProfileMenu handleLogout={this.props.handleLogout} handleLogin={this.props.handleLogin} />
+                {this.state.showMenu && <TopProfileMenu handleLogout={this.props.handleLogout} handleLogin={this.props.handleLogin} />}
               </Grid>
             </Grid>
          
           </Toolbar>
-          { this.props.isLoading && <div className={classes.loaderHolder}>
-              <LinearProgress
-                classes={{
-                  colorPrimary: classes.linearColorPrimary,
-                  barColorPrimary: classes.linearBarColorPrimary,
-                }}
-              />
-            </div>
-          }
+          
         </div>
         {renderMenu}
         {renderMobileMenu}

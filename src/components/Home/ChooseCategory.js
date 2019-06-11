@@ -95,7 +95,13 @@ const styles = theme => ({
       loaderHolder: {
         flex: 1,
         marginBottom: theme.spacing.unit * 0,
-      }
+    },
+    rightContent: {
+        paddingLeft: 80,
+        [theme.breakpoints.down('md')]: {
+            paddingLeft: 0,
+        }
+    }
 });
 
 class ChooseCategory extends React.Component {
@@ -162,7 +168,7 @@ class ChooseCategory extends React.Component {
             <Grid item md={3}>
                 <OnboardMenu currentScreen={currentScreen} />
             </Grid>
-            <Grid item md={9} style={{paddingLeft: 80,}}>
+            <Grid item md={9}  xs={12} sm={12}  className={classes.rightContent}>
                 <Typography variant="h3" style={{fontSize: '2em', opacity: 0.8, marginBottom: '.6em'}}>
                     Let’s get you to stardom!
                 </Typography>

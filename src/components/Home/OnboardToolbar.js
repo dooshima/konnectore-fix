@@ -9,6 +9,12 @@ const styles = theme => ({
         textTransform: 'none',
         fontWeight: 300,
         opacity: 0.8,
+        [theme.breakpoints.down('md')]: {
+            margin: 10,
+            fontSize: theme.typography.fontSize * 1.1,
+            textAlign: 'center',
+            lineHeight: `${theme.typography.fontSize * 0.8}px`,
+        }
     },
     appBar: {
         backgroundColor: '#e19f47',

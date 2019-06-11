@@ -17,7 +17,9 @@ const styles = theme => ({
           },
         },
     },
-    primary: {},
+    primary: {
+        paddingLeft: '0px !important',
+    },
     icon: {},
 });
 
@@ -52,7 +54,7 @@ function AccountInfoWidget(props) {
                     <ListItemIcon className={classes.icon}>
                         <StarsIcon />
                     </ListItemIcon>
-                    <ListItemText classes={{ primary: classes.primary }} inset primary="Contestant Data" />
+                    <ListItemText classes={{ primary: classes.primary, root: classes.root }} inset primary="Contestant Data" />
                     </MenuItem>
                 
       </List>

@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { List, ListSubheader, ListItem, ListItemText, Avatar, Typography, Button } from '@material-ui/core';
+import { List, ListSubheader, ListItem, ListItemText, Avatar, Typography, Button, createMuiTheme } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import KPaper from '../UIC/KPaper';
 import SnackMessage from '../../widgets/alerts/SnackMessage';
 
-const styles = theme => ({
+const theme = createMuiTheme({
+    spacing: 10,
+});
+
+const styles = {
     link: {
         //padding: 0,
         margin: 0,
@@ -20,6 +24,10 @@ const styles = theme => ({
     },
     paper: {
         marginRight: '2em',
+        display: 'inherit',
+        [theme.breakpoints.down('md')]: {
+            display: 'none',
+        }
     },
     logo: {
         width: 'auto',
@@ -29,7 +37,7 @@ const styles = theme => ({
     logoDiv: {
         display: 'flex',
     }
-})
+};
 function OnboardMenu(props) {
     const { classes, currentScreen } = props;
     const [open, setState] = useState();
