@@ -145,7 +145,7 @@ class InboxComponent extends React.Component {
             <KPaper style={{margin: 20}} className={classes.inboxContainer}>
             <KPaper className={classes.inboxHeader}>
                 <Grid container spacing={8}>
-                    <Grid item md="4">
+                    <Grid item md="4" sm={12} xs={12}>
                         <div className={classes.controlsRow}>
                             <Typography style={{fontSize: 20, marginBottom: 0,}}>
                                 Messages
@@ -162,7 +162,7 @@ class InboxComponent extends React.Component {
                             </div>
                         </div>
                     </Grid>
-                    <Grid item md="8">
+                    <Grid item md={8} sm={12} xs={12}>
                         {this.props.inbox.currentThread.receiver_fname &&
                         <ListItem className={classes.item}>
                             <Avatar alt={`${this.props.inbox.currentThread.receiver_fname} ${this.props.inbox.currentThread.receiver_lname}`} src={this.props.user.data.id == this.props.inbox.currentThread.sender_id? Utility.getAvatar(this.props.inbox.currentThread.receiver_avatar): Utility.getAvatar(this.props.inbox.currentThread.sender_avatar)}/>
@@ -180,13 +180,13 @@ class InboxComponent extends React.Component {
                 </Grid>
             </KPaper>
                 <Grid container spacing={8}>
-                    <Grid item md="4">
+                    <Grid item md={4} sm={12} xs={12}>
                         <InboxSenderList threads={threadList} 
                         getMessages={this.getMessages} 
                         handleSelectedThread={this.handleSelectedThread}
                         user={this.props.user} />
                     </Grid>
-                    <Grid item md="8">
+                    <Grid item md={8} sm={12} xs={12}>
                         <InboxMessageThread 
                             messages={messageList} 
                             message={this.state.message} 

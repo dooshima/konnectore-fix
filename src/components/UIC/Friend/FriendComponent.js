@@ -90,7 +90,7 @@ class FriendComponent extends React.Component {
         return (
             <div style={{marginTop: 30, marginLeft: 20, marginRight: 20}}>
                 <Grid container spacing={0}>
-                    <Grid item xs={8}>
+                    <Grid item md={8} sm={12} xs={12}>
                     <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
                         <Switch>
                             <PropsRoute exact path={`${match.path}`} component={FriendsListComponent} people={people} user={user} handleFollow={this.handleFollow} handleUnfollow={this.handleUnfollow} />
@@ -103,7 +103,7 @@ class FriendComponent extends React.Component {
                         </Switch>
                     </Paper>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item md={4} sm={12} xs={12}>
                         <div style={{marginLeft: 10}}>
                             <PlaceComponents spacer={20}>
                                 <GrowYourNetwork friends={growFriends} />

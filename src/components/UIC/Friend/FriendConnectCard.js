@@ -1,11 +1,14 @@
 import React from 'react';
-import { Typography, withStyles, Avatar } from '@material-ui/core';
+import { Typography, withStyles, Avatar, createMuiTheme } from '@material-ui/core';
 import KButtonSmall from '../KButtonSmall';
 import { Link } from 'react-router-dom';
 import Utility from '../../../services/Utility';
 
+const theme = createMuiTheme({
+    spacing: 10,
+})
 
-const styles = theme => ({
+const styles = {
     item: {
         width: '25%',
         display: 'flex',
@@ -13,6 +16,9 @@ const styles = theme => ({
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 30,
+        [theme.breakpoints.down('md')]: {
+            width: '50%',
+        }
     },
     link: {
         textDecoration: 'none',
@@ -20,7 +26,7 @@ const styles = theme => ({
         color: 'black',
         cursor: 'pointer',
     }
-})
+};
 
 const FriendConnectCard = props => {
     const { classes, person, handleFollow, handleUnfollow, user } = props;

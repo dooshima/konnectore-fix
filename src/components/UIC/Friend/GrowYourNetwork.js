@@ -1,13 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { List, ListSubheader, ListItem, ListItemText, Avatar, Typography } from '@material-ui/core';
+import { List, ListSubheader, ListItem, ListItemText, Avatar, Typography, createMuiTheme } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import KButtonSmall from '../KButtonSmall';
 import KPaper from '../KPaper';
 import Utility from '../../../services/Utility';
 
-const styles = theme => {
+const theme = createMuiTheme({
+    spacing: 10,
+});
 
+const styles = {
+    personName: {
+        margin: 20,
+        [theme.breakpoints.down('md')]: {
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+        }
+    }
 }
 function GrowYourNetwork(props) {
     const { classes, friends, handleFollow, handleUnfollow } = props;
@@ -18,7 +29,7 @@ function GrowYourNetwork(props) {
                 friends.map( (friend, index) => 
                 <ListItem key={index}>
                 <Avatar alt={Utility.person(friend).fullName} src={Utility.person(friend).avatar} />
-                <ListItemText primary={Utility.person(friend).fullName} 
+                <ListItemText className={classes.personName} primary={Utility.person(friend).fullName} 
                     secondary={
                         friend.following < 1 ? <KButtonSmall label="Follow" 
                 size="small" onClick={() => handleFollow(friend.id)} />: 

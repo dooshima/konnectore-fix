@@ -18,7 +18,7 @@ class NotificationComponent extends React.Component {
     render() {
         return (
             <KPaper style={{margin: 20}}>
-                <Typography style={{fontSize: 20, marginBottom: 20,}}>
+                <Typography style={{fontSize: 20, marginBottom: 20, padding: 15,}}>
                     Notifications
                 </Typography>
                 <NotificationList {...this.props} />

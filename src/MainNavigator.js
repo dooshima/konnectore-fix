@@ -75,6 +75,9 @@ const styles = {
   },
   body: {
     marginLeft: theme.spacing.unit * 35.5,
+    [theme.breakpoints.down('md')]: {
+      marginLeft: 0,
+    }
     //paddingTop: theme.spacing.unit * 2,
   }
 };

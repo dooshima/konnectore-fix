@@ -22,7 +22,7 @@ const FriendTimeline = props => {
     }
     
     const posts = props.filterPosts(postList, props.filter);
-    console.log(postList, props.filter)
+    //console.log(postList, props.filter)
 
     return (
         <PostListWidget {...props} posts={posts} />
