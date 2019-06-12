@@ -23,7 +23,8 @@ class ContestSubmissionComponent extends React.PureComponent {
     }
 
     render() {
-        const { classes, stages, entries, user } = this.props;
+        const { classes, stages, entries, user, contest } = this.props;
+        //console.log(contest)
         const posts = entries.map( item => {
             let post = item;
             post.author = post.user_id;
@@ -32,11 +33,12 @@ class ContestSubmissionComponent extends React.PureComponent {
         return (
             <KPaper>
                 <ContentHeader {...this.props} />
-                <SubmissionFilterNav stages={stages} filter={this.state.filter} handleChange={this.handleChange.bind(this)} />
+                <SubmissionFilterNav stages={stages} categories={contest.category? contest.category: []} filter={this.state.filter} handleChange={this.handleChange.bind(this)} />
                 <EntryFilterNav currentEdition={Utility.isset(this.props.currentEdition)? this.props.currentEdition: {}}
                     handleContestSearch={this.props.handleContestSearch}
                     accessToken={this.props.accessToken}
                     contest={this.props.contest}
+                    categories={contest.category? contest.category: []}
                     setSearchState={this.props.setSearchState} />
                 <PostListWidget posts={posts} listType="contest" user={user} />
             </KPaper>

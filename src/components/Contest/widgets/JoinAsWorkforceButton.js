@@ -82,8 +82,9 @@ bootstrapFormLabel: {
 
 function JoinAsWorkforceButton(props) {
   const [open, setOpen] = React.useState(false);
-  const { contest } = props;
+  const { contest, contestProgress } = props;
   const currentEdition = Utility.isset(contest)? contest.currentEdition: {};
+  const progress = contestProgress;
 
   
   /*const useStyles = makeStyles({
@@ -123,6 +124,9 @@ function JoinAsWorkforceButton(props) {
     origin: '',
     comment: '',
     joined: false,
+    current_location: '',
+    state_of_origin: '',
+    why_join_contest: '',
   });
 
   console.log(state)
@@ -142,7 +146,7 @@ function JoinAsWorkforceButton(props) {
   const handleJoin = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    const form = {category_id: props.category, ref_code: props.referralID, contest_edition_id: props.contest_edition_id};
+    const form = {category_id: props.category, state_of_origin: state.state_of_origin, current_location: state.current_location, why_join_workforce: state.why_join_contest, contest_edition_id: props.contest_edition_id};
     props.joinAsWorkforce(form, props.authToken);
 
     console.log(form);
@@ -159,11 +163,11 @@ function JoinAsWorkforceButton(props) {
         >
             <DialogTitle id="alert-dialog-title"><Typography color="textSecondary">BECOME A WORKFORCE</Typography></DialogTitle>
             <DialogContent>
-              {state.joined !== true? <div>
-              <Typography variant="h5">What is Wiki Loves Africa?</Typography>
+              {progress.joined !== true? <div>
+              {false && <><Typography variant="h5">What is Wiki Loves Africa?</Typography>
               <Typography>
 Of all of the millions of subjects you can read about on Wikipedia, subjects relating to Africa have the least coverage. This is due to a number of reasons, but mainly because many people do not know that they can donate their images, videos and audio to Wikipedia.
-We need your help to visually celebrate the richness, diversity and beauty of Africa.</Typography>
+We need your help to visually celebrate the richness, diversity and beauty of Africa.</Typography></>}
 
 <Grid container spacing={40}>
                             <Grid item md={6}>
@@ -171,8 +175,8 @@ We need your help to visually celebrate the richness, diversity and beauty of Af
                                     <InputLabel htmlFor="currentLocation" shrink className={classes.bootstrapFormLabel}>Current Location</InputLabel>
                                         <Input id="currentLocation" 
                                             placeholder="Current Location" 
-                                            value={state.location} 
-                                            onChange={handleChange('location')} 
+                                            value={state.current_location} 
+                                            onChange={handleChange('current_location')} 
                                             fullWidth={true}
                                             disableUnderline={true}
                                             classes={{
@@ -187,8 +191,8 @@ We need your help to visually celebrate the richness, diversity and beauty of Af
                                     <InputLabel htmlFor="state" shrink className={classes.bootstrapFormLabel}>State of Origin</InputLabel>
                                         <Input id="state" 
                                             placeholder="State of Origin" 
-                                            value={state.origin} 
-                                            onChange={handleChange('origin')} 
+                                            value={state.state_of_origin} 
+                                            onChange={handleChange('state_of_origin')} 
                                             fullWidth={true}
                                             disableUnderline={true}
                                             classes={{
@@ -203,8 +207,8 @@ We need your help to visually celebrate the richness, diversity and beauty of Af
                                     <InputLabel htmlFor="comment" shrink className={classes.bootstrapFormLabel}>Why do you want to become a workforce agent for the Stage 2019?</InputLabel>
                                         <Input id="comment" 
                                             placeholder="Comment" 
-                                            value={props.bio} 
-                                            onChange={handleChange('comment')} 
+                                            value={state.why_join_contest} 
+                                            onChange={handleChange('why_join_contest')} 
                                             fullWidth={true}
                                             disableUnderline={true}
                                             classes={{
@@ -216,7 +220,9 @@ We need your help to visually celebrate the richness, diversity and beauty of Af
                                             style={{borderRadius: 10,}}
                                         />
                                 </FormControl>
+                                <SimpleTextAlert message={progress.message} />
                                 <KBigButton onClick={handleJoin} label="Join" />
+                                
                             </Grid>
                           </Grid></div>: <SimpleTextAlert message="You've become a workforce on the Stage." />}
             </DialogContent>

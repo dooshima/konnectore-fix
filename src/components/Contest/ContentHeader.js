@@ -83,14 +83,14 @@ class ContentHeader extends React.Component {
           <Grid item xs={8} sm container className={classes.summary}>
             <Grid item xs={8} className={classes.stats}>
                 <Typography gutterBottom component="h5" className={classes.title}>
-                  The Sctage 2019
+                  The Stage 2019
                 </Typography>
-                <Typography color="textSecondary">1024 Contstants</Typography>
+                <Typography color="textSecondary">10,000 Contstants</Typography>
                 <Typography color="textSecondary">
-                    SUBMISSIONS 1st FEB to 1st MAR 2019
+                  Contestants registration begins 28th June, 2019
                 </Typography>
                 <Typography color="textSecondary">
-                    VOTING 2nd MAR to 21st MAR 2019
+                    GRAND FINALE: 30th November, 2019
                 </Typography>
             </Grid>
             <Grid item xs={4} className={classes.status}>

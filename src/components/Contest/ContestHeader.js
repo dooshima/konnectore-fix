@@ -33,15 +33,15 @@ const ContestHeader = withRouter( (props) => {
         <PropsRoute exact path={`${props.path}/guide`} 
           component={ContestHeaderNav} 
           back={props.match.url}
-          title="The Sctage Contest - Guidelines" />
+          title="The Stage Contest - Guidelines" />
         <PropsRoute exact path={`${props.path}/entry`} 
           component={ContestHeaderNav} 
           back={props.match.url}
-          title="The Sctage Contest - Entry Submissions" />
+          title="The Stage Contest - Entry Submissions" />
         <PropsRoute exact path={`${props.path}/submissions`} 
           component={ContestHeaderNav} 
           back={props.match.url}
-          title="The Sctage Contest - Submissions" />
+          title="The Stage Contest - Submissions" />
         <PropsRoute exact path={props.path} component={TopNav} {...props} />
         <PropsRoute exact path={`${props.path}/submissions`} component={TopNav} {...props} />
       </Switch>

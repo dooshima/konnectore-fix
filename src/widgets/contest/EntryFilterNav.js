@@ -31,6 +31,8 @@ class EntryFilterNav extends React.Component
     }
 
     render() {
+        const options = this.props.categories.map( item => ({label: item.category_name, value: item.id}));
+        options.unshift({label: 'By Category', value: ' '});
         return (
             <div>
                 <form onSubmit={this.submit}>
@@ -41,7 +43,7 @@ class EntryFilterNav extends React.Component
                     <Grid item md={4}>
                         <KFormSelect name="category" value={this.state.category} 
                             handleChange={this.handleChange}
-                            options={[{label: 'Select category', value: ' '}, {label: 'Singing', value: '1'}, {label: 'Dancing', value: 2}]} />
+                            options={options} />
                     </Grid>
                     <Grid item md={4}>
                         <KFormSelect name="sort" value={this.state.sort} 

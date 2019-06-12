@@ -195,7 +195,7 @@ const joinAsWorkforce = (form, token) => dispatch => {
     dispatch(setJoinProgress({status: true, message: 'Joining ...'}));
     Contest.joinAsWorkforce(form, token)
         .then( response => {
-            dispatch(setJoinProgress({staus: false, message: 'You are now a workforce!'}));
+            dispatch(setJoinProgress({status: false, message: 'You are now a workforce!', joined: true}));
             dispatch(setContestUserRole(3));
         })
         .catch ( error => {

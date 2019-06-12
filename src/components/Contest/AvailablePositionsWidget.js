@@ -81,9 +81,9 @@ class AvailablePositionsWidget extends React.Component {
     }
 
     render() {
-        const {classes, match, history, url, user, contest} = this.props;
+        const {classes, match, history, url, user, contest, userRole} = this.props;
         let content = '';
-        const userRole = contest.userRole;
+        //const userRole = contest.userRole;
         const categories = Utility.isset(contest.category)? contest.category: [];
         console.log(categories, userRole)
     return (
@@ -107,6 +107,7 @@ class AvailablePositionsWidget extends React.Component {
                     joinAsWorkforce={this.props.joinAsWorkforce}
                     contestProgress={this.props.contestProgress}
                     userRole={+userRole}
+                    categories={categories}
                     withdrawFromContest={this.props.withdrawFromContest}
                     user={user.data} authToken={user.authToken} url={url} contest={contest} entryCategory={this.props.entryCategory} addEntryCategory={this.props.addEntryCategory} />
 

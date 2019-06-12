@@ -70,7 +70,7 @@ const ContestHeaderCard = props => {
           </Grid>
           <Grid item xs={8} sm className={classes.summary}>
                 <Typography gutterBottom component="h5" className={classes.title}>
-                  The Sctage
+                  The Stage
                 </Typography>
                 <KButtonLink />
           </Grid>

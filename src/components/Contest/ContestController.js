@@ -38,7 +38,7 @@ class ContestController extends React.Component {
     componentDidMount() {
         this.props.getContest(this.props.match.params.slug, this.props.user.data.id);
         const contest = this.props.contest;
-        const currentEdition = Utility.isset(contest)? contest.currentEdition: {};
+        const currentEdition = Utility.isset(contest) && Utility.isset(contest.currentEdition)? contest.currentEdition: {};
         this.props.getTopContestants({contest_edition_id: currentEdition.id, contest_stage_id: 0}, this.props.accessToken);
     }
 
@@ -160,6 +160,7 @@ const mapStateToProps = state => {
         entryCategory: state.contest.entryCategory,
         search: state.contest.search,
         topContestants: state.contest.topContestants,
+        userRole: state.contest.userRole,
     }
 }
 

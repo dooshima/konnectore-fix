@@ -71,9 +71,10 @@ class JoinContestWidget extends React.Component {
     }
 
     render() {
-        const { user, classes, history, url, contest, userRole } = this.props;
+        const { user, classes, history, url, contest, userRole, categories } = this.props;
         const currentEdition = Utility.isset(contest) && Utility.isset(contest.currentEdition)? contest.currentEdition: {};
-
+console.log(categories)
+        const options = categories.map( item => ({label: item.category_name, value: item.id}) );
         if(!Utility.isset(user) || !Utility.isset(user.usertype)) {
             return <SmallCircularLoader />;
         }
@@ -84,7 +85,7 @@ class JoinContestWidget extends React.Component {
             case 0:
                 const narration = `To join ${currentEdition.slogan}, you must refer 20 users or more. Your referral ID is: ${user.referralID}`;
                 return <div className={classes.joinInfo}>
-                    <KFormSelect className={classes.selectStyle} value={this.state.category} options={[{label: 'Singer', value: 1}, {label: 'Comedian', value: 2} ]} handleChange={this.handleChange} value1={this.props.entryCategory} label="Category" name="category" />
+                    <KFormSelect className={classes.selectStyle} value={this.state.category} options={options} handleChange={this.handleChange} value1={this.props.entryCategory} label="Category" name="category" />
                     {false && <Typography className={classes.mentioned}>
                         Select one of the above categories
                     </Typography>}

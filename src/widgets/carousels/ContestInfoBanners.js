@@ -72,16 +72,16 @@ class ContestInfoBanners extends React.Component {
                             <Typography className={classes.tagText}>POPULAR</Typography>
                             <Typography className={classes.titleText}>The Stage 2019</Typography>
                             <Typography color="textSecondary" className={classes.contentText}>
-                            The 2019 edition of The Sctage Competition saw many of its users last till the final 
+                            The 2019 edition of The Stage Competition saw many of its users last till the final 
                             rounds.
                             </Typography>
-                            <Typography className={classes.dateText}>Starts 11 Sept 2019</Typography>
+                            <Typography className={classes.dateText}>Starts 28th June 2019</Typography>
                         </Grid>
                         <Grid item xs="4" className={classes.img}>
                             <img src="/images/post-img.png" style={{width: 120,}} />
                         </Grid>
                         <Grid item xd={12}>
-                        <Button className={classes.join}>Join the contest</Button>
+                        <Button className={classes.join}>Learn more</Button>
                         </Grid>
                     </Grid>
                 </KPaper>
