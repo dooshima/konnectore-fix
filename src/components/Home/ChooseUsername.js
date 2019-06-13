@@ -135,7 +135,7 @@ const ChooseUsername = props => {
                     <InputLabel htmlFor="username" shrink className={classes.bootstrapFormLabel}>Enter Username</InputLabel>
                     <div style={{display: 'flex',flexDirection: 'row', alignItems: 'center', paddingTop: 30,}}>
                         <Input id="username" 
-                            placeholder="yourname@domain.com" 
+                            placeholder="your username" 
                             value={props.username} 
                             onChange={props.handleUsernameChange} 
                             //fullWidth={true}

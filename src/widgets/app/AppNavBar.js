@@ -147,7 +147,7 @@ const styles = theme => ({
   },
   loaderHolder: {
     flex: 1,
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: 0,  //theme.spacing.unit * 2,
   },
   search: {
     position: 'relative',
@@ -364,6 +364,7 @@ class AppNavBar extends React.Component {
                   open={this.state.open}
                   onClose={this.handleMenuClose}
                 >
+                  <MenuItem>Code: <span style={{color: '#00a294', fontWeight: 800}}> {user.referralID}</span></MenuItem>
                   <MenuItem onClick={this.gotoProfile}>My Profile</MenuItem>
                   <MenuItem onClick={this.handleClose}>Settings &amp; Privacy</MenuItem>
                   <MenuItem onClick={this.handleClose}>Need help?</MenuItem>
@@ -387,6 +388,7 @@ class AppNavBar extends React.Component {
                   open={isMobileMenuOpen}
                   onClose={this.handleMobileMenuClose}
                 >
+                  <MenuItem>Code: <span style={{color: '#00a294', fontWeight: 800}}> {user.referralID}</span></MenuItem>
                   <MenuItem onClick={this.gotoProfile}>My Profile</MenuItem>
                   <MenuItem onClick={this.handleClose}>Settings &amp; Privacy</MenuItem>
                   <MenuItem onClick={this.handleClose}>Need help?</MenuItem>
@@ -398,6 +400,15 @@ class AppNavBar extends React.Component {
     return (
       <div className={classes.root}>
         <div className={classes.holder}>
+        { this.props.isLoading && <div className={classes.loaderHolder}>
+              <LinearProgress
+                classes={{
+                  colorPrimary: classes.linearColorPrimary,
+                  barColorPrimary: classes.linearBarColorPrimary,
+                }}
+              />
+            </div>
+          }
           {false && <Toolbar style={{flexGrow: 1, minHeight: 54, backgroundColor: 'white', paddingLeft: 0, paddingRight: 0,}}>
           <Grid container spacing={8}>
               <Grid item xs={2} style={{display: 'flex', alignItems: 'center'}}>
@@ -473,15 +484,7 @@ class AppNavBar extends React.Component {
         </div>
         {renderMenu}
         {renderMobileMenu}
-        { this.props.isLoading && <div className={classes.loaderHolder}>
-              <LinearProgress
-                classes={{
-                  colorPrimary: classes.linearColorPrimary,
-                  barColorPrimary: classes.linearBarColorPrimary,
-                }}
-              />
-            </div>
-          }
+        
           
                 <Drawer
                   classes={{

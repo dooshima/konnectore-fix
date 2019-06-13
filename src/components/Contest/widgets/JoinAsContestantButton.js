@@ -93,7 +93,7 @@ function JoinAsContestantButton(props) {
 
     return (
         <div>
-        <KBigButton onClick={handleJoin} label="Join the contest" upper={true} />
+        <KBigButton disabled={true} onClick={handleJoin} label="Join the contest" upper={true} />
         <Dialog
             open={open}
             onClose={handleClose}

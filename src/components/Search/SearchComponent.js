@@ -190,7 +190,7 @@ class SearchComponent extends React.Component {
     return (
       <div style={{marginTop: 30, marginLeft: 20, marginRight: 20}}>
           <Grid container spacing={8}>
-            <Grid item xs={8}>
+            <Grid item md={8} xs={12} sm={12}>
               <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
                 <Typography>
                   <span>Showing results for</span>
@@ -201,12 +201,13 @@ class SearchComponent extends React.Component {
                 {count > 0? <SearchList persons={search.peopleById} contest={contest} filter={this.state.filter} searchResult={searchResult} />: <SimpleTextAlert message="No resulf found" />}
               </Paper>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item md={4} xs={12} sm={12}>
                 <div style={{marginLeft: 20}}>
                   <SearchFilterCard />
-                    {isLoggedIn && <><FeedCard />     
-                    <CompetitionSummaryCard /></>}
-                    <JoinChallengeCard />
+                    {false && <><FeedCard />     
+                    <CompetitionSummaryCard />
+                    <JoinChallengeCard /></>}
+                    
                 </div>
             </Grid>
           </Grid>

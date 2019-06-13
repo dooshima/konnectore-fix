@@ -122,7 +122,7 @@ class MeController extends React.Component {
                     <Grid item md={4} sm={12} xs={12}>
                         <div style={{marginLeft: 10}}>
                             <PlaceComponents spacer={20}>
-                                <Route exact path={`${match.path}/`} component={AwardsAndBadges} />
+                                {false && <Route exact path={`${match.path}/`} component={AwardsAndBadges} />}
                                 <Route exact path={`${match.path}/`} component={AccountInfoWidget} />
                                 <Route exact path={`${match.path}/account/edit`} component={EditPersonalInfoWidget} />
                                 <Route exact path={`${match.path}/account/change-password`} component={ManageYourAccountWidget} />

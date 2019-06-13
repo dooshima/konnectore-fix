@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
-import { withStyles, Button } from '@material-ui/core';
+import { withStyles, Button, IconButton } from '@material-ui/core';
 import PostDetailSliderWidget from './PostDetailSliderWidget';
+import CloseIcon from '@material-ui/icons/Close';
 
 const styles = theme => ({
   /* contentHolder: {
@@ -97,6 +98,9 @@ class PostDetailWidget extends React.Component {
             root: classes.root,
           }}
         >
+          <IconButton onClick={this.handleClose} className={classes.iconButton}>
+            <CloseIcon />
+          </IconButton>
           <PostDetailSliderWidget posts={posts} toggleDialog={toggleDialog} {...this.props} />
 
         </Dialog>

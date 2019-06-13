@@ -114,7 +114,7 @@ class ContestController extends React.Component {
         return (
             <div style={{marginTop: 30, marginLeft: 20, marginRight: 20}}>
                 <Grid container spacing={0}>
-                    <Grid item xs={8}>
+                    <Grid item md={8} xs={12} sm={12}>
                     <Paper style={{boxShadow: 'none', textAlign: "left", paddingLeft: 10, paddingRight: 10}}>
                         <ContestHeader path={match.path} {...this.props} setFilter={this.setFilter.bind(this)} handleFollowContest={this.handleFollowContest} />
                         <Switch>
@@ -125,7 +125,7 @@ class ContestController extends React.Component {
                         </Switch>
                     </Paper>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item md={4} xs={12} sm={12}>
                         <div style={{marginLeft: 10}}>
                             <PlaceComponents spacer={20}>
                                 <PropsRoute exact path={`${match.path}/`} component={PageInfoWidget} />

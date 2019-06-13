@@ -74,13 +74,13 @@ class ContentHeader extends React.Component {
   })
   return (
     <div className={classes.root}>
-        <Grid container spacing={8}>
+        <Grid container spacing={2}>
           <Grid item>
             <ButtonBase className={classes.image}>
               <img className={classes.img} alt="complex" src="/contests/banner-img.png" />
             </ButtonBase>
           </Grid>
-          <Grid item xs={8} sm container className={classes.summary}>
+          <Grid item md={8} xs={12} sm={12} container className={classes.summary}>
             <Grid item xs={8} className={classes.stats}>
                 <Typography gutterBottom component="h5" className={classes.title}>
                   The Stage 2019
@@ -93,7 +93,7 @@ class ContentHeader extends React.Component {
                     GRAND FINALE: 30th November, 2019
                 </Typography>
             </Grid>
-            <Grid item xs={4} className={classes.status}>
+            <Grid item md={4} xs={12} sm={12} className={classes.status}>
                 <Button color="primary" variant="contained">{ Utility.isset(currentEdition)? currentEdition.status: 'n/a' }</Button>
             </Grid>
           </Grid>

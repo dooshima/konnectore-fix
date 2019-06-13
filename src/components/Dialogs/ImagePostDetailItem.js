@@ -11,7 +11,7 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import { CardHeader, Avatar, CardActions, TextField, FormControl, Input, createMuiTheme } from '@material-ui/core';
-import AlarmIcon from '@material-ui/icons/Alarm'
+import CloseIcon from '@material-ui/icons/Close';
 import PostActivityWidget from '../../widgets/posts/PostActivityWidget';
 import Utility from '../../services/Utility';
 
@@ -25,6 +25,7 @@ const styles = {
     borderRadius: 0,
     [theme.breakpoints.down('md')]: {
       flexDirection: 'column',
+      position: 'relative',
     }
   },
   details: {
@@ -73,6 +74,12 @@ const styles = {
   },
   input: {
       padding: 10,
+  },
+  iconButton: {
+    position: 'absolute',
+    //display: 'none',
+    right: 10,
+    top: 10,
   }
 };
 
@@ -80,6 +87,7 @@ function ImagePostDetailItem(props) {
   const { classes, theme, item } = props;
   return (
     <Card className={classes.card}>
+        
         <CardMedia
             className={classes.cover}
             image={Utility.getPath(item.coverImage)}
