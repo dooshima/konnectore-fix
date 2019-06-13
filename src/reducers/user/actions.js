@@ -326,7 +326,7 @@ const handleLogin = (email, password) => {
                 dispatch(authSignupRedirect(true));
 
                 if(!Utility.isset(user.username) || !Utility.isset(user.firstname) || !Utility.isset(user.lastname)) {
-                    console.log('Data: ', user);
+                    authSignupSuccess({id: user.id, email: user.email});
                     history.push('/onboard/');
                 } else {
                     history.push('/me');
