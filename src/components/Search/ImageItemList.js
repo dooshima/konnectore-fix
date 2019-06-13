@@ -18,6 +18,7 @@ const ImageItemList = ({ list, classes }) => {
             return false;
         }
     });
+    
     const vList = videos.map( (video, i) => {
         return <ImageItem key={i} item={video} />
     });

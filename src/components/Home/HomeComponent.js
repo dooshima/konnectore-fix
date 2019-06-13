@@ -135,6 +135,7 @@ class HomeCompoment extends React.PureComponent {
 
     componentDidMount() {
         //this.props.clearUserCache();
+        
     }
 
     toggleForm = (form) => {
