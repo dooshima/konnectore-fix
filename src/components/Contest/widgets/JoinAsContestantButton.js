@@ -103,7 +103,7 @@ function JoinAsContestantButton(props) {
             <DialogContent>
             {props.referralsCount >= 20? <DialogContentText id="alert-dialog-description" style={{display: 'flex', flexDirection: 'column', width: 500,}}>
                 <FormControl>
-                    <FormLabel>Who referred you? (Optional)</FormLabel>
+                    <FormLabel>Referred by? (Optional)</FormLabel>
                 <Input
                     placeholder="Enter referrer ID"
                     onChange={handleChange('ref_code')}

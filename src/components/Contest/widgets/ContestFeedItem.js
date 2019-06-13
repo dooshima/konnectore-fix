@@ -27,13 +27,17 @@ const styles = theme => ({
 
 const ContestFeedItem = props => {
     const { classes, edition } = props;
+    const contestEdition = Utility.isset(edition)? edition: {};
+    if(Utility.isset(edition)) {
     return (
         <div className={classes.item}>
-            <Typography color="textSecondary">{edition.slogan}</Typography>
-            <img src={Utility.getPath(edition.coverImage)} className={classes.cover} />
+            <Typography color="textSecondary">{contestEdition.slogan}</Typography>
+            <img src={Utility.getPath(contestEdition.coverImage)} className={classes.cover} />
             <Link to="/contest/sctage/guide"  className={classes.link}> <KButtonSmall label="Enter Contest" /></Link>
         </div>
-    )
+    ) } else {
+        return null;
+    }
 }
 
 export default withStyles(styles)(ContestFeedItem);
