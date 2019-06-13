@@ -13,12 +13,19 @@ const ProtectedRoute = ({component: Component, render: Render, user, ...rest}) =
         <Route
             {...rest}
             render={ props => {
-                const notonboarded = !user.authToken || !Utility.isset(user.data.firstname) || !Utility.isset(user.data.lastname) || !Utility.isset(user.data.id);
+                const notonboarded = Utility.isset(user.authToken) && user.authToken !== "" && ( !Utility.isset(user.data.firstname) || !Utility.isset(user.data.lastname) || !Utility.isset(user.data.id) );
                 if(props.match.path === '/') {
-                    if(notonboarded) {
-                        return <OnboardComponent {...props} />
+                    if(user.authToken === "") {
+                        return <HomeComponent />;
+                    } else {
+                        if(notonboarded) {
+                            return <OnboardComponent {...props} />;
+                        } else {
+                            return <SidebarComponent component={DashboardComponent} user={user} {...props} />;
+                        }
                     }
-                    return (user.authToken && user.data.hasOwnProperty('id'))? <SidebarComponent component={DashboardComponent} user={user} {...props} />: <HomeComponent {...props} />
+                   
+                    
                 } else {
                     console.log('Option two')
                     if(props.match.path === '/') {
