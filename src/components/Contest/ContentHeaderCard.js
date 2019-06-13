@@ -62,7 +62,7 @@ const ContestHeaderCard = props => {
   return (
     <div className={classes.root}>
       <Paper elevation={0} className={classes.paper} style={{backgroundImage: `url('/contests/cover-img-grp.png')`}}>
-        <Grid container spacing={8}>
+        <Grid container spacing={2}>
           <Grid item>
             <ButtonBase className={classes.image}>
               <img className={classes.img} alt="complex" src="/images/post-img.png" />
