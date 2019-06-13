@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createMuiTheme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -13,21 +13,34 @@ import Utility from '../../../services/Utility';
 import ReactTimeAgo from 'react-time-ago/commonjs/ReactTimeAgo';
 import { Avatar } from '@material-ui/core';
 
-const styles = theme => ({
+const theme = createMuiTheme({
+  spacing: 10,
+})
+const styles = {
   card: {
     display: 'flex',
+    flexDirection: 'row',
     marginBottom: theme.spacing.unit,
+    [theme.breakpoints.down('md')]: {
+      flexDirection: 'column',
+    }
   },
   details: {
     display: 'flex',
     flexDirection: 'column',
     width: '55%',
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+    }
   },
   content: {
     flex: '1 0 auto',
   },
   cover: {
     width: '45%',
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+    }
   },
   controls: {
     display: 'flex',
@@ -42,11 +55,11 @@ const styles = theme => ({
   description: {
       margin: '1em 0',
   }
-});
+};
 
 function ContestFeedItemCard(props) {
   const { classes, theme, edition } = props;
-  const contest = edition;
+  const contest = Utility.isset(edition)? edition: {};
   return (
     <Card className={classes.card}>
         <CardMedia

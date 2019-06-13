@@ -94,7 +94,7 @@ const styles = theme => ({
         flexDirection: 'row',
         justifyContent: 'flex-end',
     },
-    content: {
+    contentU: {
         marginBottom: 20,
     },
     next: {
@@ -119,6 +119,7 @@ const styles = theme => ({
         paddingLeft: 80,
         [theme.breakpoints.down('md')]: {
             paddingLeft: 0,
+            margin: 20,
         }
     }
 });
@@ -130,7 +131,7 @@ const AddYourPicture = props => {
     return (
         <div className={classes.main}>
         <OnboardToolbar {...props} />
-        <div className={classes.wrapper}>
+        <div className={classes.wrapper1}>
         <Grid container spacing={0}>
             <Grid item md={3}>
                 <OnboardMenu currentScreen={currentScreen} />
@@ -143,7 +144,7 @@ const AddYourPicture = props => {
                     Put your best face forward. <span className={classes.span}>Choose a picture</span>
                 </Typography>
                 <KCard className={classes.card}>
-                    <CardContent className={classes.content}>
+                    <CardContent className={classes.contentU}>
                         <Typography color="error">{props.authError}</Typography>
                         <Grid container spacing={40}>
                             <Grid item md={5} className={classes.flexed}>

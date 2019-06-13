@@ -18,7 +18,7 @@ const styles = theme => ({
     main: {
         backgroundColor: '#f9fffc',
     },
-    wrapper: {
+    wrapper1: {
         width: '80%',
         margin: '100px auto 20px'
     },
@@ -79,7 +79,7 @@ const styles = theme => ({
         flexDirection: 'row',
         justifyContent: 'flex-end',
     },
-    content: {
+    contentU: {
         marginBottom: 20,
         display: 'flex',
         flexWrap: 'wrap',
@@ -133,7 +133,7 @@ class ConnectWithPeople extends React.Component {
         <div className={classes.main}>
         
         <OnboardToolbar {...this.props}/>
-        <div className={classes.wrapper}>
+        <div className={classes.wrapper1}>
         <Grid container spacing={0}>
             <Grid item md={3}>
                 <OnboardMenu currentScreen={currentScreen} />
@@ -147,13 +147,13 @@ class ConnectWithPeople extends React.Component {
                 </Typography>
                 <KCard className={classes.card}>
                     {friends.length > 0?
-                    <CardContent className={classes.content}>
+                    <CardContent className={classes.contentU}>
                         {friends.map( (person, i) => <FriendConnectCard key={i} index={i} person={person} follow={this.follow} {...this.props} />)}
                     </CardContent>: 
                     <SimpleTextAlert message="No friends suggestion yet" />
                     }
                     
-                    {false && <CardContent className={classes.content}>
+                    {false && <CardContent className={classes.contentU}>
                         {this.props.talentCategories.map( (cat, i) => <CategoryButton key={i} index={cat.id} id={cat.id} category={cat} selected={this.state.selectedCategories.findIndex(c => c.id === cat.id) !== -1} toggleCategory={this.toggleCategory} />)}
                     </CardContent>}
 

@@ -327,6 +327,7 @@ const handleLogin = (email, password) => {
 
                 if(!Utility.isset(user.username) || !Utility.isset(user.firstname) || !Utility.isset(user.lastname)) {
                     authSignupSuccess({id: user.id, email: user.email});
+                    console.log('Get to onboarding')
                     history.push('/onboard/');
                 } else {
                     history.push('/me');

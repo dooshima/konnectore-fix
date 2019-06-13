@@ -14,7 +14,7 @@ const styles = theme => ({
     main: {
         backgroundColor: '#f9fffc',
     },
-    wrapper: {
+    wrapper1: {
         width: '80%',
         margin: '100px auto 20px'
     },
@@ -75,7 +75,7 @@ const styles = theme => ({
         flexDirection: 'row',
         justifyContent: 'flex-end',
     },
-    content: {
+    contentU: {
         marginBottom: 20,
     },
     next: {
@@ -163,7 +163,7 @@ class ChooseCategory extends React.Component {
             }}
             /></div>
         }
-        <div className={classes.wrapper}>
+        <div className={classes.wrapper1}>
         <Grid container spacing={0}>
             <Grid item md={3}>
                 <OnboardMenu currentScreen={currentScreen} />
@@ -179,7 +179,7 @@ class ChooseCategory extends React.Component {
                     <Typography color="error">{this.props.authError}</Typography>
                 </div>
                 <KCard className={classes.card}>
-                    <CardContent className={classes.content}>
+                    <CardContent className={classes.contentU}>
                         {this.props.talentCategories.map( (cat, i) => <CategoryButton key={i} index={cat.id} id={cat.id} category={cat} selected={this.state.selectedCategories.findIndex(c => c.id === cat.id) !== -1} toggleCategory={this.toggleCategory} />)}
                     </CardContent>
                     <CardActions className={classes.actions}>

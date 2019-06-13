@@ -5,13 +5,19 @@ import MeController from '../UIC/Me/MeController';
 import SidebarComponent from '../UIC/SidebarComponent';
 import HomeComponent from '../Home/HomeComponent';
 import DashboardComponent from '../Dashboard/DashboardComponent';
+import OnboardComponent from '../Home/OnboardComponent';
+import Utility from '../../services/Utility';
 
 const ProtectedRoute = ({component: Component, render: Render, user, ...rest}) => {
     return (
         <Route
             {...rest}
             render={ props => {
-                if((props.match.path === '/' || !user.data || !user.data.hasOwnProperty('id'))) {
+                const notonboarded = !user.authToken || !Utility.isset(user.data.firstname) || !Utility.isset(user.data.lastname) || !Utility.isset(user.data.id);
+                if(props.match.path === '/') {
+                    if(notonboarded) {
+                        return <OnboardComponent {...props} />
+                    }
                     return (user.authToken && user.data.hasOwnProperty('id'))? <SidebarComponent component={DashboardComponent} user={user} {...props} />: <HomeComponent {...props} />
                 } else {
                     console.log('Option two')

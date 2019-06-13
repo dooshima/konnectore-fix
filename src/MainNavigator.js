@@ -25,6 +25,7 @@ import TOSComponent from './components/Meta/TOSComponent';
 import AboutComponent from './components/Meta/AboutComponent';
 import FAQComponent from './components/Meta/FAQComponent';
 import Utility from './services/Utility';
+import HomeComponent from './components/Home/HomeComponent';
 
 const qs = require('query-string');
 
@@ -89,12 +90,18 @@ function RRedirect () {
 }
 
 function MainNavigator(props) {
-  
+  console.log(props.user);
+  // 
+  //!props.user.authToken? HomeComponent: (notonboarded? OnboardComponent: DashboardComponent)
+  // !props.user.authToken || !Utility.isset(props.user.data.firstname) || !Utility.isset(props.user.data.lastname) || !Utility.isset(props.user.data.id)
+  // (props.user.authToken && Utility.isset(props.user.data.firstname) && Utility.isset(props.user.data.lastname) && Utility.isset(props.user.data.id))
+
+  const notonboarded = !props.user.authToken || !Utility.isset(props.user.data.firstname) || !Utility.isset(props.user.data.lastname) || !Utility.isset(props.user.data.id);
+  console.log('Not ob:', notonboarded)
     return (
         <Switch>
-            <ProtectedRoute exact path="/" component={
-              (props.user.authToken && Utility.isset(props.user.data.firstname) && Utility.isset(props.user.data.lastname) && Utility.isset(props.user.data.id))? DashboardComponent: HomeCompoment} {...props}/>
-            <Route exact path="/onboard" component={(props.user.authToken && Utility.isset(props.user.data.firstname) && Utility.isset(props.user.data.lastname) && Utility.isset(props.user.data.id))? RRedirect: OnboardComponent} {...props} />
+            <ProtectedRoute exact path="/" component={HomeCompoment} {...props}/>
+            <PropsRoute exact path="/onboard" component={OnboardComponent} {...props} />
             <PropsRoute exact path="/password/reset" component={PRComponent} />
             <PropsRoute exact path="/signed-up" component={AccountCreatedComponent} user={props.user} />
             <PropsRoute exact path="/password/reset/:token" component={PasswordResetComponent} />

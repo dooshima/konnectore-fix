@@ -13,9 +13,13 @@ const styles = theme => ({
     main: {
         backgroundColor: '#f9fffc',
     },
-    wrapper: {
+    wrapper1: {
         width: '80%',
-        margin: '100px auto 20px'
+        margin: '100px auto 20px',
+        [theme.breakpoints.down('md')]: {
+            width: '94%',
+            padding: '2%',
+        }
     },
     card: {
         width: 'auto',
@@ -78,7 +82,7 @@ const styles = theme => ({
         flexDirection: 'row',
         justifyContent: 'flex-end',
     },
-    content: {
+    contentU: {
         marginBottom: 20,
     },
     next: {
@@ -110,7 +114,7 @@ const ChooseUsername = props => {
         <div className={classes.main}>
         
         <OnboardToolbar {...props} />
-        <div className={classes.wrapper}>
+        <div className={classes.wrapper1}>
         <Grid container spacing={0}>
             <Grid item md={3}>
                 <OnboardMenu currentScreen={currentScreen} />
@@ -123,7 +127,7 @@ const ChooseUsername = props => {
                     Choose a unique username to get this ball rolling. <span className={classes.span}>Choose one</span>
                 </Typography>
                 <KCard className={classes.card}>
-            <CardContent className={classes.content}>
+            <CardContent className={classes.contentU}>
                 <Typography variant="h3" style={{fontSize: '2em', opacity: 0.8, marginBottom: '.6em'}}>
                     
                 </Typography>

@@ -15,9 +15,12 @@ const styles = {
     main: {
         backgroundColor: '#f9fffc',
     },
-    wrapper: {
+    wrapper1: {
         width: '80%',
-        margin: '100px auto 20px'
+        margin: '100px auto 20px',
+        [theme.breakpoints.down('md')]: {
+            width: '95%',
+        }
     },
     card: {
         width: 'auto',
@@ -97,7 +100,7 @@ const styles = {
         flexDirection: 'row',
         justifyContent: 'flex-end',
     },
-    content: {
+    contentU: {
         marginBottom: 20,
     },
     next: {
@@ -123,7 +126,7 @@ const PersonalInformation = props => {
         <div className={classes.main}>
         
         <OnboardToolbar {...props} />
-        <div className={classes.wrapper}>
+        <div className={classes.wrapper1}>
         <Grid container spacing={0}>
             <Grid item md={3} xs={12} sm={12}>
                 <OnboardMenu currentScreen={currentScreen} />
@@ -136,7 +139,7 @@ const PersonalInformation = props => {
                     Build up your profile so your friends can connect with you. <span className={classes.span}>Choose as many as applicable</span>
                 </Typography>
                 <KCard className={classes.card}>
-                    <CardContent className={classes.content}>
+                    <CardContent className={classes.contentU}>
                         <Grid container spacing={16}>
                             <Grid item md={6} xs={12} sm={12}>
                                 <FormControl className={classes.formControl}>

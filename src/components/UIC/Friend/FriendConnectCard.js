@@ -20,11 +20,12 @@ const styles = {
             width: '50%',
         }
     },
-    link: {
+    link1: {
         textDecoration: 'none',
         fontStyle: 'normal',
         color: 'black',
         cursor: 'pointer',
+        textAlign: 'center',
     }
 };
 
@@ -40,7 +41,7 @@ const FriendConnectCard = props => {
     return (
         <div className={classes.item}>
             <Link to={`/people/${person.id}`}><Avatar alt={fullName} src={src} /></Link>
-            <Link to={`/people/${person.id}`} className={classes.link}><Typography style={{margin: '.6em auto'}}>{fullName}</Typography></Link>
+            <Link to={`/people/${person.id}`} className={classes.link1}><Typography style={{margin: '.6em auto'}}>{fullName}</Typography></Link>
             {person.following < 1 ? <KButtonSmall label="Follow" 
                 size="small" onClick={() => handleFollow(person.id)} />: 
                 <KButtonSmall label="Unfollow" collor="secondary"

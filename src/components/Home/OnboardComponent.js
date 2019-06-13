@@ -32,6 +32,13 @@ class OnboardComponent extends React.PureComponent {
     }
 
     componentDidMount() {
+        console.log(this.props.user);
+        const props = this.props;
+        //if(!props.user.authToken || !Utility.isset(props.user.data.firstname) || !Utility.isset(props.user.data.lastname) || !Utility.isset(props.user.data.id)) {
+            //this.props.handleSignupSuccess({id: props.user.data.id, email: props.user.data.id});
+            //this.props.logout(props.user.data.id);
+            //props.history.push('/onboard');
+        //}
         this.props.getTalentCategories();
         this.props.getFriendSuggestion(this.props.authToken);
         this.setState({username: this.props.userData.username})
@@ -96,10 +103,11 @@ class OnboardComponent extends React.PureComponent {
     }
 
     render() {
+        console.log('See onboarding')
         const data = this.props.userData;
         if(Utility.isset(data.username) && Utility.isset(data.firstname) && !Utility.isset(data.lastname)) {
             //this.props.logout(this.props.userData.id);
-            return <Redirect to="/me" />
+            //return <Redirect to="/me" />
             //this.props.history.push('/me');
         }
             
@@ -203,6 +211,9 @@ const mapDispatchToProps = dispatch => {
         },
         resendConfirmation: token => {
             dispatch(userActions.resendConfirmation(token));
+        },
+        handleSignupSuccess: data => {
+            dispatch(userActions.authSignupSuccess(data));
         }
     }
 }
