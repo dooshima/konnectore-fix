@@ -3,6 +3,7 @@ import { Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import PostStatsWidget from './PostStatsWidget';
 import CommentListWidget from '../comments/CommentListWidget';
+import HashtagParser from './HashtagParser';
 
 const styles = theme => ({
     postText: {
@@ -16,7 +17,7 @@ const PostActivityContent = (props) => {
     return (
         <React.Fragment>
             <Typography color="textSecondary" className={classes.postText}>
-                {post.text}
+                <HashtagParser>{post.text}</HashtagParser>
                 </Typography>
                 <PostStatsWidget post={post} {...props}/>
                 <CommentListWidget post={post} />

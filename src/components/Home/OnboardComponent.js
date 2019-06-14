@@ -168,6 +168,7 @@ const mapStateToProps = state => {
         authToken: state.user.authToken,
         userData: state.user.data,
         people: state.friend.friends,
+        followers: state.user.followers,
     }
 };
 

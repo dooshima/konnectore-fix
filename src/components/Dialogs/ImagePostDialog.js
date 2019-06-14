@@ -49,6 +49,7 @@ const styles = theme => ({
     },
     root: {
       backgroundColor: 'rgba(0, 0, 0, 0.7)',
+      zIndex: 1000,
     }
   }); 
 

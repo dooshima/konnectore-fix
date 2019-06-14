@@ -15,6 +15,7 @@ import AlarmIcon from '@material-ui/icons/Alarm'
 import PostStatsWidget from '../../widgets/posts/PostStatsWidget';
 import PostCommentItem from '../../widgets/comments/PostCommentItem';
 import PostActivityWidget from '../../widgets/posts/PostActivityWidget';
+import HashtagParser from '../../widgets/posts/HashtagParser';
 
 const styles = theme => ({
   card: {
@@ -90,7 +91,7 @@ function TextPostDetailItem(props) {
     <Card className={classes.card}>
         <div className={classes.cover} title="Post title" style={{backgroundColor: item.backgroundColor}}>
             <Typography component="h3" color="textSecondary" className={classes.text}>
-                {item.text}
+                <HashtagParser>{item.text}</HashtagParser>
             </Typography>
         </div>
         <div className={classes.details}>

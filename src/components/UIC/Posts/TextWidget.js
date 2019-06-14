@@ -20,6 +20,7 @@ import { connect } from 'react-redux';
 import Utility from '../../../services/Utility';
 import ReactTimeAgo from 'react-time-ago'
 import PopoverPostActions from '../../../widgets/alerts/PopoverPostActions';
+import HashtagParser from '../../../widgets/posts/HashtagParser';
 
 
 const styles = theme => ({
@@ -168,7 +169,7 @@ class TextWidget extends React.Component {
         </IconButton>
         
         <Typography className={classes.p}>
-            {text} 
+            <HashtagParser>{text}</HashtagParser>
         </Typography>
         <div className={classes.footer}>
             <IconButton style={{padding: 0}}>

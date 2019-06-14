@@ -8,6 +8,8 @@ import SelectInput from '@material-ui/core/Select/SelectInput';
 import KDatePicker from './KDatePicker1';
 import { red } from '@material-ui/core/colors';
 import Utility from '../../../../services/Utility';
+import FundWalletButton from '../../../Payment/FundWalletButton';
+import KFundWalletButton from '../../../Payment/KFundWalletButton';
 
 
 const styles = theme => ({
@@ -140,20 +142,17 @@ const AccountWallet = props => {
     return (
         <div className={classes.main}>
         <div className={classes.wrapper}>
-        <Grid container spacing={0} className={classes.grid}>
+        <Grid container spacing={2} className={classes.grid}>
             <Grid item md={12} className={classes.grid}>
                 <KCard className={classes.card}>
                     <CardContent className={classes.content}>
                         <Grid container spacing={2} className={classes.grid}>
                             <Grid item md={12}className={classes.refCountRow}>
                                 <Typography color="textSecondary">Your wallet balance is</Typography>
-                                <span className={classes.refCount}>{userData.walletBalance? userData.walletBalance: 'N18,000'}</span>
+                                <span className={classes.refCount}>N {userData.walletBalance? userData.walletBalance: 0}</span>
                             </Grid>
-                            
-                            <Grid item md={6} className={classes.grid}>
-                                
-                            </Grid>
-                            <Grid item md={8} sm={12} xs={12} className={classes.grid}>
+                            <KFundWalletButton user={userData} />
+                            {false && <><Grid item md={8} sm={12} xs={12} className={classes.grid}>
                                 <FormControl className={classes.formControl}>
                                         <Input id="amount" 
                                             placeholder=""
@@ -171,9 +170,10 @@ const AccountWallet = props => {
                             </Grid>
                             <Grid item md={4} className={classes.grid}>
                                 <div className={classes.next}>
-                                    <KBigButton className={classes.kBigButton} onClick={handleSubmit} label="FUND WALLET" size="small" />
+                                    <FundWalletButton user={userData} />
+                                    {false && <KBigButton className={classes.kBigButton} onClick={handleSubmit} label="FUND WALLET" size="small" />}
                                 </div>
-                            </Grid>
+                            </Grid></>}
 
                             
                         </Grid>

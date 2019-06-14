@@ -59,7 +59,7 @@ import Server from '../../services/Server/Server';
               name="amount"
               style={{marginBottom: 30,}} />
             {this.state.email && this.state.amount && <PaystackButton
-              text="Make Payment"
+              text="Fund Wallet"
               class="payButton"
               callback={this.callback}
               close={this.close}

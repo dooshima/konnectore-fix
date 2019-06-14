@@ -56,7 +56,7 @@ class ContestFeedComponent extends React.Component {
             return (
                 <div>
                     <Typography className={classes.sectionLabel}>Starting soon</Typography>
-                    {contest && contest.editions && <ContestFeedItem edition={contest.editions[1]} />}
+                    {contest && contest.editions && <ContestFeedItem edition={contest.editions[contest.editions.length - 1]} />}
                     <Typography className={classes.sectionLabel}>Past Editions</Typography>
                     <KPaper style={{padding: 10,}}>
                         {

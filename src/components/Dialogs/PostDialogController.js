@@ -2,12 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
-import { withStyles } from '@material-ui/core';
+import { withStyles, createMuiTheme } from '@material-ui/core';
 import ImagePostDialog from './ImagePostDialog';
 import TextPostDialog from './TextPostDialog';
 import VideoPostDialog from './VideoPostDialog';
 
-const styles = theme => ({
+const theme = createMuiTheme({
+  spacing: 10,
+});
+
+const styles = {
   contentHolder: {
     backgroundColor: '#efefef',
     border: 'none',
@@ -35,12 +39,22 @@ const styles = theme => ({
     //maxHeight: 'max-content',
     height: '90vh',
     borderRadius: 0,
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+      height: 'auto',
+      zIndex: '1500',
+    }
   },
   root: {
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
     height: '90vh',
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+      height: 'auto',
+      zIndex: '1500',
+    }
   }
-});
+};
 
 class PostDialogController extends React.Component {
   state = {
