@@ -126,6 +126,10 @@ const checkUsername = username => {
             .then( response => {
                 console.log(response)
                 dispatch(isUsernameExist(!response.data.available))
+                dispatch(showAuthLoading(false));
+            })
+            .catch( error => {
+                dispatch(showAuthLoading(false));
             });
     }
 }
