@@ -86,7 +86,7 @@ const processOnboarding = (data, context) => {
                     dispatch(authError(""));
                     dispatch(authSignupRedirect(true));
 
-                    setTimeout(() => history.push('/'), 1000);
+                    setTimeout(() => history.push('/me'), 1000);
 
                     //setTimeout(() => context.goto('/me'), 1000);
 
