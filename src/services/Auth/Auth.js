@@ -116,8 +116,8 @@ function getUser(id, token) {
         .then( resp => resp.data );
 }
 
-function processOnboarding(data) {
-    return Server.post('api/onboard', data)
+function processOnboarding(data, token) {
+    return Server.authPost('api/onboard', data, token)
         .then( resp => resp.data)
         .catch( error => console.log(error));
 }

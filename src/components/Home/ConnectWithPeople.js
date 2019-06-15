@@ -2,7 +2,7 @@ import React from 'react';
 import KCard from '../UIC/KCard';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { CardContent, Typography, FormControl, InputLabel, Input, AppBar, Toolbar, Button, CardActions, Grid } from '@material-ui/core';
+import { CardContent, Typography, FormControl, InputLabel, Input, AppBar, Toolbar, Button, CardActions, Grid, LinearProgress } from '@material-ui/core';
 import KButton from '../UIC/KButton';
 import OnboardMenu from './OnboardMenu';
 import KBigButton from '../UIC/KBigButton';
@@ -139,6 +139,7 @@ class ConnectWithPeople extends React.Component {
                 <OnboardMenu currentScreen={currentScreen} />
             </Grid>
             <Grid item md={9}  xs={12} sm={12}  className={classes.rightContent}>
+            
                 <Typography variant="h3" style={{fontSize: '2em', opacity: 0.8, marginBottom: '.6em'}}>
                     Let’s get you to stardom!
                 </Typography>
@@ -172,6 +173,15 @@ class ConnectWithPeople extends React.Component {
                     </CardActions>}
 
                 </KCard>
+                { this.props.authLoading && <div className={classes.loaderHolder}>
+                    <LinearProgress
+                        classes={{
+                        colorPrimary: classes.linearColorPrimary,
+                        barColorPrimary: classes.linearBarColorPrimary,
+                        }}
+                    />
+                    </div>
+                }
             </Grid>
         </Grid>
         </div>

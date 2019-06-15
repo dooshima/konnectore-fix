@@ -53,11 +53,11 @@ const authSignupRedirect = signupRedirect => ({
     signupRedirect,
 })
 
-const processOnboarding = (data, context) => {
-    // console.log(data);
+const processOnboarding = (data, token) => {
+    console.log(data);
     return dispatch => {
         dispatch(showAuthLoading(true));
-        Auth.processOnboarding(data)
+        Auth.processOnboarding(data, token)
             .then( profile => {
                 const data = profile.data;
                 const {user, posts, comments} = data;
@@ -86,7 +86,7 @@ const processOnboarding = (data, context) => {
                     dispatch(authError(""));
                     dispatch(authSignupRedirect(true));
 
-                    setTimeout(() => history.push('/me'), 1000);
+                    setTimeout(() => history.push('/'), 1000);
 
                     //setTimeout(() => context.goto('/me'), 1000);
 

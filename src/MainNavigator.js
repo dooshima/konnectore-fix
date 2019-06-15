@@ -101,7 +101,7 @@ function MainNavigator(props) {
     return (
         <Switch>
             <ProtectedRoute exact path="/" component={HomeCompoment} {...props}/>
-            <PropsRoute exact path="/onboard" component={OnboardComponent} {...props} />
+            <ProtectedRoute exact path="/onboard" component={OnboardComponent} {...props} />
             <PropsRoute exact path="/password/reset" component={PRComponent} />
             <PropsRoute exact path="/signed-up" component={AccountCreatedComponent} user={props.user} />
             <PropsRoute exact path="/password/reset/:token" component={PasswordResetComponent} />

@@ -91,7 +91,7 @@ class OnboardComponent extends React.PureComponent {
         const talents = this.state.categoryList.map( s => s.id );
         const data = { ...this.state, user_id: Utility.isset(this.props.userData) &&  Utility.isset(this.props.userData.id)? this.props.userData.id: this.props.newAccount.id, talents };
         //console.log(data)
-        this.props.processOnboarding(data, this);
+        this.props.processOnboarding(data, this.props.authToken);
     }
 
     handleFollow = userID => {
@@ -105,10 +105,10 @@ class OnboardComponent extends React.PureComponent {
     render() {
         console.log('See onboarding')
         const data = this.props.userData;
-        if(Utility.isset(data.username) && Utility.isset(data.firstname) && !Utility.isset(data.lastname)) {
+        if(Utility.isset(data.username) && Utility.isset(data.firstname) && Utility.isset(data.lastname)) {
             //this.props.logout(this.props.userData.id);
             //return <Redirect to="/me" />
-            //this.props.history.push('/me');
+            this.props.history.push('/me');
         }
             
         switch(this.state.currentScreen) {

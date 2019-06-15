@@ -18,16 +18,19 @@ const ProtectedRoute = ({component: Component, render: Render, user, ...rest}) =
                     if(user.authToken === "") {
                         return <HomeComponent />;
                     } else {
+                        
                         if(notonboarded) {
+                            console.log('Show Onboard');
                             return <OnboardComponent {...props} />;
                         } else {
+                            console.log('Show Dashboard');
                             return <SidebarComponent component={DashboardComponent} user={user} {...props} />;
                         }
                     }
                    
                     
                 } else {
-                    console.log('Option two')
+                    console.log('Option two', props.match.path)
                     if(props.match.path === '/') {
                         return <Redirect
                         to={
@@ -40,6 +43,7 @@ const ProtectedRoute = ({component: Component, render: Render, user, ...rest}) =
                         }
                     />
                     } else {
+                        console.log(Component);
                         if(Component)
                             return <Component {...props} />;
                         else
