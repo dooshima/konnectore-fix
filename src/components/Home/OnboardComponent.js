@@ -95,6 +95,7 @@ class OnboardComponent extends React.PureComponent {
     }
 
     handleFollow = userID => {
+        console.log('Follow: ', userID)
         this.props.follow(userID, this.props.authToken);
     }
 
@@ -169,6 +170,7 @@ const mapStateToProps = state => {
         userData: state.user.data,
         people: state.friend.friends,
         followers: state.user.followers,
+        authProgress: state.user.authProgress,
     }
 };
 

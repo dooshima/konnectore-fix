@@ -9,6 +9,7 @@ import KBigButtonOutlined from '../UIC/KBigButtonOutlined';
 import KBigButton from '../UIC/KBigButton';
 import Constants from '../../assets/Constants';
 import OnboardToolbar from './OnboardToolbar';
+import Utility from '../../services/Utility';
 
 const styles = theme => ({
     main: {
@@ -143,10 +144,13 @@ const AddYourPicture = props => {
                 <Typography variant="title" color="textSecondary">
                     Put your best face forward. <span className={classes.span}>Choose a picture</span>
                 </Typography>
+                
                 <KCard className={classes.card}>
                     <CardContent className={classes.contentU}>
-                        <Typography color="error">{props.authError}</Typography>
-                        <Grid container spacing={40}>
+                    {Utility.isset(props.authProgress) && (props.authProgress.loading === true || props.authProgress.error === true) && <Typography color="error" className={classes.errorMsg}>
+                        {props.authProgress.message}
+                    </Typography>}
+                        <Grid container spacing={16}>
                             <Grid item md={5} className={classes.flexed}>
                                 
                                 <FormControl className={classes.formControl} style={{backgroundImage: avatar,}}>

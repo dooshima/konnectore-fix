@@ -4,6 +4,7 @@ import Friend from '../../services/Friend/Friend';
 import postActions from '../post/actions';
 import commentActions from '../comment/actions';
 import Utility from '../../services/Utility';
+import userActions from '../user/actions';
 
 const addFriends = friends => ({
    type: types.FRIEND_ADD_FRIENDS,
@@ -80,11 +81,16 @@ const growFriends = token => dispatch => {
 
 const follow = (user, token) => {
     return dispatch => {
+        dispatch(userActions.setAuthProgress({loading: true, error: false, message: "Following a freind"}));
         Friend.follow(user, token)
             .then( friend => {
+                dispatch(userActions.setAuthProgress({loading: false, error: false, message: "Friend Followed"}));
                 console.log(friend)
                 dispatch(updateFriends(friend));
             } )
+            .catch( error => {
+                dispatch(userActions.setAuthProgress({loading: false, error: true, message: "Request failed with error: " + error}));
+            })
     }
 }
 

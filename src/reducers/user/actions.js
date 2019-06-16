@@ -51,14 +51,21 @@ const authSignupSuccess = account => ({
 const authSignupRedirect = signupRedirect => ({
     type: types.AUTH_SIGNUP_REDIRECT,
     signupRedirect,
+});
+
+const setAuthProgress = authProgress => ({
+    type: types.AUTH_SET_AUTH_PROGRESS,
+    authProgress,
 })
 
 const processOnboarding = (data, token) => {
     console.log(data);
     return dispatch => {
         dispatch(showAuthLoading(true));
+        dispatch(setAuthProgress({loading: true, message: "Onboarding in progress"}));
         Auth.processOnboarding(data, token)
             .then( profile => {
+                dispatch(setAuthProgress({loading: false, message: "Onboarding complete"}));
                 console.log(profile);
                 const data = profile.data;
                 const {user, posts, comments} = data;
@@ -92,12 +99,14 @@ const processOnboarding = (data, token) => {
                     //setTimeout(() => context.goto('/me'), 1000);
 
                 } else {
+                    dispatch(setAuthProgress({loading: false, message: "Onboarding failed"}));
                     dispatch(authSignupRedirect(false));
                     dispatch(authError(profile.message));
                 }
             } )
             .catch( error => {
                 //dispatch(authSignupSuccess({}));
+                dispatch(setAuthProgress({loading: false, error: true, message: error}));
                 console.log(error);
                 dispatch(showSearchForm(false));
                 dispatch(authError(""));
@@ -123,13 +132,16 @@ const isUsernameExist = available => ({
 
 const checkUsername = username => {
     return dispatch => {
+        dispatch(setAuthProgress({loading: true, message: "Checking if username exists."}));
         Auth.checkUsername(username)
             .then( response => {
+                dispatch(setAuthProgress({loading: false, message: "Checking done!"}));
                 console.log(response)
                 dispatch(isUsernameExist(!response.data.available))
                 dispatch(showAuthLoading(false));
             })
             .catch( error => {
+                dispatch(setAuthProgress({loading: false, error: true, message: "Checking failed! Please check your connection"}));
                 dispatch(showAuthLoading(false));
             });
     }
@@ -164,9 +176,11 @@ const handleUploadAvatar = (uid, file) => {
     console.log(file)
     return dispatch => {
         dispatch(showAuthLoading(true));
+        dispatch(setAuthProgress({loading: true, error: false, message: "Uploading image"}));
         //dispatch(authSignupRedirect(false));
         Auth.uploadAvatar(uid, file)
             .then( resp => {
+                dispatch(setAuthProgress({loading: false, error: false, message: "Image uploaded"}));
                 console.log(resp)
                 dispatch(showAuthLoading(false));
                 if(!resp.error && resp.data) {
@@ -175,8 +189,10 @@ const handleUploadAvatar = (uid, file) => {
                 } else {
                     dispatch(authError(resp.message));
                 }
-            } 
-        );
+            } )
+            .catch( error => {
+                dispatch(setAuthProgress({loading: false, error: true, message: "Image upload failed with error: " + error}));
+            });
     }
 }
 
@@ -230,14 +246,19 @@ const getTalentCategories = () => {
 }
 
 const getFriendSuggestion = token => dispatch => {
+    dispatch(setAuthProgress({loading: true, error: false, message: "Getting friend suggestions"}));
     Auth.getFriendSuggestion(token)
         .then( response => {
+            dispatch(setAuthProgress({loading: false, error: false, message: ""}));
             console.log(response);
             if(!response.error) {
                 dispatch(addSuggestion(response.allIds));
                 dispatch(friendActions.addToFriends(response.byId));
             }
         } )
+        .catch( error => {
+            dispatch(setAuthProgress({loading: false, error: true, message: "Request failed with: " + error.message}));
+        })
 };
 
 const handleGetFollowers = token => dispatch => {
@@ -249,6 +270,7 @@ const handleGetFollowers = token => dispatch => {
         })
         .catch( error => {
             console.log(error);
+            //dispatch(setAuthProgress({loading: false, error: true, message: "Request failed with: " + error.message}));
         })
 }
 
@@ -516,14 +538,19 @@ const getUser = (id, token) => {
 }
 
 const storeUsername = (username, token) => dispatch => {
+    dispatch(setAuthProgress({loading: true, error: false, message: "Saving username"}));
     Auth.storeUsername(username, token)
         .then( response => {
+            dispatch(setAuthProgress({loading: false, error: false, message: "Username saved"}));
             const data = response;
             if(!data.error) {
                 dispatch(updateUsername(username));
             }
         })
-        .catch( error => console.log(error))
+        .catch( error => {
+            dispatch(setAuthProgress({loading: false, error: true, message: "Request failed with: " + error.message}));
+            console.log(error);
+        })
 };
 
 function extractPosts(postData) {
@@ -597,6 +624,7 @@ const userActions = {
     getFriendSuggestion,
     handleGetFollowers,
     handleGetFollowings,
+    setAuthProgress,
 };
 
 export default userActions;

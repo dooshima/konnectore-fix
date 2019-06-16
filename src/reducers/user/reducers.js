@@ -21,6 +21,7 @@ import updateUsernameReducer from "./reduction/updateUsernameReducer";
 import addSuggestionReducer from "./reduction/addSuggestionReducer";
 import addFollowingsReducer from "./reduction/addFollowingsReducer";
 import addFollowersReducer from "./reduction/addFollowersReducer";
+import authProgressReducer from "./reduction/authProgressReducer";
 const initialState = {};
 
 const userUpdateProfile = (state=initialState) => {
@@ -156,7 +157,16 @@ const followings = (followings=[], action) => {
         default:
             return followings;
     }
-}
+};
+
+const authProgress = (authProgress={}, action) => {
+    switch(action.type) {
+        case types.AUTH_SET_AUTH_PROGRESS:
+            return authProgressReducer(authProgress, action);
+        default:
+            return authProgress;
+    }
+};
 
 const userReducers = combineReducers({ 
     isLoading,
@@ -172,5 +182,6 @@ const userReducers = combineReducers({
     authToken,
     followers,
     followings,
+    authProgress,
 });
 export default userReducers;

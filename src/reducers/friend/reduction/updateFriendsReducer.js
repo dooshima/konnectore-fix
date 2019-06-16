@@ -10,8 +10,8 @@
      const id = friend.user_id;
      //console.log(friend, friends)
      //const updated = {...friends[id], following: friend.following}    
-     return Object.assign(friends, {[id]: friend});
-     //return {...friends, byId}
+     //return Object.assign(friends, [id]: friend);
+     return {...friends, [id]: friend};
  }
 
  export default updateFriendsReducer;

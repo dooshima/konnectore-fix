@@ -127,7 +127,7 @@ const PersonalInformation = props => {
         
         <OnboardToolbar {...props} />
         <div className={classes.wrapper1}>
-        <Grid container spacing={0}>
+        <Grid container spacing={2}>
             <Grid item md={3} xs={12} sm={12}>
                 <OnboardMenu currentScreen={currentScreen} />
             </Grid>
@@ -140,7 +140,7 @@ const PersonalInformation = props => {
                 </Typography>
                 <KCard className={classes.card}>
                     <CardContent className={classes.contentU}>
-                        <Grid container spacing={16}>
+                        <Grid container spacing={2}>
                             <Grid item md={6} xs={12} sm={12}>
                                 <FormControl className={classes.formControl}>
                                     <InputLabel htmlFor="firstname" shrink className={classes.bootstrapFormLabel}>Firstname</InputLabel>

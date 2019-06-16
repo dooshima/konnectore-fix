@@ -112,12 +112,17 @@ class ConnectWithPeople extends React.Component {
         }
     }
 
+    componentDidMount() {
+        this.props.getFriendSuggestion(this.props.authToken);
+    }
+
     follow = (uid) => {
 
     }
 
     render() {
     const { classes, currentScreen, newAccount, people } = this.props;
+    const props = this.props;
     //console.log(newAccount)
     const suggestion = Utility.isset(newAccount) && Utility.isset(newAccount.suggestion)? newAccount.suggestion: [];
     const friends = [];
@@ -146,7 +151,11 @@ class ConnectWithPeople extends React.Component {
                 <Typography variant="title" color="textSecondary">
                     Build up your profile so your friends can connect with you. <span className={classes.span}>Choose as many as applicable</span>
                 </Typography>
+                
                 <KCard className={classes.card}>
+                    {Utility.isset(props.authProgress) && (props.authProgress.loading === true || props.authProgress.error === true) && <Typography color="error" className={classes.errorMsg}>
+                        {props.authProgress.message}
+                    </Typography>}
                     {friends.length > 0?
                     <CardContent className={classes.contentU}>
                         {friends.map( (person, i) => <FriendConnectCard key={i} index={i} person={person} follow={this.follow} {...this.props} />)}

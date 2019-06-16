@@ -17,9 +17,14 @@ const styles = theme => ({
         width: '80%',
         margin: '100px auto 20px',
         [theme.breakpoints.down('md')]: {
-            width: '94%',
-            padding: '2%',
+            width: '90%',
+            padding: '5%',
+            overflow: 'hidden',
+            margin: '40px auto',
         }
+    },
+    wrapper1Container: {
+        //padding: 20,
     },
     card: {
         width: 'auto',
@@ -98,13 +103,29 @@ const styles = theme => ({
         [theme.breakpoints.down('md')]: {
             paddingLeft: 0,
         }
-    }
+    },
+    usernameError: {
+        display: 'flex',
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        paddingTop: 30,
+        [theme.breakpoints.down('md')]: {
+            flexDirection: 'column-reverse',
+        }
+    },
+    usernameErrorMsg: {
+        marginLeft: 20,
+        [theme.breakpoints.down('md')]: {
+            marginLeft: 0,
+            marginBottom: 20,
+        }
+    },
 });
 
 const ChooseUsername = props => {
     const { classes, currentScreen } = props;
     console.log(props.username, props.userData.username)
-    const active = (Utility.isset(props.username) && props.username === props.userData.username)? false: (props.username && props.usernameExists && props.username.length > 4? false: true);
+    const active = (Utility.isset(props.username) && props.username === props.userData.username)? false: (props.username && props.usernameExists && props.username.length >= 2? false: true);
 
     function handleStoreUsername() {
         props.storeUsername(props.username, props.authToken);
@@ -115,7 +136,7 @@ const ChooseUsername = props => {
         
         <OnboardToolbar {...props} />
         <div className={classes.wrapper1}>
-        <Grid container spacing={0}>
+        <Grid container spacing={0} className={classes.wrapper1Container}>
             <Grid item md={3}>
                 <OnboardMenu currentScreen={currentScreen} />
             </Grid>
@@ -131,13 +152,13 @@ const ChooseUsername = props => {
                 <Typography variant="h3" style={{fontSize: '2em', opacity: 0.8, marginBottom: '.6em'}}>
                     
                 </Typography>
-                <Typography variant="title" color="textSecondary">
-                    
-                </Typography>
+                {Utility.isset(props.authProgress) && (props.authProgress.loading === true || props.authProgress.error === true) && <Typography color="error" className={classes.errorMsg}>
+                    {props.authProgress.message}
+                </Typography>}
 
                 <FormControl className={classes.formControl}>
                     <InputLabel htmlFor="username" shrink className={classes.bootstrapFormLabel}>Enter Username</InputLabel>
-                    <div style={{display: 'flex',flexDirection: 'row', alignItems: 'center', paddingTop: 30,}}>
+                    <div className={classes.usernameError}>
                         <Input id="username" 
                             placeholder="your username" 
                             value={props.username} 
@@ -149,7 +170,7 @@ const ChooseUsername = props => {
                                 input: classes.bootstrapInput,
                             }} 
                         />
-                        {!props.usernameExists && !props.userData.username && <Typography color="error" style={{marginLeft: 20,}}>
+                        {!props.usernameExists && !props.userData.username && <Typography color="error" className={classes.usernameErrorMsg}>
                             Sorry, that username has been taken
                         </Typography>}
                     </div>
