@@ -105,8 +105,8 @@ function MainNavigator(props) {
             <PropsRoute exact path="/password/reset" component={PRComponent} />
             <PropsRoute exact path="/signed-up" component={AccountCreatedComponent} user={props.user} />
             <PropsRoute exact path="/password/reset/:token" component={PasswordResetComponent} />
-            <Route path="/people" render={props => <SidebarComponent component={FriendComponent} {...props} />} />
-            <Route path="/search" render={rProps => {
+            <ProtectedRoute path="/people" render={props => <SidebarComponent component={FriendComponent} {...props} />} />
+            <ProtectedRoute path="/search" render={rProps => {
               let q = rProps.location.hash;
               if(q) {
                 props.addQueryText(q);
@@ -115,8 +115,8 @@ function MainNavigator(props) {
               return <SidebarComponent {...rProps} searchResults={props.searchResults} q={props.q} loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)} component={SearchComponent} />
               }
               } />
-            <Route exact path="/contest" render={renderProps => <SidebarComponent component={ContestComponent} />} />
-            <Route path="/contest/:slug" render={props => <SidebarComponent component={ContestController} {...props} />} />
+            <ProtectedRoute exact path="/contest" render={renderProps => <SidebarComponent component={ContestComponent} />} />
+            <ProtectedRoute path="/contest/:slug" render={props => <SidebarComponent component={ContestController} {...props} />} />
             <ProtectedRoute path="/me" render={p => <SidebarComponent component={MeController} {...p} />} />
             <ProtectedRoute exact path="/inbox" render={p => <SidebarComponent component={InboxComponent} {...props} />} />
             <ProtectedRoute exact path="/activities" render={p => <SidebarComponent component={NotificationComponent} {...props} />} />

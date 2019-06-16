@@ -59,9 +59,10 @@ const processOnboarding = (data, token) => {
         dispatch(showAuthLoading(true));
         Auth.processOnboarding(data, token)
             .then( profile => {
+                console.log(profile);
                 const data = profile.data;
                 const {user, posts, comments} = data;
-                console.log(profile);
+                
                 dispatch(showAuthLoading(false));
                 if(profile && !profile.error) {
                     /*dispatch(authLoginSuccess(profile.data));

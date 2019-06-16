@@ -14,6 +14,9 @@ const ProtectedRoute = ({component: Component, render: Render, user, ...rest}) =
             {...rest}
             render={ props => {
                 const notonboarded = Utility.isset(user.authToken) && user.authToken !== "" && ( !Utility.isset(user.data.firstname) || !Utility.isset(user.data.lastname) || !Utility.isset(user.data.id) );
+                if(!Utility.isset(user.authToken) || user.authToken === "") {
+                    return <HomeComponent />;
+                }
                 if(props.match.path === '/') {
                     if(user.authToken === "") {
                         return <HomeComponent />;
