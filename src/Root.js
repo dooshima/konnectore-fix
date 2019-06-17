@@ -11,7 +11,11 @@ const theme = createMuiTheme({
       primary: {
           main: '#00a294',
       },
+      text: {
+          secondary: '#2e2e2e',
+      },
       white: '#ffffff',
+      textSecondary: '#2e2e2e',
   },
   typography: {
     // Use the system font instead of the default Roboto font.

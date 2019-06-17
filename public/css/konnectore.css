@@ -1,0 +1,16 @@
+li {
+    color: #2e2e2e;
+    font-size: 0.8rem;
+}
+.react-slideshow-container, .react-slideshow-wrapper.slide, .react-slideshow-wrapper .images-wrap {
+    height: 100%;
+}
+body {
+    font-family: 'Nunito Sans', Arial, Helvetica, sans-serif;
+    color: #2e2e2e;
+    font-size: 0.8571428571428571rem;
+    line-height: 1.5;
+}
+.guideList li {
+    margin-bottom: 1.5em;
+}

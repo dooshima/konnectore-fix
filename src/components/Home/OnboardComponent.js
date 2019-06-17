@@ -11,6 +11,7 @@ import userActions from '../../reducers/user/actions';
 import { withRouter, Redirect } from 'react-router-dom';
 import Utility from '../../services/Utility';
 import friendActions from '../../reducers/friend/actions';
+import SimpleTextAlert from '../../widgets/alerts/SimpleTextAlert';
 
 const RR = (url) => {
     return <Redirect to="/me" />
@@ -32,7 +33,7 @@ class OnboardComponent extends React.PureComponent {
     }
 
     componentDidMount() {
-        console.log(this.props.user);
+        //console.log(this.props.user);
         const props = this.props;
         //if(!props.user.authToken || !Utility.isset(props.user.data.firstname) || !Utility.isset(props.user.data.lastname) || !Utility.isset(props.user.data.id)) {
             //this.props.handleSignupSuccess({id: props.user.data.id, email: props.user.data.id});
@@ -40,7 +41,7 @@ class OnboardComponent extends React.PureComponent {
             //props.history.push('/onboard');
         //}
         this.props.getTalentCategories();
-        this.props.getFriendSuggestion(this.props.authToken);
+        
         this.setState({username: this.props.userData.username})
     }
 
@@ -111,6 +112,8 @@ class OnboardComponent extends React.PureComponent {
             //return <Redirect to="/me" />
             this.props.history.push('/me');
         }
+
+        //if(Utility.isset(this.props.authProgress & this.props.authProgress.loading === false && this.props.authProgress.error === false)) {
             
         switch(this.state.currentScreen) {
             case 'ChooseUsername':
@@ -151,6 +154,9 @@ class OnboardComponent extends React.PureComponent {
             default:
                 return <ChooseUsername />;
         }
+    //} else {
+    //    return <SimpleTextAlert message="" />
+    //}
         
     }
 }

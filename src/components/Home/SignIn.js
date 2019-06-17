@@ -30,7 +30,8 @@ const styles = theme => ({
         backgroundColor: '#f8f8f8',
         border: '1px solid transparent',
         fontSize: 14,
-        color: '#a2a2a2',
+        color: '#2e2e2e', //'#a2a2a2',
+        fontWeight: 600,
         padding: '10px 12px',
         transition: theme.transitions.create(['border-color', 'box-shadow']),
         '&:focus': {

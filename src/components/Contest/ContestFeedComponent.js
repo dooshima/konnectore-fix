@@ -8,6 +8,8 @@ import ContestFeedItemCard from './widgets/ContestFeedItemCard';
 import Utility from '../../services/Utility';
 import ContestNewsTimeline from './widgets/ContestNewsTimeline';
 import ContestPostTimeline from './widgets/ContestPostTimeline';
+import SimpleTextAlert from '../../widgets/alerts/SimpleTextAlert';
+import SmallCircularLoader from '../../widgets/loaders/SmallCircularLoader';
 
 const styles = theme => ({
     sectionLabel: {
@@ -53,18 +55,24 @@ class ContestFeedComponent extends React.Component {
                     return <ContestPostTimeline posts={posts} />;
             }
         } else {
-            return (
-                <div>
-                    <Typography className={classes.sectionLabel}>Starting soon</Typography>
-                    {contest && contest.editions && <ContestFeedItem edition={contest.editions[contest.editions.length - 1]} />}
-                    <Typography className={classes.sectionLabel}>Past Editions</Typography>
-                    <KPaper style={{padding: 10,}}>
-                        {
-                        editions.map(edition => <ContestFeedItemCard edition={edition} />)
-                        }
-                    </KPaper>
-                </div>
-            )
+            if(Utility.isset(contest)) {
+                return (
+                    <div>
+                        <Typography className={classes.sectionLabel}>Starting soon</Typography>
+                        {contest && contest.editions? <ContestFeedItem edition={contest.editions[contest.editions.length - 1]} />: 
+                        <SimpleTextAlert message="Loading current contests" />}
+                        <Typography className={classes.sectionLabel}>Past Editions</Typography>
+                        {editions.length > 0?
+                        <KPaper style={{padding: 10,}}>
+                            {
+                            editions.map(edition => <ContestFeedItemCard edition={edition} />)
+                            }
+                        </KPaper>: <SimpleTextAlert message="No previous editions found!" />}
+                    </div>
+                )
+            } else {
+                return <SmallCircularLoader />
+            }
         }
     }
 

@@ -119,7 +119,7 @@ class ContestController extends React.Component {
                         <ContestHeader path={match.path} {...this.props} setFilter={this.setFilter.bind(this)} handleFollowContest={this.handleFollowContest} />
                         <Switch>
                             <PropsRoute exact path={`${match.path}`} component={ContestFeedComponent} {...this.props} {...funcs} />
-                            <Route exact path={`${match.path}/guide`} component={ContestGuideComponent} />
+                            <PropsRoute exact path={`${match.path}/guide`} component={ContestGuideComponent} {...this.props} {...funcs} />
                             <PropsRoute exact path={`${match.path}/entry`} component={AddEntryComponent} submissionPath={`${match.path}/submissions`} />
                             <PropsRoute exact path={`${match.path}/submissions`} component={ContestSubmissionComponent} {...this.props} {...funcs} />
                         </Switch>

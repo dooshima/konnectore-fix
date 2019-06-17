@@ -301,6 +301,7 @@ const handleSignup = data => {
             .then( () => {
                 Auth.requestToken(data.email, data.password)
                     .then( token => {
+                        dispatch(showAuthLoading(false));
                         const accessToken = token.access_token;
                         if(accessToken) {
                             dispatch(addAuthToken(accessToken));
@@ -392,6 +393,7 @@ const handleLogout = (uid) => {
 }
 
 const handleEditProfile = data => {
+    
     return dispatch => {
         dispatch(appActions.appIsLoading(true));
         Auth.handleEditProfile(data)

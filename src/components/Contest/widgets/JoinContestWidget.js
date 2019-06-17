@@ -81,7 +81,7 @@ console.log(categories)
 
         switch(+userRole) {
             case 3:
-                return <SimpleTextAlert message="You're a workforce. You can't join a contest" />;
+                return <SimpleTextAlert message="You're a workforce." />;
             case 0:
                 const narration = `To join ${currentEdition.slogan}, you must refer 20 users or more. Your referral ID is: ${user.referralID}`;
                 return <div className={classes.joinInfo}>
@@ -128,9 +128,11 @@ console.log(categories)
                     </Typography>
                 </div>
             default:
-                return (
-                    <SmallCircularLoader />
-                )
+                return <>
+                    {false && <SmallCircularLoader />}
+                    <SimpleTextAlert message="Not logged in" />
+                    </>
+                
         }
     }
 }

@@ -98,7 +98,7 @@ const styles = {
                             reference={this.state.reference}
                             metadata={metadata}
                             email={this.state.email}
-                            amount={this.state.amount}
+                            amount={this.setAmount(this.state.amount)}
                             paystackkey={this.state.key}
                             tag="button"
                         />}
