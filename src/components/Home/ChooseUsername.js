@@ -126,6 +126,7 @@ const ChooseUsername = props => {
     const { classes, currentScreen } = props;
     console.log(props.username, props.userData.username)
     const active = (Utility.isset(props.username) && props.username === props.userData.username)? false: (props.username && props.usernameExists && props.username.length >= 2? false: true);
+    const show = (Utility.isset(props.username) && props.username === props.userData.username)? false: (props.username && props.usernameExists && props.username.length >= 2? false: true);
 
     function handleStoreUsername() {
         props.storeUsername(props.username, props.authToken);
@@ -170,9 +171,12 @@ const ChooseUsername = props => {
                                 input: classes.bootstrapInput,
                             }} 
                         />
-                        {!props.usernameExists && !props.userData.username && <Typography color="error" className={classes.usernameErrorMsg}>
+                        {props.username && props.username.length > 1 && <>
+                        {show? <Typography color="error" className={classes.usernameErrorMsg}>
                             Sorry, that username has been taken
-                        </Typography>}
+                        </Typography>: <Typography color="primary">Available</Typography>}
+                        </>
+                        }
                     </div>
                 </FormControl>
             </CardContent>
@@ -193,3 +197,5 @@ ChooseUsername.propTypes = {
 };
 
 export default withStyles(styles)(ChooseUsername);
+
+// props.usernameExists && !props.userData.username

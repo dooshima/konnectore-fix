@@ -135,7 +135,7 @@ const checkUsername = username => {
         dispatch(setAuthProgress({loading: true, message: "Checking if username exists."}));
         Auth.checkUsername(username)
             .then( response => {
-                dispatch(setAuthProgress({loading: false, message: "Checking done!"}));
+                dispatch(setAuthProgress({loading: false, error: false, message: "Available!"}));
                 console.log(response)
                 dispatch(isUsernameExist(!response.data.available))
                 dispatch(showAuthLoading(false));

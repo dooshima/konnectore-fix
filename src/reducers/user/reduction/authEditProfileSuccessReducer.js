@@ -4,7 +4,7 @@
 
  const defaultUser = {};
 
- const authEditProfileSuccessReducer = (data=defaultUser, action) => {
+ const authEditProfileSuccessReducer = (data, action) => {
      if(null === action.data) {
          return data;
      }
