@@ -5,6 +5,7 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import { withStyles, Button, IconButton } from '@material-ui/core';
 import PostDetailSliderWidget from './PostDetailSliderWidget';
 import CloseIcon from '@material-ui/icons/Close';
+import Utility from '../../services/Utility';
 
 const styles = theme => ({
   /* contentHolder: {
@@ -76,8 +77,9 @@ class PostDetailWidget extends React.Component {
     }
 
     let item = this.props.postItem || [];
-    item['fullName'] = user && user.data.firstname || '' + ' ' + user && user.data.lastname || '';
-    item['avatar'] = user.data.avatar;
+    const duser = Utility.person(user? user.data: {});
+    item['fullName'] = duser.firstname + ' ' + duser.lastname;
+    item['avatar'] = duser.avatar;
     let posts = [item];
 
     /*for (let i in this.props.items) {

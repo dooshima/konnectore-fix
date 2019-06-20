@@ -23,14 +23,14 @@ const VideoItemList = ({ list, classes }) => {
         return <VideoItem key={i} item={video} />
     });
 
-    return (
-        <KPaper style={{marginTop: 30}}>
+    return <>
+        {videos.length > 0 && <KPaper style={{marginTop: 30}} elevation={0}>
         <div className={classes.wrapper}>
             <SectionListHeader title="Videos" />
             {vList}
         </div>
-        </KPaper>
-    )
+        </KPaper>}
+    </>
 };
 
 VideoItemList.propTypes = {

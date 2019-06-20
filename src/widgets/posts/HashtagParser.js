@@ -14,6 +14,7 @@ const styles = theme => ({
 
 const HashtagParser = (props) => {
     const { classes } = props;
+    if(props.children) {
     return (
         <ReactHashtag
             renderHashtag={(hashtagValue) => (
@@ -22,7 +23,9 @@ const HashtagParser = (props) => {
         >
             {props.children}
         </ReactHashtag>
-    )
+    ) } else {
+        return null;
+    }
     
 };
 

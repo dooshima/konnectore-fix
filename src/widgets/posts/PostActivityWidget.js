@@ -109,7 +109,7 @@ class PostActivityWidget extends React.Component {
                     <Avatar aria-label={item.fullName} className={classes.avatar} src={Utility.isset(item.user)? Utility.getAvatar(item.user.avatar): Utility.getAvatar("")} />
                 }
                 action={
-                    <PopoverPostActions className={classes.more} author={item.author} post_id={item.id} user_id={user.data.id} deletePost={deletePost} />
+                    <PopoverPostActions className={classes.more} author={item.author} post_id={item.id} user_id={Utility.isset(item) && Utility.isset(item.user)? item.user.id: ''} deletePost={deletePost} />
                 }
                 title={
                     <Typography component="h6" variant="h6">

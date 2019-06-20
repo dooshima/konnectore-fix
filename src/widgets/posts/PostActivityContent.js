@@ -18,9 +18,9 @@ const PostActivityContent = (props) => {
         <React.Fragment>
             <Typography color="textSecondary" className={classes.postText}>
                 <HashtagParser>{post.text}</HashtagParser>
-                </Typography>
-                <PostStatsWidget post={post} {...props}/>
-                <CommentListWidget post={post} />
+            </Typography>
+            <PostStatsWidget post={post} {...props} />
+            <CommentListWidget post={post} />
         </React.Fragment>
     )
 }

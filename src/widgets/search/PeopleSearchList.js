@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import KButtonSmall from '../KButtonSmall';
 import KPaper from '../KPaper';
 import Utility from '../../../services/Utility';
+import PersonSearchItem from '../friends/PersonSearchItem';
 
 const theme = createMuiTheme({
     spacing: 10,
@@ -21,20 +22,12 @@ const styles = {
     }
 }
 function PeopleSearchList(props) {
-    const { classes, friends, handleFollow, handleUnfollow } = props;
+    const { classes, people, handleFollow, handleUnfollow } = props;
     return (
                 <List style={{textAlign: 'left'}} className={classes.root}>
                 {
-                    friends.map( (friend, index) => 
-                    <ListItem key={index}>
-                    <Avatar alt={Utility.person(friend).fullName} src={Utility.person(friend).avatar} />
-                    <ListItemText className={classes.personName} primary={Utility.person(friend).fullName} 
-                        secondary={
-                            friend.following < 1 ? <KButtonSmall label="Follow" 
-                    size="small" onClick={() => handleFollow(friend.id)} />: 
-                    <KButtonSmall label="Unfollow" collor="secondary"
-                    size="small" onClick={() => handleUnfollow(friend.id)} />}
-                    /></ListItem>
+                    people.map( (person, index) => 
+                        <PersonSearchItem key={index} person={people} handleFollow={handleFollow} handleUnfollow={handleUnfollow} />
                     )
                 }
                 </List>

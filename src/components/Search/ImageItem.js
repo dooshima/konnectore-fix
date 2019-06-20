@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createMuiTheme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -14,7 +14,11 @@ import Utility from '../../services/Utility';
 import ReactTimeAgo from 'react-time-ago/commonjs/ReactTimeAgo';
 import HashtagParser from '../../widgets/posts/HashtagParser';
 
-const styles = theme => ({
+const theme = createMuiTheme({
+  spacing: 10,
+});
+
+const styles = {
   card: {
     display: 'flex',
     margin: theme.spacing.unit * 0,
@@ -22,11 +26,18 @@ const styles = theme => ({
     padding: 0,
     flexDirection: 'row',
     width: '100%',
+    [theme.breakpoints.down('md')]: {
+      flexDirection: 'column',
+    }
   },
   details: {
     display: 'flex',
     flexDirection: 'column',
     width: '60%',
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+      minHeight: 150,
+    }
   },
   content: {
     flex: '1 0 auto',
@@ -34,6 +45,10 @@ const styles = theme => ({
   cover: {
     width: '40%',
     height: 200,
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+      minHeight: 150,
+    }
   },
   controls: {
     display: 'flex',
@@ -52,7 +67,7 @@ const styles = theme => ({
       fontSize: '0.8em'
   }
 
-});
+};
 
 class ImageItem extends React.Component {
     constructor(props) {

@@ -8,6 +8,7 @@ import PostDetailWidget from './PostDetailWidget';
 import postActions from './../../reducers/post/actions';
 import { connect } from 'react-redux';
 import SubmissionTimeline from '../../components/Contest/Submission/SubmissionTimeline';
+import SearchList from '../../components/Search/SearchList';
 
 class PostListWidget extends React.Component {
     constructor(props) {
@@ -53,6 +54,7 @@ class PostListWidget extends React.Component {
 
     render() {
         const props = this.props;
+        console.log(this.props.user)
         const funcs = {
             likePost: this.likePost,
             toggleDialog: this.toggleDialog,
@@ -68,6 +70,11 @@ class PostListWidget extends React.Component {
             <React.Fragment>
                 {props.listType === 'contest' && 
                     <SubmissionTimeline entries={posts} {...props} {...funcs} />
+                }
+
+                {
+                    props.listType === 'search' && 
+                        <SearchList persons={this.props.persons} contest={this.props.contest} {...funcs} {...this.props} filter={this.props.filter} searchResult={this.props.searchResult}/>
                 }
 
                 {props.listType !== 'contest' &&
@@ -95,7 +102,7 @@ class PostListWidget extends React.Component {
                 </Paper>
                 }
                 <PostDetailWidget postItem={this.state.item} open={this.state.open} 
-                    user={this.props.puser} {...funcs}/>
+                    user={this.props.user} {...funcs}/>
             </React.Fragment>
         )
     }
@@ -105,7 +112,7 @@ const mapStateToProps = state => {
     return {
         authToken: state.user.authToken,
         author: state.user.data,
-        puser: state.user
+        user: state.user
     }
 };
 

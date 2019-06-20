@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createMuiTheme } from '@material-ui/core/styles';
 import CardActions from '@material-ui/core/CardActions';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Avatar from '@material-ui/core/Avatar';
@@ -13,8 +13,10 @@ import { Menu, MenuItem } from '@material-ui/core';
 import Fade from '@material-ui/core/Fade';
 import PopoverPostActions from '../alerts/PopoverPostActions';
 
-
-const styles = theme => ({
+const theme = createMuiTheme({
+    spacing: 10,
+})
+const styles = {
 
   card: {
     flex: 1,
@@ -26,7 +28,7 @@ const styles = theme => ({
   },
   actions: {
     display: 'flex',
-    padding: `${theme.spacing.unit * 0.7}px ${theme.spacing.unit * 1.5}px`,
+    padding: `${theme.spacing.unit * 0.7}px ${theme.spacing.unit * 2.0}px`,
     flex: 1,
   },
   p: {
@@ -115,9 +117,9 @@ const styles = theme => ({
     bottom: 0,
     width: '100%',
   }
-});
+};
 
-class PostAuthorWidget extends React.Component {
+class SearchEntryAuthorWidget extends React.Component {
     constructor(props) {
         super(props);
 
@@ -158,7 +160,6 @@ class PostAuthorWidget extends React.Component {
   render() {
     const { classes, avatar, fullName, date, item, user, deletePost } = this.props;
     const open = Boolean(this.state.anchorEl);
-    console.log(this.props);
     return (
         <div className={classes.author}>
         <div className={classes.rule} />
@@ -166,31 +167,14 @@ class PostAuthorWidget extends React.Component {
         <CardActions className={classes.actions} disableActionSpacing >
             <Avatar alt={fullName} src={avatar? Utility.getAvatar(avatar): Utility.getAvatar("")} className={classes.avatar} />
             <div className={classes.title}>
-                <Typography component="h4" className={classes.h4}>{item.fullName}</Typography>
+                <Typography component="h4" className={classes.h4}>{fullName}</Typography>
                 
                 <Typography className={classes.titleStat}><ReactTimeAgo date={new Date(date)} locale="en" /></Typography>
             </div>
+
             
             <div>
-            <IconButton
-                aria-owns={open ? 'fade-menu' : undefined} aria-haspopup="true" onClick={this.handleClick}
-                className={classes.more}
-                //onClick={this.handleExpandClick}
-                aria-expanded={this.state.expanded}
-                aria-label="Show more"
-            >
-                <MoreHorizIcon />
-            </IconButton>
-            <PopoverPostActions className={classes.more} author={item.author} post_id={item.id} user_id={Utility.isset(user) && Utility.isset(user.data)? user.data.id: ''} deletePost={deletePost} />
-              <Menu
-                id="fade-menu"
-                anchorEl={this.state.anchorEl}
-                open={open}
-                onClose={this.handleClose}
-                TransitionComponent={Fade}
-              >
-                <MenuItem onClick={this.handleDelete}>Delete</MenuItem>
-              </Menu>
+            
             </div>
         </CardActions>
 
@@ -199,8 +183,8 @@ class PostAuthorWidget extends React.Component {
   }
 }
 
-PostAuthorWidget.propTypes = {
+SearchEntryAuthorWidget.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(PostAuthorWidget);
+export default withStyles(styles)(SearchEntryAuthorWidget);

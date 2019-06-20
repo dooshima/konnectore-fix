@@ -127,7 +127,7 @@ const styles = theme => ({
 
 const AddYourPicture = props => {
     const { classes, currentScreen } = props;
-    const avatar = props.avatar? `url(${props.avatar})`: `url(/images/addPicture.png)`;
+    const avatar = props.avatar? `url(${props.avatar})`: `url(/images/avatar.png)`;
     const active = (props.avatar)? false: true;
     return (
         <div className={classes.main}>
@@ -177,7 +177,7 @@ const AddYourPicture = props => {
                                             <Typography color="textSecondary">* Take a selfie with good lighting</Typography>
                                         </ListItem>
                                         <ListItem className={classes.listItem}>
-                                            <Typography color="textSecondary">* You are the star, so its your just you in the selfie</Typography>
+                                            <Typography color="textSecondary">* You are the star, so it's just you in the selfie</Typography>
                                         </ListItem>
                                         <ListItem className={classes.listItem}>
                                             <Typography color="textSecondary">* When uploading, use compatible formats such as .png or .jpg</Typography>

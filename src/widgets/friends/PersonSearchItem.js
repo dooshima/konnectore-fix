@@ -1,8 +1,9 @@
 import React from 'react';
-import { Typography, withStyles, Avatar, createMuiTheme } from '@material-ui/core';
-import KButtonSmall from '../KButtonSmall';
+import { Typography, withStyles, Avatar, createMuiTheme, ListItem, ListItemText } from '@material-ui/core';
+//import KButtonSmall from '../KButtonSmall';
 import { Link } from 'react-router-dom';
-import Utility from '../../../services/Utility';
+import KButtonSmall from '../../components/UIC/KButtonSmall';
+import Utility from '../../services/Utility';
 
 const theme = createMuiTheme({
     spacing: 10,
@@ -26,12 +27,17 @@ const styles = {
         color: 'black',
         cursor: 'pointer',
         textAlign: 'center',
+    },
+    personName: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        marginLeft: 20,
     }
 };
 
-const FriendConnectCard = props => {
+const PersonSearchItem = props => {
     const { classes, person, handleFollow, handleUnfollow, user } = props;
-    //console.log(props);
+    console.log(person);
     if(!person.profile) {
         return null;
     }
@@ -39,15 +45,18 @@ const FriendConnectCard = props => {
     const src = Utility.getAvatar(person.profile.avatar);
     const active = person.type === 1? false: true; 
     return (
-        <div className={classes.item}>
-            <Link to={`/people/${person.id}`}><Avatar alt={fullName} src={src} /></Link>
-            <Link to={`/people/${person.id}`} className={classes.link1}><Typography style={{margin: '.6em auto'}}>{fullName}</Typography></Link>
-            {person.following < 1 ? <KButtonSmall label="Follow" 
-                size="small" onClick={() => handleFollow(person.id)} />: 
-                <KButtonSmall label="Unfollow" collor="secondary"
-                size="small" onClick={() => handleUnfollow(person.id)} />}
-        </div>
+        <ListItem>
+            <Link to={`/people/${person.id}`}> <Avatar alt={Utility.person(person).fullName} src={Utility.person(person).avatar} /></Link>
+            <ListItemText className={classes.personName} primary={
+                <Link className={classes.link1} to={`/people/${person.id}`}>{Utility.person(person).fullName}</Link>}
+                secondary={
+                    person.following < 1 ? <KButtonSmall label="Follow" 
+            size="small" onClick={() => handleFollow(person.id)} />: 
+            <KButtonSmall label="Unfollow" collor="secondary"
+            size="small" onClick={() => handleUnfollow(person.id)} />}
+            />
+        </ListItem>
     )
 }
 
-export default withStyles(styles)(FriendConnectCard);
+export default withStyles(styles)(PersonSearchItem);

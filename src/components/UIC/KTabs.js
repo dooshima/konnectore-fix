@@ -6,6 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import FilterLink from '../FilterLink';
 import { Link } from 'react-router-dom'
+import { Button } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -54,7 +55,7 @@ const styles = theme => ({
 });
 
 function LinkTab(props) {
-  return <Tab component={Link} onClick={props.onClick} to={props.to} {...props} />;
+  return <Tab component={Button} onClick={props.onClick} to={props.to} {...props} />;
 }
 
 class KTabs extends React.Component {

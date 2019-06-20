@@ -13,7 +13,7 @@ import Utility from '../../../services/Utility';
 import ReactTimeAgo from 'react-time-ago/commonjs/ReactTimeAgo';
 import { Avatar } from '@material-ui/core';
 import KCard from '../../UIC/KCard';
-import PostAuthorWidget from '../../../widgets/posts/PostAuthorWidget';
+import SearchEntryAuthorWidget from '../../../widgets/posts/SearchEntryAuthorWidget';
 
 const styles = theme => ({
   card: {
@@ -78,7 +78,7 @@ function ContestEntryItemCard(props) {
             src={Utility.getPath(entry.src)}
             title={entry.description}
         /></button>
-        <PostAuthorWidget 
+        <SearchEntryAuthorWidget 
           avatar={Utility.isset(entry.user)? entry.user.avatar: ""}
           fullName={Utility.isset(entry.user)? entry.user.firstname + " " + entry.user.lastname: ""}
           date={entry.created_at}

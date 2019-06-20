@@ -7,11 +7,13 @@ import ContestEntryItemCard from './../../components/Contest/widgets/ContestEntr
 
 
 const styles = theme => ({
-    wrapper: {      
+    searchListWrapper: {
+        display: 'flex',
+        flexWrap: 'wrap',  
     }
 });
 
-const ContestItemList = ({ contests, classes }) => {
+const ContestItemList = ({ contests, classes, ...rest }) => {
     const entries = [];
     for(let i in contests) {
         let item = contests[i];
@@ -20,15 +22,15 @@ const ContestItemList = ({ contests, classes }) => {
         }
     };
     const vList = entries.map( (entry, i) => {
-        return <ContestEntryItemCard key={i} entry={entry} />
+        return <ContestEntryItemCard key={i} entry={entry} {...rest} />
     });
 
     return (
-        <Paper style={{marginTop: 30}}>
-        <div className={classes.wrapper}>
+        <Paper style={{marginTop: 30}} elevation={0}>
             <SectionListHeader title="Contest Entries" />
-            {vList}
-        </div>
+            <div className={classes.searchListWrapper}>
+                {vList}
+            </div>
         </Paper>
     )
 };

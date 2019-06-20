@@ -130,9 +130,9 @@ import PersonItemList from './PersonItemList';
             if(item === 'text')
                 return <PostItemList list={this.state.list} />
             if(item === 'contest')
-                return <ContestItemList contests={this.state.contests} />
+                return <ContestItemList contests={this.state.contests} {...this.props} />
             if(item === 'person' || item === 'all')
-                return <PersonItemList people={this.state.people} />
+                return <PersonItemList people={this.state.people} {...this.props} />
         });
 
         return items

@@ -14,6 +14,8 @@ import SearchList from './SearchList';
 import SearchFilterCard from './SearchFilterCard';
 import Utility from '../../services/Utility';
 import SimpleTextAlert from './../../widgets/alerts/SimpleTextAlert';
+import friendActions from '../../reducers/friend/actions';
+import PostListWidget from '../../widgets/posts/PostListWidget';
 
 const activeLink = classNames({'link': true, 'active': true});
 const dudUrl = 'javascript:;';
@@ -172,6 +174,14 @@ class SearchComponent extends React.Component {
     this.setState({filter: filter});
   }
 
+  handleFollow = userID => {
+    this.props.follow(userID, this.props.token);
+  }
+
+  handleUnfollow = userID => {
+      this.props.unfollow(userID, this.props.token);
+  }
+
   render() {
     const { classes, q, queryText, filter, match, user, search, post, contest } = this.props;
     const isLoggedIn = user.hasOwnProperty('data');
@@ -198,7 +208,7 @@ class SearchComponent extends React.Component {
                 </Typography>
                 
                 <KTabs tabs={tabs} baseUrl={match.url} setFilter={this.setFilter} size="small" />
-                {count > 0? <SearchList persons={search.peopleById} contest={contest} filter={this.state.filter} searchResult={searchResult} />: <SimpleTextAlert message="No resulf found" />}
+                {count > 0? <PostListWidget listType="search" persons={search.peopleById} contest={contest} {...this.props} filter={this.state.filter} searchResult={searchResult} />: <SimpleTextAlert message="No resulf found" />}
               </Paper>
             </Grid>
             <Grid item md={4} xs={12} sm={12}>
@@ -226,10 +236,22 @@ const mapStateToProps = state => {
     filter: state.search.filter,
     search: state.search,
     post: state.post,
-    user: state.user, 
+    user: state.user,
+    puser: state.user,
     queryText: state.search.queryText,
     contest: state.contest,
   }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    follow: (userID, token) => {
+        dispatch(friendActions.follow(userID, token));
+    },
+    unfollow: (userID, token) => {
+        dispatch(friendActions.unfollow(userID, token));
+    },
+  }
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(SearchComponent));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SearchComponent));

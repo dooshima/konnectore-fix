@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import KCard from '../UIC/KCard';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -125,10 +125,18 @@ const styles = theme => ({
 const ChooseUsername = props => {
     const { classes, currentScreen } = props;
     console.log(props.username, props.userData.username)
+    const [phoneError, setState] = useState('');
     const active = (Utility.isset(props.username) && props.username === props.userData.username)? false: (props.username && props.usernameExists && props.username.length >= 2? false: true);
     const show = (Utility.isset(props.username) && props.username === props.userData.username)? false: (props.username && props.usernameExists && props.username.length >= 2? false: true);
 
     function handleStoreUsername() {
+        
+        if(props.phone.length < 10) {
+            setState('Please enter a valid phone number');
+            return;
+        } else {
+            setState('');
+        }
         props.storeUsername(props.username, props.authToken);
         props.setScreen('PersonalInformation');
     }
@@ -177,6 +185,28 @@ const ChooseUsername = props => {
                         </Typography>: <Typography color="primary">Available</Typography>}
                         </>
                         }
+                    </div>
+                </FormControl>
+                <FormControl className={classes.formControl}>
+                    <InputLabel htmlFor="phone" shrink className={classes.bootstrapFormLabel}>Enter phone number</InputLabel>
+                    <div className={classes.usernameError}>
+                        <Input id="phone" 
+                            placeholder="phone number" 
+                            value={props.phone} 
+                            onChange={props.handleChange('phone')} 
+                            //fullWidth={true}
+                            disableUnderline={true}
+                            classes={{
+                                root: classes.bootstrapRoot,
+                                input: classes.bootstrapInput,
+                            }} 
+                        />
+                        {phoneError &&
+                        <Typography color="error" className={classes.usernameErrorMsg}>
+                            Please enter your phone number
+                        </Typography>}
+                        
+                        
                     </div>
                 </FormControl>
             </CardContent>

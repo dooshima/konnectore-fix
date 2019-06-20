@@ -22,14 +22,14 @@ const PostItemList = ({ list, classes }) => {
         return <PostItem key={i} item={video} />
     });
 
-    return (
-        <Paper style={{marginTop: 30}}>
+    return <>
+        {videos.length > 0 && <Paper style={{marginTop: 30}} elevation={0}>
         <div className={classes.wrapper}>
             <SectionListHeader title="Posts" />
             {vList}
         </div>
-        </Paper>
-    )
+        </Paper>}
+    </>
 };
 
 PostItemList.propTypes = {

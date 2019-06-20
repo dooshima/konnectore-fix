@@ -217,7 +217,7 @@ const PersonalInformation = props => {
                                 </Grid>}
                                 <Grid item md={6} xs={12} sm={12}>
                                 <FormControl className={classes.formControl}>
-                                    <InputLabel htmlFor="referrer" shrink className={classes.bootstrapFormLabel}>Referred Ry? (Enter Referrer ID) - Optional</InputLabel>
+                                    <InputLabel htmlFor="referrer" shrink className={classes.bootstrapFormLabel}>Referred By? (Enter Referrer ID) - Optional</InputLabel>
                                         <Input id="referrer" 
                                             placeholder="Your referrer ID" 
                                             value={props.referrer} 

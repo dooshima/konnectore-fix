@@ -22,6 +22,8 @@ class OnboardComponent extends React.PureComponent {
 
         this.state = {
             currentScreen: 'ChooseUsername', // ConnectWithPeople
+            phoneError: '',
+            phone: ''
         }
 
         this.handleFileupload = this.handleFileupload.bind(this);
@@ -89,6 +91,7 @@ class OnboardComponent extends React.PureComponent {
     }
 
     submit = () => {
+        
         const talents = this.state.categoryList.map( s => s.id );
         const data = { ...this.state, user_id: Utility.isset(this.props.userData) &&  Utility.isset(this.props.userData.id)? this.props.userData.id: this.props.newAccount.id, talents };
         //console.log(data)
@@ -120,7 +123,9 @@ class OnboardComponent extends React.PureComponent {
                 return <ChooseUsername setScreen={this.setScreen} 
                     currentScreen={this.state.currentScreen}
                     handleUsernameChange={this.handleUsernameChange}
+                    handleChange={this.handleChange}
                     username={this.state.username}
+                    phone={this.state.phone}
                     {...this.props} />;
             case 'PersonalInformation':
                 return <PersonalInformation setScreen={this.setScreen} 

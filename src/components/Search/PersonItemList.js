@@ -5,6 +5,7 @@ import SectionListHeader from './../SectionListHeader';
 import Utility from '../../services/Utility';
 import ContestEntryItemCard from './../../components/Contest/widgets/ContestEntryItemCard';
 import PersonItemCard from '../../widgets/friends/PersonItemCard';
+import PersonSearchItem from '../../widgets/friends/PersonSearchItem';
 
 
 const styles = theme => ({
@@ -12,7 +13,8 @@ const styles = theme => ({
     }
 });
 
-const PersonItemList = ({ people, classes }) => {
+const PersonItemList = (props) => {
+    const { people, classes } = props;
     const persons = [];
     for(let i in people) {
         let item = people[i];
@@ -21,17 +23,17 @@ const PersonItemList = ({ people, classes }) => {
         }
     };
     const vList = persons.map( (person, i) => {
-        return <PersonItemCard key={i} person={person} />
+    return <><PersonSearchItem person={person} {...props} />{false && <PersonItemCard key={i} person={person} />}</>
     });
 
-    return (
-        <Paper style={{marginTop: 30}}>
+    return <>
+        {persons.length > 0 && <Paper style={{marginTop: 30}} elevation={0}>
         <div className={classes.wrapper}>
             <SectionListHeader title="People" />
             {vList}
         </div>
-        </Paper>
-    )
+        </Paper>}
+    </>
 };
 
 PersonItemList.propTypes = {

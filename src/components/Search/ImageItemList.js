@@ -23,14 +23,15 @@ const ImageItemList = ({ list, classes }) => {
         return <ImageItem key={i} item={video} />
     });
 
-    return (
-        <Paper style={{marginTop: 30}}>
+    return <>
+        {videos.length > 0 && 
+        <Paper style={{marginTop: 30}} elevation={0}>
         <div className={classes.wrapper}>
             <SectionListHeader title="Images" />
             {vList}
         </div>
-        </Paper>
-    )
+        </Paper>}
+    </>
 };
 
 ImageItemList.propTypes = {
