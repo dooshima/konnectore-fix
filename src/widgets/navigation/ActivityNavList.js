@@ -37,7 +37,7 @@ function ActivityNavList ()
                 <ListItemText
                 className={classes.listText}
                 primary={
-                        <Link to="/me/account/contests" className={classes.link}>Contests</Link>
+                    <Link to="/contests" className={classes.link}>Contests</Link>             
                 }
                 //secondary={secondary ? 'Secondary text' : null}
                 />

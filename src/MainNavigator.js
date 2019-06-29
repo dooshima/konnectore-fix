@@ -26,6 +26,7 @@ import AboutComponent from './components/Meta/AboutComponent';
 import FAQComponent from './components/Meta/FAQComponent';
 import Utility from './services/Utility';
 import HomeComponent from './components/Home/HomeComponent';
+import ContestsComponent from './components/Contest/ContestsComponent';
 
 const qs = require('query-string');
 
@@ -115,16 +116,16 @@ function MainNavigator(props) {
               return <SidebarComponent {...rProps} searchResults={props.searchResults} q={props.q} loggedIn={props.loggedIn} handleLogin={data => props.handleLogin(data)} component={SearchComponent} />
               }
               } />
-            <ProtectedRoute exact path="/contest" render={renderProps => <SidebarComponent component={ContestComponent} />} />
-            <ProtectedRoute path="/contest/:slug" render={props => <SidebarComponent component={ContestController} {...props} />} />
-            <ProtectedRoute path="/me" render={p => <SidebarComponent component={MeController} {...p} />} />
-            <ProtectedRoute exact path="/inbox" render={p => <SidebarComponent component={InboxComponent} {...props} />} />
-            <ProtectedRoute exact path="/activities" render={p => <SidebarComponent component={NotificationComponent} {...props} />} />
+            <Route exact path="/contest" render={renderProps => <SidebarComponent component={ContestComponent} />} />
+            <Route path="/contest/:slug" render={props => <SidebarComponent component={ContestController} {...props} />} />
+            <Route exact path="/inbox" render={p => <SidebarComponent component={InboxComponent} {...props} />} />
+            <Route exact path="/activities" render={p => <SidebarComponent component={NotificationComponent} {...props} />} />
             <Route exact path="/terms" component={TOSComponent} />
             
             <Route exact path="/faq" component={FAQComponent} />
-            <Route exact path="/about" component={AboutComponent} />
+            <Route exact path="/abouts" component={AboutComponent} />
 
+           <Route  path="/contests"  component={ContestsComponent}  />
             <PropsRoute component={NotFoundComponent} user={props.user} />
             
         </Switch>
